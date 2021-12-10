@@ -18,11 +18,14 @@ namespace AdminProgram
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 바보
+    /// 성찬
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            string test = new string("t");
         }
     }
 }
