@@ -25,6 +25,7 @@ namespace AdminProgram
         public MainWindow()
         {
             InitializeComponent();
+            printf("hi");
             string test = new string("t");
         }
     }
