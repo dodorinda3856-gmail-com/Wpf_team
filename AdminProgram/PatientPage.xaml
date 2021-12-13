@@ -1,0 +1,124 @@
+﻿<Page x:Class="AdminProgram.PatientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AdminProgram"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PatientPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--상단 로그인 정보 파트-->
+        <Grid Grid.Row="0" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel Grid.Column="1"  Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontSize="16" Foreground="White" Margin="10,10,20,10"> 이성찬님</TextBlock>
+                <Button Content="로그아웃" Margin="10,10,25,10"/>
+            </WrapPanel>
+        </Grid>
+
+        <!--하단부 구현-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Grid.RowSpan="3" Grid.Column="0" Background="Gray"/>
+            <Canvas Grid.RowSpan="3" Grid.Column="2" Background="Gray"/>
+            <Canvas Grid.Row="0" Grid.Column="1" Background="Gray"/>
+            <Canvas Grid.Row="2" Grid.Column="1" Background="Gray"/>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--검색창-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--차트번호-->
+                    <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="차트번호 :" Margin="5" VerticalAlignment="Center"/>
+                        <TextBox Width="50" Height="23" Margin="0,5,5,5" VerticalAlignment="Center"/>
+                    </WrapPanel>
+
+                    <!--환자번호-->
+                    <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock Text="환자번호 :" Margin="5" VerticalAlignment="Center"/>
+                        <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
+                    </WrapPanel>
+
+                    <!--이름-->
+                    <WrapPanel Grid.Column="2" Orientation="Horizontal">
+                        <TextBlock Text="이름 :" Margin="5" VerticalAlignment="Center"/>
+                        <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
+                    </WrapPanel>
+
+                    <!--성별-->
+                    <WrapPanel Grid.Column="3" Orientation="Horizontal">
+                        <TextBlock Text="성별 :" Margin="5" VerticalAlignment="Center"/>
+                        <ComboBox Width="40" Height="23" Margin="0,5,5,5">
+                            <ComboBoxItem Content="남"/>
+                            <ComboBoxItem Content="여"/>
+                        </ComboBox>
+                    </WrapPanel>
+
+                    <!--생년월일-->
+                    <WrapPanel Grid.Column="4" Orientation="Horizontal">
+                        <TextBlock Text="생년월일 :" Margin="5" VerticalAlignment="Center"/>
+                        <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
+                    </WrapPanel>
+
+                    <!--방문날짜 (클릭시 달력 나올수있도록 만들어봐야지)-->
+                    <WrapPanel Grid.Column="5" Orientation="Horizontal">
+                        <TextBlock Text="방문날짜 :" Margin="5" VerticalAlignment="Center"/>
+                        <TextBox Width="100" Height="23" Margin="0,5,0,5" TextWrapping="Wrap" Text="날짜선택" IsReadOnly="True" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+                        <Button Width="20" Height="23" Content="..." VerticalAlignment="Center"/>
+                    </WrapPanel>
+
+                    <!--전화번호-->
+                    <WrapPanel Grid.Column="6" Orientation="Horizontal">
+                        <TextBlock Text="전화번호 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
+                        <TextBox Width="80" Height="23" Margin="0,5,5,5"/>
+                    </WrapPanel>
+
+                    <!--검색-->
+                    <Button Grid.Column="7" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
+
+                </Grid>
+
+                <Canvas Grid.Row="1" Background="Gray"/>
+
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>
