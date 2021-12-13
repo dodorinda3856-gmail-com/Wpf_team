@@ -10,19 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AdminProgram
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// NewWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    /// 바보
-    /// 성찬
-    public partial class MainWindow : Window
+    public partial class NewWindow : Window
     {
-        public MainWindow()
+        public NewWindow()
         {
             InitializeComponent();
         }

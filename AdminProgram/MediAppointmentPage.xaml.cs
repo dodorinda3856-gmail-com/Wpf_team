@@ -16,15 +16,14 @@ using System.Windows.Shapes;
 namespace AdminProgram
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// MediAppointmentPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    /// 바보
-    /// 성찬
-    public partial class MainWindow : Window
+    public partial class MediAppointmentPage : Page
     {
-        public MainWindow()
+        public MediAppointmentPage()
         {
             InitializeComponent();
         }
+
     }
 }

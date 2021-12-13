@@ -192,3 +192,6 @@ bin
 obj
 /.vs/slnx.sqlite
 /.vs/Wpf_team/project-colors.json
+/.vs/AdminProgram/DesignTimeBuild/.dtbcache.v2
+/.vs/AdminProgram/v17/.futdcache.v1
+/.vs/AdminProgram/project-colors.json
