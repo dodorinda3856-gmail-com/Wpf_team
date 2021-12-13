@@ -17,16 +17,13 @@ namespace AdminProgram
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 바보
-    /// 성찬
+    /// </summary
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            printf("hi");
-            string test = new string("t");
         }
+
     }
 }
