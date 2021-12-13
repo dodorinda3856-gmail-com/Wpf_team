@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AdminProgram
 {
     /// <summary>
-    /// PatientPage.xaml에 대한 상호 작용 논리
+    /// AddPatient.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class PatientPage : Page
+    public partial class AddPatient : Window
     {
-        public PatientPage()
+        public AddPatient()
         {
             InitializeComponent();
-        }
-
-        private void AddPatient_Btn(object sender, RoutedEventArgs e)
-        {
-            AddPatient addPatient = new();
-            addPatient.ShowDialog();
         }
     }
 }

@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PatientPage">
 
-    <Grid>
+    <Grid Margin="30,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -61,6 +61,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <!--차트번호-->
@@ -111,6 +112,9 @@
 
                     <!--검색-->
                     <Button Grid.Column="7" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
+
+                    <!--추가-->
+                    <Button Grid.Column="8" Click="AddPatient_Btn" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">추가</Button>
 
                 </Grid>
 
