@@ -115,7 +115,23 @@
                 </Grid>
 
                 <Canvas Grid.Row="1" Background="Gray"/>
-
+                
+                <!--상세목록-->
+                <DataGrid x:Name="dataGrid" Grid.Row="2" AutoGenerateColumns="False"
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="차트번호" Binding="{Binding Name}"/>
+                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Age}"/>
+                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Grade}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Score}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Score}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding Grade}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Grade}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Grade}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주소" Binding="{Binding Grade}"/>
+                    </DataGrid.Columns>
+                    
+                </DataGrid>
 
             </Grid>
 
