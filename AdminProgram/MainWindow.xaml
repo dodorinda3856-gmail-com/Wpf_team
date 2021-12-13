@@ -6,8 +6,48 @@
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d"
         Background="{StaticResource background}"
-        Title="MainWindow" Height="800" Width="1200">
+        WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="484" Width="775">
     <Grid>
-        <Frame Source="/EntryPage.xaml"/>
+        <StackPanel Orientation="Horizontal">
+            <Image Width="65" Margin="110,75,10,10"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Name="labelSys" Content="ezcaretech" Width="200" Height="40" 
+                   FontSize="22" Foreground="Black"
+                   Margin="0,90,10,10" VerticalAlignment="Top"/>
+            <Label Name="labelUserName" Content="사용자명：" Width="100" Height="35" 
+                   FontSize="19" Foreground="Black"
+                   Margin="-160,-60,0,0" HorizontalAlignment="Left"/>
+            <Label Name="labelPwd" Content="비밀번호：" Width="100" Height="35" 
+                   FontSize="19" Foreground="Black"
+                   Margin="-160,55,0,0" HorizontalAlignment="Left"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBox Name="txtBoxUserName" Width="190" Height="25" 
+                     VerticalContentAlignment="Center"  FontSize="16"
+                     Margin="100,199,10,10" VerticalAlignment="Center"/>
+            <PasswordBox Name="txtBoxPwd" Width="190" Height="25" PasswordChar="*"
+                         VerticalContentAlignment="Center"  FontSize="16"
+                         Margin="100,25,10,10" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Name="btnLogin"  FontSize="21" Width="90" Height="35" IsDefault="True"
+                    IsEnabled="True" BorderBrush="Transparent" Click="Login_Click_Btn"
+                    Margin="250,200,0,0" VerticalAlignment="Center" Background="Transparent"> 확인
+            </Button>
+            <Button Name="btnCancel" FontSize="21" Width="90" Height="35"
+                    IsEnabled="True" BorderBrush="Transparent" Click="Cancel_Click_Btn"
+                    Margin="100,200,0,0"  Background="Transparent"> 취소
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <Label Name="userNameTip"  Margin="490,195,10,10"
+                   FontSize="15" Foreground="Red" Height="30" Width="200"
+                   HorizontalAlignment="Center" />
+            <Label Name="pwdTip"  Margin="490,19,10,10"
+                   FontSize="15" Foreground="Red" Height="30" Width="200"
+                   HorizontalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </Window>
