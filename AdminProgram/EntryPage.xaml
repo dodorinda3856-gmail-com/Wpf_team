@@ -5,13 +5,30 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AdminProgram"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Height="800" Width="1200"
       Title="EntryPage">
-<!--프로그램 관련 페이지 이동 버튼 모임-->
+    <!--d:DesignHeight="800" d:DesignWidth="1200"-->
+    <!--프로그램 관련 페이지 이동 버튼 모임-->
     <Grid>
-        <Button Content="진료예약" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Height="34" Width="75" Click="Reserve_Btn"/>
-        <Button Content="진료" HorizontalAlignment="Left" Margin="288,0,0,0" VerticalAlignment="Center" Height="34" Width="75" Click="Treatment_Btn"/>
-        <Button Content="실무진관리" HorizontalAlignment="Left" VerticalAlignment="Center" Height="34" Width="76" Margin="443,0,0,0"/>
-        <Button Content="환자관리" HorizontalAlignment="Left" VerticalAlignment="Center" Height="34" Width="76" Margin="604,0,0,0" Click="Patient_Btn"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="0" Grid.Row="2" Content="진료예약" Margin="145,0,0,0" 
+                VerticalAlignment="Center" Height="34" Click="Reserve_Btn" HorizontalAlignment="Left" Width="75"/>
+        <Button Grid.Column="0" Grid.Row="2" Content="진료" HorizontalAlignment="Left" Margin="288,0,0,0" 
+                VerticalAlignment="Center" Height="34" Width="75" Click="Treatment_Btn"/>
+        <Button Grid.Column="1" Grid.Row="2" Content="실무진관리" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                Height="34" Width="76" Margin="443,0,0,0"/>
+        <Button Grid.Column="1" Grid.Row="2" Content="환자관리" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                Height="34" Width="76" Margin="604,0,0,0" Click="Patient_Btn"/>
+
     </Grid>
 </Page>

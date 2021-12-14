@@ -25,5 +25,22 @@ namespace AdminProgram
             InitializeComponent();
         }
 
+        //혹시나 날짜 값이 필요할 경우 이거를 활용해서 할 것
+        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        {
+            var picker = sender as DatePicker;
+
+            DateTime? date = picker.SelectedDate;
+            if(date == null)
+            {
+                MessageBox.Show("No Date");
+            }
+            else
+            {
+                //날짜 가져오는 부분
+                MessageBox.Show(date.Value.ToShortDateString());
+            }
+            
+        }
     }
 }
