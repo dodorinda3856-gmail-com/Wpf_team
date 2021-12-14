@@ -25,6 +25,22 @@ namespace AdminProgram
             InitializeComponent();
         }
 
+        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        {
+            var picker = sender as DatePicker;
+
+            DateTime? date = picker.SelectedDate;
+            if (date == null)
+            {
+                MessageBox.Show("No Date");
+            }
+            else
+            {
+                //날짜 가져오는 부분
+                MessageBox.Show(date.Value.ToShortDateString());
+            }
+        }
+
         private void AddPatient_Btn(object sender, RoutedEventArgs e)
         {
             AddPatient addPatient = new();

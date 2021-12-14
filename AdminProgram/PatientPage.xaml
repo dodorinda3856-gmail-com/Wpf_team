@@ -100,8 +100,7 @@
                     <!--방문날짜 (클릭시 달력 나올수있도록 만들어봐야지)-->
                     <WrapPanel Grid.Column="5" Orientation="Horizontal">
                         <TextBlock Text="방문날짜 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox Width="100" Height="23" Margin="0,5,0,5" TextWrapping="Wrap" Text="날짜선택" IsReadOnly="True" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-                        <Button Width="20" Height="23" Content="..." VerticalAlignment="Center"/>
+                        <DatePicker x:Name="datePicker" Margin="0,5,5,5" VerticalAlignment="Center" SelectedDateChanged="selectedDate" Width="113"/>
                     </WrapPanel>
 
                     <!--전화번호-->
@@ -119,7 +118,7 @@
                 </Grid>
 
                 <Canvas Grid.Row="1" Background="Gray"/>
-                
+
                 <!--상세목록-->
                 <DataGrid x:Name="dataGrid" Grid.Row="2" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
@@ -134,7 +133,7 @@
                         <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Grade}"/>
                         <DataGridTextColumn MinWidth="100" Width="Auto" Header="주소" Binding="{Binding Grade}"/>
                     </DataGrid.Columns>
-                    
+
                 </DataGrid>
 
             </Grid>
