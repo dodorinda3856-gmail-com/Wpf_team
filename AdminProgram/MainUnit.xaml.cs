@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
@@ -88,5 +89,25 @@ namespace AdminProgram
         {
             ActMenu("stpMenu", stpMenu.IsMouseOver);
         }
+
+        private void Reserve_Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("Tempxaml.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("PatientPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        /*private void Staff_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }*/
     }
 }
