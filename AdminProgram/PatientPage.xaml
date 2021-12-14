@@ -97,7 +97,7 @@
                         <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
                     </WrapPanel>
 
-                    <!--방문날짜 (클릭시 달력 나올수있도록 만들어봐야지)-->
+                    <!--방문날짜-->
                     <WrapPanel Grid.Column="5" Orientation="Horizontal">
                         <TextBlock Text="방문날짜 :" Margin="5" VerticalAlignment="Center"/>
                         <DatePicker x:Name="datePicker" Margin="0,5,5,5" VerticalAlignment="Center" SelectedDateChanged="selectedDate" Width="113"/>
