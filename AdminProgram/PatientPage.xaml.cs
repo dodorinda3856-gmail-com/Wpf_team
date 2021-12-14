@@ -24,5 +24,11 @@ namespace AdminProgram
         {
             InitializeComponent();
         }
+
+        private void AddPatient_Btn(object sender, RoutedEventArgs e)
+        {
+            AddPatient addPatient = new();
+            addPatient.ShowDialog();
+        }
     }
 }
