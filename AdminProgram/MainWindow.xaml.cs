@@ -25,5 +25,43 @@ namespace AdminProgram
             InitializeComponent();
         }
 
+
+        private void Login_Click_Btn(object sender, RoutedEventArgs e)
+        {
+            if (txtBoxUserName.Text == "")
+            {
+                userNameTip.Visibility = Visibility.Visible;
+                userNameTip.Content = "아이디를 입력하세요!";
+                return;
+            }
+            else if (txtBoxPwd.Password == "")
+            {
+                pwdTip.Visibility = Visibility.Visible;
+                pwdTip.Content = "비밀번호를 입력하세요!";
+                return;
+            }
+            else if (txtBoxPwd.Password != "admin")
+            {
+
+                pwdTip.Visibility = Visibility.Visible;
+                pwdTip.Content = "비밀번호가 틀렸습니다!";
+            }
+            else if (txtBoxUserName.Text != "admin")
+            {
+                userNameTip.Visibility = Visibility.Visible;
+                userNameTip.Content = "해당 아이디가 없습니다!";
+            }
+            else
+            {
+                MainUnit m = new();
+                m.Show();
+                this.Close();
+            }
+        }
+        
+        private void Cancel_Click_Btn(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
