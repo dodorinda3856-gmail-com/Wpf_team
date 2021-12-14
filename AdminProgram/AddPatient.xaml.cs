@@ -23,5 +23,25 @@ namespace AdminProgram
         {
             InitializeComponent();
         }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Copy_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Copy1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Copy2_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
