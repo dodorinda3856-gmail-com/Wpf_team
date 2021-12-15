@@ -1,5 +1,5 @@
 ﻿
-<!--진료 예약 페이지-->
+<!--진료 예약 관리 페이지-->
     
 <Page x:Class="AdminProgram.MediAppointmentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,7 +11,7 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="MediAppointmentPage">
 
-    <Grid Margin="20">
+    <Grid Margin="60,20,20,20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>

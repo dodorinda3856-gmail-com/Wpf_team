@@ -1,4 +1,5 @@
-﻿<!--진료 관리 페이지-->
+﻿
+<!--진료 관리 페이지-->
 
 <Page x:Class="AdminProgram.TreatmentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -16,7 +17,7 @@
         <vm:PatientViewModel/>
     </Page.DataContext>
 
-    <Grid Margin="20">
+    <Grid Margin="60,20,20,20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -33,6 +34,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
@@ -42,11 +44,13 @@
             <Label Content="진료과" Grid.Column="1" 
                    FontWeight="Bold" FontSize="20" Margin="10,0,10,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="DB 연결" Grid.Column="2" Click="DBConnection"/>
 
-            <TextBox Name="searchTextBox" Grid.Column="2" Width="287"
-                 VerticalAlignment="Center" HorizontalAlignment="Right" Margin="469,0,10,0"/>
+            <TextBox Name="searchTextBox" Grid.Column="3" Width="287" Margin="469,0,10,0"
+                 VerticalAlignment="Center" HorizontalAlignment="Right" 
+                     KeyDown="searchTextBox_KeyDown"/>
             <!--placeholder와 비슷한 느낌을 내는 부분 start-->
-            <TextBlock Text="실무진 이름을 검색하세요..." IsHitTestVisible="False" Grid.Column="2"
+            <TextBlock Text="실무진 이름을 검색하세요..." IsHitTestVisible="False" Grid.Column="3"
                    VerticalAlignment="Center" Margin="475,0,20,0" HorizontalAlignment="Right">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
@@ -68,10 +72,10 @@
                   AutoGenerateColumns="False" CanUserAddRows="False"
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Margin="0,30,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="100" Width="Auto" Header="NAME" Binding="{Binding Name}"/>
-                <DataGridTextColumn MinWidth ="50" Width="Auto" Header="AGE" Binding="{Binding Age}"/>
-                <DataGridTextColumn MinWidth="50" Width="Auto" Header="GRADE" Binding="{Binding Grade}"/>
-                <DataGridTextColumn MinWidth="50" Width="*" Header="SCORE" Binding="{Binding Score}"/>
+                <DataGridTextColumn MinWidth ="50" Width="Auto" Header="환자 번호" Binding="{Binding PatientNumber}"/>
+                <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 이름" Binding="{Binding UserName}"/>
+                <!--<DataGridTextColumn MinWidth="50" Width="Auto" Header="GRADE" Binding="{Binding Grade}"/>
+                <DataGridTextColumn MinWidth="50" Width="*" Header="SCORE" Binding="{Binding Score}"/>-->
             </DataGrid.Columns>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AdminProgram
 {
     /// <summary>
-    /// Tempxaml.xaml에 대한 상호 작용 논리
+    /// PatientDetail.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Tempxaml : Page
+    public partial class PatientDetail : Window
     {
-        public Tempxaml()
+        public PatientDetail()
         {
             InitializeComponent();
         }
