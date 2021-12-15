@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PatientPage">
 
-    <Grid Margin="30,0,0,0">
+    <Grid Margin="40,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -123,6 +123,17 @@
                 <DataGrid x:Name="dataGrid" Grid.Row="2" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <DataGrid.Columns>
+                        
+                        <!--나중에 수정해야할지도 모르는 부분 시작-->
+                        <DataGridTemplateColumn Header="선택">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--나중에 수정해야할지도 모르는 부분 끝-->
+                        
                         <DataGridTextColumn MinWidth="60" Width="Auto" Header="차트번호" Binding="{Binding Name}"/>
                         <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Age}"/>
                         <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Grade}"/>
