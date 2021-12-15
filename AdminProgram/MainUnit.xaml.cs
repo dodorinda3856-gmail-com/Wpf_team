@@ -90,14 +90,19 @@ namespace AdminProgram
             ActMenu("stpMenu", stpMenu.IsMouseOver);
         }
 
-        private void Reserve_Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.frame.Navigate(new Uri("Tempxaml.xaml", UriKind.RelativeOrAbsolute));
-        }
-
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.frame.Navigate(new Uri("MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Home_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("StartPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Medi_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("TreatmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
