@@ -9,16 +9,28 @@
         WindowStartupLocation="CenterScreen"
         Title="MainUnit" Height="800" Width="1200">
     <Grid>
-        
-        <Frame Source="/StartPage.xaml"/>
-        
+        <Frame x:Name="frame" Source="/EntryPage.xaml"
+               NavigationUIVisibility="Hidden"/>
         <StackPanel x:Name="stpMenu" HorizontalAlignment="Left" Width="240" Margin="-200,0,0,0" Background="#FF26384B" MouseLeave="StpMenu_MouseLeave" MouseEnter="StpMenu_MouseEnter">
             <DockPanel HorizontalAlignment="Right" Margin="5">
-                <Label Width="200" Foreground="White">Menu #1</Label>
+                <Label x:Name="Home_Label" Width="200" Foreground="White">Home</Label>
                 <Image Width="30" Height="30" Source="/icon.ico" ></Image>
             </DockPanel>
             <DockPanel HorizontalAlignment="Right" Margin="5">
-                <Label Width="200" Foreground="White">Menu #1</Label>
+                <Label x:Name="Reserve_Label" Width="200" PreviewMouseDown="Reserve_Label_MouseLeftButtonDown" Foreground="White">대기/예약</Label>
+                <Image Width="30" Height="30" Source="icon.ico" ></Image>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right" Margin="5">
+                <Label x:Name="MediAppointment_Label" Width="200" PreviewMouseDown="MediAppointment_Label_PreviewMouseDown" Foreground="White">진료내역</Label>
+                <Image Width="30" Height="30" Source="icon.ico" ></Image>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right" Margin="5">
+                <Label x:Name="Patient_Label" Width="200" PreviewMouseDown="Patient_Label_PreviewMouseDown" Foreground="White">환자정보</Label>
+                <Image Width="30" Height="30" Source="icon.ico" ></Image>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right" Margin="5">
+                <Label x:Name="Staff_Label" Width="200" Foreground="White">의료진정보</Label>
+                <!--이거 추가해야함  PreviewMouseDown="Staff_Label_PreviewMouseDown"-->
                 <Image Width="30" Height="30" Source="icon.ico" ></Image>
             </DockPanel>
         </StackPanel>
