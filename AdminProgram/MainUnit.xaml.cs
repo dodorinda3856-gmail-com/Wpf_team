@@ -105,6 +105,11 @@ namespace AdminProgram
             this.frame.Navigate(new Uri("PatientPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        private void Home_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("StartPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
         /*private void Staff_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
 
