@@ -20,9 +20,16 @@ namespace AdminProgram
     /// </summary>
     public partial class PatientPage : Page
     {
+        
         public PatientPage()
         {
             InitializeComponent();
+
+            List<User> users = new List<User>();
+            users.Add(new User() {Chartnum = 00001, patientnum = 1111, Name = "이성찬", Sex = true, Age = 27, SecurityNum = "9509281000000", Birthday = 950928, RecentVisit = "21/12/15", Address = "서울시 양천구 목동"});
+            users.Add(new User() {Chartnum = 00001, patientnum = 1111, Name = "이성찬", Sex = true, Age = 27, SecurityNum = "9509281000000", Birthday = 950928, RecentVisit = "21/12/15", Address = "서울시 양천구 목동"});
+            users.Add(new User() {Chartnum = 00001, patientnum = 1111, Name = "이성찬", Sex = true, Age = 27, SecurityNum = "9509281000000", Birthday = 950928, RecentVisit = "21/12/15", Address = "서울시 양천구 목동"});
+            dataGrid.ItemsSource = users;
         }
 
         private void selectedDate(object sender, SelectionChangedEventArgs e)
@@ -46,5 +53,19 @@ namespace AdminProgram
             AddPatient addPatient = new();
             addPatient.ShowDialog();
         }
+    }
+
+    internal class User
+    {
+        public int Chartnum { get; set; }
+        public int patientnum { get; set; }
+        public string? Name { get; set; }
+        public bool Sex { get; set; }
+        public int Age { get; set; }
+        public string? SecurityNum { get; set; }
+        public int Birthday { get; set; }
+        public string? RecentVisit { get; set; }
+        public string? Address { get; set; }
+
     }
 }

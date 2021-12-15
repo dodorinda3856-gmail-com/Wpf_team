@@ -125,24 +125,18 @@
                     <DataGrid.Columns>
                         
                         <!--나중에 수정해야할지도 모르는 부분 시작-->
-                        <DataGridTemplateColumn Header="선택">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!--나중에 수정해야할지도 모르는 부분 끝-->
                         
-                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="차트번호" Binding="{Binding Name}"/>
-                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Age}"/>
-                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Score}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Score}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주소" Binding="{Binding Grade}"/>
+                        <!--나중에 수정해야할지도 모르는 부분 끝-->
+
+                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="차트번호" Binding="{Binding Chartnum}"/>
+                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding patientnum}"/>
+                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Name}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Sex}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Age}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding SecurityNum}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Birthday}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding RecentVisit}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주소" Binding="{Binding Address}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
