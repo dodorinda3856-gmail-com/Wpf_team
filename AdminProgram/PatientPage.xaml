@@ -110,7 +110,7 @@
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="7" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
+                    <Button Grid.Column="7" Click="Search_Button_Click" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                     <!--추가-->
                     <Button Grid.Column="8" Click="AddPatient_Btn" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">추가</Button>
@@ -120,29 +120,23 @@
                 <Canvas Grid.Row="1" Background="Gray"/>
 
                 <!--상세목록-->
-                <DataGrid x:Name="dataGrid" Grid.Row="2" AutoGenerateColumns="False"
-                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False"
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" SelectionChanged="dataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         
                         <!--나중에 수정해야할지도 모르는 부분 시작-->
-                        <DataGridTemplateColumn Header="선택">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!--나중에 수정해야할지도 모르는 부분 끝-->
                         
-                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="차트번호" Binding="{Binding Name}"/>
-                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Age}"/>
-                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Score}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Score}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Grade}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주소" Binding="{Binding Grade}"/>
+                        <!--나중에 수정해야할지도 모르는 부분 끝-->
+
+                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>
+                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Patient_Name}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Gender}"/>
+                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="전화번호" Binding="{Binding Phone_Num}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Age}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding Resident_Regist_Num}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Dob, StringFormat={}{0:yyyy/MM/dd}}" />
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Regist_Date, StringFormat={}{0:yyyy/MM/dd}}"/>
+                        <DataGridTextColumn MinWidth="100" Width="*" Header="주소" Binding="{Binding Address}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
