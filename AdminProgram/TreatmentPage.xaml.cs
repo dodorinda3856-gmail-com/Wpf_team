@@ -2,20 +2,10 @@
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AdminProgram
 {
@@ -37,15 +27,17 @@ namespace AdminProgram
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
-                PatientDetail detailWindow = new PatientDetail();
-                detailWindow.ShowDialog(); //해당 창을 닫기 전까지는 뒤에 있는 창으로 이동 못함
+                //PatientDetail detailWindow = new PatientDetail();
+                //detailWindow.ShowDialog(); //해당 창을 닫기 전까지는 뒤에 있는 창으로 이동 못함
+
+                //DataContext = new LiveChartEx();
             }
         }
 
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
-                MessageBox.Show(sender.ToString());
+                MessageBox.Show(sender.ToString().Substring(33));
         }
 
         private void DBConnection(object sender, RoutedEventArgs e)
@@ -64,15 +56,15 @@ namespace AdminProgram
                 MessageBox.Show(err.ToString());
             }
 
-            string sql = "select PATIENT_ID, PATIENT_NAME from PATIENT";
+            string sql = "select PATIENT_ID, PATIENT_NAME, GENDER from PATIENT";
 
-            /* Connection, Command, DataReader를 통한 데이터 추출 */
+            /*Connection, Command, DataReader를 통한 데이터 추출*/
             //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
             OracleCommand comm = new OracleCommand();
-            /*if (conn == null)
-                DBConnection(this, null);*/
+            if (conn == null)
+                DBConnection(this, null);
             comm.Connection = conn;
             comm.CommandText = sql;
 
@@ -91,7 +83,8 @@ namespace AdminProgram
                     //GetString : Gets the column ordinal, given the name of the column.
                     //가져올 데이터의 컬럼명을 인수로 넣어줌
                     PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                    UserName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")) //listView의 textblock id(?)
+                    UserName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")), //listView의 textblock id(?)
+                    Gender = reader.GetString(reader.GetOrdinal("GENDER"))
                 });
             }
 

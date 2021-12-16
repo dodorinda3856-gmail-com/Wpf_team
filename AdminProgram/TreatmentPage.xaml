@@ -24,9 +24,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
         <!--상단 바 자리-->
@@ -65,17 +67,17 @@
                 </TextBlock.Style>
             </TextBlock>
             <!--placeholder와 비슷한 느낌을 내는 부분 end-->
-
+            
         </Grid>
         <!--<TextBlock Grid.Row="1" Text=""/>-->
-        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.ColumnSpan="3" 
+        <DataGrid x:Name="dataGrid" Grid.Row="2" Grid.ColumnSpan="3" IsReadOnly="True"
                   AutoGenerateColumns="False" CanUserAddRows="False"
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Margin="0,30,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth ="50" Width="Auto" Header="환자 번호" Binding="{Binding PatientNumber}"/>
                 <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 이름" Binding="{Binding UserName}"/>
-                <!--<DataGridTextColumn MinWidth="50" Width="Auto" Header="GRADE" Binding="{Binding Grade}"/>
-                <DataGridTextColumn MinWidth="50" Width="*" Header="SCORE" Binding="{Binding Score}"/>-->
+                <DataGridTextColumn MinWidth="50" Width="Auto" Header="성별" Binding="{Binding Gender}"/>
+                <!--<DataGridTextColumn MinWidth="50" Width="*" Header="SCORE" Binding="{Binding Score}"/>-->
             </DataGrid.Columns>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
@@ -83,6 +85,11 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
         </DataGrid>
-
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Content="수정"/>
+        </Grid>
     </Grid>
 </Page>
