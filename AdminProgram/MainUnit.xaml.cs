@@ -80,7 +80,7 @@ namespace AdminProgram
 
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Home_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -90,12 +90,12 @@ namespace AdminProgram
 
         private void Medi_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("TreatmentPage.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/TreatmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("PatientPage.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/PatientPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         /*private void Staff_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)

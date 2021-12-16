@@ -23,8 +23,4 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>
