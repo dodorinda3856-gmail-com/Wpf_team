@@ -28,7 +28,7 @@ namespace AdminProgram
 
         private void Login_Click_Btn(object sender, RoutedEventArgs e)
         {
-            if (txtBoxUserName.Text == "")
+            /*if (txtBoxUserName.Text == "")
             {
                 userNameTip.Visibility = Visibility.Visible;
                 userNameTip.Content = "아이디를 입력하세요!";
@@ -51,7 +51,7 @@ namespace AdminProgram
                 userNameTip.Visibility = Visibility.Visible;
                 userNameTip.Content = "해당 아이디가 없습니다!";
             }
-            else
+            else*/
             {
                 MainUnit m = new();
                 m.Show();
