@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Navigation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Media.Animation;
-
 
 namespace AdminProgram
 {
@@ -90,14 +78,19 @@ namespace AdminProgram
             ActMenu("stpMenu", stpMenu.IsMouseOver);
         }
 
-        private void Reserve_Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.frame.Navigate(new Uri("Tempxaml.xaml", UriKind.RelativeOrAbsolute));
-        }
-
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.frame.Navigate(new Uri("MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Home_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("StartPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Medi_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("TreatmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
