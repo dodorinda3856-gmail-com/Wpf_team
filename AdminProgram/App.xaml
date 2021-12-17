@@ -6,8 +6,8 @@
     <Application.Resources>
         
         <LinearGradientBrush x:Key="background">
-            <GradientStop Color="#FFDBFFE7" Offset="0"/>
-            <GradientStop Color="DarkGray" Offset="1"/>
+            <GradientStop Color="#FF617498" Offset="0"/>
+            <GradientStop Color="#FF1E355F" Offset="1"/>
         </LinearGradientBrush>
         
     </Application.Resources>

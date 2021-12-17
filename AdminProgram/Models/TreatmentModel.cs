@@ -10,6 +10,7 @@ namespace AdminProgram.Models
     {
         public int PatientNumber { get; set; }
         public string PatientName { get; set; }
+        public string PatientPhoneNum { get; set; }
         public string Gender { get; set; }
         public string TreatDetail { get; set; }
     }

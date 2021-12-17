@@ -19,39 +19,17 @@ namespace AdminProgram
         public TreatmentPage()
         {
             InitializeComponent();
+            DBConn();
         }
 
-        /*Data Grid Row 더블 클릭 시 이벤트 처리*/
+        //Data Grid Row 더블 클릭 시 이벤트 처리
         private void Row_DoubleClick(object sender, EventArgs args)
         {
             //선택된 환자의 진료 상세정보 가져오기 - 진행 중
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
-                /*if (conn == null)
-                    DBConnection(this, null);
 
-                string sql = "SELECT p.PATIENT_NAME, t.TREAT_DETAILS FROM TREATMENT t, PATIENT p WHERE t.PATIENT_ID = p.PATIENT_ID AND p.PATIENT_ID = :patient_id;";
-                OracleCommand comm = new OracleCommand();
-                comm.Connection = conn;
-                comm.CommandText = sql;
-                comm.Parameters.Add(new OracleParameter("patient_id", 1));
-
-                OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-                List<TreatmentModel> datas0 = new List<TreatmentModel>(); //listView에 데이터 뿌리기 위한 틀
-
-                int a = 0;
-                while (reader.Read())
-                {
-                    datas0.Add(new TreatmentModel()
-                    {
-                        PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                        TreatDetail = reader.GetString(reader.GetOrdinal("TREAT_DETAILS"))
-                    });
-                }
-
-                listView.ItemsSource = datas0;
-                reader.Close();*/
             }
         }
 
@@ -60,36 +38,51 @@ namespace AdminProgram
             //textbox에 작성된 내용을 조건으로 select문 날리기 - 진행 중
             if(e.Key == Key.Enter)
             {
-                MessageBox.Show(sender.ToString().Substring(33));
+                //string name = sender.ToString().Substring(33);//textbox에 작성된 값 가져옴
+                MessageBox.Show(searchTextBox.Text);
 
                 if (conn == null)
-                    DBConnection(this, null);
+                    DBConn();
 
-                string sql = "SELECT * FROM PATIENT p WHERE p.PATIENT_NAME LIKE '%' || :patient_name";
+                string? sql = null;
+                if(searchTextBox.Text != null)
+                {
+                    sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                    "FROM PATIENT p, TREATMENT t " +
+                    "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '%" + searchTextBox.Text + "%'";
+                }
+                else
+                {
+                    sql= "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                    "FROM PATIENT p, TREATMENT t " +
+                    "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME";
+                }
+
                 OracleCommand comm = new OracleCommand();
                 comm.Connection = conn;
                 comm.CommandText = sql;
-                //comm.Parameters.Add(new OracleParameter("patient_name", TreatmentModel.));
-                OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+
+                //OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection); //2번 검색은 되는데 3번 검색은 에러가 뜬다?
+                OracleDataReader reader = comm.ExecuteReader(); 
                 List<TreatmentModel> datas0 = new List<TreatmentModel>();
 
-                int a = 0;
                 while (reader.Read())
                 {
                     datas0.Add(new TreatmentModel()
                     {
                         PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                        Gender = reader.GetString(reader.GetOrdinal("GENDER"))
+                        PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                        TreatDetail = reader.GetString(reader.GetOrdinal("TREAT_DETAILS"))
                     });
                 }
 
-                dataGrid.ItemsSource = datas0;
+                treatDataGrid.ItemsSource = datas0;
                 reader.Close();
             }
         }
 
-        private void DBConnection(object sender, RoutedEventArgs e)
+        public void DBConn()
         {
             //DB 연결
             try
@@ -104,6 +97,23 @@ namespace AdminProgram
             {
                 MessageBox.Show(err.ToString());
             }
+        }
+
+        private void DBConnectionBtn(object sender, RoutedEventArgs e)
+        {
+            //DB 연결
+            /*try
+            {
+                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
+                conn = new OracleConnection(strCon);
+                conn.Open();
+
+                MessageBox.Show("DB Connection OK...");
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }*/
 
             string sql = "select PATIENT_ID, PATIENT_NAME, GENDER from PATIENT order by PATIENT_ID";
 
@@ -132,7 +142,7 @@ namespace AdminProgram
                     Gender = reader.GetString(reader.GetOrdinal("GENDER"))
                 });
             }
-            dataGrid.ItemsSource = datas; //dataGrid의 데이터 바인딩 진행
+            treatDataGrid.ItemsSource = datas; //dataGrid의 데이터 바인딩 진행
             reader.Close();
         }
     }

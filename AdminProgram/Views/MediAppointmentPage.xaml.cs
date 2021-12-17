@@ -42,5 +42,13 @@ namespace AdminProgram
             }
             
         }
+
+        //진료 예약 등록 페이지 이동
+        private void addAppointment_btn(object sender, RoutedEventArgs e)
+        {
+            AddAppointment aa = new AddAppointment();
+            aa.Title = "진료 예약 등록";
+            aa.ShowDialog();
+        }
     }
 }
