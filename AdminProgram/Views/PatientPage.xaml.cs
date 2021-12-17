@@ -73,9 +73,22 @@ namespace AdminProgram
             ret = a.ToString();
             return ret;
         }
+        
+        private bool is_checkedGender(string str)
+        {
+            string s = gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..];
+            if (s != "-") { return false; }
+            return true;
+        }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
+           /* DateTime tmp = DateTime.Parse(bod_txtbox.Text);
+            string a = tmp.ToString("yyyy/MM/dd");
+            MessageBox.Show(a);*/
+
+
+
             try
             {
                 string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
@@ -87,20 +100,25 @@ namespace AdminProgram
                 MessageBox.Show(err.ToString());
             }
 
+            string? startage = Get_birthyear(startAge_txtbox.Text);
+            string? endage = Get_birthyear(endAge_txtbox.Text);
+
+            //성별 구분하고, DOB두번쓰니 하나만 접근할수있도록 해야함
             string? sql = null;
-            if (patientNum_txtbox.Text != null || patientNum_txtbox.Text != null)
+            if (patientNum_txtbox.Text != null || patientName_txtbox.Text != null || phoneNum_txtbox.Text != null || is_checkedGender(gender_combobox.SelectedItem.ToString()))
             {
                 sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
                     "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                     "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
-                    //"GENDER LIKE '%" + gender_combobox.SelectedItem.ToString() + "%'" +
-                    //"DOB LIKE '%" + bod_txtbox.Text + "%' and " +
-                    //"DOB LIKE Between '" + Get_birthyear(startAge_txtbox.Text) + "-01-01' and '" + Get_birthyear(endAge_txtbox.Text) + "-12-31' and" +
+                    "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
+                    //"DOB like To_Date('" + bod_txtbox.Text + "', 'yyyyMMDD') and " +
+                    "DOB BETWEEN To_Date('" + endage + "0101'" + ", 'yyyyMMDD') and To_Date('" + startage + "1231'" + ", 'yyyyMMDD') and " +
                     "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
                     " order by PATIENT_ID";
             }
-            else 
-                sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
+            else
+                MessageBox.Show("asdf");
+            //sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
 
             /* Connection, Command, DataReader를 통한 데이터 추출 */
             //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
