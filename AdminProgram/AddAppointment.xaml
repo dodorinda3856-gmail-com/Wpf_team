@@ -1,0 +1,12 @@
+﻿<Window x:Class="AdminProgram.AddAppointment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminProgram"
+        mc:Ignorable="d"
+        Title="AddAppointment" Height="450" Width="800">
+    <Grid>
+        <TextBlock Text="진료 예약 등록 페이지 입니다"/>
+    </Grid>
+</Window>

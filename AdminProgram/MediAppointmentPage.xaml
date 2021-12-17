@@ -13,39 +13,50 @@
 
     <Grid Margin="60,20,20,20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <!--상단바-->
-        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="DarkSlateGray">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="Yellow">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
-            <DatePicker x:Name="datePicker" Grid.Column="0" SelectedDateChanged="selectedDate"/>
-            <Label Content="진료과: " Grid.Column="1"/>
-            <TextBlock Text="내과" Grid.Column="2" VerticalAlignment="Center"/>
-            <Label Content="의사이름: " Grid.Column="3"/>
-            <TextBlock Text="나현정" Grid.Column="4" VerticalAlignment="Center"/>
+            <DatePicker x:Name="datePicker" Grid.Column="0" SelectedDateChanged="selectedDate" VerticalAlignment="Center"/>
+            <Label Content="진료과: " Grid.Column="1" VerticalAlignment="Center" FontSize="18"/>
+            <TextBlock Text="내과" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="의사이름: " Grid.Column="3" VerticalAlignment="Center" FontSize="18"/>
+            <TextBlock Text="나현정" Grid.Column="4" VerticalAlignment="Center" FontSize="18"/>
+            <Button Content="등록" Grid.Column="6" Click="addAppointment_btn"/>
+            <Button Content="삭제" Grid.Column="8"/>
+            <Button Content="수정" Grid.Column="10"/>
         </Grid>
         
         <!--방문 대기 환자-->
         <Label Content="방문 대기 환자 리스트" Grid.Row="1" Grid.Column="0" 
-               FontWeight="Bold" FontSize="20"/>
-        <DataGrid Grid.Row="2" Grid.Column="0"
-            d:ItemsSource="{d:SampleData ItemCount=10}" Background="White">
+               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+        <DataGrid Grid.Row="2" Grid.Column="0" Background="#FFD2CFCF"
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
                 <DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>
@@ -53,10 +64,11 @@
         </DataGrid>
 
         <!--예약 환자-->
-        <Label Content="예약 환자 리스트" Grid.Row="1"  Grid.Column="2" 
-               FontWeight="Bold" FontSize="20"/>
-        <DataGrid Grid.Row="2" Grid.Column="2"
-                  d:ItemsSource="{d:SampleData ItemCount=10}" Background="White">
+        <Label Content="예약 환자 리스트" Grid.Row="1" Grid.Column="2" 
+               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+        <DataGrid Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="예약시간" Binding="{Binding ReserveTime}"/>
                 <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
@@ -66,9 +78,10 @@
 
         <!--진료 완료-->
         <Label Content="진료 완료 리스트" Grid.ColumnSpan="3" Grid.Row="3" 
-               FontWeight="Bold" FontSize="20" Margin="0,10,0,10"/>
-        <DataGrid Grid.ColumnSpan="3" Grid.Row="4" 
-                  d:ItemsSource="{d:SampleData ItemCount=10}" Background="White">
+               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+        <DataGrid Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF"
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
                 <DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>
