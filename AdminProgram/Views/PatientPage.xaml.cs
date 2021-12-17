@@ -28,9 +28,10 @@ namespace AdminProgram
         public PatientPage()
         {
             InitializeComponent();
+            gender_combobox.SelectedIndex = 0; //콤보박스 기본값설정
         }
 
-        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        private void SelectedDate(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
 
@@ -54,14 +55,23 @@ namespace AdminProgram
 
 
         //나이 계산하는 함수
-        private int calculate_age(DateTime date)
+        private int Calculate_age(DateTime date)
         {
-            int now = 2021;
+            int now = 2022;
             string str_tmp = date.ToString("yyyy");
             int age = Convert.ToInt32(str_tmp);
             age = now - age + 1;
 
             return age;
+        }
+
+        private string Get_birthyear(string age)
+        {
+            int a = Convert.ToInt32(age);
+            string ret;
+            a = 2022 - a;
+            ret = a.ToString();
+            return ret;
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
@@ -77,14 +87,27 @@ namespace AdminProgram
                 MessageBox.Show(err.ToString());
             }
 
-            string sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT";
+            string? sql = null;
+            if (patientNum_txtbox.Text != null || patientNum_txtbox.Text != null)
+            {
+                sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                    "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                    "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
+                    //"GENDER LIKE '%" + gender_combobox.SelectedItem.ToString() + "%'" +
+                    //"DOB LIKE '%" + bod_txtbox.Text + "%' and " +
+                    //"DOB LIKE Between '" + Get_birthyear(startAge_txtbox.Text) + "-01-01' and '" + Get_birthyear(endAge_txtbox.Text) + "-12-31' and" +
+                    "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
+                    " order by PATIENT_ID";
+            }
+            else 
+                sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
 
             /* Connection, Command, DataReader를 통한 데이터 추출 */
             //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
             OracleCommand comm = new();
-            /*if (conn == null)
+            /*if (comm == null)
                 DBConnection(this, null);*/
             comm.Connection = connn;
             comm.CommandText = sql;
@@ -93,9 +116,7 @@ namespace AdminProgram
             //SQL Server와 연결을 유지한 상태에서 한번에 한 레코드(One Row)씩 데이타를 가져오는데 사용
             //DataReader는 하나의 Connection에 하나만 Open되어 있어야 하며, 사용이 끝나면 Close() 메서드를 호출하여 닫아 준다.
             OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-            List<PMModel> datas = new List<PMModel>(); //listView에 데이터 뿌리기 위한 틀
-
-            int a = 0;
+            List<PMModel> datas = new(); //listView에 데이터 뿌리기 위한 틀
 
             while (reader.Read())// 다음 레코드 계속 가져와서 루핑 - Advances the SqlDataReader to the next record. true if there are more rows; otherwise false.
             {
@@ -111,17 +132,12 @@ namespace AdminProgram
                     Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
                     Gender = reader.GetString(reader.GetOrdinal("Gender")),
                     Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
-                    Age = calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
+                    Age = Calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
                 }) ;
             }
             dataGrid.ItemsSource = datas; //listview의 데이터 바인딩 진행
 
             reader.Close();
-        }
-
-        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 
