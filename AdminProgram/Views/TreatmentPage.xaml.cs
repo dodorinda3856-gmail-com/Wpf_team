@@ -22,7 +22,24 @@ namespace AdminProgram
             DBConn();
         }
 
-        //Data Grid Row 더블 클릭 시 이벤트 처리
+        //==DB 연결==//
+        public void DBConn()
+        {
+            try
+            {
+                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
+                conn = new OracleConnection(strCon);
+                conn.Open();
+
+                MessageBox.Show("DB Connection OK...");
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        //==Data Grid Row 더블 클릭 시 이벤트 처리==//
         private void Row_DoubleClick(object sender, EventArgs args)
         {
             //선택된 환자의 진료 상세정보 가져오기 - 진행 중
@@ -33,23 +50,22 @@ namespace AdminProgram
             }
         }
 
+        //==환자 검색==//
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            //textbox에 작성된 내용을 조건으로 select문 날리기 - 진행 중
             if(e.Key == Key.Enter)
             {
-                //string name = sender.ToString().Substring(33);//textbox에 작성된 값 가져옴
-                MessageBox.Show(searchTextBox.Text);
+                string name = searchTextBox.Text;//textbox에 작성된 값 가져옴
 
                 if (conn == null)
                     DBConn();
 
                 string? sql = null;
-                if(searchTextBox.Text != null)
+                if(name != null)
                 {
                     sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
                     "FROM PATIENT p, TREATMENT t " +
-                    "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '%" + searchTextBox.Text + "%'";
+                    "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '%" + name + "%'";
                 }
                 else
                 {
@@ -82,38 +98,10 @@ namespace AdminProgram
             }
         }
 
-        public void DBConn()
-        {
-            //DB 연결
-            try
-            {
-                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                conn = new OracleConnection(strCon);
-                conn.Open();
-
-                MessageBox.Show("DB Connection OK...");
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.ToString());
-            }
-        }
-
         private void DBConnectionBtn(object sender, RoutedEventArgs e)
         {
-            //DB 연결
-            /*try
-            {
-                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                conn = new OracleConnection(strCon);
-                conn.Open();
-
-                MessageBox.Show("DB Connection OK...");
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.ToString());
-            }*/
+            if (conn == null)
+                DBConn();
 
             string sql = "select PATIENT_ID, PATIENT_NAME, GENDER from PATIENT order by PATIENT_ID";
 

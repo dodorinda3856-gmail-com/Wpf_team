@@ -79,7 +79,6 @@
                 <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 이름" Binding="{Binding PatientName}"/>
                 <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 전화번호" Binding="{Binding PatientPhoneNum}"/>
                 <DataGridTextColumn MinWidth="100" Width="*" Header="진료 상세" Binding="{Binding TreatDetail}"/>
-                <!--<DataGridTextColumn MinWidth="50" Width="*" Header="SCORE" Binding="{Binding Score}"/>-->
             </DataGrid.Columns>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
