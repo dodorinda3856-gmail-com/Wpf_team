@@ -83,7 +83,7 @@ namespace AdminProgram
             //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
-            OracleCommand comm = new OracleCommand();
+            OracleCommand comm = new();
             /*if (conn == null)
                 DBConnection(this, null);*/
             comm.Connection = connn;
