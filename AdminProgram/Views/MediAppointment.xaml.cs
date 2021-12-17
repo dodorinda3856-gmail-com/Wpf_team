@@ -79,8 +79,28 @@ namespace AdminProgram
                     StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
                 });
             }
-
             reservationGrid.ItemsSource = datas;
+            reader.Close();
+
+            /*using(OracleCommand comm = new OracleCommand())
+            {
+                comm.Connection = conn;
+                comm.CommandText = sql;
+
+                using (OracleDataReader reader = comm.ExecuteReader())
+                {
+                    List<ReservationModel> datas = new List<ReservationModel>();
+
+                    while (reader.Read())
+                    {
+                        datas.Add(new ReservationModel()
+                        {
+                            StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
+                        });
+                    }
+                    reservationGrid.ItemsSource = datas;
+                }
+            }*/
         }
 
         //==진료 예약 등록 페이지 이동==//

@@ -61,7 +61,7 @@ namespace AdminProgram
                     DBConn();
 
                 string? sql = null;
-                if(name != null)
+                if (name != null)
                 {
                     sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
                     "FROM PATIENT p, TREATMENT t " +
@@ -69,7 +69,7 @@ namespace AdminProgram
                 }
                 else
                 {
-                    sql= "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                    sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
                     "FROM PATIENT p, TREATMENT t " +
                     "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME";
                 }
@@ -78,8 +78,7 @@ namespace AdminProgram
                 comm.Connection = conn;
                 comm.CommandText = sql;
 
-                //OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection); //2번 검색은 되는데 3번 검색은 에러가 뜬다?
-                OracleDataReader reader = comm.ExecuteReader(); 
+                OracleDataReader reader = comm.ExecuteReader();
                 List<TreatmentModel> datas0 = new List<TreatmentModel>();
 
                 while (reader.Read())
@@ -95,6 +94,29 @@ namespace AdminProgram
 
                 treatDataGrid.ItemsSource = datas0;
                 reader.Close();
+
+                /*using (OracleCommand comm = new OracleCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandText = sql;
+                    using (OracleDataReader reader = comm.ExecuteReader())
+                    {
+                        List<TreatmentModel> datas0 = new List<TreatmentModel>();
+
+                        while (reader.Read())
+                        {
+                            datas0.Add(new TreatmentModel()
+                            {
+                                PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
+                                PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
+                                PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                                TreatDetail = reader.GetString(reader.GetOrdinal("TREAT_DETAILS"))
+                            });
+                        }
+
+                        treatDataGrid.ItemsSource = datas0;
+                    }
+                }*/
             }
         }
 
