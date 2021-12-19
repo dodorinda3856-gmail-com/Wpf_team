@@ -73,13 +73,6 @@ namespace AdminProgram
             ret = a.ToString();
             return ret;
         }
-        
-        private bool is_checkedGender(string str)
-        {
-            string s = gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..];
-            if (s != "-") { return false; }
-            return true;
-        }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -100,24 +93,49 @@ namespace AdminProgram
                 MessageBox.Show(err.ToString());
             }
 
-            /*string? startage = Get_birthyear(startAge_txtbox.Text);
-            string? endage = Get_birthyear(endAge_txtbox.Text);*/
+            /*if (startAge_txtbox.Text == "")
+                MessageBox.Show(startAge_txtbox.Text);*/
+
+            string? startage;
+            if (startAge_txtbox.Text == "")
+                startage = "2030";
+            else
+                startage = Get_birthyear(startAge_txtbox.Text);
+
+
+            string? endage;
+            if (endAge_txtbox.Text == "")
+                endage = "1800";
+            else
+                endage = Get_birthyear(endAge_txtbox.Text);
+
 
             //성별 구분하고, DOB두번쓰니 하나만 접근할수있도록 해야함
             string? sql = null;
             if (patientNum_txtbox.Text != null || patientName_txtbox.Text != null || phoneNum_txtbox.Text != null)
             {
-                sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                if (gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] == "-")
+                {
+                    sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                    "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                    "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
+                    //"DOB like To_Date('" + bod_txtbox.Text + "', 'yyyyMMDD') and " +
+                    "DOB BETWEEN To_Date('" + endage + "0101'" + ", 'yyyyMMDD') and To_Date('" + startage + "1231'" + ", 'yyyyMMDD') and " +
+                    "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
+                    " order by PATIENT_ID";
+                }
+                else
+                {
+                    sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
                     "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                     "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
                     "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
                     //"DOB like To_Date('" + bod_txtbox.Text + "', 'yyyyMMDD') and " +
-                    //"DOB BETWEEN To_Date('" + endage + "0101'" + ", 'yyyyMMDD') and To_Date('" + startage + "1231'" + ", 'yyyyMMDD') and " +
+                    "DOB BETWEEN To_Date('" + endage + "0101'" + ", 'yyyyMMDD') and To_Date('" + startage + "1231'" + ", 'yyyyMMDD') and " +
                     "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
                     " order by PATIENT_ID";
+                }
             }
-            else
-                MessageBox.Show("asdf");
             //sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
 
             /* Connection, Command, DataReader를 통한 데이터 추출 */
