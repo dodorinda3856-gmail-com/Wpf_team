@@ -19,7 +19,7 @@ namespace AdminProgram
         public TreatmentPage()
         {
             InitializeComponent();
-            DBConn();
+            //DBConn();
         }
 
         //==DB 연결==//
@@ -46,7 +46,8 @@ namespace AdminProgram
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
-
+                TreatDetailWindow tw = new TreatDetailWindow();
+                tw.ShowDialog();
             }
         }
 
@@ -74,7 +75,7 @@ namespace AdminProgram
                     "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME";
                 }
 
-                OracleCommand comm = new OracleCommand();
+                /*OracleCommand comm = new OracleCommand();
                 comm.Connection = conn;
                 comm.CommandText = sql;
 
@@ -93,9 +94,9 @@ namespace AdminProgram
                 }
 
                 treatDataGrid.ItemsSource = datas0;
-                reader.Close();
+                reader.Close();*/
 
-                /*using (OracleCommand comm = new OracleCommand())
+                using (OracleCommand comm = new OracleCommand())
                 {
                     comm.Connection = conn;
                     comm.CommandText = sql;
@@ -116,18 +117,18 @@ namespace AdminProgram
 
                         treatDataGrid.ItemsSource = datas0;
                     }
-                }*/
+                }
             }
         }
 
-        private void DBConnectionBtn(object sender, RoutedEventArgs e)
+        /*private void DBConnectionBtn(object sender, RoutedEventArgs e)
         {
             if (conn == null)
                 DBConn();
 
             string sql = "select PATIENT_ID, PATIENT_NAME, GENDER from PATIENT order by PATIENT_ID";
 
-            /*Connection, Command, DataReader를 통한 데이터 추출*/
+            *//*Connection, Command, DataReader를 통한 데이터 추출*//*
             //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
@@ -154,6 +155,6 @@ namespace AdminProgram
             }
             treatDataGrid.ItemsSource = datas; //dataGrid의 데이터 바인딩 진행
             reader.Close();
-        }
+        }*/
     }
 }

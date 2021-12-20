@@ -52,8 +52,6 @@
             
             <Button Content="동기화" Grid.Column="5" Click="ReservationUpdateBtn"/>
             <Button Content="등록" Grid.Column="7" Click="addAppointmentBtn"/>
-            <Button Content="삭제" Grid.Column="9"/>
-            <Button Content="수정" Grid.Column="11"/>
         </Grid>
         
         <!--방문 대기 환자-->
@@ -63,11 +61,16 @@
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
-                <DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>-->
-                <DataGridTextColumn Header="환자명"/>
-                <DataGridTextColumn Header="상태값"/>
+                <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
+                <DataGridTextColumn Header="상태값" Binding="{Binding TreatStatusVal}"/>
             </DataGrid.Columns>
+            <!--<DataGrid.ContextMenu>
+                --><!--리스트 우 클릭 시 선택지 리스트 보임--><!--
+                <ContextMenu>
+                    <MenuItem Header="수정"/>
+                    <MenuItem Header="삭제"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>-->
         </DataGrid>
 
         <!--예약 환자-->
@@ -75,13 +78,25 @@
                FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
         <DataGrid x:Name="reservationGrid" Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" >
+            <!--MouseRightButtonDown="reservationGrid_MouseRightButtonDown"-->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="예약 등록 간호사" Binding="{Binding StaffName}"/>
                 <!--<DataGridTextColumn Header="환자 이름" Binding="{Binding PatientName}"/>-->
                 <!--<DataGridTextColumn Header="예약 시간" Binding="{Binding ReservationTime}"/>-->
                 <!--<DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>-->
             </DataGrid.Columns>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <!--<DataGrid.ContextMenu>--><!--리스트 우 클릭 시 선택지 리스트 보임--><!--
+                <ContextMenu>
+                    <MenuItem Header="수정" Click="CorrectInfo_Btn"/>
+                    <MenuItem Header="삭제" Click="DeleteInfo_Btn"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>-->
         </DataGrid>
 
         <!--진료 완료-->
@@ -94,6 +109,13 @@
                 <DataGridTextColumn Header="환자명"/>
                 <DataGridTextColumn Header="상태값"/>
             </DataGrid.Columns>
+            <!--<DataGrid.ContextMenu>
+                --><!--리스트 우 클릭 시 선택지 리스트 보임--><!--
+                <ContextMenu>
+                    <MenuItem Header="수정"/>
+                    <MenuItem Header="삭제"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>-->
         </DataGrid>
 
     </Grid>
