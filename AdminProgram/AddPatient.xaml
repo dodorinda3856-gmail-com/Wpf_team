@@ -6,36 +6,49 @@
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="AddPatient" Height="420" Width="500">
+        Title="AddPatient" Height="300
+        " Width="500">
     <Grid>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="신규등록" VerticalAlignment="Top"/>
-        <Rectangle HorizontalAlignment="Center" Height="343" Stroke="Black" VerticalAlignment="Top" Width="480" Margin="0,31,0,0"/>
-        <Button x:Name="button" Content="저장" HorizontalAlignment="Left" Margin="202,342,0,0" VerticalAlignment="Top" Width="34"/>
-        <Button x:Name="button_Copy" Content="취소" HorizontalAlignment="Left" Margin="246,342,0,0" VerticalAlignment="Top" Width="34"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="269,44,0,0" TextWrapping="Wrap" Text="이름 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="305,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="19,44,0,0" TextWrapping="Wrap" Text="차트번호 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="79,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83"/>
-        <TextBlock x:Name="textBlock2_Copy" HorizontalAlignment="Left" Margin="19,78,0,0" TextWrapping="Wrap" Text="주민번호 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Margin="79,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83"/>
-        <RadioButton x:Name="radioButton" GroupName = "SEX" Content="남" HorizontalAlignment="Left" Margin="176,80,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
-        <RadioButton x:Name="radioButton_Copy" GroupName = "SEX" Content="여" HorizontalAlignment="Left" Margin="212,80,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy_Checked"/>
-        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="269,80,0,0" TextWrapping="Wrap" Text="생일 :" VerticalAlignment="Top"/>
-        <DatePicker x:Name="datePicker" VerticalAlignment="Top" SelectedDateChanged="selectedDate" Margin="305,77,84,0"/>
-        <RadioButton x:Name="radioButton_Copy1" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="411,82,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy1_Checked"/>
-        <RadioButton x:Name="radioButton_Copy2" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="447,82,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy2_Checked"/>
-        <TextBlock x:Name="textBlock2_Copy1" HorizontalAlignment="Left" Margin="19,117,0,0" TextWrapping="Wrap" Text="주소검색 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1_Copy1" HorizontalAlignment="Left" Margin="79,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
-        <Button x:Name="button2" Content="주소검색" HorizontalAlignment="Left" Height="18" Margin="207,117,0,0" VerticalAlignment="Top" Width="78"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="46,138,0,0" TextWrapping="Wrap" Text="도로명주소 : [도로명 건물번호], [동이름 지번], [동이름 건물명] 입력" VerticalAlignment="Top" Width="370"/>
-        <TextBlock x:Name="textBlock2_Copy2" HorizontalAlignment="Left" Margin="19,166,0,0" TextWrapping="Wrap" Text="우편번호 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1_Copy2" HorizontalAlignment="Left" Margin="79,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
-        <TextBlock x:Name="textBlock2_Copy3" HorizontalAlignment="Left" Margin="18,194,0,0" TextWrapping="Wrap" Text="주소 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1_Copy3" HorizontalAlignment="Left" Margin="78,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="338"/>
-        <TextBlock x:Name="textBlock2_Copy4" HorizontalAlignment="Left" Margin="19,234,0,0" TextWrapping="Wrap" Text="전화번호 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1_Copy4" HorizontalAlignment="Left" Margin="79,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
-        <TextBlock x:Name="textBlock2_Copy5" HorizontalAlignment="Left" Margin="263,235,0,0" TextWrapping="Wrap" Text="휴대폰 :" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1_Copy5" HorizontalAlignment="Left" Margin="312,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <!--신규등록글자, 테두리-->
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="신규등록" VerticalAlignment="Top"/>
+        <Rectangle HorizontalAlignment="Center" Height="228" Stroke="Black" VerticalAlignment="Top" Width="480" Margin="0,31,0,0"/>
+
+        <!--저장, 취소 버튼-->
+        <Button x:Name="Save_btn" Click="Save_btn_Click" Content="저장" HorizontalAlignment="Left" Margin="194,224,0,0" VerticalAlignment="Top" Width="34"/>
+        <Button x:Name="Cancel_btn" Click="Cancel_btn_Click" Content="취소" HorizontalAlignment="Left" Margin="244,224,0,0" VerticalAlignment="Top" Width="34"/>
+
+        <!--이름 파트-->
+        <TextBlock HorizontalAlignment="Left" Margin="19,43,0,0" TextWrapping="Wrap" Text="이름       :" VerticalAlignment="Top" Width="60"/>
+        <TextBox x:Name="patientName" Padding="2" HorizontalAlignment="Left" Margin="79,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"/>
+
+        <!--주민번호 파트-->
+        <TextBlock HorizontalAlignment="Left" Margin="19,78,0,0" TextWrapping="Wrap" Text="주민번호 :" VerticalAlignment="Top"/>
+        <TextBox x:Name="securityNum" Padding="2" HorizontalAlignment="Left" Margin="79,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
+
+        <!--남녀파트-->
+        <RadioButton x:Name="male" GroupName = "SEX" Content="남" HorizontalAlignment="Left" Margin="186,80,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+        <RadioButton x:Name="female" GroupName = "SEX" Content="여" HorizontalAlignment="Left" Margin="222,80,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy_Checked"/>
+
+        <!--생일 파트-->
+        <TextBlock HorizontalAlignment="Left" Margin="269,80,0,0" TextWrapping="Wrap" Text="생일 :" VerticalAlignment="Top"/>
+        <DatePicker x:Name="datePicker" Padding="2" VerticalAlignment="Top" SelectedDateChanged="selectedDate" Margin="305,77,84,0"/>
+        <RadioButton x:Name="yang" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="411,82,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy1_Checked"/>
+        <RadioButton x:Name="ymm" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="447,82,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy2_Checked"/>
+
+        <!--주소입력 파트-->
+        <TextBlock HorizontalAlignment="Left" Margin="19,118,0,0" TextWrapping="Wrap" Text="주소       :" VerticalAlignment="Top"/>
+        <TextBox x:Name="address" Padding="2" HorizontalAlignment="Left" Margin="79,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="338"/>
+
+        <!--전화번호 파트-->
+        <TextBlock HorizontalAlignment="Left" Margin="20,158,0,0" TextWrapping="Wrap" Text="전화번호 :" VerticalAlignment="Top"/>
+        <TextBox x:Name="homeNum" Padding="2" HorizontalAlignment="Left" Margin="80,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
+
+        <!--휴대폰 번호 파트-->
+        <TextBlock HorizontalAlignment="Left" Margin="257,159,0,0" TextWrapping="Wrap" Text="휴대폰 :" VerticalAlignment="Top"/>
+        <TextBox x:Name="phoneNum" Padding="2" HorizontalAlignment="Left" Margin="314,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
+
+        <!--수신동의체크박스-->
+        <CheckBox x:Name="smsCheck" Content="SMS수신동의" HorizontalAlignment="Left" Margin="334,191,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
