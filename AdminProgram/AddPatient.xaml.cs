@@ -207,6 +207,7 @@ namespace AdminProgram
                 
                 InsertSQL();
 
+                MessageBox.Show("저장되었습니다.");
                 Close();
             }
         }        
