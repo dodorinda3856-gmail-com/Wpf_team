@@ -23,6 +23,7 @@ namespace AdminProgram
     /// </summary>
     public partial class PatientPage : Page
     {
+        OracleConnection conn;
         OracleConnection connn;
 
         public PatientPage()
@@ -104,8 +105,8 @@ namespace AdminProgram
             try
             {
                 string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                connn = new OracleConnection(strCon);
-                connn.Open();
+                conn = new OracleConnection(strCon);
+                conn.Open();
             }
             catch (Exception err)
             {
@@ -233,6 +234,34 @@ namespace AdminProgram
             dataGrid.ItemsSource = datas; //listview의 데이터 바인딩 진행
 
             reader.Close();
+
+            /*using (OracleCommand comm = new OracleCommand())
+            {
+                comm.Connection = conn;
+                comm.CommandText = sql;
+
+                using (OracleDataReader reader = comm.ExecuteReader())
+                {
+                    List<PMModel> datas = new List<PMModel>();
+
+                    while (reader.Read())
+                    {
+                        datas.Add(new PMModel()
+                        {
+                            Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
+                            Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")), //listView의 textblock id(?)
+                            Address = reader.GetString(reader.GetOrdinal("Address")),
+                            Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
+                            Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
+                            Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
+                            Gender = reader.GetString(reader.GetOrdinal("Gender")),
+                            Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
+                            Age = calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
+                        });
+                    }
+                    dataGrid.ItemsSource = datas;
+                }
+            }*/
         }
     }
 

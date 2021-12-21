@@ -14,7 +14,7 @@
 
     <!--페이지에서 데이터 바인딩...ㅜㅜ(Window.DataContext 대용)-->
     <Page.DataContext>
-        <vm:PatientViewModel/>
+        <vm:PMViewModel/>
     </Page.DataContext>
 
     <Grid Margin="60,20,20,20">
@@ -46,7 +46,7 @@
             <Label Content="진료과" Grid.Column="1" 
                    FontWeight="Bold" FontSize="20" Margin="10,0,10,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button Content="DB 연결" Grid.Column="2" Click="DBConnectionBtn"/>
+            <!--<Button Content="DB 연결" Grid.Column="2" Click="DBConnectionBtn"/>-->
 
             <TextBox Name="searchTextBox" Grid.Column="3" 
                      Width="287" Height="30" Margin="469,0,10,0"
@@ -79,7 +79,6 @@
                 <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 이름" Binding="{Binding PatientName}"/>
                 <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 전화번호" Binding="{Binding PatientPhoneNum}"/>
                 <DataGridTextColumn MinWidth="100" Width="*" Header="진료 상세" Binding="{Binding TreatDetail}"/>
-                <!--<DataGridTextColumn MinWidth="50" Width="*" Header="SCORE" Binding="{Binding Score}"/>-->
             </DataGrid.Columns>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">

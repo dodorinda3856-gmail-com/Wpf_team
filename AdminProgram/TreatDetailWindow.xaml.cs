@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace AdminProgram
 {
     /// <summary>
-    /// AddAppointment.xaml에 대한 상호 작용 논리
+    /// TreatDetailWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddAppointment : Window
+    public partial class TreatDetailWindow : Window
     {
-        public AddAppointment()
+        public TreatDetailWindow()
         {
             InitializeComponent();
-        }
-
-        private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-
         }
     }
 }
