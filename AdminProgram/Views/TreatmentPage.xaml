@@ -14,7 +14,7 @@
 
     <!--페이지에서 데이터 바인딩...ㅜㅜ(Window.DataContext 대용)-->
     <Page.DataContext>
-        <vm:PatientViewModel/>
+        <vm:PMViewModel/>
     </Page.DataContext>
 
     <Grid Margin="60,20,20,20">

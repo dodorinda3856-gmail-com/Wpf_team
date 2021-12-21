@@ -10,5 +10,7 @@
             <GradientStop Color="#FF1E355F" Offset="1"/>
         </LinearGradientBrush>
         
+        <local:ViewModelLocator x:Key="ViewModelLocator"/>
+        
     </Application.Resources>
 </Application>

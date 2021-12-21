@@ -9,6 +9,7 @@
       xmlns:local="clr-namespace:AdminProgram"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
+      DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
       Title="MediAppointmentPage">
 
     <Grid Margin="60,20,20,20">
@@ -75,7 +76,7 @@
 
         <!--예약 환자-->
         <Label Content="예약 환자 리스트" Grid.Row="1" Grid.Column="2" 
-               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+               FontWeight="Bold" FontSize="20" VerticalAlignment="Center" />
         <DataGrid x:Name="reservationGrid" Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" >

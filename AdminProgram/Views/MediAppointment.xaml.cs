@@ -1,5 +1,4 @@
 ﻿using AdminProgram.Models;
-using AdminProgram.ViewModels;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d"
+        DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
         Title="AppointmentDetailWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +25,8 @@
 
         <TextBlock Text="예약 수정, 삭제 페이지 입니다" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Button Content="수정" Grid.Column="3"/>
-        <Button Content="삭제" Grid.Column="4"/>
+        <Button Content="삭제" Grid.Column="4" Command="{Binding }"/>
 
+        <TextBlock Text="{Binding StaffName, Mode=TwoWay}" Grid.Column="2"/>
     </Grid>
 </Window>
