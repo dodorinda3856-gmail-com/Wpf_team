@@ -72,7 +72,6 @@ namespace AdminProgram
 
         private bool NotOnlyNum(string str)
         {
-            int i = 0;
             for (int j = 0; j < str.Length; j++)
             {
                 if ((str[j] >= 'a' && str[j] <= 'z') || (str[j] >= 'A' && str[j] <= 'Z'))
