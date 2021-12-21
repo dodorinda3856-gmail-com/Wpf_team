@@ -46,6 +46,46 @@ namespace AdminProgram
             }
         }
 
+        //마케팅 동의확인 함수
+        private string checksms()
+        {
+            if (smsCheck.IsChecked == true)
+                return "T";
+            else
+                return "F";
+        }
+
+        //성별 확인 함수
+        private string checkgen()
+        {
+            if (male.IsChecked == true)
+                return "M";
+            else
+                return "F";
+        }
+        //취소버튼 클릭 이벤트
+        private void Cancel_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
+
+            // If the no button was pressed ...
+            if (result == MessageBoxResult.Yes)
+                Close();
+        }
+
+        //숫자만 있는지 확인하는 함수
+        private bool NotOnlyNum(string str)
+        {
+            for (int j = 0; j < str.Length; j++)
+            {
+                if (!(str[j] >= '0' && str[j] <= '9'))
+                    return true;
+                j++;
+            }
+            return false;
+        }
+
+        //db연결
         private void ConnectDB()
         {
             try
@@ -58,27 +98,6 @@ namespace AdminProgram
             {
                 MessageBox.Show(err.ToString());
             }
-        }
-
-        //취소버튼 클릭 이벤트
-        private void Cancel_btn_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
-
-            // If the no button was pressed ...
-            if (result == MessageBoxResult.Yes)
-                Close();
-        }
-
-        private bool NotOnlyNum(string str)
-        {
-            for (int j = 0; j < str.Length; j++)
-            {
-                if ((str[j] >= 'a' && str[j] <= 'z') || (str[j] >= 'A' && str[j] <= 'Z'))
-                    return true;
-                j++;
-            }
-            return false;
         }
 
         //입력이 잘되었는지 판단하는 함수
@@ -123,7 +142,7 @@ namespace AdminProgram
         }
 
 
-
+        //sql문 작성 및 db 전달
         private void InsertSQL()
         {
             OracleCommand comm = new();
@@ -172,26 +191,12 @@ namespace AdminProgram
             comm.Parameters.Add(new OracleParameter("gender", checkgen()));
             comm.Parameters.Add(new OracleParameter("date", datePicker.Text)); */
 
-            // SQL문 지정 및 INSERT 실행
+            //실행시키는기능
             comm.ExecuteNonQuery();
             connn.Close();
         }
 
-        private string checksms()
-        {
-            if (smsCheck.IsChecked == true)
-                return "T";
-            else
-                return "F";
-        }
-
-        private string checkgen()
-        {
-            if (male.IsChecked == true)
-                return "M";
-            else
-                return "F";
-        }
+       
 
         //저장버튼 클릭 이벤트
         private void Save_btn_Click(object sender, RoutedEventArgs e)
