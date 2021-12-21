@@ -26,14 +26,14 @@
         <TextBox x:Name="securityNum" Padding="2" HorizontalAlignment="Left" Margin="79,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
 
         <!--남녀파트-->
-        <RadioButton x:Name="male" GroupName = "SEX" Content="남" HorizontalAlignment="Left" Margin="186,80,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
-        <RadioButton x:Name="female" GroupName = "SEX" Content="여" HorizontalAlignment="Left" Margin="222,80,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy_Checked"/>
+        <RadioButton x:Name="male" GroupName = "SEX" Content="남" HorizontalAlignment="Left" Margin="186,80,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="female" GroupName = "SEX" Content="여" HorizontalAlignment="Left" Margin="222,80,0,0" VerticalAlignment="Top"/>
 
         <!--생일 파트-->
         <TextBlock HorizontalAlignment="Left" Margin="269,80,0,0" TextWrapping="Wrap" Text="생일 :" VerticalAlignment="Top"/>
         <DatePicker x:Name="datePicker" Padding="2" VerticalAlignment="Top" SelectedDateChanged="selectedDate" Margin="305,77,84,0"/>
-        <RadioButton x:Name="yang" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="411,82,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy1_Checked"/>
-        <RadioButton x:Name="ymm" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="447,82,0,0" VerticalAlignment="Top" Checked="RadioButton_Copy2_Checked"/>
+        <RadioButton x:Name="yang" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="411,82,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="ymm" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="447,82,0,0" VerticalAlignment="Top"/>
 
         <!--주소입력 파트-->
         <TextBlock HorizontalAlignment="Left" Margin="19,118,0,0" TextWrapping="Wrap" Text="주소       :" VerticalAlignment="Top"/>
