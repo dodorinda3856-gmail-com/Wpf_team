@@ -1,7 +1,5 @@
-﻿using AdminProgram.Models;
-using Oracle.ManagedDataAccess.Client;
+﻿using AdminProgram.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,6 +16,7 @@ namespace AdminProgram
         public MediAppointmentPage()
         {
             InitializeComponent();
+            //DataContext = new MAViewModel();
         }
 
         //혹시나 날짜 값이 필요할 경우 이거를 활용해서 할 것
@@ -39,7 +38,8 @@ namespace AdminProgram
         //==예약 환자 리스트 업데이트(임시)==//
         private void ReservationUpdateBtn(object sender, RoutedEventArgs e)
         {
-            string sql = "SELECT ms.STAFF_NAME FROM RESERVATION r JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID";
+
+            /*string sql = "SELECT ms.STAFF_NAME FROM RESERVATION r JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID";
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -78,7 +78,7 @@ namespace AdminProgram
                 {
                     MessageBox.Show(err.ToString());
                 }
-            }
+            }*/
         }
 
         //==예약 등록 윈도우로 이동==//

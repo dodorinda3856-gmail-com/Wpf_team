@@ -1,6 +1,7 @@
 ﻿using AdminProgram.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Serilog;
 using System;
 using System.Windows;
 
@@ -16,7 +17,16 @@ namespace AdminProgram
             Ioc.Default.ConfigureServices
                 (new ServiceCollection()
                     .AddSingleton<MAViewModel>()
-                        .BuildServiceProvider()
+                    .AddLogging(builder =>
+                    {
+                        var logger = new LoggerConfiguration()
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console()
+                        .CreateLogger();
+
+                        builder.AddSerilog(logger);
+                    })
+                    .BuildServiceProvider()
                 );
             this.InitializeComponent();
         }
@@ -28,9 +38,8 @@ namespace AdminProgram
             var services = new ServiceCollection();
 
             // ViewModel, View 등록 {
-            services.AddTransient<MAViewModel>();
-            //services.AddTransient<MainWindow>();
-
+            services.AddSingleton<MAViewModel>();
+            //services.AddSingleton<MediAppointmentPage>();
             /*services.AddTransient<Page1>();//page1을 여러 viewmodel이 봐도 하나의 view만 보는 기능이 됨
             services.AddTransient<Page2>();*/
 

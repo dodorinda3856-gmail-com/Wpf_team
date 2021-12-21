@@ -51,7 +51,7 @@ namespace AdminProgram.ViewModels
 
         public void Receive(MAModel message)
         {
-            Debug.WriteLine("Receive 성공");
+            //Debug.WriteLine("Receive 성공");
             Console.WriteLine("");
         }
     }
