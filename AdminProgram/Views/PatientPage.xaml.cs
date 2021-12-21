@@ -23,7 +23,6 @@ namespace AdminProgram
     /// </summary>
     public partial class PatientPage : Page
     {
-        OracleConnection conn;
         OracleConnection connn;
 
         public PatientPage()
@@ -31,7 +30,6 @@ namespace AdminProgram
             InitializeComponent();
             gender_combobox.SelectedIndex = 0; //콤보박스 기본값설정
         }
-
 
         //날짜 
         private void SelectedDate(object sender, SelectionChangedEventArgs e)
@@ -56,7 +54,6 @@ namespace AdminProgram
             addPatient.ShowDialog();
         }
 
-
         //생년월일로 나이 구하는 함수
         private int Calculate_age(DateTime date)
         {
@@ -68,7 +65,6 @@ namespace AdminProgram
             return age;
         }
 
-
         //나이로 출생년도 구하는 함수
         private string Get_birthyear(string age)
         {
@@ -78,7 +74,6 @@ namespace AdminProgram
             ret = a.ToString();
             return ret;
         }
-
 
         //제대로된 값이 들어오는지 확인하는 함수
         private bool CheckRightValue()
@@ -105,15 +100,14 @@ namespace AdminProgram
             try
             {
                 string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                conn = new OracleConnection(strCon);
-                conn.Open();
+                connn = new OracleConnection(strCon);
+                connn.Open();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.ToString());
             }
         }
-
 
         //DB로 보낼 sql문 작성
         private void MakeSQL(ref string? sql, string endyear, string startyear)
@@ -164,7 +158,6 @@ namespace AdminProgram
             //sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
         }
 
-
         //나이 범위 초기화 함수
         private void InitAge(ref string? startyear, ref string? endyear)
         {
@@ -179,7 +172,6 @@ namespace AdminProgram
             else
                 startyear = Get_birthyear(endAge_txtbox.Text);
         }
-
 
         //검색 클릭 이벤트
         private void Search_Button_Click(object sender, RoutedEventArgs e)
