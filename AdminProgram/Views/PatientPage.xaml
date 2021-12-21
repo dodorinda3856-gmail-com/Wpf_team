@@ -123,7 +123,7 @@
                 <Canvas Grid.Row="1" Background="Gray"/>
 
                 <!--상세목록-->
-                <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="Data_grid_SelectionChanged"
+                <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False"
                   ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <DataGrid.Columns>
                         <!--체크박스고민-->

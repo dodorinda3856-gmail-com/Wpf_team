@@ -25,16 +25,6 @@ namespace AdminProgram
     {
         OracleConnection connn;
 
-        private void Data_grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataRowView myrow = (DataRowView)data_grid.CurrentCell.Item;
-            selete_num = myrow.Row.ItemArray[0].ToString();
-            Console.WriteLine(myrow.Row.ItemArray[0].ToString());
-        }
-
-
-
-
         public PatientPage()
         {
             InitializeComponent();
