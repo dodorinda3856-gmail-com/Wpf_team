@@ -17,6 +17,7 @@ namespace AdminProgram
             Ioc.Default.ConfigureServices
                 (new ServiceCollection()
                     .AddSingleton<MAViewModel>()
+                    .AddSingleton<TMViewModel>()
                     .AddLogging(builder =>
                     {
                         var logger = new LoggerConfiguration()

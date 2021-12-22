@@ -1,9 +1,5 @@
-﻿using AdminProgram.Models;
-using Oracle.ManagedDataAccess.Client;
+﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -23,7 +19,7 @@ namespace AdminProgram
         }
 
         //==DB 연결==//
-        public void DBConn()
+        /*public void DBConn()
         {
             try
             {
@@ -37,7 +33,7 @@ namespace AdminProgram
             {
                 MessageBox.Show(err.ToString());
             }
-        }
+        }*/
 
         //==Data Grid Row 더블 클릭 시 이벤트 처리==//
         private void Row_DoubleClick(object sender, EventArgs args)
@@ -54,10 +50,10 @@ namespace AdminProgram
         //==환자 검색==//
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            /*if(e.Key == Key.Enter)
             {
                 string name = searchTextBox.Text;//textbox에 작성된 값 가져옴
-
+                
                 if (conn == null)
                     DBConn();
 
@@ -75,7 +71,7 @@ namespace AdminProgram
                     "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME";
                 }
 
-                /*OracleCommand comm = new OracleCommand();
+                *//*OracleCommand comm = new OracleCommand();
                 comm.Connection = conn;
                 comm.CommandText = sql;
 
@@ -94,7 +90,7 @@ namespace AdminProgram
                 }
 
                 treatDataGrid.ItemsSource = datas0;
-                reader.Close();*/
+                reader.Close();*//*
 
                 using (OracleCommand comm = new OracleCommand())
                 {
@@ -118,7 +114,7 @@ namespace AdminProgram
                         treatDataGrid.ItemsSource = datas0;
                     }
                 }
-            }
+            }*/
         }
 
         /*private void DBConnectionBtn(object sender, RoutedEventArgs e)

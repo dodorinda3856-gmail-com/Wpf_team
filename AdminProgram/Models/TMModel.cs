@@ -4,7 +4,6 @@ namespace AdminProgram.Models
 {
     public partial class TMModel : ObservableObject
     {
-
         private int patientNumber; //환자 번호
         public int PatientNumber
         {

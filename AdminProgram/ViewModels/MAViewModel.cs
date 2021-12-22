@@ -74,7 +74,10 @@ namespace AdminProgram.ViewModels
         // SQL Query 던짐 : GetReservationPatientList
         private void GetReservationPatientList()
         {
-            string sql = "SELECT p.PATIENT_NAME , r.SYMPTOM FROM RESERVATION r JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID";
+            string sql = "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME " +
+                "FROM RESERVATION r " +
+                "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
+                "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -98,9 +101,9 @@ namespace AdminProgram.ViewModels
                                     MAModels.Add(new MAModel() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
                                     {
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                                        Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM"))
-                                        //StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
-                                        //TreatStatusVal=reader.GetString(reader.GetOrdinal("TREAT_STATUS_VAL"))
+                                        ReservationDT = reader.GetDateTime(reader.GetOrdinal("RESERVATION_DATE")),
+                                        Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM")),
+                                        Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
                                     });
                                 }
                             }
@@ -141,7 +144,8 @@ namespace AdminProgram.ViewModels
         private void DoubleClick()
         {
             var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom);
+            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom, 
+                "담당 의사는 " + selected.Doctor);
         }
     }
 }
