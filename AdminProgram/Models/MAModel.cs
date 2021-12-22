@@ -19,21 +19,28 @@ namespace AdminProgram.Models
             set => SetProperty(ref symptom, value);
         }
 
-        private string? staffName;
+        private string? staffName; //예약을 진행한 간호사(?) 이름
         public string StaffName 
         { 
             get => staffName; 
             set => SetProperty(ref staffName, value); 
         }
 
-        private DateTime reservationTime; //예약을 진행한 날짜
-        public DateTime ReservationTime
+        private DateTime reservationDT; //진료 예약 날짜
+        public DateTime ReservationDT
         {
-            get => reservationTime;
-            set => SetProperty(ref reservationTime, value);
+            get => reservationDT;
+            set => SetProperty(ref reservationDT, value);
         }
 
-        private string treatStatusVal;
+        private string doctor; //담당 의사
+        public string Doctor
+        {
+            get => doctor;
+            set => SetProperty(ref doctor, value);
+        }
+
+        private string treatStatusVal; //?
         public string TreatStatusVal 
         { 
             get => treatStatusVal; 

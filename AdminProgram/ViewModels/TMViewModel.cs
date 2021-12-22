@@ -3,50 +3,50 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Microsoft.Xaml.Behaviors.Core;
 using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AdminProgram.ViewModels
 {
-    public class MAViewModel : ObservableRecipient
+    public class TMViewModel : ObservableRecipient
     {
-        // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
-        // messenger의 send와 receive도 하는 곳
-        // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
-
-        private readonly ILogger _logger;
+        //로그
+        private readonly ILogger _logger; 
+        //sql 연결
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
-        // MAModel을 observable collection 형식(사실상 list)으로 받아옴
-        private ObservableCollection<MAModel> maModel;
-        public ObservableCollection<MAModel> MAModels
+        private ObservableCollection<TMModel> tmModel;
+        public ObservableCollection<TMModel> TMModels
         {
-            get { return maModel; }
-            set { SetProperty(ref maModel, value); }
+            get { return tmModel; }
+            set { SetProperty(ref tmModel, value); }
         }
 
-        public MAViewModel(ILogger<MAViewModel> logger)
+        public TMViewModel(ILogger<TMViewModel> logger)
         {
             _logger = logger;
             _logger.LogInformation("{@ILogger}", logger);
 
-            MAModels = new ObservableCollection<MAModel>();
-            MAModels.CollectionChanged += ContentCollectionChanged;
+            TMModels = new ObservableCollection<TMModel>();
+            TMModels.CollectionChanged += ContentCollectionChanged;
         }
 
-        private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ContentCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
             {
                 foreach (INotifyPropertyChanged removed in e.OldItems)
                 {
                     removed.PropertyChanged -= ProductOnPropertyChanged;
-                    _logger.LogInformation("예약 리스트 삭제");
+                    _logger.LogInformation("진료 리스트 삭제됨");
                 }
             }
             else
@@ -54,30 +54,31 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged added in e.NewItems)
                 {
                     added.PropertyChanged += ProductOnPropertyChanged;
-                    _logger.LogInformation("예약 리스트 등록");
+                    _logger.LogInformation("진료 리스트 불러옴");
                 }
             }
         }
 
-        // 데이터 변화 감지
-        private void ProductOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void ProductOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            var maModel = sender as MAModel;
+            var maModel = sender as TMModel;
             if (maModel != null)
             {
                 _logger.LogInformation("{@MAModel}", maModel);
-                WeakReferenceMessenger.Default.Send(MAModels); //이거 필수
+                WeakReferenceMessenger.Default.Send(TMModels); //이거 필수
                 _logger.LogInformation("send 성공");
             }
         }
 
-        // SQL Query 던짐 : GetReservationPatientList
-        private void GetReservationPatientList()
+        // SQL : 진료 정보 가져오기
+        private void GetTreatmentData()
         {
             string sql = "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
+            
+            
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -98,12 +99,12 @@ namespace AdminProgram.ViewModels
                             {
                                 while (reader.Read())
                                 {
-                                    MAModels.Add(new MAModel() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
+                                    TMModels.Add(new TMModel() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
                                     {
+                                        PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                                        ReservationDT = reader.GetDateTime(reader.GetOrdinal("RESERVATION_DATE")),
-                                        Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM")),
-                                        Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
+                                        PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                                        TreatDetail = reader.GetString(reader.GetOrdinal("TREAT_DETAILS"))
                                     });
                                 }
                             }
@@ -122,30 +123,14 @@ namespace AdminProgram.ViewModels
             }
         }
 
-        private RelayCommand reservationUpdateBtn;
-        public ICommand ReservationUpdateBtn => reservationUpdateBtn ??= new RelayCommand(GetReservationPatientList);
+        private RelayCommand getTreatmentBtn;
+        public ICommand GetTreatmentBtn => getTreatmentBtn ??= new RelayCommand(GetTreatmentData);
 
-        /// <summary>
-        /// 2021.12.22 수요일 추가 내용
-        /// </summary>
-        
-        public ICollectionView CollectionView { get; set; }
-
-        private ActionCommand doubleClickCommand;
-        public ICommand DoubleClickCommand => doubleClickCommand ??= new ActionCommand(DoubleClick);
-
-        private MAModel selectedItem;
-        public MAModel SelectedItem 
+        private int searchText; //검색어
+        public int SearchText
         {
-            get => selectedItem; 
-            set => SetProperty(ref selectedItem, value); 
-        }
-
-        private void DoubleClick()
-        {
-            var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom, 
-                "담당 의사는 " + selected.Doctor);
+            get => searchText;
+            set => SetProperty(ref searchText, value);
         }
     }
 }

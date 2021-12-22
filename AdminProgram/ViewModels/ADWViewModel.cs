@@ -1,6 +1,5 @@
 ﻿using AdminProgram.Models;
 using Microsoft.Extensions.Logging;
-//using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
@@ -28,20 +27,13 @@ namespace AdminProgram.ViewModels
         {
             _logger = logger;
             _logger.LogWarning("{@ADWViewModel}", logger);
-            this.IsActive = true;
+            this.IsActive = true; //이거 필수
         }
 
-        /**
-        public ADWViewModel()
-        {
-            this.IsActive = true;
-        }
-        **/
-        public void Receive(ObservableCollection<MAModel> message)
+        public void Receive(ObservableCollection<MAModel> message) //이거 필수
         {
             Details = new ObservableCollection<MAModel>();
-            //_logger.LogInformation("{@MAModel}", message);
-            Debug.WriteLine("Receive 성공");
+            _logger.LogInformation("{@MAModel}", message);
 
             foreach (var item in message)
             {
@@ -51,7 +43,6 @@ namespace AdminProgram.ViewModels
 
         public void Receive(MAModel message)
         {
-            //Debug.WriteLine("Receive 성공");
             Console.WriteLine("");
         }
     }
