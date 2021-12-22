@@ -31,6 +31,18 @@ namespace AdminProgram
             gender_combobox.SelectedIndex = 0; //콤보박스 기본값설정
         }
 
+        private void Row_DoubleClick(object sender, EventArgs args)
+        {
+            //선택된 환자의 진료 상세정보 가져오기 - 진행 중
+            var row = sender as DataGridRow;
+
+            if (row != null && row.IsSelected)
+            {
+                ModifiyPatient tw = new ModifiyPatient();
+                tw.ShowDialog();
+            }
+        }
+
         //날짜 
         private void SelectedDate(object sender, SelectionChangedEventArgs e)
         {
@@ -256,7 +268,7 @@ namespace AdminProgram
             }*/
         }
     }
-
+    
 }
 
 //테스트용
