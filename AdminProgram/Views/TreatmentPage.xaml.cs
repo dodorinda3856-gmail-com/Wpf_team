@@ -1,9 +1,5 @@
-﻿using AdminProgram.Models;
-using Oracle.ManagedDataAccess.Client;
+﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -19,51 +15,67 @@ namespace AdminProgram
         public TreatmentPage()
         {
             InitializeComponent();
-            DBConn();
+            //DBConn();
         }
 
-        //Data Grid Row 더블 클릭 시 이벤트 처리
+        //==DB 연결==//
+        /*public void DBConn()
+        {
+            try
+            {
+                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
+                conn = new OracleConnection(strCon);
+                conn.Open();
+
+                MessageBox.Show("DB Connection OK...");
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }*/
+
+        //==Data Grid Row 더블 클릭 시 이벤트 처리==//
         private void Row_DoubleClick(object sender, EventArgs args)
         {
             //선택된 환자의 진료 상세정보 가져오기 - 진행 중
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
-
+                TreatDetailWindow tw = new TreatDetailWindow();
+                tw.ShowDialog();
             }
         }
 
+        //==환자 검색==//
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            //textbox에 작성된 내용을 조건으로 select문 날리기 - 진행 중
-            if(e.Key == Key.Enter)
+            /*if(e.Key == Key.Enter)
             {
-                //string name = sender.ToString().Substring(33);//textbox에 작성된 값 가져옴
-                MessageBox.Show(searchTextBox.Text);
-
+                string name = searchTextBox.Text;//textbox에 작성된 값 가져옴
+                
                 if (conn == null)
                     DBConn();
 
                 string? sql = null;
-                if(searchTextBox.Text != null)
+                if (name != null)
                 {
                     sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
                     "FROM PATIENT p, TREATMENT t " +
-                    "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '%" + searchTextBox.Text + "%'";
+                    "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '%" + name + "%'";
                 }
                 else
                 {
-                    sql= "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                    sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
                     "FROM PATIENT p, TREATMENT t " +
                     "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME";
                 }
 
-                OracleCommand comm = new OracleCommand();
+                *//*OracleCommand comm = new OracleCommand();
                 comm.Connection = conn;
                 comm.CommandText = sql;
 
-                //OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection); //2번 검색은 되는데 3번 검색은 에러가 뜬다?
-                OracleDataReader reader = comm.ExecuteReader(); 
+                OracleDataReader reader = comm.ExecuteReader();
                 List<TreatmentModel> datas0 = new List<TreatmentModel>();
 
                 while (reader.Read())
@@ -78,46 +90,41 @@ namespace AdminProgram
                 }
 
                 treatDataGrid.ItemsSource = datas0;
-                reader.Close();
-            }
-        }
+                reader.Close();*//*
 
-        public void DBConn()
-        {
-            //DB 연결
-            try
-            {
-                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                conn = new OracleConnection(strCon);
-                conn.Open();
+                using (OracleCommand comm = new OracleCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandText = sql;
+                    using (OracleDataReader reader = comm.ExecuteReader())
+                    {
+                        List<TMModel> datas0 = new List<TMModel>();
 
-                MessageBox.Show("DB Connection OK...");
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.ToString());
-            }
-        }
+                        while (reader.Read())
+                        {
+                            datas0.Add(new TMModel()
+                            {
+                                PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
+                                PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
+                                PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                                TreatDetail = reader.GetString(reader.GetOrdinal("TREAT_DETAILS"))
+                            });
+                        }
 
-        private void DBConnectionBtn(object sender, RoutedEventArgs e)
-        {
-            //DB 연결
-            /*try
-            {
-                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                conn = new OracleConnection(strCon);
-                conn.Open();
-
-                MessageBox.Show("DB Connection OK...");
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.ToString());
+                        treatDataGrid.ItemsSource = datas0;
+                    }
+                }
             }*/
+        }
+
+        /*private void DBConnectionBtn(object sender, RoutedEventArgs e)
+        {
+            if (conn == null)
+                DBConn();
 
             string sql = "select PATIENT_ID, PATIENT_NAME, GENDER from PATIENT order by PATIENT_ID";
 
-            /*Connection, Command, DataReader를 통한 데이터 추출*/
+            *//*Connection, Command, DataReader를 통한 데이터 추출*//*
             //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
@@ -144,6 +151,6 @@ namespace AdminProgram
             }
             treatDataGrid.ItemsSource = datas; //dataGrid의 데이터 바인딩 진행
             reader.Close();
-        }
+        }*/
     }
 }

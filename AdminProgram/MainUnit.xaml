@@ -36,8 +36,7 @@
                 <Image Width="30" Height="30" Source="icon.ico" ></Image>
             </DockPanel>
             <DockPanel HorizontalAlignment="Right" Margin="5">
-                <Label x:Name="Staff_Label" Width="200" Foreground="White">의료진정보</Label>
-                <!--이거 추가해야함  PreviewMouseDown="Staff_Label_PreviewMouseDown"-->
+                <Label x:Name="Staff_Label" Width="200" PreviewMouseDown="Staff_Label_PreviewMouseDown" Foreground="White">의료진정보</Label>
                 <Image Width="30" Height="30" Source="icon.ico" ></Image>
             </DockPanel>
         </StackPanel>

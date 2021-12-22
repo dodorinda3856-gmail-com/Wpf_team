@@ -9,6 +9,7 @@
       xmlns:local="clr-namespace:AdminProgram"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
+      DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
       Title="MediAppointmentPage">
 
     <Grid Margin="60,20,20,20">
@@ -33,6 +34,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.2*"/>
@@ -41,50 +44,63 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
+            
             <DatePicker x:Name="datePicker" Grid.Column="0" SelectedDateChanged="selectedDate" VerticalAlignment="Center"/>
             <Label Content="진료과: " Grid.Column="1" VerticalAlignment="Center" FontSize="18"/>
             <TextBlock Text="내과" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
             <Label Content="의사이름: " Grid.Column="3" VerticalAlignment="Center" FontSize="18"/>
             <TextBlock Text="나현정" Grid.Column="4" VerticalAlignment="Center" FontSize="18"/>
-            <Button Content="등록" Grid.Column="6" Click="addAppointment_btn"/>
-            <Button Content="삭제" Grid.Column="8"/>
-            <Button Content="수정" Grid.Column="10"/>
+
+            <Button Content="동기화" Grid.Column="5" Command ="{Binding ReservationUpdateBtn}"/>
+            <Button Content="등록" Grid.Column="7" Click="addAppointmentBtn"/>
         </Grid>
         
         <!--방문 대기 환자-->
         <Label Content="방문 대기 환자 리스트" Grid.Row="1" Grid.Column="0" 
                FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
-        <DataGrid Grid.Row="2" Grid.Column="0" Background="#FFD2CFCF"
+        <DataGrid x:Name="waitingGrid" Grid.Row="2" Grid.Column="0" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=SampleData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
-                <DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>
+                <DataGridTextColumn Header="환자 이름" Binding="{Binding PatientName}"/>
+                <DataGridTextColumn Header="증상 설명" Binding="{Binding Symptom}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <!--예약 환자-->
         <Label Content="예약 환자 리스트" Grid.Row="1" Grid.Column="2" 
-               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
-        <DataGrid Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
+               FontWeight="Bold" FontSize="20" VerticalAlignment="Center" />
+        <DataGrid x:Name="reservationGrid" Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=MAModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                  SelectedItem="{Binding SelectedItem}" IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="예약시간" Binding="{Binding ReserveTime}"/>
-                <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
-                <DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>
+                <DataGridTextColumn Header="환자 이름" MinWidth="50" Binding="{Binding PatientName}"/>
+                <DataGridTextColumn Header="예약 일시" MinWidth="100" Binding="{Binding ReservationDT}"/>
+                <DataGridTextColumn Header="증상 설명" MinWidth="200" Binding="{Binding Symptom}"/>
+                <DataGridTextColumn Header="담당 의사" Width="*" Binding="{Binding Doctor}"/>
             </DataGrid.Columns>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding DoubleClickCommand}"
+                              CommandParameter="{Binding CollectionView}"/>
+            </DataGrid.InputBindings>
         </DataGrid>
 
         <!--진료 완료-->
         <Label Content="진료 완료 리스트" Grid.ColumnSpan="3" Grid.Row="3" 
                FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
-        <DataGrid Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF"
+        <DataGrid x:Name="finGrid" Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=SampleData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="환자명" Binding="{Binding PatientName}"/>
-                <DataGridTextColumn Header="상태값" Binding="{Binding Statement}"/>
+                <DataGridTextColumn Header="환자 이름"/>
+                <DataGridTextColumn Header="수납 요금"/>
             </DataGrid.Columns>
         </DataGrid>
 

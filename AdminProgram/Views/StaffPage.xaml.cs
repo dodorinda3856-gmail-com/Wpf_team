@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AdminProgram
 {
     /// <summary>
-    /// AddAppointment.xaml에 대한 상호 작용 논리
+    /// StaffPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddAppointment : Window
+    public partial class StaffPage : Page
     {
-        public AddAppointment()
+        public StaffPage()
         {
             InitializeComponent();
-        }
-
-        private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-
         }
     }
 }
