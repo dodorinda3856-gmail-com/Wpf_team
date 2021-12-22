@@ -19,7 +19,7 @@ namespace AdminProgram.Models
             set => SetProperty(ref symptom, value);
         }
 
-        private string? staffName;
+        private string? staffName; //예약을 진행한 간호사(?) 이름
         public string StaffName 
         { 
             get => staffName; 
@@ -33,7 +33,7 @@ namespace AdminProgram.Models
             set => SetProperty(ref reservationTime, value);
         }
 
-        private string treatStatusVal;
+        private string treatStatusVal; //?
         public string TreatStatusVal 
         { 
             get => treatStatusVal; 

@@ -3,21 +3,19 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Microsoft.Xaml.Behaviors.Core;
 using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
 using System.Windows.Input;
 
 namespace AdminProgram.ViewModels
 {
     public class MAViewModel : ObservableRecipient
     {
-        // viewmodel에서는 model의 값을 가져와서 view에 뿌리기 전에 전처리 하는 곳
+        // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
         // messenger의 send와 receive도 하는 곳
         // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
 
@@ -41,7 +39,6 @@ namespace AdminProgram.ViewModels
             MAModels.CollectionChanged += ContentCollectionChanged;
         }
 
-
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
@@ -49,7 +46,7 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged removed in e.OldItems)
                 {
                     removed.PropertyChanged -= ProductOnPropertyChanged;
-                    _logger.LogInformation("진료 예약 삭제");
+                    _logger.LogInformation("예약 리스트 삭제");
                 }
             }
             else
@@ -57,35 +54,34 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged added in e.NewItems)
                 {
                     added.PropertyChanged += ProductOnPropertyChanged;
-                    _logger.LogInformation("진료 예약 등록");
+                    _logger.LogInformation("예약 리스트 등록");
                 }
             }
         }
 
-        //데이터 변화 감지
+        // 데이터 변화 감지
         private void ProductOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             var maModel = sender as MAModel;
             if (maModel != null)
             {
                 _logger.LogInformation("{@MAModel}", maModel);
-                WeakReferenceMessenger.Default.Send(MAModels);
+                WeakReferenceMessenger.Default.Send(MAModels); //이거 필수
                 _logger.LogInformation("send 성공");
             }
         }
 
-        //
-        private void PerformReservationUpdateBtn()
+        // SQL Query 던짐 : GetReservationPatientList
+        private void GetReservationPatientList()
         {
             string sql = "SELECT p.PATIENT_NAME , r.SYMPTOM FROM RESERVATION r JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID";
+
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
                 {
                     conn.Open();
-                    
-                    MessageBox.Show("DB Connection OK...");
-                    //_logger.LogInformation("DB Connection OK...");
+                    _logger.LogInformation("DB Connection OK...");
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -94,11 +90,9 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            //_logger.LogInformation("select 실행");
+                            _logger.LogInformation("select 실행");
                             try
                             {
-                                //List<MAModel> datas = new List<MAModel>();
-
                                 while (reader.Read())
                                 {
                                     MAModels.Add(new MAModel() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
@@ -109,11 +103,10 @@ namespace AdminProgram.ViewModels
                                         //TreatStatusVal=reader.GetString(reader.GetOrdinal("TREAT_STATUS_VAL"))
                                     });
                                 }
-                                //reservationGrid.ItemsSource = datas;
                             }
                             finally
                             {
-                                //_logger.LogInformation("데이터 읽어오기 성공");
+                                _logger.LogInformation("데이터 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -121,13 +114,34 @@ namespace AdminProgram.ViewModels
                 }
                 catch (Exception err)
                 {
-                    MessageBox.Show(err.ToString());
+                    _logger.LogInformation(err.ToString());
                 }
             }
         }
 
         private RelayCommand reservationUpdateBtn;
-        public ICommand ReservationUpdateBtn => reservationUpdateBtn ??= new RelayCommand(PerformReservationUpdateBtn);
+        public ICommand ReservationUpdateBtn => reservationUpdateBtn ??= new RelayCommand(GetReservationPatientList);
 
+        /// <summary>
+        /// 2021.12.22 수요일 추가 내용
+        /// </summary>
+        
+        public ICollectionView CollectionView { get; set; }
+
+        private ActionCommand doubleClickCommand;
+        public ICommand DoubleClickCommand => doubleClickCommand ??= new ActionCommand(DoubleClick);
+
+        private MAModel selectedItem;
+        public MAModel SelectedItem 
+        {
+            get => selectedItem; 
+            set => SetProperty(ref selectedItem, value); 
+        }
+
+        private void DoubleClick()
+        {
+            var selected = SelectedItem;
+            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom);
+        }
     }
 }

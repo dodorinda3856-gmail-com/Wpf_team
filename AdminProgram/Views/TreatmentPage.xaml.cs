@@ -102,11 +102,11 @@ namespace AdminProgram
                     comm.CommandText = sql;
                     using (OracleDataReader reader = comm.ExecuteReader())
                     {
-                        List<TreatmentModel> datas0 = new List<TreatmentModel>();
+                        List<TMModel> datas0 = new List<TMModel>();
 
                         while (reader.Read())
                         {
-                            datas0.Add(new TreatmentModel()
+                            datas0.Add(new TMModel()
                             {
                                 PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                 PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
