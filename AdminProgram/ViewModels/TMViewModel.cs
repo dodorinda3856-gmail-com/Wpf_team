@@ -70,15 +70,24 @@ namespace AdminProgram.ViewModels
             }
         }
 
-        // SQL : 진료 정보 가져오기
+        //== SQL : 진료 정보 가져오기 ==//
         private void GetTreatmentData()
         {
-            string sql = "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME " +
-                "FROM RESERVATION r " +
-                "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
-                "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
-            
-            
+            //_logger.LogInformation(""+SearchText.ToString());
+            string sql;
+            string name = searchText;
+            if (name != null)
+            {
+                sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                "FROM PATIENT p, TREATMENT t " +
+                "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '" + searchText + "%'";
+            }
+            else
+            {
+                sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                "FROM PATIENT p, TREATMENT t " +
+                "WHERE p.PATIENT_ID = t.PATIENT_ID";
+            }
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -126,8 +135,8 @@ namespace AdminProgram.ViewModels
         private RelayCommand getTreatmentBtn;
         public ICommand GetTreatmentBtn => getTreatmentBtn ??= new RelayCommand(GetTreatmentData);
 
-        private int searchText; //검색어
-        public int SearchText
+        private string searchText; //검색어
+        public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
