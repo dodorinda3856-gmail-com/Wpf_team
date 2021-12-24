@@ -1,4 +1,5 @@
 ﻿using AdminProgram.ViewModels;
+using AdminProgram.Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,9 +54,21 @@ namespace AdminProgram
             if (row != null && row.IsSelected)
             {
                 AppointmentDetailWindow ad = new AppointmentDetailWindow();
-                ad.Title = "진료 예약 수정 / 삭제 페이지";
+                ad.Title = "진료 예약 환자 상세정보";
                 ad.ShowDialog();
             }
         }
+
+        private void Waiting_Row_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var row = sender as DataGridRow;
+            if (row != null && row.IsSelected)
+            {
+                WaitingListDetailWindow ad = new WaitingListDetailWindow();
+                ad.Title = "방문 대기 환자 상세정보";
+                ad.ShowDialog();
+            }
+        }
+        
     }
 }

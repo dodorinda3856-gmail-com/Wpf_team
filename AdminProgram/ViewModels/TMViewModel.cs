@@ -61,10 +61,10 @@ namespace AdminProgram.ViewModels
 
         private void ProductOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            var maModel = sender as TMModel;
-            if (maModel != null)
+            var rModels = sender as TMModel;
+            if (rModels != null)
             {
-                _logger.LogInformation("{@MAModel}", maModel);
+                _logger.LogInformation("{@rModels}", rModels);
                 WeakReferenceMessenger.Default.Send(TMModels); //이거 필수
                 _logger.LogInformation("send 성공");
             }
