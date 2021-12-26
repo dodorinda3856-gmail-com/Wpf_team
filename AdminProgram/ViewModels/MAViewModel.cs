@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 
 /**
- * MediAppointment.xaml과 관련된 ViewModel
+ * MediAppointment.xaml(진료 예약 관리 페이지)과 관련된 ViewModel
  * 1) 예약한 환자 리스트
  * 2) 방문 대기중인 환자 리스트
  * 3) 진료 완료된 환자 리스트
@@ -29,7 +29,7 @@ namespace AdminProgram.ViewModels
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
         // rModels을 observable collection 형식(사실상 list)으로 받아옴
-        // 1) 예약한 환자 리스트 관련된 Model 사용
+        // 1) 예약한 환자 리스트 관련된 Model 사용을 위함
         private ObservableCollection<ReservationListModel> rModels;
         public ObservableCollection<ReservationListModel> RModels
         {
@@ -37,7 +37,7 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref rModels, value); }
         }
 
-        // 2) 방문 대기중인 환자 리스트 Model 사용
+        // 2) 방문 대기중인 환자 리스트 Model 사용을 위함
         private ObservableCollection<WaitingListModel> wModel;
         public ObservableCollection<WaitingListModel> WModels
         {
@@ -94,6 +94,7 @@ namespace AdminProgram.ViewModels
         //== Messenger 기초 end ==//
 
         //== SQL Query ==//
+        //처음 화면에 보일 DataGrid의 모든 정보를 가져와야 함
         private void GetReservationPatientList()
         {
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
@@ -200,20 +201,19 @@ namespace AdminProgram.ViewModels
 
         private ActionCommand waitingListDoubleClickCommand;
         public ICommand WaitingListDoubleClickCommand => waitingListDoubleClickCommand ??= new ActionCommand(DoubleClick2);
-        //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
 
         //검색어
         private ReservationListModel selectedItem;
-        public ReservationListModel SelectedItem 
+        public ReservationListModel SelectedItem
         {
-            get => selectedItem; 
-            set => SetProperty(ref selectedItem, value); 
+            get => selectedItem;
+            set => SetProperty(ref selectedItem, value);
         }
 
         private void DoubleClick()
         {
             var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom, 
+            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom,
                 "담당 의사는 " + selected.Doctor);
         }
 
@@ -222,5 +222,8 @@ namespace AdminProgram.ViewModels
             var selected = SelectedItem;
             _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom + "입니다.");
         }
+        //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
+
+
     }
 }
