@@ -124,7 +124,7 @@
 
                 <!--상세목록-->
                 <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True" AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <DataGrid.Columns>
                         <!--체크박스고민-->
                         <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>
