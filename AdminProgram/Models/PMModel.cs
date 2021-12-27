@@ -18,6 +18,10 @@ namespace AdminProgram.ViewModels
         private string?     gender = null;                      //성별
         private DateTime    dob;                                //생년월일
         private int         age = 0;                            //나이
+        private string?     agreemarketing = null;              //마케팅동의 여부  <---------여기는 아직 데이터를 받지 않음
+        private string?     isDelete = null;                    //환자삭제상태 여부
+        private string?     home_Num = null;                    //집번호
+
 
         public int Patient_ID 
         {
@@ -73,5 +77,22 @@ namespace AdminProgram.ViewModels
             set => SetProperty(ref dob, value);
         }
 
+        public string Agreemarketing
+        {
+            get => agreemarketing;
+            set => SetProperty(ref agreemarketing, value);
+        }
+
+        public string Home_Num
+        {
+            get => home_Num;
+            set => SetProperty(ref home_Num, value);
+        }
+
+        public string IsDelete
+        {
+            get => isDelete;
+            set => SetProperty(ref isDelete, value);
+        }
     }
 }
