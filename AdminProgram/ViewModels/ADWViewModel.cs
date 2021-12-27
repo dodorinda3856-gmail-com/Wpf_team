@@ -12,12 +12,12 @@ using System.Diagnostics;
 /// </summary>
 namespace AdminProgram.ViewModels
 {
-    public partial class ADWViewModel : ObservableRecipient, IRecipient<ObservableCollection<MAModel>>, IRecipient<MAModel>
+    public partial class ADWViewModel : ObservableRecipient, IRecipient<ObservableCollection<ReservationListModel>>, IRecipient<ReservationListModel>
     {
         private readonly ILogger _logger;
 
-        private ObservableCollection<MAModel> details;
-        public ObservableCollection<MAModel> Details
+        private ObservableCollection<ReservationListModel> details;
+        public ObservableCollection<ReservationListModel> Details
         {
             get => details;
             set => SetProperty(ref details, value);
@@ -30,10 +30,10 @@ namespace AdminProgram.ViewModels
             this.IsActive = true; //이거 필수
         }
 
-        public void Receive(ObservableCollection<MAModel> message) //이거 필수
+        public void Receive(ObservableCollection<ReservationListModel> message) //이거 필수
         {
-            Details = new ObservableCollection<MAModel>();
-            _logger.LogInformation("{@MAModel}", message);
+            Details = new ObservableCollection<ReservationListModel>();
+            _logger.LogInformation("{@rModels}", message);
 
             foreach (var item in message)
             {
@@ -41,7 +41,7 @@ namespace AdminProgram.ViewModels
             }
         }
 
-        public void Receive(MAModel message)
+        public void Receive(ReservationListModel message)
         {
             Console.WriteLine("");
         }

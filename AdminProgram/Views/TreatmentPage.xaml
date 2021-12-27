@@ -43,12 +43,12 @@
                    FontWeight="Bold" FontSize="20" Margin="10,0,10,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <TextBox Text="{Binding SearchText}" Name="searchTextBox" Grid.Column="3" 
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Name="searchTextBox" Grid.Column="3" 
                      Width="287" Height="30" Margin="469,0,10,0" 
-                     VerticalAlignment="Center" HorizontalAlignment="Right" >
-                     <!--KeyDown="searchTextBox_KeyDown">-->
+                     VerticalAlignment="Center" HorizontalAlignment="Right">
+                     
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding GetTreatmentBtn}"/>
+                    <KeyBinding Command="{Binding GetTreatmentBtn}" Key="Enter"/>
                 </TextBox.InputBindings>
             </TextBox>
             <!--placeholder와 비슷한 느낌을 내는 부분 start-->
