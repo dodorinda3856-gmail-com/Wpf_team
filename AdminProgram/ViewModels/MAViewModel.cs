@@ -45,6 +45,14 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref wModel, value); }
         }
 
+        // 3) 시간 table 사용 위함
+        private ObservableCollection<TimeModel> timeModel;
+        public ObservableCollection<TimeModel> TimeModels
+        {
+            get { return timeModel; }
+            set { SetProperty(ref timeModel, value); }
+        }
+
         public MAViewModel(ILogger<MAViewModel> logger)
         {
             _logger = logger;
@@ -98,8 +106,8 @@ namespace AdminProgram.ViewModels
         private void GetReservationPatientList()
         {
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
-            string sql = 
-                "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME " +
+            string sql =
+                "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.TREAT_TYPE  " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
@@ -129,7 +137,8 @@ namespace AdminProgram.ViewModels
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
                                         ReservationDT = reader.GetDateTime(reader.GetOrdinal("RESERVATION_DATE")),
                                         Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM")),
-                                        Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
+                                        Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
+                                        TreatType = reader.GetString(reader.GetOrdinal("TREAT_TYPE"))
                                     });
                                 }
                             }
@@ -202,7 +211,7 @@ namespace AdminProgram.ViewModels
         private ActionCommand waitingListDoubleClickCommand;
         public ICommand WaitingListDoubleClickCommand => waitingListDoubleClickCommand ??= new ActionCommand(DoubleClick2);
 
-        //검색어
+        //예약 리스트에서 선택된 값 처리
         private ReservationListModel selectedItem;
         public ReservationListModel SelectedItem
         {
@@ -217,6 +226,18 @@ namespace AdminProgram.ViewModels
                 "담당 의사는 " + selected.Doctor);
         }
 
+        //병원 대기자 리스트에서 선택된 값 처리
+        /*private WaitingListModel selectedItem2;
+        public WaitingListModel SelectedItem2
+        {
+            get => selectedItem2;
+            set => SetProperty(ref selectedItem2, value);
+        }
+        private void DoubleClick2()
+        {
+            var selected = SelectedItem2;
+            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom + "입니다.");
+        }*/
         private void DoubleClick2()
         {
             var selected = SelectedItem;
@@ -224,6 +245,20 @@ namespace AdminProgram.ViewModels
         }
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
 
+        //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 start ==//
+        private TimeModel selectedTime;
+        public TimeModel SelectedTime
+        {
+            get => selectedTime;
+            set => SetProperty(ref selectedTime, value);
+        }
 
+        private void GetTimeList()
+        {
+
+        }
+        private RelayCommand getTime;
+        public ICommand GetTime => getTime ??= new RelayCommand(GetTimeList);
+        //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 end ==//
     }
 }

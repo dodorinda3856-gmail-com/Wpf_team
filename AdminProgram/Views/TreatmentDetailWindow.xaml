@@ -4,9 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram.Views"
+        DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
         mc:Ignorable="d"
         Title="진료 환자 상세정보 페이지" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="진료하는 환자의 데이터를 추가할 수 있습니다." VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+        <Label Content="이름: " Grid.Column="0" Grid.Row="1" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding Path=SelectedPatient.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Button Content="예약 수정" Grid.Column="2" Grid.Row="4"/>
+        <Button Content="예약 삭제" Grid.Column="4" Grid.Row="4"/>
     </Grid>
 </Window>

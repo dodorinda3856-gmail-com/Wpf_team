@@ -1,5 +1,8 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 
+/**
+ * 진료 관리 페이지 Model
+ */
 namespace AdminProgram.Models
 {
     public partial class TMModel : ObservableObject

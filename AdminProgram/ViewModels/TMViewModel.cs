@@ -144,12 +144,20 @@ namespace AdminProgram.ViewModels
         }
         private RelayCommand getTreatmentBtn;
         public ICommand GetTreatmentBtn => getTreatmentBtn ??= new RelayCommand(GetTreatmentData);
-
-        private string searchText; //검색어
+        
+        //검색어
+        private string searchText;
         public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
+        }
+
+        private TMModel selectedPatient;
+        public TMModel SelectedPatient
+        {
+            get => selectedPatient;
+            set => SetProperty(ref selectedPatient, value);
         }
     }
 }

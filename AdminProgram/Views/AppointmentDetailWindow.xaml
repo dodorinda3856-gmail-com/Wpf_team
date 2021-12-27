@@ -20,16 +20,38 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="예약 수정, 삭제 페이지 입니다" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Button Content="수정" Grid.Column="3"/>
-        <Button Content="삭제" Grid.Column="4"/>
 
-        <TextBlock Text="정보 가져오기" Grid.Column="1" 
+        <Label Content="이름: " Grid.Column="0" Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Text="{Binding Path=SelectedItem.Symptom, Mode=TwoWay}" Grid.Column="2"
+        <TextBlock Text="{Binding Path=SelectedItem.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        
+        <Label Content="예약 일시: " Grid.Column="0" Grid.Row="2"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <DatePicker Grid.Column="1"  Grid.Row="2"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <!--ComboBox DataBinding 진행해야 함-->
+        <!--ViewModel에 Time Table의 값을 가져오는 쿼리를 던져야 함...(복잡할 것으로 예상되는,,,)-->
+        <ComboBox Grid.Column="2"  Grid.Row="2"
+                  ItemsSource="{Binding Path=TimeModels}" SelectedItem="{Binding Path=SelectedTime}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Hour}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Content="진료 유형: " Grid.Column="0" Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding Path=SelectedItem.TreatType, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Button Content="예약 수정" Grid.Column="2" Grid.Row="4"/>
+        <Button Content="예약 삭제" Grid.Column="4" Grid.Row="4"/>
+        
     </Grid>
 </Window>

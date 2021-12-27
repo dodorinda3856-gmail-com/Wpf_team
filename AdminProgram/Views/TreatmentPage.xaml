@@ -72,7 +72,8 @@
         <!--진료 리스트-->
         <DataGrid x:Name="treatDataGrid" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,30,0,0"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=TMModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=TMModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth ="50" Width="Auto" Header="환자 번호" Binding="{Binding PatientNumber}"/>
                 <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 이름" Binding="{Binding PatientName}"/>
