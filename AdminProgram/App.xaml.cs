@@ -32,6 +32,7 @@ namespace AdminProgram
             this.InitializeComponent();
         }
 
+        //== 요 아래의 사용성은 잘 모르겠으나 참고한 자료에는 있었음... ==//
         public new static App Current => (App)Application.Current;
         public IServiceProvider Services { get; }
         private static IServiceProvider ConfigureServices()
