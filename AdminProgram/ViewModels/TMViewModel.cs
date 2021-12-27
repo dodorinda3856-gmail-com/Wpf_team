@@ -18,11 +18,10 @@ namespace AdminProgram.ViewModels
 {
     public class TMViewModel : ObservableRecipient
     {
-        //로그
-        private readonly ILogger _logger; 
-        //sql 연결
+        private readonly ILogger _logger; // 로그   
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
+        //진료 정보 관련 Model 사용을 위함
         private ObservableCollection<TMModel> tmModel;
         public ObservableCollection<TMModel> TMModels
         {
@@ -39,8 +38,11 @@ namespace AdminProgram.ViewModels
             TMModels.CollectionChanged += ContentCollectionChanged;
         }
 
+        //== Messenger 사용 start ==//
+        //== 데이터의 변경을 감지함 ==//
         private void ContentCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
+            
             if (e.OldItems != null)
             {
                 foreach (INotifyPropertyChanged removed in e.OldItems)
@@ -61,24 +63,36 @@ namespace AdminProgram.ViewModels
 
         private void ProductOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            var maModel = sender as TMModel;
-            if (maModel != null)
+            //Model 값의 변경을 감지
+            var rModels = sender as TMModel;
+            if (rModels != null)
             {
-                _logger.LogInformation("{@MAModel}", maModel);
+                _logger.LogInformation("{@rModels}", rModels);
                 WeakReferenceMessenger.Default.Send(TMModels); //이거 필수
                 _logger.LogInformation("send 성공");
             }
         }
+        //== Messenger 사용 end ==//
 
-        // SQL : 진료 정보 가져오기
+        //== SQL : 진료 정보 가져오기 ==//
+        //검색어를 기준으로 진료 정보 가져옴
+        //검색어가 없으면 그냥 전체 진료 정보를 가져옴
         private void GetTreatmentData()
         {
-            string sql = "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME " +
-                "FROM RESERVATION r " +
-                "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
-                "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
-            
-            
+            string sql;
+            string name = searchText;
+            if (name != null)
+            {
+                sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                "FROM PATIENT p, TREATMENT t " +
+                "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '" + searchText + "%'";
+            }
+            else
+            {
+                sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
+                "FROM PATIENT p, TREATMENT t " +
+                "WHERE p.PATIENT_ID = t.PATIENT_ID";
+            }
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -87,6 +101,12 @@ namespace AdminProgram.ViewModels
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
 
+                    //TMModels = null;
+                    //DataGrid 사용 시 이전에 검색했던(조회했던) 내용이 없어지지 않고
+                    //계속 남아있는 문제점 해결을 위해 추가
+                    TMModels = new ObservableCollection<TMModel>();
+                    TMModels.CollectionChanged += ContentCollectionChanged;
+
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
@@ -94,12 +114,12 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            _logger.LogInformation("select 실행");
+                            _logger.LogInformation("GetTreatmentData() : select 실행");
                             try
                             {
                                 while (reader.Read())
                                 {
-                                    TMModels.Add(new TMModel() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
+                                    TMModels.Add(new TMModel()
                                     {
                                         PatientNumber = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
@@ -110,7 +130,7 @@ namespace AdminProgram.ViewModels
                             }
                             finally
                             {
-                                _logger.LogInformation("데이터 읽어오기 성공");
+                                _logger.LogInformation("진료 데이터 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -122,12 +142,11 @@ namespace AdminProgram.ViewModels
                 }
             }
         }
-
         private RelayCommand getTreatmentBtn;
         public ICommand GetTreatmentBtn => getTreatmentBtn ??= new RelayCommand(GetTreatmentData);
 
-        private int searchText; //검색어
-        public int SearchText
+        private string searchText; //검색어
+        public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
