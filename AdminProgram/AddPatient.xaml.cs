@@ -170,26 +170,6 @@ namespace AdminProgram
                                         ", '" + homeNum.Text + "'" +
                                         ", To_Date('2021-12-20', 'yyyy-MM-dd')" +
                                         ", 'T')";
-                                        
-            /*  
-                                        ", :securityNum" +
-                                        ", :name" +
-                                        ", :address" +
-                                        ", :phoneNum" +
-                                        ", :gender" +
-                                        ", To_Date(:date, 'yyyy-MM-dd')" +
-                                        ", :smsCheck" +
-                                        ", :homeNum" +
-                                        ", To_Date('2021-12-20', 'yyyy-MM-dd'))";
-
-            comm.Parameters.Add(new OracleParameter("name", patientName.Text));
-            comm.Parameters.Add(new OracleParameter("securityNum", securityNum.Text));
-            comm.Parameters.Add(new OracleParameter("address", address.Text));
-            comm.Parameters.Add(new OracleParameter("phoneNum", phoneNum.Text));
-            comm.Parameters.Add(new OracleParameter("homeNum", homeNum.Text));
-            comm.Parameters.Add(new OracleParameter("smsCheck", checksms()));
-            comm.Parameters.Add(new OracleParameter("gender", checkgen()));
-            comm.Parameters.Add(new OracleParameter("date", datePicker.Text)); */
 
             //실행시키는기능
             comm.ExecuteNonQuery();
