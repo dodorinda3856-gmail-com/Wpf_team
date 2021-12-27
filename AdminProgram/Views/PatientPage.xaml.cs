@@ -21,14 +21,17 @@ namespace AdminProgram
             gender_combobox.SelectedIndex = 0; //콤보박스 기본값설정
         }
 
+        //선택된 환자의 진료 상세정보 가져오기 - 진행 중
         private void Row_DoubleClick(object sender, EventArgs args)
         {
-            //선택된 환자의 진료 상세정보 가져오기 - 진행 중
             var row = sender as DataGridRow;
 
             if (row != null && row.IsSelected)
             {
+                PMModel tmp = (PMModel)row.Item; //선언이 문제였다. 아래서는 안먹는 부분이 있다. 좀더 깔끔하게 정리해야함
+                ModifiyPatient.Passvalue = tmp;
                 ModifiyPatient tw = new ModifiyPatient();
+                
                 tw.ShowDialog();
             }
         }
@@ -45,11 +48,11 @@ namespace AdminProgram
             }
             else
             {
-                //날짜 가져오는 부분
                 MessageBox.Show(date.Value.ToShortDateString());
             }
         }
 
+        //환자추가하기 버튼이벤트
         private void AddPatient_Btn(object sender, RoutedEventArgs e)
         {
             AddPatient addPatient = new();
@@ -229,33 +232,6 @@ namespace AdminProgram
 
             reader.Close();
 
-            /*using (OracleCommand comm = new OracleCommand())
-            {
-                comm.Connection = conn;
-                comm.CommandText = sql;
-
-                using (OracleDataReader reader = comm.ExecuteReader())
-                {
-                    List<PMModel> datas = new List<PMModel>();
-
-                    while (reader.Read())
-                    {
-                        datas.Add(new PMModel()
-                        {
-                            Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                            Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")), //listView의 textblock id(?)
-                            Address = reader.GetString(reader.GetOrdinal("Address")),
-                            Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
-                            Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
-                            Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
-                            Gender = reader.GetString(reader.GetOrdinal("Gender")),
-                            Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
-                            Age = calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
-                        });
-                    }
-                    dataGrid.ItemsSource = datas;
-                }
-            }*/
         }
     }
     
