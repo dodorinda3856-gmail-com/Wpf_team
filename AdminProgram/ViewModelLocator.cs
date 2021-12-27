@@ -9,7 +9,7 @@ namespace AdminProgram
     {
         public MAViewModel MAVM => Ioc.Default.GetService<MAViewModel>();
         public ADWViewModel ADWVM => Ioc.Default.GetService<ADWViewModel>();
-        public PMViewModel PMVM => Ioc.Default.GetService<PMViewModel>(); // 아직 App.xaml.cs에 등록 안함
+        //public PMViewModel PMVM => Ioc.Default.GetService<PMViewModel>(); // 아직 App.xaml.cs에 등록 안함
         public TMViewModel TMVM => Ioc.Default.GetService<TMViewModel>();
     }
 }
