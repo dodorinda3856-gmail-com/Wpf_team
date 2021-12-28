@@ -43,4 +43,13 @@
             </Setter.Value>
         </Setter>
     </Style>
+<!--DataGrid Style-->
+    <Style x:Key="DGHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="Beige"/>
+        <!--<Setter Property="HorizontalAlignment" Value="Center"/>-->
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+    
 </ResourceDictionary>

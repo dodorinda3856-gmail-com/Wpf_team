@@ -122,8 +122,9 @@ namespace AdminProgram.ViewModels
                     RModels = new ObservableCollection<ReservationListModel>();
                     RModels.CollectionChanged += ContentCollectionChanged;
 
-                    WModels = new ObservableCollection<WaitingListModel>();
-                    WModels.CollectionChanged += ContentCollectionChanged;
+                    /*WModels = new ObservableCollection<WaitingListModel>();
+                    WModels.CollectionChanged += ContentCollectionChanged;*/
+
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
@@ -146,6 +147,10 @@ namespace AdminProgram.ViewModels
                                         TreatType = reader.GetString(reader.GetOrdinal("TREAT_TYPE"))
                                     });
                                 }
+                            }
+                            catch(InvalidCastException e)
+                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogInformation(e + "");
                             }
                             finally
                             {
@@ -181,6 +186,10 @@ namespace AdminProgram.ViewModels
                                         Symptom = reader.GetString(reader.GetOrdinal("REQUIREMENTS"))
                                     });
                                 }
+                            }
+                            catch (InvalidCastException e)
+                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogInformation(e + "");
                             }
                             finally
                             {

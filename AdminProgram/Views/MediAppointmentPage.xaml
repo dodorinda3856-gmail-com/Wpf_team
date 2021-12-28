@@ -1,4 +1,7 @@
-﻿<Page x:Class="AdminProgram.Views.MediAppointmentPage"
+﻿
+<!--대기/예약 관리 페이지-->
+    
+<Page x:Class="AdminProgram.Views.MediAppointmentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +14,6 @@
     <Page.Resources>
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
     </Page.Resources>
-<!--대기/예약 관리 페이지-->
     <Grid>
         <Grid Margin="60,20,20,20">
             <Grid.ColumnDefinitions>
