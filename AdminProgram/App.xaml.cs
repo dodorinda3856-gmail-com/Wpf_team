@@ -18,6 +18,7 @@ namespace AdminProgram
                 (new ServiceCollection()
                     .AddSingleton<MAViewModel>()
                     .AddSingleton<TMViewModel>()
+                    .AddSingleton<SPViewModel>()
                     .AddLogging(builder =>
                     {
                         var logger = new LoggerConfiguration()

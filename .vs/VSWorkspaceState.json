@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AdminProgram",
+    "\\AdminProgram\\ViewModels"
   ],
   "SelectedNode": "\\AdminProgram.sln",
   "PreviewInSolutionExplorer": false

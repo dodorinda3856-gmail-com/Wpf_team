@@ -2,10 +2,9 @@
 
 namespace AdminProgram.Models
 {
-    public partial class TMTModel : ObservableObject
+    public partial class TMTModel
     {
-        public int Bueaty_Type { get; set; }
-        public int Hives_Type { get; set; }
-        public int Allergy_Type { get; set; }
+        public string TREAT_TYPE { get; set; }
+        public int TREAT_COUNT { get; set;  }
     }
 }

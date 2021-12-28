@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AdminProgram" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
     <Grid>
-        <lvc:PieChart LegendLocation="Bottom" Series="{Binding SeriesCollection}" DataClick="Chart_OnDataClick" 
-                      Hoverable="True"  InnerRadius="20" Margin="30">
-
+        <lvc:PieChart LegendLocation="Bottom" Series="{Binding Path=_seriesCollection, Mode=TwoWay}" DataClick="Chart_OnDataClick" 
+                      Hoverable="True"  InnerRadius="20" Margin="30,30,30,30">
             <lvc:PieChart.ChartLegend>
                 <lvc:DefaultLegend BulletSize="15" TextBlock.FontSize="8"></lvc:DefaultLegend>
             </lvc:PieChart.ChartLegend>
@@ -17,9 +17,5 @@
                 <lvc:DefaultTooltip BulletSize="20"></lvc:DefaultTooltip>
             </lvc:PieChart.DataTooltip>
         </lvc:PieChart>
-        <Button Name="Prev_btn" Content="PREV" HorizontalAlignment="Left" Margin="82,400,0,0" VerticalAlignment="Top" Click ="Next_Month"/>
-        <Button Name="Next_btn" Content="NEXT" HorizontalAlignment="Left" Margin="652,400,0,0" VerticalAlignment="Top" Click="Prev_Month"/>
     </Grid>
-
-
 </UserControl>
