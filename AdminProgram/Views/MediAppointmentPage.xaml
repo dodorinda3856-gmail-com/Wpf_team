@@ -8,12 +8,15 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
       Title="MediAppointmentPage">
+    <Page.Resources>
+        <ResourceDictionary Source="ResourceDictionary.xaml"/>
+    </Page.Resources>
 <!--대기/예약 관리 페이지-->
     <Grid>
         <Grid Margin="60,20,20,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -49,9 +52,12 @@
                 <Label Content="의사이름: " Grid.Column="3" VerticalAlignment="Center" FontSize="18"/>
                 <TextBlock Text="나현정" Grid.Column="4" VerticalAlignment="Center" FontSize="18"/>
 
-                <Button Content="동기화" Grid.Column="5" Command ="{Binding ReservationUpdateBtn}"/>
-                <Button Content="등록" Grid.Column="7" Click="AddAppointmentBtn"/>
-                <Button Content="수납 완료" Grid.Column="9" Click="FinishedBtn"/>
+                <Button Content="동기화" Grid.Column="5" 
+                        Command ="{Binding ReservationUpdateBtn}" Style="{StaticResource RadiusBtn}"/>
+                <Button Content="등록" Grid.Column="7" Click="AddAppointmentBtn"
+                        Style="{StaticResource RadiusBtn}"/>
+                <Button Content="수납 완료" Grid.Column="9" Click="FinishedBtn"
+                        Style="{StaticResource RadiusBtn}"/>
             </Grid>
 
             <!--방문 대기 환자-->
