@@ -35,6 +35,77 @@
                                 <GradientStop Color="Aquamarine" Offset="1" />
                             </LinearGradientBrush>
                         </Border.Background>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.5" />
+                                    <VisualTransition 
+                                        GeneratedDuration="0"
+                                        To="Pressed" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <!--마우스가 버튼 위로 올라갔을 경우 효과-->
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame 
+                                                KeyTime="1"
+                                                Value="Blue" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <!--버튼 누를때 효과-->
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame 
+                                                KeyTime="0"
+                                                Value="SkyBlue" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="(Border.BorderBrush).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame
+                                                KeyTime="0"
+                                                Value="SkyBlue" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="(Border.BorderBrush).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="SkyBlue" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="SkyBlue" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="SkyBlue"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="(Border.BorderBrush).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                            Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame 
+                                                KeyTime="0"
+                                                Value="SkyBlue"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                         <!--Content 나타내기 위함(이거 없으면 Content가 없어져...)-->
                         <ContentPresenter Margin="2" RecognizesAccessKey="True" 
                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>

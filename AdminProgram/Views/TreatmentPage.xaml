@@ -72,6 +72,7 @@
         </Grid>
         
         <!--진료 리스트-->
+        <!--가장 최근에 진료 명단에 들어온 환자를 가장 위에 둘 것인가?-->
         <DataGrid x:Name="treatDataGrid" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,30,0,0"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=TMModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
@@ -96,9 +97,9 @@
             </DataGrid.ItemContainerStyle>
         </DataGrid>
         <TextBlock Text="" Grid.Row="3" />
-        <Button Content="확인" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" 
+        <!--<Button Content="확인" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" 
                     Style="{StaticResource RadiusBtn}"/>
         <Button Content="수정" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" 
-                    Style="{StaticResource RadiusBtn}"/>
+                    Style="{StaticResource RadiusBtn}"/>-->
     </Grid>
 </Page>

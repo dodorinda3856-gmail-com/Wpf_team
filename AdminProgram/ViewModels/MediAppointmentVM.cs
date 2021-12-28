@@ -122,8 +122,8 @@ namespace AdminProgram.ViewModels
                     RModels = new ObservableCollection<ReservationListModel>();
                     RModels.CollectionChanged += ContentCollectionChanged;
 
-                    /*WModels = new ObservableCollection<WaitingListModel>();
-                    WModels.CollectionChanged += ContentCollectionChanged;*/
+                    WModels = new ObservableCollection<WaitingListModel>();
+                    WModels.CollectionChanged += ContentCollectionChanged;
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -247,9 +247,17 @@ namespace AdminProgram.ViewModels
         }
         private void DoubleClick()
         {
-            var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom,
-                "담당 의사는 " + selected.Doctor);
+            try
+            {//데이터가 없는 부분에 더블 클릭하면 프로그램 중단되는 문제 해결을 위해 try-catch문 사용
+                var selected = SelectedItem;
+                _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom,
+                    "담당 의사는 " + selected.Doctor);
+            } 
+            catch (NullReferenceException e)
+            {
+                _logger.LogInformation(e+"");
+            }
+            
         }
 
         //방문 대기 환자 리스트 정보 messneger에 활용
@@ -267,8 +275,15 @@ namespace AdminProgram.ViewModels
         }
         private void DoubleClick2()
         {
-            var selected2 = SelectedItem2;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected2.PatientName + ", 증상은 " + selected2.Symptom);
+            try
+            {//데이터가 없는 부분에 더블 클릭하면 프로그램 중단되는 문제 해결을 위해 try-catch문 사용
+                var selected2 = SelectedItem2;
+                _logger.LogInformation("선택된 행의 환자 이름은 " + selected2.PatientName + ", 증상은 " + selected2.Symptom);
+            }
+            catch(NullReferenceException e)
+            {
+                _logger.LogInformation(e + "");
+            }
         }
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
 

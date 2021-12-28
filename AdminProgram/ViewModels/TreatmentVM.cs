@@ -133,7 +133,7 @@ namespace AdminProgram.ViewModels
                 }
                 catch (Exception err)
                 {
-                    _logger.LogInformation(err.ToString());
+                    _logger.LogInformation(err+"");
                 }
             }
         }
@@ -154,5 +154,14 @@ namespace AdminProgram.ViewModels
             get => selectedPatient;
             set => SetProperty(ref selectedPatient, value);
         }
+
+        //== 진료 내용 저장 start ==//
+        private void SaveTreatmentData()
+        {
+            _logger.LogInformation("진료 내용을 저장합니다.");
+        }
+        private RelayCommand saveTreatmentDataBtn;
+        public ICommand SaveTreatmentDataBtn => saveTreatmentDataBtn ??= new RelayCommand(SaveTreatmentData);
+        //== 진료 내용 저장 end ==//
     }
 }
