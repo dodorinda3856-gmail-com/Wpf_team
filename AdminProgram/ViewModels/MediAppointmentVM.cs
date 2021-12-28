@@ -19,7 +19,7 @@ using System.Windows.Input;
  */
 namespace AdminProgram.ViewModels
 {
-    public class MAViewModel : ObservableRecipient
+    public class MediAppointmentVM : ObservableRecipient
     {
         // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
         // messenger의 send와 receive도 하는 곳
@@ -53,7 +53,7 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref timeModel, value); }
         }
 
-        public MAViewModel(ILogger<MAViewModel> logger)
+        public MediAppointmentVM(ILogger<MediAppointmentVM> logger)
         {
             _logger = logger;
             _logger.LogInformation("{@ILogger}", logger);
@@ -101,8 +101,7 @@ namespace AdminProgram.ViewModels
         }
         //== Messenger 기초 end ==//
 
-        //== SQL Query ==//
-        //처음 화면에 보일 DataGrid의 모든 정보를 가져와야 함
+        //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query start ==//
         private void GetReservationPatientList()
         {
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
@@ -190,26 +189,25 @@ namespace AdminProgram.ViewModels
                 }
             }
         }
-
         private RelayCommand reservationUpdateBtn;
         public ICommand ReservationUpdateBtn => reservationUpdateBtn ??= new RelayCommand(GetReservationPatientList);
+        //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query end ==//
 
-        /// <summary>
-        /// 2021.12.22 수요일 추가 내용
-        /// </summary>
-        
+        //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) start ==//
+        private void DeleteWaitingData()
+        {
+            _logger.LogInformation("대기 정보를 지웁니다.");
+        }
+        private RelayCommand deleteWaitingDataBtn;
+        public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
+        //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) end ==//
+
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 start ==//
         //예약 환자 리스트 정보 messenger에 활용
         public ICollectionView CollectionView { get; set; }
 
         private ActionCommand reservationListDoubleClickCommand;
         public ICommand ReservationListDoubleClickCommand => reservationListDoubleClickCommand ??= new ActionCommand(DoubleClick);
-
-        //방문 대기 환자 리스트 정보 messneger에 활용
-        public ICollectionView CollectionView2 { get; set; }
-
-        private ActionCommand waitingListDoubleClickCommand;
-        public ICommand WaitingListDoubleClickCommand => waitingListDoubleClickCommand ??= new ActionCommand(DoubleClick2);
 
         //예약 리스트에서 선택된 값 처리
         private ReservationListModel selectedItem;
@@ -218,7 +216,6 @@ namespace AdminProgram.ViewModels
             get => selectedItem;
             set => SetProperty(ref selectedItem, value);
         }
-
         private void DoubleClick()
         {
             var selected = SelectedItem;
@@ -226,8 +223,14 @@ namespace AdminProgram.ViewModels
                 "담당 의사는 " + selected.Doctor);
         }
 
-        //병원 대기자 리스트에서 선택된 값 처리
-        /*private WaitingListModel selectedItem2;
+        //방문 대기 환자 리스트 정보 messneger에 활용
+        public ICollectionView CollectionView2 { get; set; }
+
+        private ActionCommand waitingListDoubleClickCommand;
+        public ICommand WaitingListDoubleClickCommand => waitingListDoubleClickCommand ??= new ActionCommand(DoubleClick2);
+
+        //병원 대기자 리스트에서 선택된 값 처리 - 진행중
+        private WaitingListModel selectedItem2;
         public WaitingListModel SelectedItem2
         {
             get => selectedItem2;
@@ -235,13 +238,8 @@ namespace AdminProgram.ViewModels
         }
         private void DoubleClick2()
         {
-            var selected = SelectedItem2;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom + "입니다.");
-        }*/
-        private void DoubleClick2()
-        {
-            var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom + "입니다.");
+            var selected2 = SelectedItem2;
+            _logger.LogInformation("선택된 행의 환자 이름은 " + selected2.PatientName + ", 증상은 " + selected2.Symptom);
         }
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
 

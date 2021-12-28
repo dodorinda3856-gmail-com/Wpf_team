@@ -26,14 +26,14 @@
         <TextBlock Text="예약 수정, 삭제 페이지 입니다" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <Label Content="이름: " Grid.Column="0" Grid.Row="1" 
-                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <TextBlock Text="{Binding Path=SelectedItem.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
         
         <Label Content="예약 일시: " Grid.Column="0" Grid.Row="2"
-               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+               VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <DatePicker Grid.Column="1"  Grid.Row="2"
-                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <!--ComboBox DataBinding 진행해야 함-->
         <!--ViewModel에 Time Table의 값을 가져오는 쿼리를 던져야 함...(복잡할 것으로 예상되는,,,)-->
         <ComboBox Grid.Column="2"  Grid.Row="2"
@@ -46,7 +46,7 @@
         </ComboBox>
 
         <Label Content="진료 유형: " Grid.Column="0" Grid.Row="3" 
-                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <TextBlock Text="{Binding Path=SelectedItem.TreatType, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
 

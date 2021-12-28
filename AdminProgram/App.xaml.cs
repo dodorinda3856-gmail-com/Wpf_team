@@ -16,8 +16,8 @@ namespace AdminProgram
         {
             Ioc.Default.ConfigureServices
                 (new ServiceCollection()
-                    .AddSingleton<MAViewModel>()
-                    .AddSingleton<TMViewModel>()
+                    .AddSingleton<MediAppointmentVM>()
+                    .AddSingleton<TreatmentVM>()
                     .AddLogging(builder =>
                     {
                         var logger = new LoggerConfiguration()
@@ -40,7 +40,7 @@ namespace AdminProgram
             var services = new ServiceCollection();
 
             // ViewModel, View 등록 {
-            services.AddSingleton<MAViewModel>();
+            services.AddSingleton<MediAppointmentVM>();
             //services.AddSingleton<MediAppointmentPage>();
             /*services.AddTransient<Page1>();//page1을 여러 viewmodel이 봐도 하나의 view만 보는 기능이 됨
             services.AddTransient<Page2>();*/
