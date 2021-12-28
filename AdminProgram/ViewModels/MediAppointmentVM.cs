@@ -118,6 +118,12 @@ namespace AdminProgram.ViewModels
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
 
+                    //데이터가 누적되던 문제 해결
+                    RModels = new ObservableCollection<ReservationListModel>();
+                    RModels.CollectionChanged += ContentCollectionChanged;
+
+                    WModels = new ObservableCollection<WaitingListModel>();
+                    WModels.CollectionChanged += ContentCollectionChanged;
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
@@ -148,7 +154,7 @@ namespace AdminProgram.ViewModels
                             }
                         }
                         sql =
-                            "SELECT p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
+                            "SELECT w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
                             "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD') ORDER BY w.REQUEST_TO_WAIT";
@@ -166,6 +172,7 @@ namespace AdminProgram.ViewModels
                                 {
                                     WModels.Add(new WaitingListModel()
                                     {
+                                        PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
                                         PatientGender = reader.GetString(reader.GetOrdinal("GENDER")),
                                         PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
@@ -194,13 +201,26 @@ namespace AdminProgram.ViewModels
         //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query end ==//
 
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) start ==//
+        //진행중...
         private void DeleteWaitingData()
         {
-            _logger.LogInformation("대기 정보를 지웁니다.");
+            //후속 처리 쿼리 짜서 넣으면 됨
+            _logger.LogInformation("이 환자를 대기자 리스트에서 삭제합니다.");
         }
         private RelayCommand deleteWaitingDataBtn;
         public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) end ==//
+
+        //== 전화로 예약 취소하는 경우 start ==//
+        //진행중...
+        private void FinDiagnosis()
+        {
+            //후속 처리 쿼리 짜서 넣으면 됨
+            _logger.LogInformation("수납을 완료하였습니다.");
+        }
+        private RelayCommand finDiagnosisBtn;
+        public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
+        //== 전화로 예약 취소하는 경우 end ==//
 
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 start ==//
         //예약 환자 리스트 정보 messenger에 활용
@@ -244,6 +264,7 @@ namespace AdminProgram.ViewModels
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
 
         //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 start ==//
+        //진행중...
         private TimeModel selectedTime;
         public TimeModel SelectedTime
         {

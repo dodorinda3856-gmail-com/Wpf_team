@@ -97,7 +97,6 @@ namespace AdminProgram.ViewModels
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
 
-                    //TMModels = null;
                     //DataGrid 사용 시 이전에 검색했던(조회했던) 내용이 없어지지 않고
                     //계속 남아있는 문제점 해결을 위해 추가
                     TMModels = new ObservableCollection<TreatmentModel>();

@@ -17,10 +17,10 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
-            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -31,35 +31,41 @@
 
         <TextBlock Text="방문 대기 환자 상세정보 페이지입니다" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Label Content="이름: " Grid.Column="0" Grid.Row="1" 
+        <Label Content="환자 번호: " Grid.Column="0" Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedItem2.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
-                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-        <Label Content="성별: " Grid.Column="0" Grid.Row="2"
-               VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedItem2.PatientGender, Mode=TwoWay}" Grid.Column="1"  Grid.Row="2" 
+        <TextBlock Text="{Binding Path=SelectedItem2.PatientId, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
         
-        <Label Content="대기 등록 일시: " Grid.Column="0" Grid.Row="3"
+        <Label Content="이름: " Grid.Column="0" Grid.Row="2" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Path=SelectedItem2.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="2" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Label Content="성별: " Grid.Column="0" Grid.Row="3"
                VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
-                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-        <Label Content="전화번호: " Grid.Column="0" Grid.Row="4" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1"  Grid.Row="4" 
-                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-        <Label Content="주소: " Grid.Column="0" Grid.Row="5" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedItem2.PatientAddress ,Mode=TwoWay}" Grid.Column="1"  Grid.Row="5" 
+        <TextBlock Text="{Binding Path=SelectedItem2.PatientGender, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
         
-        <!--대기자가 진료를 취소하고 돌아간 경우-->
-        <Button Content="수납 완료" Grid.Column="3" Grid.Row="6"
-                Style="{StaticResource RadiusBtn}"/>
-        <Button Content="대기자 삭제" Grid.Column="4" Grid.Row="6"
+        <Label Content="대기 등록 일시: " Grid.Column="0" Grid.Row="4"
+               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1"  Grid.Row="4" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Label Content="전화번호: " Grid.Column="0" Grid.Row="5" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1"  Grid.Row="5" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Label Content="주소: " Grid.Column="0" Grid.Row="6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Path=SelectedItem2.PatientAddress ,Mode=TwoWay}" Grid.Column="1"  Grid.Row="6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        
+        <!--대기자가 진료를 완료한 경우-->
+        <Button Content="수납 완료" Grid.Column="3" Grid.Row="7"
+                Command="{Binding FinDiagnosisBtn}" Style="{StaticResource RadiusBtn}"/>
+        <!--막상 환자가 없는 경우-->
+        <Button Content="대기자 삭제" Grid.Column="4" Grid.Row="7"
                 Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}"/>
     </Grid>
 </Window>

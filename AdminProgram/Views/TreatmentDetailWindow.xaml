@@ -7,6 +7,9 @@
         DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
         mc:Ignorable="d"
         Title="진료 환자 상세정보 페이지" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="ResourceDictionary.xaml"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -31,7 +34,9 @@
         <TextBlock Text="{Binding Path=SelectedPatient.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-        <Button Content="예약 수정" Grid.Column="2" Grid.Row="4"/>
-        <Button Content="예약 삭제" Grid.Column="4" Grid.Row="4"/>
+        <Button Content="예약 수정" Grid.Column="2" Grid.Row="4"
+                Style="{StaticResource RadiusBtn}"/>
+        <Button Content="예약 삭제" Grid.Column="4" Grid.Row="4"
+                Style="{StaticResource RadiusBtn}"/>
     </Grid>
 </Window>

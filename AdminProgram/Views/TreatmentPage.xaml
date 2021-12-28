@@ -12,7 +12,9 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
       Title="TreatmentPage">
-
+    <Page.Resources>
+        <ResourceDictionary Source="ResourceDictionary.xaml"/>
+    </Page.Resources>
     <Grid Margin="60,20,20,20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -109,8 +111,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Content="확인" Grid.Column="0" Grid.Row="1" />
-            <Button Content="수정" Grid.Column="1" Grid.Row="1" />
+            <Button Content="확인" Grid.Column="0" Grid.Row="1" 
+                    Style="{StaticResource RadiusBtn}"/>
+            <Button Content="수정" Grid.Column="1" Grid.Row="1" 
+                    Style="{StaticResource RadiusBtn}"/>
         </Grid>
     </Grid>
 </Page>
