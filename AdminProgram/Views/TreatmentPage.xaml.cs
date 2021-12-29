@@ -1,7 +1,6 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using AdminProgram.Views;
 using System;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace AdminProgram
 {
@@ -22,7 +21,7 @@ namespace AdminProgram
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
-                TreatDetailWindow tw = new TreatDetailWindow();
+                TreatmentDetailWindow tw = new TreatmentDetailWindow();
                 tw.ShowDialog();
             }
         }

@@ -19,7 +19,7 @@ using System.Windows.Input;
  */
 namespace AdminProgram.ViewModels
 {
-    public class MAViewModel : ObservableRecipient
+    public class MediAppointmentVM : ObservableRecipient
     {
         // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
         // messenger의 send와 receive도 하는 곳
@@ -45,7 +45,15 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref wModel, value); }
         }
 
-        public MAViewModel(ILogger<MAViewModel> logger)
+        // 3) 시간 table 사용 위함
+        private ObservableCollection<TimeModel> timeModel;
+        public ObservableCollection<TimeModel> TimeModels
+        {
+            get { return timeModel; }
+            set { SetProperty(ref timeModel, value); }
+        }
+
+        public MediAppointmentVM(ILogger<MediAppointmentVM> logger)
         {
             _logger = logger;
             _logger.LogInformation("{@ILogger}", logger);
@@ -93,13 +101,12 @@ namespace AdminProgram.ViewModels
         }
         //== Messenger 기초 end ==//
 
-        //== SQL Query ==//
-        //처음 화면에 보일 DataGrid의 모든 정보를 가져와야 함
+        //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query start ==//
         private void GetReservationPatientList()
         {
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
-            string sql = 
-                "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME " +
+            string sql =
+                "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.TREAT_TYPE  " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
@@ -110,6 +117,13 @@ namespace AdminProgram.ViewModels
                 {
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
+
+                    //데이터가 누적되던 문제 해결
+                    RModels = new ObservableCollection<ReservationListModel>();
+                    RModels.CollectionChanged += ContentCollectionChanged;
+
+                    WModels = new ObservableCollection<WaitingListModel>();
+                    WModels.CollectionChanged += ContentCollectionChanged;
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -129,9 +143,14 @@ namespace AdminProgram.ViewModels
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
                                         ReservationDT = reader.GetDateTime(reader.GetOrdinal("RESERVATION_DATE")),
                                         Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM")),
-                                        Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
+                                        Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
+                                        TreatType = reader.GetString(reader.GetOrdinal("TREAT_TYPE"))
                                     });
                                 }
+                            }
+                            catch(InvalidCastException e)
+                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogInformation(e + "");
                             }
                             finally
                             {
@@ -140,7 +159,7 @@ namespace AdminProgram.ViewModels
                             }
                         }
                         sql =
-                            "SELECT p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
+                            "SELECT w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
                             "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD') ORDER BY w.REQUEST_TO_WAIT";
@@ -158,6 +177,7 @@ namespace AdminProgram.ViewModels
                                 {
                                     WModels.Add(new WaitingListModel()
                                     {
+                                        PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
                                         PatientGender = reader.GetString(reader.GetOrdinal("GENDER")),
                                         PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
@@ -166,6 +186,10 @@ namespace AdminProgram.ViewModels
                                         Symptom = reader.GetString(reader.GetOrdinal("REQUIREMENTS"))
                                     });
                                 }
+                            }
+                            catch (InvalidCastException e)
+                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogInformation(e + "");
                             }
                             finally
                             {
@@ -181,14 +205,32 @@ namespace AdminProgram.ViewModels
                 }
             }
         }
-
         private RelayCommand reservationUpdateBtn;
         public ICommand ReservationUpdateBtn => reservationUpdateBtn ??= new RelayCommand(GetReservationPatientList);
+        //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query end ==//
 
-        /// <summary>
-        /// 2021.12.22 수요일 추가 내용
-        /// </summary>
-        
+        //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) start ==//
+        //진행중...
+        private void DeleteWaitingData()
+        {
+            //후속 처리 쿼리 짜서 넣으면 됨
+            _logger.LogInformation("이 환자를 대기자 리스트에서 삭제합니다.");
+        }
+        private RelayCommand deleteWaitingDataBtn;
+        public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
+        //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) end ==//
+
+        //== 전화로 예약 취소하는 경우 start ==//
+        //진행중...
+        private void FinDiagnosis()
+        {
+            //후속 처리 쿼리 짜서 넣으면 됨
+            _logger.LogInformation("수납을 완료하였습니다.");
+        }
+        private RelayCommand finDiagnosisBtn;
+        public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
+        //== 전화로 예약 취소하는 경우 end ==//
+
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 start ==//
         //예약 환자 리스트 정보 messenger에 활용
         public ICollectionView CollectionView { get; set; }
@@ -196,34 +238,70 @@ namespace AdminProgram.ViewModels
         private ActionCommand reservationListDoubleClickCommand;
         public ICommand ReservationListDoubleClickCommand => reservationListDoubleClickCommand ??= new ActionCommand(DoubleClick);
 
-        //방문 대기 환자 리스트 정보 messneger에 활용
-        public ICollectionView CollectionView2 { get; set; }
-
-        private ActionCommand waitingListDoubleClickCommand;
-        public ICommand WaitingListDoubleClickCommand => waitingListDoubleClickCommand ??= new ActionCommand(DoubleClick2);
-
-        //검색어
+        //예약 리스트에서 선택된 값 처리
         private ReservationListModel selectedItem;
         public ReservationListModel SelectedItem
         {
             get => selectedItem;
             set => SetProperty(ref selectedItem, value);
         }
-
         private void DoubleClick()
         {
-            var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom,
-                "담당 의사는 " + selected.Doctor);
+            try
+            {//데이터가 없는 부분에 더블 클릭하면 프로그램 중단되는 문제 해결을 위해 try-catch문 사용
+                var selected = SelectedItem;
+                _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom,
+                    "담당 의사는 " + selected.Doctor);
+            } 
+            catch (NullReferenceException e)
+            {
+                _logger.LogInformation(e+"");
+            }
+            
         }
 
+        //방문 대기 환자 리스트 정보 messneger에 활용
+        public ICollectionView CollectionView2 { get; set; }
+
+        private ActionCommand waitingListDoubleClickCommand;
+        public ICommand WaitingListDoubleClickCommand => waitingListDoubleClickCommand ??= new ActionCommand(DoubleClick2);
+
+        //병원 대기자 리스트에서 선택된 값 처리 - 진행중
+        private WaitingListModel selectedItem2;
+        public WaitingListModel SelectedItem2
+        {
+            get => selectedItem2;
+            set => SetProperty(ref selectedItem2, value);
+        }
         private void DoubleClick2()
         {
-            var selected = SelectedItem;
-            _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom + "입니다.");
+            try
+            {//데이터가 없는 부분에 더블 클릭하면 프로그램 중단되는 문제 해결을 위해 try-catch문 사용
+                var selected2 = SelectedItem2;
+                _logger.LogInformation("선택된 행의 환자 이름은 " + selected2.PatientName + ", 증상은 " + selected2.Symptom);
+            }
+            catch(NullReferenceException e)
+            {
+                _logger.LogInformation(e + "");
+            }
         }
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
 
+        //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 start ==//
+        //진행중...
+        private TimeModel selectedTime;
+        public TimeModel SelectedTime
+        {
+            get => selectedTime;
+            set => SetProperty(ref selectedTime, value);
+        }
 
+        private void GetTimeList()
+        {
+
+        }
+        private RelayCommand getTime;
+        public ICommand GetTime => getTime ??= new RelayCommand(GetTimeList);
+        //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 end ==//
     }
 }
