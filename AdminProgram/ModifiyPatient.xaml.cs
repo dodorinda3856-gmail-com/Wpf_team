@@ -47,6 +47,7 @@ namespace AdminProgram
             else
                 female.IsChecked = true;
             homeNum.Text = Passvalue.Home_Num;
+            MessageBox.Show(Passvalue.Agreemarketing);
         }
 
 
@@ -55,6 +56,15 @@ namespace AdminProgram
             InitializeComponent();
             InitPatient();
         }
+
+        private string checksms()
+        {
+            if (smsCheck.IsChecked == true)
+                return "T";
+            else
+                return "F";
+        }
+
 
         //달력선택기능
         private void selectedDate(object sender, SelectionChangedEventArgs e)
@@ -88,7 +98,12 @@ namespace AdminProgram
             OracleCommand comm = new();
 
             comm.Connection = connn;
-            comm.CommandText = "update ";
+            comm.CommandText = "UPDATE PATIENT " +
+                                "SET ADDRESS = '" + address.Text + "'" +
+                                  ", PHONE_NUM = '" + phoneNum.Text + "'" +
+                                  ", AGREE_OF_ALARM = '" + checksms() + "'" +
+                                  ", HOME_NUM = '" + homeNum.Text + "' " +
+                                "where RESIDENT_REGIST_NUM = " + securityNum.Text;
 
             //실행시키는기능
             comm.ExecuteNonQuery();
@@ -118,8 +133,6 @@ namespace AdminProgram
 
             if (result == MessageBoxResult.Yes)
             {
-                
-
                 ConnectDB();
 
                 ModifiedInsertSQL();
