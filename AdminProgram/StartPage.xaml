@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AdminProgram"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:materiDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="StartPage">
@@ -26,7 +27,11 @@
         <Button Grid.Column="0" Grid.Row="1" Content="직원 관리"/>
         <Button Grid.Column="1" Grid.Row="0" Content="환자 관리"/>-->
 
-        <Border Grid.Column="1" Grid.Row="2">
+        <Border>
+            <Button Width="50" Height="50" Content="TEST"></Button>
+        </Border>
+        
+        <Border Grid.Column="1" Grid.Row="1">
             <local:PieChart/>
         </Border>
         

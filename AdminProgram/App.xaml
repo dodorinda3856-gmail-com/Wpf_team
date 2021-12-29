@@ -4,13 +4,13 @@
              xmlns:local="clr-namespace:AdminProgram"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
-        <LinearGradientBrush x:Key="background">
-            <GradientStop Color="#FF617498" Offset="0"/>
-            <GradientStop Color="#FF1E355F" Offset="1"/>
-        </LinearGradientBrush>
-        
-        <local:ViewModelLocator x:Key="ViewModelLocator"/>
-        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

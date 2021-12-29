@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d"
-        Background="{StaticResource background}"
         WindowStartupLocation="CenterScreen"
         Title="MainUnit" Height="800" Width="1200">
     <Grid>
