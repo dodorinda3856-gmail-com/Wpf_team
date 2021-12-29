@@ -1,29 +1,26 @@
-﻿using AdminProgram.ViewModels;
-using AdminProgram.Views;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace AdminProgram
+namespace AdminProgram.Views
 {
     /// <summary>
     /// MediAppointmentPage.xaml에 대한 상호 작용 논리
     /// </summary>
-
     public partial class MediAppointmentPage : Page
     {
         public MediAppointmentPage()
         {
             InitializeComponent();
         }
-
-        //혹시나 날짜 값이 필요할 경우 이거를 활용해서 할 것
-        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        
+        //날짜 관련 정보 필요 시 사용
+        private void SelectedDate(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
 
             DateTime? date = picker.SelectedDate;
-            if(date == null)
+            if (date == null)
             {
                 MessageBox.Show("No Date");
             }
@@ -32,15 +29,9 @@ namespace AdminProgram
                 MessageBox.Show(date.Value.ToShortDateString());
             }
         }
-        
-        //==예약 환자 리스트 업데이트(임시)==//
-        /*private void ReservationUpdateBtn(object sender, RoutedEventArgs e)
-        {
- 
-        }*/
 
         //==예약 등록 윈도우로 이동==//
-        private void addAppointmentBtn(object sender, RoutedEventArgs e)
+        private void AddAppointmentBtn(object sender, RoutedEventArgs e)
         {
             AddAppointment aa = new AddAppointment();
             aa.Title = "진료 예약 등록";
@@ -69,6 +60,10 @@ namespace AdminProgram
                 ad.ShowDialog();
             }
         }
-        
+
+        private void FinishedBtn(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
