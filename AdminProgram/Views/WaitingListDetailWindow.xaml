@@ -66,6 +66,6 @@
                 Command="{Binding FinDiagnosisBtn}" Style="{StaticResource RadiusBtn}"/>
         <!--막상 환자가 없는 경우-->
         <Button Content="대기자 삭제" Grid.Column="4" Grid.Row="7"
-                Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}"/>
+                Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}" Click="Close_Window"/>
     </Grid>
 </Window>

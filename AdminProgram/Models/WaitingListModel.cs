@@ -8,6 +8,14 @@ namespace AdminProgram.Models
 {
     public partial class WaitingListModel : ObservableObject
     {
+        //대기 번호
+        private int waitingId;
+        public int WaitingId
+        {
+            get => waitingId;
+            set => SetProperty(ref waitingId, value);
+        }
+
         //환자 번호
         private int patientId;
         public int PatientId

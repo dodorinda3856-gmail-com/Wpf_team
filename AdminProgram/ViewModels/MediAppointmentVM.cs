@@ -96,7 +96,15 @@ namespace AdminProgram.ViewModels
             {
                 _logger.LogInformation("{@rModels}", rModels);
                 WeakReferenceMessenger.Default.Send(RModels); //이거 필수
+                WeakReferenceMessenger.Default.Send(WModels); //이거 필수
                 _logger.LogInformation("send 성공");
+            }
+            var wModels = sender as WaitingListModel;
+            if (wModels != null)
+            {
+                _logger.LogInformation("{@rModels}", wModels);
+                WeakReferenceMessenger.Default.Send(WModels); //이거 필수
+                _logger.LogInformation("WaitingList send 성공");
             }
         }
         //== Messenger 기초 end ==//
@@ -159,7 +167,7 @@ namespace AdminProgram.ViewModels
                             }
                         }
                         sql =
-                            "SELECT w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
+                            "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
                             "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD') ORDER BY w.REQUEST_TO_WAIT";
@@ -177,6 +185,7 @@ namespace AdminProgram.ViewModels
                                 {
                                     WModels.Add(new WaitingListModel()
                                     {
+                                        WaitingId = reader.GetInt32(reader.GetOrdinal("WATING_ID")),
                                         PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
                                         PatientGender = reader.GetString(reader.GetOrdinal("GENDER")),
@@ -201,7 +210,7 @@ namespace AdminProgram.ViewModels
                 }
                 catch (Exception err)
                 {
-                    _logger.LogInformation(err.ToString());
+                    _logger.LogInformation(err + "");
                 }
             }
         }
@@ -211,10 +220,41 @@ namespace AdminProgram.ViewModels
 
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) start ==//
         //진행중...
+        //현재 바로바로 동기화는 못하고 있음
         private void DeleteWaitingData()
         {
             //후속 처리 쿼리 짜서 넣으면 됨
             _logger.LogInformation("이 환자를 대기자 리스트에서 삭제합니다.");
+            _logger.LogInformation("SelectedItem2(대기 번호) = " + SelectedItem2.WaitingId);
+
+            string sql = "DELETE FROM WAITING w WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch(Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
+                }
+            }
         }
         private RelayCommand deleteWaitingDataBtn;
         public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
