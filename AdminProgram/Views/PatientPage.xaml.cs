@@ -18,7 +18,7 @@ namespace AdminProgram
         public PatientPage()
         {
             InitializeComponent();
-            gender_combobox.SelectedIndex = 0; //콤보박스 인덱스로 기본값설정
+            gender_combobox.SelectedIndex = 0;  //콤보박스 인덱스로 기본값설정
         }
 
         //선택된 환자의 진료 상세정보 가져오기 - 진행 중
@@ -28,7 +28,7 @@ namespace AdminProgram
 
             if (row != null && row.IsSelected)
             {
-                PMModel tmp = (PMModel)row.Item; //선언이 문제였다. 아래서는 안먹는 부분이 있다. 좀더 깔끔하게 정리해야함
+                PMModel tmp = (PMModel)row.Item; //선언이 문제였다. 전체 데이터를 가지고 있지 않아서 정리해야함
                 ModifiyPatient.Passvalue = tmp;
                 ModifiyPatient tw = new ModifiyPatient();
                 
@@ -36,7 +36,7 @@ namespace AdminProgram
             }
         }
 
-        //날짜 
+        //날짜선택기능
         private void SelectedDate(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
@@ -204,8 +204,7 @@ namespace AdminProgram
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
             OracleCommand comm = new();
-            /*if (comm == null)
-                DBConnection(this, null);*/
+            
             comm.Connection = connn;
             comm.CommandText = sql;
 
@@ -213,9 +212,9 @@ namespace AdminProgram
             //SQL Server와 연결을 유지한 상태에서 한번에 한 레코드(One Row)씩 데이타를 가져오는데 사용
             //DataReader는 하나의 Connection에 하나만 Open되어 있어야 하며, 사용이 끝나면 Close() 메서드를 호출하여 닫아 준다.
             OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-            List<PMModel> datas = new(); //listView에 데이터 뿌리기 위한 틀
+            List<PMModel> datas = new();    //listView에 데이터 뿌리기 위한 틀
 
-            while (reader.Read())// 다음 레코드 계속 가져와서 루핑 - Advances the SqlDataReader to the next record. true if there are more rows; otherwise false.
+            while (reader.Read())   // 다음 레코드 계속 가져와서 루핑 - Advances the SqlDataReader to the next record. true if there are more rows; otherwise false.
             {
                 datas.Add(new PMModel()
                 {
@@ -240,7 +239,3 @@ namespace AdminProgram
     }
     
 }
-
-//테스트용
-/*if (bod_txtbox.Text == "")
-    MessageBox.Show(bod_txtbox.Text);*/
