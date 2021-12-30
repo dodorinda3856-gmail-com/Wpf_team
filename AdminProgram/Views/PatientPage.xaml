@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:AdminProgram"
+      xmlns:local="clr-namespace:AdminProgram" xmlns:viewmodels="clr-namespace:AdminProgram.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:PMModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PatientPage">
@@ -13,18 +13,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!--상단 로그인 정보 파트-->
-        <Grid Grid.Row="0" Background="Black">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="1"  Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" FontSize="16" Foreground="White" Margin="10,10,20,10"> 이성찬님</TextBlock>
-                <Button Content="로그아웃" Margin="10,10,25,10"/>
-            </WrapPanel>
-        </Grid>
 
         <!--하단부 구현-->
         <Grid Grid.Row="1">
@@ -124,7 +112,7 @@
 
                 <!--상세목록-->
                 <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True" AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <DataGrid.Columns>
                         <!--체크박스고민-->
                         <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>
@@ -137,6 +125,7 @@
                         <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Regist_Date, StringFormat={}{0:yyyy/MM/dd}}"/>
                         <DataGridTextColumn MinWidth="100" Width="*" Header="주소" Binding="{Binding Address}"/>
                     </DataGrid.Columns>
+                    <!--아이템 더블클릭 이벤트-->
                     <DataGrid.ItemContainerStyle>
                         <Style TargetType="DataGridRow">
                             <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
