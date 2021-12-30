@@ -14,7 +14,8 @@ namespace AdminProgram.Views
 
         private void Close_Window(object sender, RoutedEventArgs e)
         {
-
+            //MessageBox.Show("예약 정보를 삭제했습니다");
+            Window.GetWindow(this).Close();
         }
     }
 }

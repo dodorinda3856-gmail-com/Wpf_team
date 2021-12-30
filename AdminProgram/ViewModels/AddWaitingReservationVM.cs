@@ -66,7 +66,7 @@ namespace AdminProgram.ViewModels
         }
         //== Messenger ==//
 
-        //== 환자 정보 주민등록번호로 search ==//
+        //== 환자 정보 주민등록번호로 검색 start ==//
         private void SearchPatient()
         {
             string sql;
@@ -138,29 +138,94 @@ namespace AdminProgram.ViewModels
         }
         private RelayCommand searchPatientBtn;
         public ICommand SearchPatientBtn => searchPatientBtn ??= new RelayCommand(SearchPatient);
+        //== 환자 정보 주민등록번호로 검색 end ==//
 
+        //== 대기자 등록 start ==//
+        private void RegisterWaiting()
+        {
+            //시간값이 필요하구려
+            _logger.LogInformation("대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            string sql = ""; //insert
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    PModels = new ObservableCollection<PatientModelTemp>();
+                    PModels.CollectionChanged += ContentCollectionChanged;
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+            }
+
+        }
+        private RelayCommand registerWaitingData;
+        public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
+        //== 대기자 등록 end ==//
+
+        //== 진료 예약 등록 start ==//
+        private void RegisterReservation()
+        {
+            //시간값이 필요하구려
+            _logger.LogInformation("대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            string sql = ""; //insert
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    PModels = new ObservableCollection<PatientModelTemp>();
+                    PModels.CollectionChanged += ContentCollectionChanged;
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+            }
+        }
+        private RelayCommand registerReservationData;
+        public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
+        //== 진료 예약 등록 end ==//
+
+        //== 공통 ==//
         private string searchText; //검색어(주민등록번호)
         public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
         }
-        
+
         private PatientModelTemp selectedPatient; //datagrid에서 선택된 행의 값들을 가짐
         public PatientModelTemp SelectedPatient
         {
             get => selectedPatient;
             set => SetProperty(ref selectedPatient, value);
         }
-
-        //== 대기자 등록 ==//
-        private void RegisterWaiting()
-        {
-            //시간값이 필요하구려
-            _logger.LogInformation("대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
-        }
-        private RelayCommand registerWaitingData;
-        public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
-        
     }
 }

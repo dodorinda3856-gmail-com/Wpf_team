@@ -14,7 +14,7 @@ namespace AdminProgram.Views
 
         private void Close_Window(object sender, RoutedEventArgs e)
         {
-
+            Window.GetWindow(this).Close();
         }
     }
 }

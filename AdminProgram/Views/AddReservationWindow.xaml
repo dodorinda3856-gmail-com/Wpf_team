@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram.Views"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         DataContext="{Binding AWRVM, Source={StaticResource ViewModelLocator}}"
         Title="진료 예약 추가 페이지" Height="450" Width="800">
     <Grid>
@@ -61,7 +62,7 @@
                    VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"/>-->
         
         <Button Content="예약 등록" Grid.Row="7" Grid.Column="1"
-                Command="{Binding RegisterWaitingData}"/>
+                Command="{Binding RegisterReservationData}"/>
         <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="3" 
                 Click="Close_Window"/>
     </Grid>
