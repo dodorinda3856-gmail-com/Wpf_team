@@ -13,7 +13,7 @@ namespace AdminProgram.Views
         {
             InitializeComponent();
         }
-        
+
         //날짜 관련 정보 필요 시 사용
         private void SelectedDate(object sender, SelectionChangedEventArgs e)
         {

@@ -48,16 +48,13 @@
                     <ColumnDefinition Width="0.2*"/>
                 </Grid.ColumnDefinitions>
 
-                <DatePicker x:Name="datePicker" Grid.Column="0" SelectedDateChanged="SelectedDate" VerticalAlignment="Center"/>
-                <Label Content="진료과: " Grid.Column="1" VerticalAlignment="Center" FontSize="18"/>
-                <TextBlock Text="내과" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
-                <Label Content="의사이름: " Grid.Column="3" VerticalAlignment="Center" FontSize="18"/>
-                <TextBlock Text="나현정" Grid.Column="4" VerticalAlignment="Center" FontSize="18"/>
-
+                <DatePicker x:Name="datePicker" Grid.Column="0" SelectedDate="{Binding SelectedDateTime}"
+                            SelectedDateChanged="SelectedDate" VerticalAlignment="Center"/>
+                
                 <Button Content="동기화" Grid.Column="7" 
                         Command ="{Binding ReservationUpdateBtn}" Style="{StaticResource RadiusBtn}"/>
-                <Button Content="등록" Grid.Column="9" Click="AddAppointmentBtn"
-                        Style="{StaticResource RadiusBtn}"/>
+                <Button Content="등록" Grid.Column="9" 
+                        Click="AddAppointmentBtn" Style="{StaticResource RadiusBtn}"/>
             </Grid>
 
             <!--방문 대기 환자-->

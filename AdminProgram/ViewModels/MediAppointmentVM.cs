@@ -166,11 +166,12 @@ namespace AdminProgram.ViewModels
                                 reader.Close();
                             }
                         }
+                        string date = SelectedDateTime.Year + "" + SelectedDateTime.Month + "" + SelectedDateTime.Day + "";
                         sql =
                             "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
-                            "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD') ORDER BY w.REQUEST_TO_WAIT";
+                            "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = " + date + " ORDER BY w.REQUEST_TO_WAIT";
                         comm.CommandText = sql;
 
                         // 2) 방문해서 대기 중인 환자 리스트를 가져옴
@@ -343,5 +344,13 @@ namespace AdminProgram.ViewModels
         private RelayCommand getTime;
         public ICommand GetTime => getTime ??= new RelayCommand(GetTimeList);
         //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 end ==//
+
+        //== 날짜 ==//
+        private DateTime selectedDateTime = DateTime.Now;
+        public DateTime SelectedDateTime
+        {
+            get => selectedDateTime;
+            set => SetProperty(ref selectedDateTime, value);
+        }
     }
 }
