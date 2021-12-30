@@ -4,12 +4,14 @@
              xmlns:local="clr-namespace:AdminProgram"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+
+        <!--배경 색상-->
         <LinearGradientBrush x:Key="background">
             <GradientStop Color="#FF617498" Offset="0"/>
             <GradientStop Color="#FF1E355F" Offset="1"/>
         </LinearGradientBrush>
         
+        <!--ViewModel 정의 위치-->
         <local:ViewModelLocator x:Key="ViewModelLocator"/>
         
     </Application.Resources>

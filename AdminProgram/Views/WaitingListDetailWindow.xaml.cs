@@ -12,21 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace AdminProgram
+namespace AdminProgram.Views
 {
     /// <summary>
-    /// AddAppointment.xaml에 대한 상호 작용 논리
+    /// WaitingListDetailWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddAppointment : Window
+    public partial class WaitingListDetailWindow : Window
     {
-        public AddAppointment()
+        public WaitingListDetailWindow()
         {
             InitializeComponent();
-        }
-
-        private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 
+/**
+ * 예약 환자 리스트 Model
+ */
 namespace AdminProgram.Models
 {
-    public partial class MAModel : ObservableObject //속성 변경 알림을 지원해야하는 모든 객체에 대한 시작점으로 사용할 수 있음
+    public partial class ReservationListModel : ObservableObject //속성 변경 알림을 지원해야하는 모든 객체에 대한 시작점으로 사용할 수 있음
     {
         private string? patientName; //예약한 환자 이름
         public string PatientName
@@ -40,11 +43,11 @@ namespace AdminProgram.Models
             set => SetProperty(ref doctor, value);
         }
 
-        private string treatStatusVal; //?
-        public string TreatStatusVal 
+        private string treatType; //?
+        public string TreatType
         { 
-            get => treatStatusVal; 
-            set => SetProperty(ref treatStatusVal, value); 
+            get => treatType; 
+            set => SetProperty(ref treatType, value); 
         }
     }
 }
