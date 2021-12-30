@@ -21,17 +21,42 @@ namespace AdminProgram
             gender_combobox.SelectedIndex = 0;  //콤보박스 인덱스로 기본값설정
         }
 
-        //선택된 환자의 진료 상세정보 가져오기 - 진행 중
+        //환자정보에서 안받아왔던 마케팅동의 알람, 집전화번호받아오는 함수
+        void GetMarketingNum(ref string sql, ref PMModel tmp)
+        {
+            ConnectDB();
+            OracleCommand comm = new();
+
+            comm.Connection = connn;
+            comm.CommandText = sql;
+
+            OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+                tmp.Agreemarketing = reader["AGREE_OF_ALARM"] as string;
+                tmp.Home_Num = reader["HOME_NUM"] as string;
+            }
+            reader.Close();
+        }
+
+        //선택된 환자상세정보 가져오기
         private void Row_DoubleClick(object sender, EventArgs args)
         {
             var row = sender as DataGridRow;
 
             if (row != null && row.IsSelected)
             {
-                PMModel tmp = (PMModel)row.Item; //선언이 문제였다. 전체 데이터를 가지고 있지 않아서 정리해야함
+                PMModel tmp = (PMModel)row.Item;
+
+                string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where Resident_Regist_Num = " + tmp.Resident_Regist_Num;
+                GetMarketingNum(ref sql, ref tmp);
+               
                 ModifiyPatient.Passvalue = tmp;
+                ModifiyPatient.Passvalue.Agreemarketing = tmp.Agreemarketing;
+                ModifiyPatient.Passvalue.Home_Num = tmp.Home_Num;
                 ModifiyPatient tw = new ModifiyPatient();
-                
+
                 tw.ShowDialog();
             }
         }
@@ -122,7 +147,7 @@ namespace AdminProgram
                 if (gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] == "-")
                 {
                     if (bod_txtbox.Text == "")
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " +
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
@@ -131,7 +156,7 @@ namespace AdminProgram
                         "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
                         " order by PATIENT_ID";
                     else
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " + 
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
@@ -143,7 +168,7 @@ namespace AdminProgram
                 else
                 {
                     if (bod_txtbox.Text == "")
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " +
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
@@ -153,7 +178,7 @@ namespace AdminProgram
                         "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
                         " order by PATIENT_ID";
                     else
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " +                                                                                                                                                                                                                                                                                                                   
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +

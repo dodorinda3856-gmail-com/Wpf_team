@@ -46,8 +46,9 @@ namespace AdminProgram
                 male.IsChecked = true;
             else
                 female.IsChecked = true;
+            if (Passvalue.Agreemarketing == "T")
+                smsCheck.IsChecked = true;
             homeNum.Text = Passvalue.Home_Num;
-            MessageBox.Show(Passvalue.Agreemarketing);
         }
 
 
@@ -57,6 +58,7 @@ namespace AdminProgram
             InitPatient();
         }
 
+        //마케팅 동의확인 함수
         private string checksms()
         {
             if (smsCheck.IsChecked == true)
