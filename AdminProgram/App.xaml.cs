@@ -18,6 +18,7 @@ namespace AdminProgram
                 (new ServiceCollection()
                     .AddSingleton<MediAppointmentVM>()
                     .AddSingleton<TreatmentVM>()
+                    .AddSingleton<AddWaitingReservationVM>()
                     .AddLogging(builder =>
                     {
                         var logger = new LoggerConfiguration()

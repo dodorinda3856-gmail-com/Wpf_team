@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:AdminProgram.Views"
         DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="방문 대기 환자 상세정보 페이지" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
@@ -66,6 +67,6 @@
                 Command="{Binding FinDiagnosisBtn}" Style="{StaticResource RadiusBtn}"/>
         <!--막상 환자가 없는 경우-->
         <Button Content="대기자 삭제" Grid.Column="4" Grid.Row="7"
-                Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}"/>
+                Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}" Click="Close_Window"/>
     </Grid>
 </Window>
