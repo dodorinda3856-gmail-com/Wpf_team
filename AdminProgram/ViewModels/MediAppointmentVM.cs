@@ -112,12 +112,16 @@ namespace AdminProgram.ViewModels
         //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query start ==//
         private void GetReservationPatientList()
         {
+            string date = SelectedDateTime.Year + "" + SelectedDateTime.Month + "" + SelectedDateTime.Day + "";
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
             string sql =
                 "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.TREAT_TYPE  " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
-                "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID ";
+                "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID " +
+                "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') >= " + date +
+                " AND r.RESERVE_STATUS_VAL = 'F'" + 
+                " ORDER BY r.RESERVATION_DATE ";
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -158,20 +162,22 @@ namespace AdminProgram.ViewModels
                             }
                             catch(InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogInformation(e + "");
+                                _logger.LogCritical(e + "");
                             }
                             finally
                             {
-                                _logger.LogInformation("데이터 읽어오기 성공");
+                                _logger.LogInformation("예약 환자 리스트 데이터 읽어오기 성공");
                                 reader.Close();
                             }
                         }
-                        string date = SelectedDateTime.Year + "" + SelectedDateTime.Month + "" + SelectedDateTime.Day + "";
+                        
                         sql =
                             "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
-                            "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = " + date + " ORDER BY w.REQUEST_TO_WAIT";
+                            "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = " + date +
+                            " AND w.WAIT_STATUS_VAL = 'F'" + 
+                            " ORDER BY w.REQUEST_TO_WAIT";
                         comm.CommandText = sql;
 
                         // 2) 방문해서 대기 중인 환자 리스트를 가져옴
@@ -199,7 +205,7 @@ namespace AdminProgram.ViewModels
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogInformation(e + "");
+                                _logger.LogCritical(e + "");
                             }
                             finally
                             {
@@ -249,7 +255,7 @@ namespace AdminProgram.ViewModels
                 }
                 catch(Exception err)
                 {
-                    _logger.LogInformation(err + "");
+                    _logger.LogCritical(err + "");
                 }
                 finally
                 {
@@ -296,7 +302,7 @@ namespace AdminProgram.ViewModels
             } 
             catch (NullReferenceException e)
             {
-                _logger.LogInformation(e+"");
+                _logger.LogCritical(e+"");
             }
             
         }
@@ -323,7 +329,7 @@ namespace AdminProgram.ViewModels
             }
             catch(NullReferenceException e)
             {
-                _logger.LogInformation(e + "");
+                _logger.LogCritical(e + "");
             }
         }
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
@@ -345,12 +351,13 @@ namespace AdminProgram.ViewModels
         public ICommand GetTime => getTime ??= new RelayCommand(GetTimeList);
         //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 end ==//
 
-        //== 날짜 ==//
+        //== 날짜 start ==//
         private DateTime selectedDateTime = DateTime.Now;
         public DateTime SelectedDateTime
         {
             get => selectedDateTime;
             set => SetProperty(ref selectedDateTime, value);
         }
+        //== 날짜 end ==//
     }
 }

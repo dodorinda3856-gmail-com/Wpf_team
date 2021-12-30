@@ -14,22 +14,6 @@ namespace AdminProgram.Views
             InitializeComponent();
         }
 
-        //날짜 관련 정보 필요 시 사용
-        private void SelectedDate(object sender, SelectionChangedEventArgs e)
-        {
-            var picker = sender as DatePicker;
-
-            DateTime? date = picker.SelectedDate;
-            if (date == null)
-            {
-                MessageBox.Show("No Date");
-            }
-            else
-            {//날짜 가져오는 부분
-                MessageBox.Show(date.Value.ToShortDateString());
-            }
-        }
-
         //==예약 등록 윈도우로 이동==//
         private void AddAppointmentBtn(object sender, RoutedEventArgs e)
         {
