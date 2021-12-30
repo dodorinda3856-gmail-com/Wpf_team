@@ -147,7 +147,7 @@ namespace AdminProgram
                 if (gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] == "-")
                 {
                     if (bod_txtbox.Text == "")
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " +
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
@@ -156,7 +156,7 @@ namespace AdminProgram
                         "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
                         " order by PATIENT_ID";
                     else
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " + 
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
@@ -168,7 +168,7 @@ namespace AdminProgram
                 else
                 {
                     if (bod_txtbox.Text == "")
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " +
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
@@ -178,7 +178,7 @@ namespace AdminProgram
                         "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
                         " order by PATIENT_ID";
                     else
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB, HOME_NUM, AGREE_OF_ALARM from PATIENT " +
+                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
                         "where PATIENT_STATUS_VAL = 'T' and " +                                                                                                                                                                                                                                                                                                                   
                         "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
