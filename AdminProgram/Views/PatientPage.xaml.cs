@@ -18,6 +18,7 @@ namespace AdminProgram
         public PatientPage()
         {
             InitializeComponent();
+            LogRecord.LogWrite("환자페이지 오픈");
             gender_combobox.SelectedIndex = 0;  //콤보박스 인덱스로 기본값설정
         }
 
@@ -48,7 +49,7 @@ namespace AdminProgram
             if (row != null && row.IsSelected)
             {
                 PMModel tmp = (PMModel)row.Item;
-
+                LogRecord.LogWrite("'" + tmp.Patient_Name + "' 환자정보 상세페이지 들어감");
                 string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where Resident_Regist_Num = " + tmp.Resident_Regist_Num;
                 GetMarketingNum(ref sql, ref tmp);
                
@@ -80,6 +81,7 @@ namespace AdminProgram
         //환자추가하기 버튼이벤트
         private void AddPatient_Btn(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("환자페이지 추가 버튼 클릭");
             AddPatient addPatient = new();
             addPatient.ShowDialog();
         }
@@ -210,6 +212,7 @@ namespace AdminProgram
         //검색 클릭 이벤트
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("환자정보페이지 검색 버튼 클릭");
             string? startyear = null;
             string? endyear = null;
             string? sql = null;
