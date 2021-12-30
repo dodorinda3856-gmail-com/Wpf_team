@@ -50,8 +50,11 @@
         <TextBlock Text="{Binding Path=SelectedItem.TreatType, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-        <Button Content="예약 수정" Grid.Column="2" Grid.Row="4"/>
-        <Button Content="예약 삭제" Grid.Column="4" Grid.Row="4"/>
-        
+        <Button Content="예약 수정" Grid.Column="2" Grid.Row="4"
+                Command="{Binding UpdateReservationDataBtn}"/>
+        <Button Content="예약 삭제" Grid.Column="4" Grid.Row="4"
+                Command="{Binding DeleteReservationDataBtn}" Click="Delete_Reservation"/>
+        <Button Content="수납완료" Grid.Column="3" Grid.Row="4"
+                Command="{Binding FinDiagnosisBtn}"/> <!--방문 대기 환자랑 기능은 똑같은데 쿼리는 달라... 어떻게 구현할지?-->
     </Grid>
 </Window>
