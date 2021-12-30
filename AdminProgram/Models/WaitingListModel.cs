@@ -16,7 +16,7 @@ namespace AdminProgram.Models
             set => SetProperty(ref waitingId, value);
         }
 
-        //수납 완료 여부
+        //수납(진료) 완료 여부
         //T : 수납 완료
         //F : 수납 미완료
         private string waitStatusVal;

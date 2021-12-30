@@ -75,7 +75,7 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged removed in e.OldItems)
                 {
                     removed.PropertyChanged -= ProductOnPropertyChanged;
-                    _logger.LogInformation("예약 리스트 삭제");
+                    _logger.LogInformation("리스트 삭제");
                 }
             }
             else
@@ -83,7 +83,7 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged added in e.NewItems)
                 {
                     added.PropertyChanged += ProductOnPropertyChanged;
-                    _logger.LogInformation("예약 리스트 등록");
+                    _logger.LogInformation("리스트 불러옴");
                 }
             }
         }
@@ -96,13 +96,12 @@ namespace AdminProgram.ViewModels
             {
                 _logger.LogInformation("{@rModels}", rModels);
                 WeakReferenceMessenger.Default.Send(RModels); //이거 필수
-                WeakReferenceMessenger.Default.Send(WModels); //이거 필수
-                _logger.LogInformation("send 성공");
+                _logger.LogInformation("ReservationList send 성공");
             }
             var wModels = sender as WaitingListModel;
             if (wModels != null)
             {
-                _logger.LogInformation("{@rModels}", wModels);
+                _logger.LogInformation("{@wModels}", wModels);
                 WeakReferenceMessenger.Default.Send(WModels); //이거 필수
                 _logger.LogInformation("WaitingList send 성공");
             }
