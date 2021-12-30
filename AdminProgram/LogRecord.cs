@@ -9,7 +9,7 @@ namespace AdminProgram
 {
     public class LogRecord
     {
-        public void LogWrite(string str)
+        public static void LogWrite(string str)
         {
             string FilePath = Environment.CurrentDirectory + @"\Log\Log_" + DateTime.Today.ToString("yyyyMMdd") + ".log";
             string DirPath = Environment.CurrentDirectory + @"\Log";
