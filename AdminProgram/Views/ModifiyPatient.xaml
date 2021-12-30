@@ -30,16 +30,9 @@
 
         <!--생일 파트-->
         <TextBlock HorizontalAlignment="Left" Margin="269,80,0,0" TextWrapping="Wrap" Text="생일 :" VerticalAlignment="Top"/>
-        <DatePicker x:Name="datePicker" Background="Gray" Padding="2" VerticalAlignment="Top" SelectedDateChanged="selectedDate" Margin="305,77,84,0">
-            <!--읽기전용으로 만들기 근데 안먹는듯?-->
-            <DatePicker.Resources>
-                <Style TargetType="DatePickerTextBox">
-                    <Setter Property="IsReadOnly" Value="True"/>
-                </Style>
-            </DatePicker.Resources>
-        </DatePicker>
-        <RadioButton x:Name="yang" IsChecked="True" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="411,82,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="ymm" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="447,82,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="datePicker" Background="Gray" Padding="2" VerticalAlignment="Top" Margin="305,77,84,0"/>
+        <RadioButton x:Name="yang" IsEnabled="False" IsChecked="True" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="411,82,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="ymm" IsEnabled="False" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="447,82,0,0" VerticalAlignment="Top"/>
 
         <!--주소입력 파트-->
         <TextBlock HorizontalAlignment="Left" Margin="19,118,0,0" TextWrapping="Wrap" Text="주소       :" VerticalAlignment="Top"/>
