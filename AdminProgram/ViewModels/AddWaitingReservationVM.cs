@@ -18,11 +18,20 @@ namespace AdminProgram.ViewModels
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
         //== Messenger ==//
+        //환자 정보
         private ObservableCollection<PatientModelTemp> pModel;
         public ObservableCollection<PatientModelTemp> PModels
         {
             get { return pModel; }
             set { SetProperty(ref pModel, value); }
+        }
+
+        //예약 시간 정보
+        private ObservableCollection<TimeModel> tModel;
+        public ObservableCollection<TimeModel> TModels
+        {
+            get { return tModel; }
+            set { SetProperty(ref tModel, value); }
         }
 
         public AddWaitingReservationVM(ILogger<AddWaitingReservationVM> logger)
@@ -32,6 +41,9 @@ namespace AdminProgram.ViewModels
 
             PModels = new ObservableCollection<PatientModelTemp>();
             PModels.CollectionChanged += ContentCollectionChanged;
+
+            TModels = new ObservableCollection<TimeModel>();
+            TModels.CollectionChanged += ContentCollectionChanged;
         }
 
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -61,6 +73,14 @@ namespace AdminProgram.ViewModels
             {
                 _logger.LogInformation("{@pModels}", pModels);
                 WeakReferenceMessenger.Default.Send(PModels); //이거 필수
+                _logger.LogInformation("send 성공");
+            }
+
+            var tModels = sender as PatientModelTemp;
+            if (tModels != null)
+            {
+                _logger.LogInformation("{@tModels}", tModels);
+                WeakReferenceMessenger.Default.Send(TModels);
                 _logger.LogInformation("send 성공");
             }
         }
@@ -120,11 +140,44 @@ namespace AdminProgram.ViewModels
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                //화면에서 보여야 하는 값이 null인 경우에도 발생함
+                                //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
                                 _logger.LogCritical(e + "");
                             }
                             finally
                             {
                                 _logger.LogInformation("검색한 환자 리스트 가져오기 성공");
+                                reader.Close();
+                            }
+                        }
+
+                        //시간 테이블 값 가져오기
+                        sql = "SELECT TIME_ID, \"HOUR\", \"DAY\" FROM \"TIME\" t ORDER BY TIME_ID ";
+                        comm.CommandText = sql;
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
+                            _logger.LogInformation("[SQL QUERY] " + sql);
+
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    TModels.Add(new TimeModel()
+                                    {
+                                        TimeId = reader.GetInt32(reader.GetOrdinal("TIME_ID")),
+                                        Hour = reader.GetString(reader.GetOrdinal("HOUR")),
+                                        Day = reader.GetString(reader.GetOrdinal("Day"))
+                                    });
+                                }
+                            }
+                            catch (InvalidCastException e)
+                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogCritical(e + "");
+                            }
+                            finally
+                            {
+                                _logger.LogInformation("TIME TABLE 가져오기 성공");
                                 reader.Close();
                             }
                         }
@@ -245,6 +298,13 @@ namespace AdminProgram.ViewModels
         {
             get => explainSymtom;
             set => SetProperty(ref explainSymtom, value);
+        }
+
+        private PatientModelTemp selectedTime; //combobox에서 선택된 시간값
+        public PatientModelTemp SelectedTime
+        {
+            get => selectedTime;
+            set => SetProperty(ref selectedTime, value);
         }
     }
 }

@@ -120,7 +120,7 @@ namespace AdminProgram.ViewModels
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID " +
                 "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') >= " + date +
-                " AND r.RESERVE_STATUS_VAL = 'F'" + 
+                " AND r.RESERVE_STATUS_VAL = 'T'" + 
                 " ORDER BY r.RESERVATION_DATE ";
 
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -177,7 +177,7 @@ namespace AdminProgram.ViewModels
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
                             "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = " + date +
-                            " AND w.WAIT_STATUS_VAL = 'F'" + 
+                            " AND w.WAIT_STATUS_VAL = 'T'" + 
                             " ORDER BY w.REQUEST_TO_WAIT";
                         comm.CommandText = sql;
 
@@ -279,6 +279,22 @@ namespace AdminProgram.ViewModels
         {
             //후속 처리 쿼리 짜서 넣으면 됨
             _logger.LogInformation("수납을 완료하였습니다.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
         private RelayCommand finDiagnosisBtn;
         public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
