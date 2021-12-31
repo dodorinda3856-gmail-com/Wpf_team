@@ -120,7 +120,7 @@ namespace AdminProgram.ViewModels
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID " +
                 "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') >= " + date +
-                " AND r.RESERVE_STATUS_VAL = 'F'" + 
+                " AND r.RESERVE_STATUS_VAL = 'T'" + 
                 " ORDER BY r.RESERVATION_DATE ";
 
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -161,7 +161,7 @@ namespace AdminProgram.ViewModels
                                     });
                                 }
                             }
-                            catch(InvalidCastException e)
+                            catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 _logger.LogCritical(e + "");
                             }
@@ -171,13 +171,13 @@ namespace AdminProgram.ViewModels
                                 reader.Close();
                             }
                         }
-                        
+
                         sql =
                             "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
                             "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = " + date +
-                            " AND w.WAIT_STATUS_VAL = 'F'" + 
+                            " AND w.WAIT_STATUS_VAL = 'T'" +
                             " ORDER BY w.REQUEST_TO_WAIT";
                         comm.CommandText = sql;
 
@@ -214,6 +214,32 @@ namespace AdminProgram.ViewModels
                                 reader.Close();
                             }
                         }
+
+                        // 3) 진료 완료된 환자 리스트를 가져옴
+                        //진행중...
+                        /*sql = "";
+                        comm.CommandText = sql;
+
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            _logger.LogInformation("select 실행");
+                            _logger.LogInformation("[SQL QUERY] " + sql);
+
+                            try
+                            {
+
+                            }
+                            catch (InvalidCastException e)
+                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogCritical(e + "");
+                            }
+                            finally
+                            {
+                                _logger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
+                                reader.Close();
+                            }
+
+                        }*/
                     }
                 }
                 catch (Exception err)
@@ -232,7 +258,6 @@ namespace AdminProgram.ViewModels
         //현재 바로바로 동기화는 못하고 있음
         private void DeleteWaitingData()
         {
-            //후속 처리 쿼리 짜서 넣으면 됨
             _logger.LogInformation("이 환자를 대기자 리스트에서 삭제합니다.");
             _logger.LogInformation("SelectedItem2(대기 번호) = " + SelectedItem2.WaitingId);
 
@@ -276,6 +301,22 @@ namespace AdminProgram.ViewModels
         {
             //후속 처리 쿼리 짜서 넣으면 됨
             _logger.LogInformation("수납을 완료하였습니다.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
         private RelayCommand finDiagnosisBtn;
         public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
@@ -295,7 +336,6 @@ namespace AdminProgram.ViewModels
         //== 예약 정보를 삭제하는 경우 start ==//
         private void DeleteReservationData()
         {
-            //후속 처리 쿼리 짜서 넣으면 됨
             _logger.LogInformation("예약 정보를 리스트에서 삭제합니다.");
             _logger.LogInformation("SelectedItem(예약 번호) = " + SelectedItem.ReservationId);
 

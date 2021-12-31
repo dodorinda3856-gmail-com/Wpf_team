@@ -51,10 +51,8 @@
                 <DatePicker x:Name="datePicker" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center"
                             SelectedDate="{Binding SelectedDateTime}" />
 
-                <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn" 
-                        Command="{Binding RegisterAppointment}" Style="{StaticResource RadiusBtn}"/>
-                <Button Content="대기자 등록" Grid.Column="9" Click="Add_Waiting_Btn"
-                        Command="{Binding RegisterWaiting}" Style="{StaticResource RadiusBtn}"/>
+                <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn" Style="{StaticResource RadiusBtn}"/>
+                <Button Content="대기자 등록" Grid.Column="9" Click="Add_Waiting_Btn" Style="{StaticResource RadiusBtn}"/>
                 <Button Content="동기화" Grid.Column="11" 
                         Command ="{Binding ReservationUpdateBtn}" Style="{StaticResource RadiusBtn}"/>
             </Grid>

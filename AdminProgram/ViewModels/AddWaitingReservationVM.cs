@@ -18,11 +18,20 @@ namespace AdminProgram.ViewModels
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
         //== Messenger ==//
+        //환자 정보
         private ObservableCollection<PatientModelTemp> pModel;
         public ObservableCollection<PatientModelTemp> PModels
         {
             get { return pModel; }
             set { SetProperty(ref pModel, value); }
+        }
+
+        //예약 시간 정보
+        private ObservableCollection<TimeModel> tModel;
+        public ObservableCollection<TimeModel> TModels
+        {
+            get { return tModel; }
+            set { SetProperty(ref tModel, value); }
         }
 
         public AddWaitingReservationVM(ILogger<AddWaitingReservationVM> logger)
@@ -32,6 +41,9 @@ namespace AdminProgram.ViewModels
 
             PModels = new ObservableCollection<PatientModelTemp>();
             PModels.CollectionChanged += ContentCollectionChanged;
+
+            TModels = new ObservableCollection<TimeModel>();
+            TModels.CollectionChanged += ContentCollectionChanged;
         }
 
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -63,10 +75,18 @@ namespace AdminProgram.ViewModels
                 WeakReferenceMessenger.Default.Send(PModels); //이거 필수
                 _logger.LogInformation("send 성공");
             }
+
+            var tModels = sender as PatientModelTemp;
+            if (tModels != null)
+            {
+                _logger.LogInformation("{@tModels}", tModels);
+                WeakReferenceMessenger.Default.Send(TModels);
+                _logger.LogInformation("send 성공");
+            }
         }
         //== Messenger ==//
 
-        //== 환자 정보 주민등록번호로 search ==//
+        //== 환자 정보 주민등록번호로 검색, TIME TABLE 가져오기 start ==//
         private void SearchPatient()
         {
             string sql;
@@ -119,12 +139,54 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                //화면에서 보여야 하는 값이 null인 경우에도 발생함
+                                //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
                                 _logger.LogCritical(e + "");
                             }
                             finally
                             {
                                 _logger.LogInformation("검색한 환자 리스트 가져오기 성공");
+                                reader.Close();
+                            }
+                        }
+
+                        //요일에 해당하는 시간 테이블 값 가져오기
+                        //진행중...
+                        //예약이 되어있는 값은 보여주면 안됨ㅜㅜ
+                        sql = 
+                            "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
+                            "FROM \"TIME\" t " +
+                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(SYSDATE + (INTERVAL '9' HOUR), 'd'))-1 " +
+                            "ORDER BY TIME_ID ";
+                        comm.CommandText = sql;
+
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
+                            _logger.LogInformation("[SQL QUERY] " + sql);
+
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    TModels.Add(new TimeModel()
+                                    {
+                                        TimeId = reader.GetInt32(reader.GetOrdinal("TIME_ID")),
+                                        Hour = reader.GetString(reader.GetOrdinal("HOUR")),
+                                        Day = reader.GetString(reader.GetOrdinal("Day"))
+                                    });
+                                }
+                            }
+                            catch (InvalidCastException e)
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogCritical(e + "");
+                            }
+                            finally
+                            {
+                                _logger.LogInformation("TIME TABLE 가져오기 성공");
                                 reader.Close();
                             }
                         }
@@ -138,14 +200,113 @@ namespace AdminProgram.ViewModels
         }
         private RelayCommand searchPatientBtn;
         public ICommand SearchPatientBtn => searchPatientBtn ??= new RelayCommand(SearchPatient);
+        //== 환자 정보 주민등록번호로 검색 end ==//
 
+        //== 대기자 등록 start ==//
+        private void RegisterWaiting()
+        {
+            //시간값, 환자 번호, 간단한 요구사항이 필요하구려
+            _logger.LogInformation("방문 대기자 등록 함수에 들어왔습니다...");
+            string sql = 
+                "INSERT INTO WAITING (WATING_ID, PATIENT_ID, REQUEST_TO_WAIT, REQUIREMENTS, WAIT_STATUS_VAL) " +
+                "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'T') ";
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    PModels = new ObservableCollection<PatientModelTemp>();
+                    PModels.CollectionChanged += ContentCollectionChanged;
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+                        _logger.LogInformation("Insert 시작");
+                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                        _logger.LogInformation("Insert 완료");
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 환자를 대기자 명단에 등록하였습니다...");
+                }
+            }
+
+        }
+        private RelayCommand registerWaitingData;
+        public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
+        //== 대기자 등록 end ==//
+
+        //== 진료 예약 등록 start ==//
+        private void RegisterReservation()
+        {
+            //환자 번호, 진료예약 시간, 
+            _logger.LogInformation("진료 예약 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            string sql = ""; //insert
+
+
+
+
+
+
+
+
+
+
+
+
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    PModels = new ObservableCollection<PatientModelTemp>();
+                    PModels.CollectionChanged += ContentCollectionChanged;
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 예약 정보를 예약자 리스트에 등록했습니다.");
+                }
+            }
+        }
+        private RelayCommand registerReservationData;
+        public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
+        //== 진료 예약 등록 end ==//
+
+        //== 공통 ==//
         private string searchText; //검색어(주민등록번호)
         public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
         }
-        
+
         private PatientModelTemp selectedPatient; //datagrid에서 선택된 행의 값들을 가짐
         public PatientModelTemp SelectedPatient
         {
@@ -153,14 +314,18 @@ namespace AdminProgram.ViewModels
             set => SetProperty(ref selectedPatient, value);
         }
 
-        //== 대기자 등록 ==//
-        private void RegisterWaiting()
+        private string explainSymtom; //간단한 증상 설명
+        public string ExplainSymtom
         {
-            //시간값이 필요하구려
-            _logger.LogInformation("대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            get => explainSymtom;
+            set => SetProperty(ref explainSymtom, value);
         }
-        private RelayCommand registerWaitingData;
-        public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
-        
+
+        private PatientModelTemp selectedTime; //combobox에서 선택된 시간값
+        public PatientModelTemp SelectedTime
+        {
+            get => selectedTime;
+            set => SetProperty(ref selectedTime, value);
+        }
     }
 }
