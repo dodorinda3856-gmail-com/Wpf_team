@@ -143,9 +143,11 @@ namespace AdminProgram.ViewModels
         //== 대기자 등록 start ==//
         private void RegisterWaiting()
         {
-            //시간값이 필요하구려
-            _logger.LogInformation("대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
-            string sql = ""; //insert
+            //시간값, 환자 번호, 간단한 요구사항이 필요하구려
+            _logger.LogInformation("방문 대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            string sql = 
+                "INSERT INTO WAITING (WATING_ID, PATIENT_ID, REQUEST_TO_WAIT, REQUIREMENTS, WAIT_STATUS_VAL) " +
+                "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'F') ";
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -161,14 +163,20 @@ namespace AdminProgram.ViewModels
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
-
+                        _logger.LogInformation("Insert 시작");
+                        _logger.LogInformation("[SQL Query] : " + sql);
                         //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
+                        _logger.LogInformation("Insert 완료");
                     }
                 }
                 catch (Exception err)
                 {
                     _logger.LogInformation(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 환자를 대기자 명단에 등록하였습니다...");
                 }
             }
 
@@ -181,7 +189,7 @@ namespace AdminProgram.ViewModels
         private void RegisterReservation()
         {
             //시간값이 필요하구려
-            _logger.LogInformation("대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            _logger.LogInformation("진료 예약 등록 함수에 들어왔습니다... 개발 진행중입니다...");
             string sql = ""; //insert
 
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -206,6 +214,10 @@ namespace AdminProgram.ViewModels
                 catch (Exception err)
                 {
                     _logger.LogInformation(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 예약 정보를 예약자 리스트에서 삭제했습니다.");
                 }
             }
         }
@@ -226,6 +238,13 @@ namespace AdminProgram.ViewModels
         {
             get => selectedPatient;
             set => SetProperty(ref selectedPatient, value);
+        }
+
+        private string explainSymtom; //간단한 증상 설명
+        public string ExplainSymtom
+        {
+            get => explainSymtom;
+            set => SetProperty(ref explainSymtom, value);
         }
     }
 }

@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding AWRVM, Source={StaticResource ViewModelLocator}}"
         Title="대기자 등록 페이지" Height="450" Width="800">
-    <Grid>
+    <Grid  Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -24,6 +24,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="주민등록번호 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
@@ -33,9 +34,10 @@
             </TextBox.InputBindings>
         </TextBox>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" 
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True">
+                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Header="환자 번호" Binding="{Binding PatientId}"/>
                 <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding Name}"/>
@@ -48,22 +50,46 @@
             </DataGrid.ItemContainerStyle>-->
         </DataGrid>
 
-        <Label Content="이름 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
-        <Label Content="주민등록번호 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
-        <Label Content="성별 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
-        <Label Content="주소 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="5" Background="#FFF3F3F3" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Button Content="등록" Grid.Row="6" Grid.Column="1"
-                Command="{Binding RegisterWaitingData}"/>
-        <Button Content="등록 취소" Grid.Row="6" Grid.Column="3" 
+            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
+            <TextBlock Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+
+            <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
+            <TextBlock Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+
+            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
+            <TextBlock Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+
+            <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
+            <TextBlock Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+            <Label Content="증상 설명: " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
+            <TextBox Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
+        </Grid>
+        
+        
+        <Button Content="등록" Grid.Row="7" Grid.Column="1"
+                Command="{Binding RegisterWaitingData}" Click="Add_Waiting_Btn"/>
+        <Button Content="등록 취소" Grid.Row="7" Grid.Column="3" 
                 Click="Close_Window"/>
     </Grid>
 </Window>

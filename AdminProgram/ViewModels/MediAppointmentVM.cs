@@ -214,6 +214,9 @@ namespace AdminProgram.ViewModels
                                 reader.Close();
                             }
                         }
+
+                        // 3) 진료 완료된 환자 리스트를 가져옴
+
                     }
                 }
                 catch (Exception err)
