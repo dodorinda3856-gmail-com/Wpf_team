@@ -86,7 +86,7 @@ namespace AdminProgram.ViewModels
         }
         //== Messenger ==//
 
-        //== 환자 정보 주민등록번호로 검색 start ==//
+        //== 환자 정보 주민등록번호로 검색, TIME TABLE 가져오기 start ==//
         private void SearchPatient()
         {
             string sql;
@@ -139,7 +139,8 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 //화면에서 보여야 하는 값이 null인 경우에도 발생함
                                 //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
                                 _logger.LogCritical(e + "");
@@ -152,12 +153,15 @@ namespace AdminProgram.ViewModels
                         }
 
                         //요일에 해당하는 시간 테이블 값 가져오기
+                        //진행중...
+                        //예약이 되어있는 값은 보여주면 안됨ㅜㅜ
                         sql = 
                             "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
                             "FROM \"TIME\" t " +
                             "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(SYSDATE + (INTERVAL '9' HOUR), 'd'))-1 " +
                             "ORDER BY TIME_ID ";
                         comm.CommandText = sql;
+
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
                             _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
@@ -176,7 +180,8 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 _logger.LogCritical(e + "");
                             }
                             finally
@@ -201,10 +206,10 @@ namespace AdminProgram.ViewModels
         private void RegisterWaiting()
         {
             //시간값, 환자 번호, 간단한 요구사항이 필요하구려
-            _logger.LogInformation("방문 대기자 등록 함수에 들어왔습니다... 개발 진행중입니다...");
+            _logger.LogInformation("방문 대기자 등록 함수에 들어왔습니다...");
             string sql = 
                 "INSERT INTO WAITING (WATING_ID, PATIENT_ID, REQUEST_TO_WAIT, REQUIREMENTS, WAIT_STATUS_VAL) " +
-                "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'F') ";
+                "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'T') ";
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -245,9 +250,21 @@ namespace AdminProgram.ViewModels
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
-            //시간값이 필요하구려
+            //환자 번호, 진료예약 시간, 
             _logger.LogInformation("진료 예약 등록 함수에 들어왔습니다... 개발 진행중입니다...");
             string sql = ""; //insert
+
+
+
+
+
+
+
+
+
+
+
+
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -274,7 +291,7 @@ namespace AdminProgram.ViewModels
                 }
                 finally
                 {
-                    _logger.LogInformation("이 예약 정보를 예약자 리스트에서 삭제했습니다.");
+                    _logger.LogInformation("이 예약 정보를 예약자 리스트에 등록했습니다.");
                 }
             }
         }
