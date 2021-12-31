@@ -151,8 +151,12 @@ namespace AdminProgram.ViewModels
                             }
                         }
 
-                        //시간 테이블 값 가져오기
-                        sql = "SELECT TIME_ID, \"HOUR\", \"DAY\" FROM \"TIME\" t ORDER BY TIME_ID ";
+                        //요일에 해당하는 시간 테이블 값 가져오기
+                        sql = 
+                            "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
+                            "FROM \"TIME\" t " +
+                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(SYSDATE + (INTERVAL '9' HOUR), 'd'))-1 " +
+                            "ORDER BY TIME_ID ";
                         comm.CommandText = sql;
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
