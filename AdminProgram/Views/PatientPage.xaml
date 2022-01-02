@@ -55,19 +55,19 @@
                     <!--환자번호-->
                     <WrapPanel Grid.Column="0" Orientation="Horizontal">
                         <TextBlock Text="환자번호 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="patientNum_txtbox" Width="50" Height="23" Margin="0,5,5,5"/>
+                        <TextBox x:Name="patientNum_txtbox" Padding="4" Width="50" Height="auto" Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--이름-->
                     <WrapPanel Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="이름 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="patientName_txtbox" Width="50" Height="23" Margin="0,5,5,5"/>
+                        <TextBox x:Name="patientName_txtbox" Padding="4" Width="50" Height="auto" Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--성별-->
                     <WrapPanel Grid.Column="2" Orientation="Horizontal">
                         <TextBlock Text="성별 :" Margin="5" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="gender_combobox"  Width="40" Height="23" Margin="0,5,5,5">
+                        <ComboBox x:Name="gender_combobox" Width="40" Height="26" Margin="0,5,5,5">
                             <ComboBoxItem Content="-"/>
                             <ComboBoxItem Content="M"/>
                             <ComboBoxItem Content="F"/>
@@ -77,34 +77,34 @@
                     <!--생년월일-->
                     <WrapPanel Grid.Column="3" Orientation="Horizontal">
                         <TextBlock Text="생년월일 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="bod_txtbox" Width="70" Height="23" Margin="0,5,5,5"/>
+                        <TextBox x:Name="bod_txtbox" Padding="4" Width="70" Height="auto" Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--나이-->
                     <WrapPanel Grid.Column="4" Orientation="Horizontal">
                         <TextBlock Text="나이 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="startAge_txtbox" Width="30" Height="23" Margin="0,5,0,5" VerticalAlignment="Center"/>
+                        <TextBox x:Name="startAge_txtbox" Padding="4" Width="30" Height="auto" Margin="0,5,0,5" VerticalAlignment="Center"/>
                         <TextBlock Text="~" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="endAge_txtbox" Width="30" Height="23" Margin="0,5,5,5" VerticalAlignment="Center"/>
+                        <TextBox x:Name="endAge_txtbox" Padding="4" Width="30" Height="auto" Margin="0,5,5,5" VerticalAlignment="Center"/>
                     </WrapPanel>
 
                     <!--방문날짜-->
                     <WrapPanel Grid.Column="5" Orientation="Horizontal">
                         <TextBlock Text="방문날짜 :" Margin="5" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="lastCome_datePicker" Margin="0,5,5,5" VerticalAlignment="Center" SelectedDateChanged="SelectedDate" Width="113"/>
+                        <DatePicker x:Name="lastCome_datePicker" Margin="0,5,5,5" VerticalAlignment="Center" SelectedDateChanged="SelectedDate" Width="113" Height="26"/>
                     </WrapPanel>
 
                     <!--전화번호-->
                     <WrapPanel Grid.Column="6" Orientation="Horizontal">
                         <TextBlock Text="전화번호 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="phoneNum_txtbox" Width="80" Height="23" Margin="0,5,5,5"/>
+                        <TextBox x:Name="phoneNum_txtbox" Padding="4" Width="80" Height="auto" Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="7" Click="Search_Button_Click" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
+                    <Button Grid.Column="7" Click="Search_Button_Click" Width="70" Height="26" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                     <!--추가-->
-                    <Button Grid.Column="8" Click="AddPatient_Btn" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">추가</Button>
+                    <Button Grid.Column="8" Click="AddPatient_Btn" Width="70" Height="26" Margin="5,5,10,5" HorizontalAlignment="Right">추가</Button>
 
                 </Grid>
 
