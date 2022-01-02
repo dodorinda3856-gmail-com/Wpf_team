@@ -48,13 +48,13 @@
                 <!--상병코드-->
                 <WrapPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBlock Text="상병코드 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="patientNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
+                    <TextBox x:Name="diseaseNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
                 </WrapPanel>
 
                 <!--상병명칭-->
                 <WrapPanel Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Text="병명 :" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="patientName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
+                    <TextBox x:Name="diseaseName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
                 </WrapPanel>
 
                 <!--검색-->
@@ -67,7 +67,7 @@
             </Grid>
 
             <!--상세목록-->
-            <DataGrid x:Name="dataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+            <DataGrid x:Name="diseaseDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
                           ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
@@ -106,13 +106,13 @@
                 <!--시술번호-->
                 <WrapPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBlock Text="시술번호 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="apatientNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
+                    <TextBox x:Name="treatmentNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
                 </WrapPanel>
 
                 <!--시술명-->
                 <WrapPanel Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Text="시술명 :" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                    <TextBox x:Name="apatientName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
+                    <TextBox x:Name="treatmentName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
                 </WrapPanel>
 
                 <!--검색-->
@@ -125,7 +125,7 @@
             </Grid>
 
             <!--상세목록-->
-            <DataGrid x:Name="adataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+            <DataGrid x:Name="treatmentDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
                           ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
