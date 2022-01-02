@@ -9,6 +9,139 @@
       Title="DiseaseManagementPage">
 
     <Grid Margin="40,0,0,0">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Canvas Grid.RowSpan="5" Grid.Column="0" Background="Gray"/>
+        <Canvas Grid.RowSpan="5" Grid.Column="2" Background="Gray"/>
+        <Canvas Grid.Row="0" Grid.Column="1" Background="Gray"/>
+        <Canvas Grid.Row="2" Grid.Column="1" Background="Gray"/>
+        <Canvas Grid.Row="4" Grid.Column="1" Background="Gray"/>
+
+        <!--상병코드파트-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--검색창-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--상병코드-->
+                <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="상병코드 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="patientNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
+                </WrapPanel>
+
+                <!--상병명칭-->
+                <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="병명 :" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="patientName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
+                </WrapPanel>
+
+                <!--검색-->
+                <Button Grid.Column="2" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
+
+                <!--추가-->
+                <Button Grid.Column="3" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+
+                <Canvas Grid.Column="4" Background="Gray"/>
+            </Grid>
+
+            <!--상세목록-->
+            <DataGrid x:Name="dataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                <DataGrid.Columns>
+                    <!--체크박스고민-->
+                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병전용코드" Binding="{Binding Patient_ID}"/>
+                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병코드" Binding="{Binding Patient_ID}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="상병명칭" Binding="{Binding Patient_Name}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="상병분류기호" Binding="{Binding Patient_Name}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding Address}"/>
+                </DataGrid.Columns>
+                <!--아이템 더블클릭 이벤트-->
+                <!--<DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>-->
+            </DataGrid>
+        </Grid>
+
+        <!--시술파트-->
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--검색창-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--시술번호-->
+                <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="시술번호 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="apatientNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
+                </WrapPanel>
+
+                <!--시술명-->
+                <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="시술명 :" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="apatientName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
+                </WrapPanel>
+
+                <!--검색-->
+                <Button Grid.Column="2" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
+
+                <!--추가-->
+                <Button Grid.Column="3" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+
+                <Canvas Grid.Column="4" Background="Gray"/>
+            </Grid>
+
+            <!--상세목록-->
+            <DataGrid x:Name="adataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                <DataGrid.Columns>
+                    <!--체크박스고민-->
+                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding Patient_ID}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="단가" Binding="{Binding Patient_Name}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="시술명" Binding="{Binding Patient_Name}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding Address}"/>
+                </DataGrid.Columns>
+                <!--아이템 더블클릭 이벤트-->
+                <!--<DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>-->
+            </DataGrid>
+        </Grid>
+
     </Grid>
 </Page>
