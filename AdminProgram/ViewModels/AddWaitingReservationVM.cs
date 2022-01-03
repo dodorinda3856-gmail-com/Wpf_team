@@ -214,7 +214,8 @@ namespace AdminProgram.ViewModels
                         // 3) 진료진 정보 가져오기
                         sql =
                             "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
-                            "FROM MEDI_STAFF ms ";
+                            "FROM MEDI_STAFF ms " +
+                            "WHERE \"POSITION\" = 'D' ";
                         comm.CommandText = sql;
 
                         using (OracleDataReader reader = comm.ExecuteReader())
