@@ -9,12 +9,12 @@ namespace AdminProgram.Models
 {
 	public class ProcedureModel : ObservableObject
 	{
-		private int         mediProcedureID;		//시술번호
-		private int         treatmentAmount;		//단가
-		private DateTime    createtionDate;			//생성날짜
-		private DateTime    revisedDate;            //개정날짜
-		private string?		afterS;                     //사후관리
-		private string?		procedureName;          //시술이름
+		private int         mediProcedureID = 0;		//시술번호
+		private int         treatmentAmount = 0;		//단가
+		private DateTime    createtionDate;				//생성날짜
+		private DateTime    revisedDate;				//개정날짜
+		private string?		afterS = null;              //사후관리
+		private string?		procedureName = null;		//시술이름
 
 
 		public int MediProcedureID
