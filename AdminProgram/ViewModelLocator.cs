@@ -9,7 +9,7 @@ namespace AdminProgram
     {
         public MediAppointmentVM MAVM => Ioc.Default.GetService<MediAppointmentVM>();
         public ADWViewModel ADWVM => Ioc.Default.GetService<ADWViewModel>();
-        //public PMViewModel PMVM => Ioc.Default.GetService<PMViewModel>();
+        //public PMViewModel PMVM => Ioc.Default.GetService<PMViewModel>(); // 아직 App.xaml.cs에 등록 안함
         public TreatmentVM TMVM => Ioc.Default.GetService<TreatmentVM>();
         public AddWaitingReservationVM AWRVM => Ioc.Default.GetService<AddWaitingReservationVM>();
     }

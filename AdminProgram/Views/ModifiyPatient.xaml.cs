@@ -40,6 +40,7 @@ namespace AdminProgram
             patientName.Text = Passvalue.Patient_Name;
             securityNum.Text = Passvalue.Resident_Regist_Num;
             datePicker.Text = Passvalue.Dob.ToString();
+            datePicker.Text = datePicker.Text.Substring(0,10);
             address.Text = Passvalue.Address;
             phoneNum.Text = Passvalue.Phone_Num;
             if (Passvalue.Gender == "M")
@@ -68,18 +69,6 @@ namespace AdminProgram
                 return "F";
         }
 
-
-        //달력선택기능
-        private void selectedDate(object sender, SelectionChangedEventArgs e)
-        {
-            var picker = sender as DatePicker;
-
-            DateTime? date = picker.SelectedDate;
-            if (date == null)
-            {
-                MessageBox.Show("No Date");
-            }
-        }
 
         //DB 연결
         private void ConnectDB()
