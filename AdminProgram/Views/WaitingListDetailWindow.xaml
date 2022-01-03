@@ -64,9 +64,9 @@
         
         <!--대기자가 진료를 완료한 경우-->
         <Button Content="수납 완료" Grid.Column="3" Grid.Row="7"
-                Command="{Binding FinDiagnosisBtn}" Style="{StaticResource RadiusBtn}"/>
+                Command="{Binding FinDiagnosisBtn2}" Style="{StaticResource RadiusBtn}" Click="Fin_Treatment"/>
         <!--막상 환자가 없는 경우-->
         <Button Content="대기자 삭제" Grid.Column="4" Grid.Row="7"
-                Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}" Click="Close_Window"/>
+                Command="{Binding DeleteWaitingDataBtn}" Style="{StaticResource RadiusBtn}" Click="Delete_Waiting_Data"/>
     </Grid>
 </Window>
