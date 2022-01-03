@@ -12,9 +12,15 @@ namespace AdminProgram.Views
             InitializeComponent();
         }
 
-        private void Close_Window(object sender, RoutedEventArgs e)
+        private void Delete_Waiting_Data(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("대기 환자를 삭제했습니다");
+            Window.GetWindow(this).Close();
+        }
+
+        private void Fin_Treatment(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("수납을 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
     }

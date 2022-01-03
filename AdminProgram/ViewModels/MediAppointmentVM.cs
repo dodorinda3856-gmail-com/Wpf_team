@@ -311,14 +311,15 @@ namespace AdminProgram.ViewModels
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) end ==//
 
 
-        //== 대기 중이던 환자의 수납이 완료되는 경우 start ==//
-        //진행중...
+        
+
+        //== 예약 환자가 수납을 완료하는 경우 start ==//
         private void FinDiagnosis()
         {
             //후속 처리 쿼리 짜서 넣으면 됨
-            _logger.LogInformation("수납 진행");
+            _logger.LogInformation("예약 환자 수납 진행");
 
-            string sql = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
+            string sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -350,7 +351,48 @@ namespace AdminProgram.ViewModels
         }
         private RelayCommand finDiagnosisBtn;
         public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
-        //== 대기 중이던 환자의 수납이 완료되는 경우 end ==//
+        //== 예약 환자가 수납을 완료하는 경우 start ==//
+
+
+        //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 start ==//
+        private void FinDiagnosis2()
+        {
+            //후속 처리 쿼리 짜서 넣으면 됨
+            _logger.LogInformation("방문 대기 환자 수납 진행");
+
+            string sql = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogCritical(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 환자는 수납을 완료하였습니다.");
+                }
+            }
+
+        }
+        private RelayCommand finDiagnosisBtn2;
+        public ICommand FinDiagnosisBtn2 => finDiagnosisBtn2 ??= new RelayCommand(FinDiagnosis2);
+        //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 end ==//
 
 
         //== 예약 정보를 수정하는 경우 start ==//

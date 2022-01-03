@@ -10,6 +10,15 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 
+/**
+ * AddReservationWindow.xaml과 AddWaitingWindow.xaml과 관련된 ViewModel
+ * 
+ * 1) 환자를 주민등록번호로 검색
+ * 2) 요일에 맞는 시간 테이블 가져오기
+ * 3) 의료진 정보 가져오기
+ * 4) 진료 예약 등록
+ * 5) 방문 대기자 등록
+ */
 namespace AdminProgram.ViewModels
 {
     public class AddWaitingReservationVM : ObservableRecipient
@@ -221,17 +230,18 @@ namespace AdminProgram.ViewModels
                             }
                         }
 
-                        // 3) 진료진 정보 가져오기
+                        // 3) 의료진 정보 가져오기
                         sql =
                             "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
                             "FROM MEDI_STAFF ms " +
                             "WHERE \"POSITION\" = 'D' ";
                         comm.CommandText = sql;
+                        _logger.LogInformation("[SQL QUERY] " + sql);
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
                             _logger.LogInformation("진료진 정보 Table 값 가져오기 select 실행");
-                            _logger.LogInformation("[SQL QUERY] " + sql);
+                            
 
                             try
                             {
@@ -318,11 +328,9 @@ namespace AdminProgram.ViewModels
         private void RegisterReservation()
         {
             //환자 번호, 진료예약 시간, 
-            _logger.LogInformation("진료 예약 등록 함수에 들어왔습니다... 개발 진행중입니다...");
-            _logger.LogInformation("선택된 시간은 " + SelectedTime.Hour);
-            _logger.LogInformation("간단한 증상 설명은 <" + explainSymtom + ">");
-            //insert
+            _logger.LogInformation("진료 예약 등록을 시작합니다...");
             string date = MakeDate();
+            //insert
             string sql =
                 "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
                 "VALUES(RESERVATION_SEQ1.NEXTVAL, " + 
@@ -330,8 +338,8 @@ namespace AdminProgram.ViewModels
                     SelectedTime.TimeId + ", " + 
                     SelectedStaff.StaffId + ", " + 
                     "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
-
             _logger.LogInformation("[SQL Query] " + sql);
+
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -351,14 +359,8 @@ namespace AdminProgram.ViewModels
                         comm.ExecuteNonQuery();
                     }
                 }
-                catch (Exception err)
-                {
-                    _logger.LogInformation(err + "");
-                }
-                finally
-                {
-                    _logger.LogInformation("이 예약 정보를 예약자 리스트에 등록했습니다.");
-                }
+                catch (Exception err) {_logger.LogInformation(err + "");}
+                finally {_logger.LogInformation("이 예약 정보를 예약자 리스트에 등록했습니다.");}
             }
         }
         private RelayCommand registerReservationData;
@@ -420,16 +422,24 @@ namespace AdminProgram.ViewModels
         {    
             string month;
             string day;
-            if (SelectedDateTime.Month.ToString().Length == 1 || SelectedDateTime.Day.ToString().Length == 1)
+            
+            if (SelectedDateTime.Month.ToString().Length == 1)
             {
                 month = "0" + SelectedDateTime.Month.ToString();
-                day = "0" + SelectedDateTime.Day.ToString();
             }
             else
             {
                 month = SelectedDateTime.Month.ToString();
+            }
+            if(SelectedDateTime.Day.ToString().Length == 1)
+            {
+                day = "0" + SelectedDateTime.Day.ToString();
+            }
+            else
+            {
                 day = SelectedDateTime.Day.ToString();
             }
+
             string date = SelectedDateTime.Year + "" + month + day;
 
             return date;
