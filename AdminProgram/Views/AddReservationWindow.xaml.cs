@@ -17,5 +17,11 @@ namespace AdminProgram.Views
             //MessageBox.Show("예약 정보를 삭제했습니다");
             Window.GetWindow(this).Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("진료 예약을 완료하였습니다.");
+            Window.GetWindow(this).Close();
+        }
     }
 }

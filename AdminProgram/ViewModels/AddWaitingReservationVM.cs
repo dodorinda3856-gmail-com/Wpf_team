@@ -27,11 +27,19 @@ namespace AdminProgram.ViewModels
         }
 
         //예약 시간 정보
-        private ObservableCollection<TimeModel> tModel;
-        public ObservableCollection<TimeModel> TModels
+        private ObservableCollection<TimeModel> timeModel;
+        public ObservableCollection<TimeModel> TimeModels
         {
-            get { return tModel; }
-            set { SetProperty(ref tModel, value); }
+            get { return timeModel; }
+            set { SetProperty(ref timeModel, value); }
+        }
+
+        //진료진 정보
+        private ObservableCollection<MediStaffModel> staffModel;
+        public ObservableCollection<MediStaffModel> StaffModels
+        {
+            get { return staffModel; }
+            set { SetProperty(ref staffModel, value); }
         }
 
         public AddWaitingReservationVM(ILogger<AddWaitingReservationVM> logger)
@@ -42,8 +50,11 @@ namespace AdminProgram.ViewModels
             PModels = new ObservableCollection<PatientModelTemp>();
             PModels.CollectionChanged += ContentCollectionChanged;
 
-            TModels = new ObservableCollection<TimeModel>();
-            TModels.CollectionChanged += ContentCollectionChanged;
+            TimeModels = new ObservableCollection<TimeModel>();
+            TimeModels.CollectionChanged += ContentCollectionChanged;
+
+            StaffModels = new ObservableCollection<MediStaffModel>();
+            StaffModels.CollectionChanged += ContentCollectionChanged;
         }
 
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -80,13 +91,21 @@ namespace AdminProgram.ViewModels
             if (tModels != null)
             {
                 _logger.LogInformation("{@tModels}", tModels);
-                WeakReferenceMessenger.Default.Send(TModels);
+                WeakReferenceMessenger.Default.Send(TimeModels);
+                _logger.LogInformation("send 성공");
+            }
+
+            var mediStaffModels = sender as PatientModelTemp;
+            if (mediStaffModels != null)
+            {
+                _logger.LogInformation("{@mediStaffModels}", mediStaffModels);
+                WeakReferenceMessenger.Default.Send(StaffModels);
                 _logger.LogInformation("send 성공");
             }
         }
         //== Messenger ==//
 
-        //== 환자 정보 주민등록번호로 검색, TIME TABLE 가져오기 start ==//
+        //== 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
         private void SearchPatient()
         {
             string sql;
@@ -115,6 +134,7 @@ namespace AdminProgram.ViewModels
                     PModels = new ObservableCollection<PatientModelTemp>();
                     PModels.CollectionChanged += ContentCollectionChanged;
 
+                    // 1) 환자 검색
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
@@ -152,7 +172,7 @@ namespace AdminProgram.ViewModels
                             }
                         }
 
-                        //요일에 해당하는 시간 테이블 값 가져오기
+                        // 2) 요일에 해당하는 <시간 테이블 값> 가져오기
                         //진행중...
                         //예약이 되어있는 값은 보여주면 안됨ㅜㅜ
                         sql = 
@@ -171,7 +191,7 @@ namespace AdminProgram.ViewModels
                             {
                                 while (reader.Read())
                                 {
-                                    TModels.Add(new TimeModel()
+                                    TimeModels.Add(new TimeModel()
                                     {
                                         TimeId = reader.GetInt32(reader.GetOrdinal("TIME_ID")),
                                         Hour = reader.GetString(reader.GetOrdinal("HOUR")),
@@ -187,6 +207,41 @@ namespace AdminProgram.ViewModels
                             finally
                             {
                                 _logger.LogInformation("TIME TABLE 가져오기 성공");
+                                reader.Close();
+                            }
+                        }
+
+                        // 3) 진료진 정보 가져오기
+                        sql =
+                            "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
+                            "FROM MEDI_STAFF ms ";
+                        comm.CommandText = sql;
+
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            _logger.LogInformation("진료진 정보 Table 값 가져오기 select 실행");
+                            _logger.LogInformation("[SQL QUERY] " + sql);
+
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    StaffModels.Add(new MediStaffModel()
+                                    {
+                                        StaffId = reader.GetInt32(reader.GetOrdinal("STAFF_ID")),
+                                        StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
+                                        MediSubject = reader.GetString(reader.GetOrdinal("MEDI_SUBJECT"))
+                                    });
+                                }
+                            }
+                            catch (InvalidCastException e)
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogCritical(e + "");
+                            }
+                            finally
+                            {
+                                _logger.LogInformation("진료진 정보 Table 가져오기 성공");
                                 reader.Close();
                             }
                         }
@@ -247,25 +302,40 @@ namespace AdminProgram.ViewModels
         public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
         //== 대기자 등록 end ==//
 
+
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
+            //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
+            string month = "";
+            string day = "";
+
+            if (SelectedDateTime.Month.ToString().Length == 1 || SelectedDateTime.Day.ToString().Length == 1)
+            {
+                month = "0" + SelectedDateTime.Month.ToString();
+                day = "0" + SelectedDateTime.Day.ToString();
+            }
+            else
+            {
+                month = SelectedDateTime.Month.ToString();
+                day = SelectedDateTime.Day.ToString();
+            }
+            string date = SelectedDateTime.Year + "" + month + day;
+
             //환자 번호, 진료예약 시간, 
             _logger.LogInformation("진료 예약 등록 함수에 들어왔습니다... 개발 진행중입니다...");
-            string sql = ""; //insert
+            _logger.LogInformation("선택된 시간은 " + SelectedTime.Hour);
+            _logger.LogInformation("간단한 증상 설명은 " + explainSymtom);
+            //insert
+            string sql =
+                "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE) " +
+                "VALUES(RESERVATION_SEQ1.NEXTVAL, " + 
+                    SelectedPatient.PatientId + ", " + 
+                    SelectedTime.TimeId + ", " + 
+                    SelectedStaff.StaffId + ", " + 
+                    "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS')) ";
 
-
-
-
-
-
-
-
-
-
-
-
-
+            _logger.LogInformation("[SQL Query] " + sql);
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -300,32 +370,53 @@ namespace AdminProgram.ViewModels
         //== 진료 예약 등록 end ==//
 
         //== 공통 ==//
-        private string searchText; //검색어(주민등록번호)
+        //검색어(주민등록번호)
+        private string searchText; 
         public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
         }
 
-        private PatientModelTemp selectedPatient; //datagrid에서 선택된 행의 값들을 가짐
+        //datagrid에서 선택된 행의 값들을 가짐
+        private PatientModelTemp selectedPatient; 
         public PatientModelTemp SelectedPatient
         {
             get => selectedPatient;
             set => SetProperty(ref selectedPatient, value);
         }
 
-        private string explainSymtom; //간단한 증상 설명
+        //간단한 증상 설명
+        private string explainSymtom; 
         public string ExplainSymtom
         {
             get => explainSymtom;
             set => SetProperty(ref explainSymtom, value);
         }
 
-        private PatientModelTemp selectedTime; //combobox에서 선택된 시간값
-        public PatientModelTemp SelectedTime
+        //combobox에서 선택된 시간값
+        private TimeModel selectedTime; 
+        public TimeModel SelectedTime
         {
             get => selectedTime;
             set => SetProperty(ref selectedTime, value);
         }
+
+        //combobox에서 선택된 진료진값
+        private MediStaffModel selectedStaff; 
+        public MediStaffModel SelectedStaff
+        {
+            get => selectedStaff;
+            set => SetProperty(ref selectedStaff, value);
+        }
+
+        //== 날짜 start ==//
+        private DateTime selectedDateTime = DateTime.Now;
+        public DateTime SelectedDateTime
+        {
+            get => selectedDateTime;
+            set => SetProperty(ref selectedDateTime, value);
+        }
+        //== 날짜 end ==//
     }
 }
