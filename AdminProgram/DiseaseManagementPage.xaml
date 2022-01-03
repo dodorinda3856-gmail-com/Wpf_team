@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:AdminProgram"
+      xmlns:local="clr-namespace:AdminProgram" xmlns:models="clr-namespace:AdminProgram.Models" d:DataContext="{d:DesignInstance Type=models:ProcedureModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DiseaseManagementPage">
@@ -78,11 +78,11 @@
                     <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding Address}"/>
                 </DataGrid.Columns>
                 <!--아이템 더블클릭 이벤트-->
-                <!--<DataGrid.ItemContainerStyle>
+                <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
-                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DiseaseDoubleClick"/>
                     </Style>
-                </DataGrid.ItemContainerStyle>-->
+                </DataGrid.ItemContainerStyle>
             </DataGrid>
         </Grid>
 
@@ -116,7 +116,7 @@
                 </WrapPanel>
 
                 <!--검색-->
-                <Button Grid.Column="2" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
+                <Button Grid.Column="2" Click="Search_Procedure_Button_Click" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                 <!--추가-->
                 <Button Grid.Column="3" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
@@ -126,22 +126,23 @@
 
             <!--상세목록-->
             <DataGrid x:Name="treatmentDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                          ItemsSource="{Binding Path=ProcedureModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
-                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding Patient_ID}"/>
-                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="단가" Binding="{Binding Patient_Name}"/>
-                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="시술명" Binding="{Binding Patient_Name}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding Address}"/>
+                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding MediProcedureID}"/>
+                    <DataGridTextColumn MinWidth="70" Width="Auto" Header="단가" Binding="{Binding TreatmentAmount}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="시술명" Binding="{Binding ProcedureName}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding AfterS}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="등록날짜" Binding="{Binding CreatetionDate}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="수정날짜" Binding="{Binding RevisedDate}"/>
                 </DataGrid.Columns>
                 <!--아이템 더블클릭 이벤트-->
-                <!--<DataGrid.ItemContainerStyle>
+                <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
-                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_TreatmentDoubleClick"/>
                     </Style>
-                </DataGrid.ItemContainerStyle>-->
+                </DataGrid.ItemContainerStyle>
             </DataGrid>
         </Grid>
-
     </Grid>
 </Page>
