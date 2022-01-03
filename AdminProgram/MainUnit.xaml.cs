@@ -10,11 +10,13 @@ namespace AdminProgram
     /// </summary>
     public partial class MainUnit : Window
     {
+
         public MainUnit()
         {
             InitializeComponent();
+            Global_Name.Content = Application.Current.Properties["globalName"] + "님 안녕하세요.";
         }
-
+        
         bool isMenuAction = false;   // 메뉴 이동중인지 확인
         bool isMenuShow = false;   // 메뉴 이동중인지 확인
         void ActMenu(string strTargetName, bool isMouseOver)
@@ -80,7 +82,7 @@ namespace AdminProgram
 
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("Views/MediAppointment.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Home_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -101,6 +103,11 @@ namespace AdminProgram
         private void Staff_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.frame.Navigate(new Uri("Views/StaffPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Disease_Management_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

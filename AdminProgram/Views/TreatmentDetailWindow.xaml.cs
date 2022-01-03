@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace AdminProgram
+namespace AdminProgram.Views
 {
     /// <summary>
-    /// TreatDetailWindow.xaml에 대한 상호 작용 논리
+    /// TreatmentDetailWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class TreatDetailWindow : Window
+    public partial class TreatmentDetailWindow : Window
     {
-        public TreatDetailWindow()
+        public TreatmentDetailWindow()
         {
             InitializeComponent();
         }

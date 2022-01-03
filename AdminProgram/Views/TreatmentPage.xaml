@@ -12,23 +12,26 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
       Title="TreatmentPage">
-
+    <Page.Resources>
+        <ResourceDictionary Source="ResourceDictionary.xaml"/>
+    </Page.Resources>
     <Grid Margin="60,20,20,20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.8*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
 
         <!--상단 바 자리-->
-        <Grid Grid.ColumnSpan="3" Background="DimGray" HorizontalAlignment="Stretch">
+        <Grid Grid.ColumnSpan="4" Background="DimGray" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -43,12 +46,11 @@
                    FontWeight="Bold" FontSize="20" Margin="10,0,10,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <TextBox Text="{Binding SearchText}" Name="searchTextBox" Grid.Column="3" 
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Name="searchTextBox" Grid.Column="3" 
                      Width="287" Height="30" Margin="469,0,10,0" 
-                     VerticalAlignment="Center" HorizontalAlignment="Right" >
-                     <!--KeyDown="searchTextBox_KeyDown">-->
+                     VerticalAlignment="Center" HorizontalAlignment="Right">
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding GetTreatmentBtn}"/>
+                    <KeyBinding Command="{Binding GetTreatmentBtn}" Key="Enter"/>
                 </TextBox.InputBindings>
             </TextBox>
             <!--placeholder와 비슷한 느낌을 내는 부분 start-->
@@ -70,14 +72,23 @@
         </Grid>
         
         <!--진료 리스트-->
-        <DataGrid x:Name="treatDataGrid" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,30,0,0"
+        <!--가장 최근에 진료 명단에 들어온 환자를 가장 위에 둘 것인가?-->
+        <DataGrid x:Name="treatDataGrid" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,30,0,0"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=TMModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=TMModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True">
+            <DataGrid.ColumnHeaderStyle>
+                <Style></Style>
+            </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth ="50" Width="Auto" Header="환자 번호" Binding="{Binding PatientNumber}"/>
-                <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 이름" Binding="{Binding PatientName}"/>
-                <DataGridTextColumn MinWidth="100" Width="Auto" Header="환자 전화번호" Binding="{Binding PatientPhoneNum}"/>
-                <DataGridTextColumn MinWidth="100" Width="*" Header="진료 상세" Binding="{Binding TreatDetail}"/>
+                <DataGridTextColumn Width="Auto" Header="환자 번호" 
+                                    Binding="{Binding PatientNumber}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
+                <DataGridTextColumn Width="Auto" Header="환자 이름" 
+                                    Binding="{Binding PatientName}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
+                <DataGridTextColumn Width="Auto" Header="환자 전화번호" 
+                                    Binding="{Binding PatientPhoneNum}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
+                <DataGridTextColumn Width="*" Header="진료 상세" 
+                                    Binding="{Binding TreatDetail}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
             </DataGrid.Columns>
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
@@ -85,31 +96,10 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
         </DataGrid>
-        
-        <!--환자 진료 내용 세부사항(수정 가능)-->
-        <Grid Grid.Row="4" Grid.Column="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="0.5*"/>
-            </Grid.RowDefinitions>
-            <ListView Name="listView" Grid.Row="0" Grid.ColumnSpan="2">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="이름: "/>
-                            <TextBox Text="{Binding PatientName}" FontWeight="Bold"/>
-                            <TextBlock Text="치료 상세: "/>
-                            <TextBox Text="{Binding TreatDetail}" FontWeight="Bold"/>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Content="확인" Grid.Column="0" Grid.Row="1" />
-            <Button Content="수정" Grid.Column="1" Grid.Row="1" />
-        </Grid>
+        <TextBlock Text="" Grid.Row="3" />
+        <!--<Button Content="확인" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" 
+                    Style="{StaticResource RadiusBtn}"/>
+        <Button Content="수정" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" 
+                    Style="{StaticResource RadiusBtn}"/>-->
     </Grid>
 </Page>

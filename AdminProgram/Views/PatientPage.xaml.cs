@@ -18,22 +18,51 @@ namespace AdminProgram
         public PatientPage()
         {
             InitializeComponent();
-            gender_combobox.SelectedIndex = 0; //콤보박스 기본값설정
+            LogRecord.LogWrite("환자페이지 오픈");
+            gender_combobox.SelectedIndex = 0;  //콤보박스 인덱스로 기본값설정
         }
 
+        //환자정보에서 안받아왔던 마케팅동의 알람, 집전화번호받아오는 함수
+        void GetMarketingNum(ref string sql, ref PMModel tmp)
+        {
+            ConnectDB();
+            OracleCommand comm = new();
+
+            comm.Connection = connn;
+            comm.CommandText = sql;
+
+            OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+                tmp.Agreemarketing = reader["AGREE_OF_ALARM"] as string;
+                tmp.Home_Num = reader["HOME_NUM"] as string;
+            }
+            reader.Close();
+        }
+
+        //선택된 환자상세정보 가져오기
         private void Row_DoubleClick(object sender, EventArgs args)
         {
-            //선택된 환자의 진료 상세정보 가져오기 - 진행 중
             var row = sender as DataGridRow;
 
             if (row != null && row.IsSelected)
             {
+                PMModel tmp = (PMModel)row.Item;
+                LogRecord.LogWrite("'" + tmp.Patient_Name + "' 환자정보 상세페이지 들어감");
+                string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where Resident_Regist_Num = " + tmp.Resident_Regist_Num;
+                GetMarketingNum(ref sql, ref tmp);
+               
+                ModifiyPatient.Passvalue = tmp;
+                ModifiyPatient.Passvalue.Agreemarketing = tmp.Agreemarketing;
+                ModifiyPatient.Passvalue.Home_Num = tmp.Home_Num;
                 ModifiyPatient tw = new ModifiyPatient();
+
                 tw.ShowDialog();
             }
         }
 
-        //날짜 
+        //날짜선택기능
         private void SelectedDate(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
@@ -45,13 +74,14 @@ namespace AdminProgram
             }
             else
             {
-                //날짜 가져오는 부분
                 MessageBox.Show(date.Value.ToShortDateString());
             }
         }
 
+        //환자추가하기 버튼이벤트
         private void AddPatient_Btn(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("환자페이지 추가 버튼 클릭");
             AddPatient addPatient = new();
             addPatient.ShowDialog();
         }
@@ -120,7 +150,8 @@ namespace AdminProgram
                 {
                     if (bod_txtbox.Text == "")
                         sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                        "where PATIENT_STATUS_VAL = 'T' and " +
+                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
                         "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
                         "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
@@ -128,7 +159,8 @@ namespace AdminProgram
                         " order by PATIENT_ID";
                     else
                         sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                        "where PATIENT_STATUS_VAL = 'T' and " + 
+                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
                         "DOB like To_Date('" + bod_txtbox.Text + "', 'yyyyMMDD') and " +
                         "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
@@ -139,7 +171,8 @@ namespace AdminProgram
                 {
                     if (bod_txtbox.Text == "")
                         sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                        "where PATIENT_STATUS_VAL = 'T' and " +
+                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
                         "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
                         "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
@@ -148,7 +181,8 @@ namespace AdminProgram
                         " order by PATIENT_ID";
                     else
                         sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                        "where PATIENT_STATUS_VAL = 'T' and " +                                                                                                                                                                                                                                                                                                                   
+                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
                         "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
                         "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
                         "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
@@ -178,6 +212,7 @@ namespace AdminProgram
         //검색 클릭 이벤트
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("환자정보페이지 검색 버튼 클릭");
             string? startyear = null;
             string? endyear = null;
             string? sql = null;
@@ -197,8 +232,7 @@ namespace AdminProgram
             //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
             //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
             OracleCommand comm = new();
-            /*if (comm == null)
-                DBConnection(this, null);*/
+            
             comm.Connection = connn;
             comm.CommandText = sql;
 
@@ -206,9 +240,9 @@ namespace AdminProgram
             //SQL Server와 연결을 유지한 상태에서 한번에 한 레코드(One Row)씩 데이타를 가져오는데 사용
             //DataReader는 하나의 Connection에 하나만 Open되어 있어야 하며, 사용이 끝나면 Close() 메서드를 호출하여 닫아 준다.
             OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-            List<PMModel> datas = new(); //listView에 데이터 뿌리기 위한 틀
+            List<PMModel> datas = new();    //listView에 데이터 뿌리기 위한 틀
 
-            while (reader.Read())// 다음 레코드 계속 가져와서 루핑 - Advances the SqlDataReader to the next record. true if there are more rows; otherwise false.
+            while (reader.Read())   // 다음 레코드 계속 가져와서 루핑 - Advances the SqlDataReader to the next record. true if there are more rows; otherwise false.
             {
                 datas.Add(new PMModel()
                 {
@@ -229,38 +263,7 @@ namespace AdminProgram
 
             reader.Close();
 
-            /*using (OracleCommand comm = new OracleCommand())
-            {
-                comm.Connection = conn;
-                comm.CommandText = sql;
-
-                using (OracleDataReader reader = comm.ExecuteReader())
-                {
-                    List<PMModel> datas = new List<PMModel>();
-
-                    while (reader.Read())
-                    {
-                        datas.Add(new PMModel()
-                        {
-                            Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                            Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")), //listView의 textblock id(?)
-                            Address = reader.GetString(reader.GetOrdinal("Address")),
-                            Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
-                            Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
-                            Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
-                            Gender = reader.GetString(reader.GetOrdinal("Gender")),
-                            Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
-                            Age = calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
-                        });
-                    }
-                    dataGrid.ItemsSource = datas;
-                }
-            }*/
         }
     }
     
 }
-
-//테스트용
-/*if (bod_txtbox.Text == "")
-    MessageBox.Show(bod_txtbox.Text);*/

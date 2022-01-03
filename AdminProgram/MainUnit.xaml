@@ -39,6 +39,11 @@
                 <Label x:Name="Staff_Label" Width="200" PreviewMouseDown="Staff_Label_PreviewMouseDown" Foreground="White">의료진정보</Label>
                 <Image Width="30" Height="30" Source="icon.ico" ></Image>
             </DockPanel>
+            <DockPanel HorizontalAlignment="Right" Margin="5">
+                <Label x:Name="Disease_Management" Width="200" PreviewMouseDown="Disease_Management_PreviewMouseDown" Foreground="White">상병 / 시술관리</Label>
+                <Image Width="30" Height="30" Source="icon.ico" ></Image>
+            </DockPanel>
+            <Label x:Name="Global_Name" Content="" HorizontalContentAlignment="Center" Foreground="White"></Label>
         </StackPanel>
     </Grid>
 </Window>

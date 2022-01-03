@@ -1,0 +1,48 @@
+﻿<Window x:Class="AdminProgram.Views.AppointmentDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminProgram.Views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
+        Title="예약 환자 상세 정보 페이지" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="예약 수정, 삭제 페이지 입니다" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <Label Content="이름: " Grid.Column="0" Grid.Row="1" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Path=SelectedItem.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Label Content="예약 일시: " Grid.Column="0" Grid.Row="2"
+               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+        <Label Content="진료 유형: " Grid.Column="0" Grid.Row="3" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Path=SelectedItem.TreatType, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <!--방문 대기 환자랑 수납 완료 기능 자체는 똑같은데 쿼리는 달라... 어떻게 구현할지?-->
+        <Button Content="수납완료" Grid.Column="1" Grid.Row="4"
+                Command="{Binding FinDiagnosisBtn}" Click="Fin_Treatment"/>
+        <Button Content="예약 삭제" Grid.Column="3" Grid.Row="4"
+                Command="{Binding DeleteReservationDataBtn}" Click="Delete_Reservation_Date"/>
+    </Grid>
+</Window>

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminProgram.ViewModels
+namespace AdminProgram.Models
 {
-    public class PMViewModel
+    public class DiseaseModel
     {
+
     }
 }
