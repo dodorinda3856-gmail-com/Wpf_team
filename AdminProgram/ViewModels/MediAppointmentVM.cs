@@ -45,12 +45,20 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref wModel, value); }
         }
 
-        // 3) 시간 table 사용 위함
+        /*// 3) 시간 table 사용 위함
         private ObservableCollection<TimeModel> timeModel;
         public ObservableCollection<TimeModel> TimeModels
         {
             get { return timeModel; }
             set { SetProperty(ref timeModel, value); }
+        }*/
+
+        // 4) 진료 완료 리스트 Model 사용을 위함
+        private ObservableCollection<TreatmentCompleteListModel> treatmentCompleteModels;
+        public ObservableCollection<TreatmentCompleteListModel > TreatmentCompleteModels
+        {
+            get { return treatmentCompleteModels; }
+            set { SetProperty(ref treatmentCompleteModels, value); }
         }
 
         public MediAppointmentVM(ILogger<MediAppointmentVM> logger)
@@ -63,6 +71,9 @@ namespace AdminProgram.ViewModels
 
             WModels = new ObservableCollection<WaitingListModel>();
             WModels.CollectionChanged += ContentCollectionChanged;
+
+            TreatmentCompleteModels = new ObservableCollection<TreatmentCompleteListModel>();
+            TreatmentCompleteModels.CollectionChanged += ContentCollectionChanged;
         }
 
         //== Messenger 기초 start ==//
@@ -105,6 +116,13 @@ namespace AdminProgram.ViewModels
                 WeakReferenceMessenger.Default.Send(WModels); //이거 필수
                 _logger.LogInformation("WaitingList send 성공");
             }
+            var tcModels = sender as WaitingListModel;
+            if (tcModels != null)
+            {
+                _logger.LogInformation("{@tcModels}", tcModels);
+                WeakReferenceMessenger.Default.Send(TreatmentCompleteModels); //이거 필수
+                _logger.LogInformation("WaitingList send 성공");
+            }
         }
         //== Messenger 기초 end ==//
 
@@ -116,14 +134,20 @@ namespace AdminProgram.ViewModels
             string month = "";
             string day = "";
 
-            if (SelectedDateTime.Month.ToString().Length == 1 || SelectedDateTime.Day.ToString().Length == 1)
+            if (SelectedDateTime.Month.ToString().Length == 1)
             {
                 month = "0" + SelectedDateTime.Month.ToString();
-                day = "0" + SelectedDateTime.Day.ToString();
             }
             else
             {
                 month = SelectedDateTime.Month.ToString();
+            }
+            if (SelectedDateTime.Day.ToString().Length == 1)
+            {
+                day = "0" + SelectedDateTime.Day.ToString();
+            }
+            else
+            {
                 day = SelectedDateTime.Day.ToString();
             }
             string date = SelectedDateTime.Year + "" + month + day;
@@ -233,7 +257,18 @@ namespace AdminProgram.ViewModels
 
                         // 3) 진료 완료된 환자 리스트를 가져옴
                         //진행중...
-                        /*sql = "";
+                        /*sql =
+                            "SELECT p.PATIENT_NAME, p.PHONE_NUM, w.REQUEST_TO_WAIT" +
+                            "FROM WAITING w, PATIENT p " +
+                            "WHERE w.PATIENT_ID = p.PATIENT_ID " +
+                                "AND w.WAIT_STATUS_VAL = 'F' " +
+                                "AND TO_CHAR(w.REQUEST_TO_WAIT , 'YYYYMMDD') >= 20220103 " +
+                                "UNION ALL " +
+                            "SELECT p.PATIENT_NAME, p.PHONE_NUM, r.RESERVATION_DATE " +
+                            "FROM RESERVATION r, PATIENT p " +
+                            "WHERE r.PATIENT_ID = p.PATIENT_ID " +
+                                "AND r.RESERVE_STATUS_VAL = 'F' " +
+                                "AND TO_CHAR(r.RESERVATION_DATE , 'YYYYMMDD') >= 20220103 ";
                         comm.CommandText = sql;
 
                         using (OracleDataReader reader = comm.ExecuteReader())
@@ -243,7 +278,15 @@ namespace AdminProgram.ViewModels
 
                             try
                             {
-
+                                while (reader.Read())
+                                {
+                                    TreatmentCompleteModels.Add(new TreatmentCompleteListModel()
+                                    {
+                                        PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
+                                        PatientPhoneNum = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
+                                        Time = reader.GetDateTime(reader.GetOrdinal("REQUEST_TO_WAIT"))
+                                    });
+                                }
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
@@ -254,7 +297,6 @@ namespace AdminProgram.ViewModels
                                 _logger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
                                 reader.Close();
                             }
-
                         }*/
                     }
                 }
