@@ -105,6 +105,7 @@ namespace AdminProgram.ViewModels
         }
         //== Messenger ==//
 
+
         //== 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
         private void SearchPatient()
         {
@@ -131,8 +132,15 @@ namespace AdminProgram.ViewModels
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
 
+                    //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                     PModels = new ObservableCollection<PatientModelTemp>();
                     PModels.CollectionChanged += ContentCollectionChanged;
+
+                    TimeModels = new ObservableCollection<TimeModel>();
+                    TimeModels.CollectionChanged += ContentCollectionChanged;
+
+                    StaffModels = new ObservableCollection<MediStaffModel>();
+                    StaffModels.CollectionChanged += ContentCollectionChanged;
 
                     // 1) 환자 검색
                     using (OracleCommand comm = new OracleCommand())
@@ -175,15 +183,17 @@ namespace AdminProgram.ViewModels
                         // 2) 요일에 해당하는 <시간 테이블 값> 가져오기
                         //진행중...
                         //예약이 되어있는 값은 보여주면 안됨ㅜㅜ
-                        sql = 
+                        string date = MakeDate();
+                        sql =
                             "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
                             "FROM \"TIME\" t " +
-                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(SYSDATE + (INTERVAL '9' HOUR), 'd'))-1 " +
+                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd'))-1 " +
                             "ORDER BY TIME_ID ";
                         comm.CommandText = sql;
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
+                            _logger.LogInformation("DatePicker의 값은 " + SelectedDateTime);
                             _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
                             _logger.LogInformation("[SQL QUERY] " + sql);
 
@@ -254,15 +264,15 @@ namespace AdminProgram.ViewModels
                 }
             }
         }
-        private RelayCommand searchPatientBtn;
-        public ICommand SearchPatientBtn => searchPatientBtn ??= new RelayCommand(SearchPatient);
-        //== 환자 정보 주민등록번호로 검색 end ==//
+        private RelayCommand searchPatientAct;
+        public ICommand SearchPatientAct => searchPatientAct ??= new RelayCommand(SearchPatient);
+        //== 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 end ==//
 
-        //== 대기자 등록 start ==//
+
+        //==  방문 대기자 등록 start ==//
         private void RegisterWaiting()
         {
-            //시간값, 환자 번호, 간단한 요구사항이 필요하구려
-            _logger.LogInformation("방문 대기자 등록 함수에 들어왔습니다...");
+            _logger.LogInformation("방문 대기자 등록을 시작합니다.");
             string sql = 
                 "INSERT INTO WAITING (WATING_ID, PATIENT_ID, REQUEST_TO_WAIT, REQUIREMENTS, WAIT_STATUS_VAL) " +
                 "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'T') ";
@@ -301,40 +311,25 @@ namespace AdminProgram.ViewModels
         }
         private RelayCommand registerWaitingData;
         public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
-        //== 대기자 등록 end ==//
+        //== 방문 대기자 등록 end ==//
 
 
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
-            //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
-            string month = "";
-            string day = "";
-
-            if (SelectedDateTime.Month.ToString().Length == 1 || SelectedDateTime.Day.ToString().Length == 1)
-            {
-                month = "0" + SelectedDateTime.Month.ToString();
-                day = "0" + SelectedDateTime.Day.ToString();
-            }
-            else
-            {
-                month = SelectedDateTime.Month.ToString();
-                day = SelectedDateTime.Day.ToString();
-            }
-            string date = SelectedDateTime.Year + "" + month + day;
-
             //환자 번호, 진료예약 시간, 
             _logger.LogInformation("진료 예약 등록 함수에 들어왔습니다... 개발 진행중입니다...");
             _logger.LogInformation("선택된 시간은 " + SelectedTime.Hour);
-            _logger.LogInformation("간단한 증상 설명은 " + explainSymtom);
+            _logger.LogInformation("간단한 증상 설명은 <" + explainSymtom + ">");
             //insert
+            string date = MakeDate();
             string sql =
-                "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE) " +
+                "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
                 "VALUES(RESERVATION_SEQ1.NEXTVAL, " + 
                     SelectedPatient.PatientId + ", " + 
                     SelectedTime.TimeId + ", " + 
                     SelectedStaff.StaffId + ", " + 
-                    "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS')) ";
+                    "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
 
             _logger.LogInformation("[SQL Query] " + sql);
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -369,6 +364,7 @@ namespace AdminProgram.ViewModels
         private RelayCommand registerReservationData;
         public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
         //== 진료 예약 등록 end ==//
+
 
         //== 공통 ==//
         //검색어(주민등록번호)
@@ -418,6 +414,27 @@ namespace AdminProgram.ViewModels
             get => selectedDateTime;
             set => SetProperty(ref selectedDateTime, value);
         }
+
+        //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
+        private string MakeDate()
+        {    
+            string month;
+            string day;
+            if (SelectedDateTime.Month.ToString().Length == 1 || SelectedDateTime.Day.ToString().Length == 1)
+            {
+                month = "0" + SelectedDateTime.Month.ToString();
+                day = "0" + SelectedDateTime.Day.ToString();
+            }
+            else
+            {
+                month = SelectedDateTime.Month.ToString();
+                day = SelectedDateTime.Day.ToString();
+            }
+            string date = SelectedDateTime.Year + "" + month + day;
+
+            return date;
+        }
         //== 날짜 end ==//
+        //== 공통 ==//
     }
 }

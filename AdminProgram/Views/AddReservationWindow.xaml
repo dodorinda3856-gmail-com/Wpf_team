@@ -30,7 +30,7 @@
         <TextBlock Text="주민등록번호 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
             <TextBox.InputBindings>
-                <KeyBinding Command="{Binding SearchPatientBtn}" Key="Enter"/>
+                <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
 
@@ -59,6 +59,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
@@ -74,21 +75,8 @@
             <TextBlock Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
 
-            <Label Content="예약 시간 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
+            <Label Content="담당 의사 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
             <ComboBox Grid.Row="4" Grid.Column="1"
-                      ItemsSource="{Binding Path=TimeModels, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedTime}"
-                      IsSynchronizedWithCurrentItem="True">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Hour}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            
-            <Label Content="담당 의사 : " Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right"/>
-            <ComboBox Grid.Row="4" Grid.Column="3"
                       ItemsSource="{Binding Path=StaffModels, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedStaff}"
                       IsSynchronizedWithCurrentItem="True">
                 <ComboBox.ItemTemplate>
@@ -100,8 +88,25 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             
-            <Label Content="증상 설명 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBox VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+            <Label Content="예약 날짜 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
+            <DatePicker Grid.Row="5" Grid.Column="1"
+                        SelectedDate="{Binding SelectedDateTime, Mode=TwoWay}"/>
+            
+            <Label Content="예약 시간 : " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right"/>
+            <ComboBox Grid.Row="5" Grid.Column="3"
+                      ItemsSource="{Binding Path=TimeModels, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedTime}"
+                      IsSynchronizedWithCurrentItem="True">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Hour}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="증상 설명 : " Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
                      Text="{Binding ExplainSymtom}"/>
         </Grid>
         
