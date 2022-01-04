@@ -12,5 +12,6 @@ namespace AdminProgram
         //public PMViewModel PMVM => Ioc.Default.GetService<PMViewModel>();
         public TreatmentVM TMVM => Ioc.Default.GetService<TreatmentVM>();
         public AddWaitingReservationVM AWRVM => Ioc.Default.GetService<AddWaitingReservationVM>();
+
     }
 }
