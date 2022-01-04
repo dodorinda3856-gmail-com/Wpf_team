@@ -14,18 +14,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--상단 로그인 정보 파트-->
-        <Grid Grid.Row="0" Background="Black">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="1"  Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" FontSize="16" Foreground="White" Margin="10,10,20,10"> 이성찬님</TextBlock>
-                <Button Content="로그아웃" Margin="10,10,25,10"/>
-            </WrapPanel>
-        </Grid>
-
         <!--하단부 구현-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
