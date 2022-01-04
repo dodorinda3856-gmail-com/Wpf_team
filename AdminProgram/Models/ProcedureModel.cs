@@ -14,6 +14,7 @@ namespace AdminProgram.Models
 		private DateTime    createtionDate;				//생성날짜
 		private DateTime    revisedDate;				//개정날짜
 		private string?		afterS = null;              //사후관리
+		private string?		procedure_Info = null;      //시술정보
 		private string?		procedureName = null;		//시술이름
 
 
@@ -51,6 +52,12 @@ namespace AdminProgram.Models
 		{
 			get => procedureName;
 			set => SetProperty(ref procedureName, value);
+		}
+
+		public string? Procedure_Info
+		{
+			get => procedure_Info;
+			set => SetProperty(ref procedure_Info, value);
 		}
 
 	}
