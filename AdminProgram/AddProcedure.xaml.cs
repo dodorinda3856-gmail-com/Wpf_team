@@ -84,7 +84,7 @@ namespace AdminProgram
             OracleCommand comm = new();
 
             comm.Connection = connn;
-            comm.CommandText = "INSERT INTO PATIENT(MEDI_PROCEDURE_ID" +
+            comm.CommandText = "INSERT INTO MEDI_PROCEDURE(MEDI_PROCEDURE_ID" +
                                                     ", TREATMENT_AMOUNT" +
                                                     ", CREATETION_DATE" +
                                                     ", REVISED_DATE" +
