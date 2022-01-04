@@ -257,18 +257,21 @@ namespace AdminProgram.ViewModels
 
                         // 3) 진료 완료된 환자 리스트를 가져옴
                         //진행중...
-                        /*sql =
-                            "SELECT p.PATIENT_NAME, p.PHONE_NUM, w.REQUEST_TO_WAIT" +
-                            "FROM WAITING w, PATIENT p " +
-                            "WHERE w.PATIENT_ID = p.PATIENT_ID " +
+
+
+
+                        sql =
+                            "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '방문' AS VISIT_TYPE, w.REQUEST_TO_WAIT AS TR_DATETIME " +
+                            "FROM WAITING w " +
+                            "JOIN PATIENT p ON p.PATIENT_ID = w.PATIENT_ID " +
+                                "WHERE TO_CHAR(w.REQUEST_TO_WAIT , 'YYYYMMDD') = " + date + 
                                 "AND w.WAIT_STATUS_VAL = 'F' " +
-                                "AND TO_CHAR(w.REQUEST_TO_WAIT , 'YYYYMMDD') >= 20220103 " +
-                                "UNION ALL " +
-                            "SELECT p.PATIENT_NAME, p.PHONE_NUM, r.RESERVATION_DATE " +
-                            "FROM RESERVATION r, PATIENT p " +
-                            "WHERE r.PATIENT_ID = p.PATIENT_ID " +
-                                "AND r.RESERVE_STATUS_VAL = 'F' " +
-                                "AND TO_CHAR(r.RESERVATION_DATE , 'YYYYMMDD') >= 20220103 ";
+                            "UNION ALL " +
+                            "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '예약' AS VISIT_TYPE, r.RESERVATION_DATE " +
+                            "FROM RESERVATION r " +
+                            "JOIN PATIENT p ON p.PATIENT_ID = r.PATIENT_ID " +
+                                "WHERE TO_CHAR(r.RESERVATION_DATE , 'YYYYMMDD') = " + date + 
+                                "AND r.RESERVE_STATUS_VAL = 'F' ";
                         comm.CommandText = sql;
 
                         using (OracleDataReader reader = comm.ExecuteReader())
@@ -282,9 +285,11 @@ namespace AdminProgram.ViewModels
                                 {
                                     TreatmentCompleteModels.Add(new TreatmentCompleteListModel()
                                     {
+                                        PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                                        PatientPhoneNum = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                                        Time = reader.GetDateTime(reader.GetOrdinal("REQUEST_TO_WAIT"))
+                                        PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                                        VisitType = reader.GetString(reader.GetOrdinal("VISIT_TYPE")),
+                                        Time = reader.GetDateTime(reader.GetOrdinal("TR_DATETIME"))
                                     });
                                 }
                             }
@@ -294,10 +299,10 @@ namespace AdminProgram.ViewModels
                             }
                             finally
                             {
-                                _logger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
+                                _logger.LogInformation("오늘 진료가 끝난 환자 목록 읽어오기 성공");
                                 reader.Close();
                             }
-                        }*/
+                        }
                     }
                 }
                 catch (Exception err)
