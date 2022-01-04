@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using AdminProgram.ViewModels;
+using System;
+using System.Windows;
 
 namespace AdminProgram.Views
 {
@@ -23,5 +25,6 @@ namespace AdminProgram.Views
             MessageBox.Show("진료 예약을 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
+
     }
 }

@@ -27,12 +27,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="주민등록번호 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
+        <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
+        <Button Command="{Binding SearchPatientAct}" Content="검색" Grid.Column="2"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -40,6 +41,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Header="환자 번호" Binding="{Binding PatientId}"/>
                 <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="1*" Header="주민등록번호" Binding="{Binding ResidentRegistNum}"/>
                 <DataGridTextColumn Width="2*" Header="거주지 주소" Binding="{Binding Address}"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -89,7 +91,7 @@
             </ComboBox>
             
             <Label Content="예약 날짜 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
-            <DatePicker Grid.Row="5" Grid.Column="1"
+            <DatePicker x:Name="datePicker" Grid.Row="5" Grid.Column="1"
                         SelectedDate="{Binding SelectedDateTime, Mode=TwoWay}"/>
             
             <Label Content="예약 시간 : " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right"/>
