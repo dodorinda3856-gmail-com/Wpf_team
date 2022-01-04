@@ -128,7 +128,7 @@ namespace AdminProgram
 		//시술 SQL--------------------------------------
 		private void MakeProcedureSQL(ref string? sql)
 		{
-			sql = "select MEDI_PROCEDURE_ID, TREATMENT_AMOUNT, CREATETION_DATE, REVISED_DATE, A_S, PROCEDURE_NAME from MEDI_PROCEDURE " +
+			sql = "select MEDI_PROCEDURE_ID, TREATMENT_AMOUNT, CREATETION_DATE, REVISED_DATE, A_S, PROCEDURE_NAME, PROCEDURE_INFO from MEDI_PROCEDURE " +
 			"where DELETE_OR_NOT = 'T' and " +
 			"MEDI_PROCEDURE_ID like '%" + treatmentNum_txtbox.Text + "%' and " +
 			"PROCEDURE_NAME LIKE '%" + treatmentName_txtbox.Text + "%' " +
@@ -162,9 +162,9 @@ namespace AdminProgram
 					MediProcedureID = reader.GetInt32(reader.GetOrdinal("MEDI_PROCEDURE_ID")),
 					TreatmentAmount = reader.GetInt32(reader.GetOrdinal("TREATMENT_AMOUNT")),
 					CreatetionDate = reader.GetDateTime(reader.GetOrdinal("CREATETION_DATE")),
-					RevisedDate = reader.GetDateTime(reader.GetOrdinal("REVISED_DATE")),
 					AfterS = reader.GetString(reader.GetOrdinal("A_S")),
 					ProcedureName = reader.GetString(reader.GetOrdinal("PROCEDURE_NAME")),
+					Procedure_Info = reader.GetString(reader.GetOrdinal("PROCEDURE_INFO"))
 				});
 			}
 			treatmentDataGrid.ItemsSource = datas;
@@ -178,6 +178,7 @@ namespace AdminProgram
 
 		}
 
+		//시술추가버튼클릭
 		private void Add_Procedure_Button_Click(object sender, RoutedEventArgs e)
 		{
 			AddProcedure addprocedure = new();

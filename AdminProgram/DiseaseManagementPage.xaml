@@ -74,7 +74,7 @@
                     <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병코드" Binding="{Binding Patient_ID}"/>
                     <DataGridTextColumn MinWidth="100" Width="Auto" Header="상병명칭" Binding="{Binding Patient_Name}"/>
                     <DataGridTextColumn MinWidth="100" Width="Auto" Header="사후처리" Binding="{Binding AfterS}"/>
-                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="등록날짜" Binding="{Binding CreatetionDate}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="등록날짜" Binding="{Binding CreatetionDate, StringFormat={}{0:yyyy/MM/dd}}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="수정날짜" Binding="{Binding RevisedDate}"/>
                 </DataGrid.Columns>
                 <!--아이템 더블클릭 이벤트-->
@@ -131,10 +131,10 @@
                     <!--체크박스고민-->
                     <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding MediProcedureID}"/>
                     <DataGridTextColumn MinWidth="70" Width="Auto" Header="단가(원)" Binding="{Binding TreatmentAmount}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="시술명" Binding="{Binding ProcedureName}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="시술명" Binding="{Binding ProcedureName}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="시술설명" Binding="{Binding Procedure_Info}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding AfterS}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="등록날짜" Binding="{Binding CreatetionDate}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="수정날짜" Binding="{Binding RevisedDate}"/>
+                    <DataGridTextColumn MinWidth="100" Width="100" Header="등록날짜" Binding="{Binding CreatetionDate, StringFormat={}{0:yyyy/MM/dd}}"/>
                 </DataGrid.Columns>
                 <!--아이템 더블클릭 이벤트-->
                 <DataGrid.ItemContainerStyle>
