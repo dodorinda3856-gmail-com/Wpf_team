@@ -177,6 +177,9 @@ namespace AdminProgram.ViewModels
                     WModels = new ObservableCollection<WaitingListModel>();
                     WModels.CollectionChanged += ContentCollectionChanged;
 
+                    TreatmentCompleteModels = new ObservableCollection<TreatmentCompleteListModel>();
+                    TreatmentCompleteModels.CollectionChanged += ContentCollectionChanged;
+
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
