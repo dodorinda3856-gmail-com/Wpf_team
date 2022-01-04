@@ -71,11 +71,11 @@
                           ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
-                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병전용코드" Binding="{Binding Patient_ID}"/>
                     <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병코드" Binding="{Binding Patient_ID}"/>
                     <DataGridTextColumn MinWidth="100" Width="Auto" Header="상병명칭" Binding="{Binding Patient_Name}"/>
-                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="상병분류기호" Binding="{Binding Patient_Name}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding Address}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="사후처리" Binding="{Binding AfterS}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="등록날짜" Binding="{Binding CreatetionDate}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="수정날짜" Binding="{Binding RevisedDate}"/>
                 </DataGrid.Columns>
                 <!--아이템 더블클릭 이벤트-->
                 <DataGrid.ItemContainerStyle>
@@ -119,7 +119,7 @@
                 <Button Grid.Column="2" Click="Search_Procedure_Button_Click" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                 <!--추가-->
-                <Button Grid.Column="3" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+                <Button Grid.Column="3" Click="Add_Procedure_Button_Click" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
 
                 <Canvas Grid.Column="4" Background="Gray"/>
             </Grid>
@@ -130,7 +130,7 @@
                 <DataGrid.Columns>
                     <!--체크박스고민-->
                     <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding MediProcedureID}"/>
-                    <DataGridTextColumn MinWidth="70" Width="Auto" Header="단가" Binding="{Binding TreatmentAmount}"/>
+                    <DataGridTextColumn MinWidth="70" Width="Auto" Header="단가(원)" Binding="{Binding TreatmentAmount}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="시술명" Binding="{Binding ProcedureName}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding AfterS}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="등록날짜" Binding="{Binding CreatetionDate}"/>

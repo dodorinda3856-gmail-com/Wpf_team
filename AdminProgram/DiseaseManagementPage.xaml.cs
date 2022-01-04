@@ -177,5 +177,11 @@ namespace AdminProgram
 		{
 
 		}
+
+		private void Add_Procedure_Button_Click(object sender, RoutedEventArgs e)
+		{
+			AddProcedure addprocedure = new();
+			addprocedure.ShowDialog();
+		}
 	}
 }
