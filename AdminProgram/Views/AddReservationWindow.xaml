@@ -33,6 +33,7 @@
                 <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
+        <Button Command="{Binding SearchPatientAct}" Content="검색" Grid.Column="2"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -90,7 +91,7 @@
             </ComboBox>
             
             <Label Content="예약 날짜 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
-            <DatePicker Grid.Row="5" Grid.Column="1"
+            <DatePicker x:Name="datePicker" Grid.Row="5" Grid.Column="1"
                         SelectedDate="{Binding SelectedDateTime, Mode=TwoWay}"/>
             
             <Label Content="예약 시간 : " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right"/>

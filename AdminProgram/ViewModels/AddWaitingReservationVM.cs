@@ -8,6 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 /**
@@ -50,7 +51,7 @@ namespace AdminProgram.ViewModels
             get { return staffModel; }
             set { SetProperty(ref staffModel, value); }
         }
-
+        
         public AddWaitingReservationVM(ILogger<AddWaitingReservationVM> logger)
         {
             _logger = logger;
@@ -118,161 +119,175 @@ namespace AdminProgram.ViewModels
         //== 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
         private void SearchPatient()
         {
-            string sql;
-            string patientName = searchText; //환자 이름
-            if (patientName != null)
+            string getDate = MakeDate(SelectedDateTime);
+            string nowDate = MakeDate(DateTime.Now);
+            _logger.LogInformation("[SelectedDateTime] " + getDate);
+            _logger.LogInformation("[DateTime.Now] " + MakeDate( DateTime.Now));
+
+            if (getDate == nowDate)
             {
-                sql =
-                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
-                    "FROM PATIENT p " +
-                    "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
+                MessageBox.Show("날짜를 선택해서 검색해주세요");
             }
             else
             {
-                sql =
-                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
-                    "FROM PATIENT p ";
-            }
-
-            using (OracleConnection conn = new OracleConnection(strCon))
-            {
-                try
+                string sql;
+                string patientName = searchText; //환자 이름
+                if (patientName != null)
                 {
-                    conn.Open();
-                    _logger.LogInformation("DB Connection OK...");
+                    sql =
+                        "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
+                        "FROM PATIENT p " +
+                        "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
+                }
+                else
+                {
+                    sql =
+                        "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
+                        "FROM PATIENT p ";
+                }
 
-                    //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
-                    PModels = new ObservableCollection<PatientModelTemp>();
-                    PModels.CollectionChanged += ContentCollectionChanged;
-
-                    TimeModels = new ObservableCollection<TimeModel>();
-                    TimeModels.CollectionChanged += ContentCollectionChanged;
-
-                    StaffModels = new ObservableCollection<MediStaffModel>();
-                    StaffModels.CollectionChanged += ContentCollectionChanged;
-
-                    // 1) 환자 검색
-                    using (OracleCommand comm = new OracleCommand())
+                using (OracleConnection conn = new OracleConnection(strCon))
+                {
+                    try
                     {
-                        comm.Connection = conn;
-                        comm.CommandText = sql;
+                        conn.Open();
+                        _logger.LogInformation("DB Connection OK...");
 
-                        using (OracleDataReader reader = comm.ExecuteReader())
+                        //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
+                        PModels = new ObservableCollection<PatientModelTemp>();
+                        PModels.CollectionChanged += ContentCollectionChanged;
+
+                        TimeModels = new ObservableCollection<TimeModel>();
+                        TimeModels.CollectionChanged += ContentCollectionChanged;
+
+                        StaffModels = new ObservableCollection<MediStaffModel>();
+                        StaffModels.CollectionChanged += ContentCollectionChanged;
+
+
+                        using (OracleCommand comm = new OracleCommand())
                         {
-                            _logger.LogInformation("환자 검색 select 실행");
+                            comm.Connection = conn;
+                            comm.CommandText = sql;
+
+                            // 1) 환자 검색
+                            using (OracleDataReader reader = comm.ExecuteReader())
+                            {
+                                _logger.LogInformation("환자 검색 select 실행");
+                                _logger.LogInformation("[SQL QUERY] " + sql);
+                                try
+                                {
+                                    while (reader.Read())
+                                    {
+                                        PModels.Add(new PatientModelTemp() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
+                                        {
+                                            PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
+                                            Name = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
+                                            ResidentRegistNum = reader.GetString(reader.GetOrdinal("RESIDENT_REGIST_NUM")),
+                                            Gender = reader.GetString(reader.GetOrdinal("GENDER")),
+                                            Address = reader.GetString(reader.GetOrdinal("ADDRESS"))
+                                        });
+                                    }
+                                }
+                                catch (InvalidCastException e)
+                                {
+                                    //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                    //화면에서 보여야 하는 값이 null인 경우에도 발생함
+                                    //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
+                                    _logger.LogCritical(e + "");
+                                }
+                                finally
+                                {
+                                    _logger.LogInformation("검색한 환자 리스트 가져오기 성공");
+                                    reader.Close();
+                                }
+                            }
+
+                            // 2) 요일에 해당하는 <시간 테이블 값> 가져오기
+                            //진행중...
+                            //예약이 되어있는 값은 보여주면 안됨ㅜㅜ
+                            string date = MakeDate(SelectedDateTime);
+                            sql =
+                                "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
+                                "FROM \"TIME\" t " +
+                                "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd'))-1 " +
+                                "ORDER BY TIME_ID ";
+                            comm.CommandText = sql;
+
+                            using (OracleDataReader reader = comm.ExecuteReader())
+                            {
+                                _logger.LogInformation("DatePicker의 값은 " + SelectedDateTime);
+                                _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
+                                _logger.LogInformation("[SQL QUERY] " + sql);
+
+                                try
+                                {
+                                    while (reader.Read())
+                                    {
+                                        TimeModels.Add(new TimeModel()
+                                        {
+                                            TimeId = reader.GetInt32(reader.GetOrdinal("TIME_ID")),
+                                            Hour = reader.GetString(reader.GetOrdinal("HOUR")),
+                                            Day = reader.GetString(reader.GetOrdinal("Day"))
+                                        });
+                                    }
+                                }
+                                catch (InvalidCastException e)
+                                {
+                                    //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                    _logger.LogCritical(e + "");
+                                }
+                                finally
+                                {
+                                    _logger.LogInformation("TIME TABLE 가져오기 성공");
+                                    reader.Close();
+                                }
+                            }
+
+                            // 3) 의료진 정보 가져오기
+                            sql =
+                                "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
+                                "FROM MEDI_STAFF ms " +
+                                "WHERE \"POSITION\" = 'D' ";
+                            comm.CommandText = sql;
                             _logger.LogInformation("[SQL QUERY] " + sql);
-                            try
+
+                            using (OracleDataReader reader = comm.ExecuteReader())
                             {
-                                while (reader.Read())
+                                _logger.LogInformation("진료진 정보 Table 값 가져오기 select 실행");
+
+
+                                try
                                 {
-                                    PModels.Add(new PatientModelTemp() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
+                                    while (reader.Read())
                                     {
-                                        PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                                        Name = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                                        ResidentRegistNum = reader.GetString(reader.GetOrdinal("RESIDENT_REGIST_NUM")),
-                                        Gender = reader.GetString(reader.GetOrdinal("GENDER")),
-                                        Address = reader.GetString(reader.GetOrdinal("ADDRESS"))
-                                    });
+                                        StaffModels.Add(new MediStaffModel()
+                                        {
+                                            StaffId = reader.GetInt32(reader.GetOrdinal("STAFF_ID")),
+                                            StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
+                                            MediSubject = reader.GetString(reader.GetOrdinal("MEDI_SUBJECT"))
+                                        });
+                                    }
                                 }
-                            }
-                            catch (InvalidCastException e)
-                            {
-                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                //화면에서 보여야 하는 값이 null인 경우에도 발생함
-                                //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
-                                _logger.LogCritical(e + "");
-                            }
-                            finally
-                            {
-                                _logger.LogInformation("검색한 환자 리스트 가져오기 성공");
-                                reader.Close();
-                            }
-                        }
-
-                        // 2) 요일에 해당하는 <시간 테이블 값> 가져오기
-                        //진행중...
-                        //예약이 되어있는 값은 보여주면 안됨ㅜㅜ
-                        string date = MakeDate();
-                        sql =
-                            "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
-                            "FROM \"TIME\" t " +
-                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd'))-1 " +
-                            "ORDER BY TIME_ID ";
-                        comm.CommandText = sql;
-
-                        using (OracleDataReader reader = comm.ExecuteReader())
-                        {
-                            _logger.LogInformation("DatePicker의 값은 " + SelectedDateTime);
-                            _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
-                            _logger.LogInformation("[SQL QUERY] " + sql);
-
-                            try
-                            {
-                                while (reader.Read())
+                                catch (InvalidCastException e)
                                 {
-                                    TimeModels.Add(new TimeModel()
-                                    {
-                                        TimeId = reader.GetInt32(reader.GetOrdinal("TIME_ID")),
-                                        Hour = reader.GetString(reader.GetOrdinal("HOUR")),
-                                        Day = reader.GetString(reader.GetOrdinal("Day"))
-                                    });
+                                    //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                    _logger.LogCritical(e + "");
                                 }
-                            }
-                            catch (InvalidCastException e)
-                            {
-                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogCritical(e + "");
-                            }
-                            finally
-                            {
-                                _logger.LogInformation("TIME TABLE 가져오기 성공");
-                                reader.Close();
-                            }
-                        }
-
-                        // 3) 의료진 정보 가져오기
-                        sql =
-                            "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
-                            "FROM MEDI_STAFF ms " +
-                            "WHERE \"POSITION\" = 'D' ";
-                        comm.CommandText = sql;
-                        _logger.LogInformation("[SQL QUERY] " + sql);
-
-                        using (OracleDataReader reader = comm.ExecuteReader())
-                        {
-                            _logger.LogInformation("진료진 정보 Table 값 가져오기 select 실행");
-                            
-
-                            try
-                            {
-                                while (reader.Read())
+                                finally
                                 {
-                                    StaffModels.Add(new MediStaffModel()
-                                    {
-                                        StaffId = reader.GetInt32(reader.GetOrdinal("STAFF_ID")),
-                                        StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
-                                        MediSubject = reader.GetString(reader.GetOrdinal("MEDI_SUBJECT"))
-                                    });
+                                    _logger.LogInformation("진료진 정보 Table 가져오기 성공");
+                                    reader.Close();
                                 }
-                            }
-                            catch (InvalidCastException e)
-                            {
-                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogCritical(e + "");
-                            }
-                            finally
-                            {
-                                _logger.LogInformation("진료진 정보 Table 가져오기 성공");
-                                reader.Close();
                             }
                         }
                     }
-                }
-                catch (Exception err)
-                {
-                    _logger.LogInformation(err + "");
+                    catch (Exception err)
+                    {
+                        _logger.LogInformation(err + "");
+                    }
                 }
             }
+            
         }
         private RelayCommand searchPatientAct;
         public ICommand SearchPatientAct => searchPatientAct ??= new RelayCommand(SearchPatient);
@@ -329,7 +344,7 @@ namespace AdminProgram.ViewModels
         {
             //환자 번호, 진료예약 시간, 
             _logger.LogInformation("진료 예약 등록을 시작합니다...");
-            string date = MakeDate();
+            string date = MakeDate(SelectedDateTime);
             //insert
             string sql =
                 "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
@@ -366,6 +381,72 @@ namespace AdminProgram.ViewModels
         private RelayCommand registerReservationData;
         public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
         //== 진료 예약 등록 end ==//
+
+
+        //== 요일에 해당하는 <시간 테이블 값> 가져오기 start ==//
+        private void GetTimeTable()
+        {
+            string date = MakeDate(SelectedDateTime);
+            string sql =
+                "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
+                            "FROM \"TIME\" t " +
+                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd'))-1 " +
+                            "ORDER BY TIME_ID ";
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    TimeModels = new ObservableCollection<TimeModel>();
+                    TimeModels.CollectionChanged += ContentCollectionChanged;
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            _logger.LogInformation("DatePicker의 값은 " + SelectedDateTime);
+                            _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
+                            _logger.LogInformation("[SQL QUERY] " + sql);
+
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    TimeModels.Add(new TimeModel()
+                                    {
+                                        TimeId = reader.GetInt32(reader.GetOrdinal("TIME_ID")),
+                                        Hour = reader.GetString(reader.GetOrdinal("HOUR")),
+                                        Day = reader.GetString(reader.GetOrdinal("Day"))
+                                    });
+                                }
+                            }
+                            catch (InvalidCastException e)
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                _logger.LogCritical(e + "");
+                            }
+                            finally
+                            {
+                                _logger.LogInformation("TIME TABLE 가져오기 성공");
+                                reader.Close();
+                            }
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+            }
+        }
+        private RelayCommand changeDateTime;
+        public ICommand ChangeDateTime => changeDateTime ??= new RelayCommand(GetTimeTable);
+        //== 요일에 해당하는 <시간 테이블 값> 가져오기 end ==//
 
 
         //== 공통 ==//
@@ -418,31 +499,31 @@ namespace AdminProgram.ViewModels
         }
 
         //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
-        private string MakeDate()
+        private string MakeDate(DateTime date)
         {    
             string month;
             string day;
             
-            if (SelectedDateTime.Month.ToString().Length == 1)
+            if (date.Month.ToString().Length == 1)
             {
-                month = "0" + SelectedDateTime.Month.ToString();
+                month = "0" + date.Month.ToString();
             }
             else
             {
-                month = SelectedDateTime.Month.ToString();
+                month = date.Month.ToString();
             }
-            if(SelectedDateTime.Day.ToString().Length == 1)
+            if(date.Day.ToString().Length == 1)
             {
-                day = "0" + SelectedDateTime.Day.ToString();
+                day = "0" + date.Day.ToString();
             }
             else
             {
-                day = SelectedDateTime.Day.ToString();
+                day = date.Day.ToString();
             }
 
-            string date = SelectedDateTime.Year + "" + month + day;
+            string returnDate = date.Year + "" + month + day;
 
-            return date;
+            return returnDate;
         }
         //== 날짜 end ==//
         //== 공통 ==//

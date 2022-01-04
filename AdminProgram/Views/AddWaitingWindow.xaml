@@ -33,6 +33,7 @@
                 <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
+        <Button Command="{Binding SearchPatientAct}" Content="검색" Grid.Column="2"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" 
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
