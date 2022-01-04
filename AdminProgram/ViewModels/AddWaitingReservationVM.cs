@@ -119,18 +119,18 @@ namespace AdminProgram.ViewModels
         private void SearchPatient()
         {
             string sql;
-            string residentRegistNum = searchText; //주민등록번호
-            if (residentRegistNum != null)
+            string patientName = searchText; //환자 이름
+            if (patientName != null)
             {
                 sql =
-                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM,p.GENDER " +
+                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
                     "FROM PATIENT p " +
-                    "WHERE p.RESIDENT_REGIST_NUM LIKE '" + residentRegistNum + "%' ";
+                    "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
             }
             else
             {
                 sql =
-                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM,p.GENDER " +
+                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
                     "FROM PATIENT p ";
             }
 

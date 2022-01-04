@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="주민등록번호 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
+        <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
@@ -41,6 +41,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Header="환자 번호" Binding="{Binding PatientId}"/>
                 <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="1*" Header="주민등록번호" Binding="{Binding ResidentRegistNum}"/>
                 <DataGridTextColumn Width="2*" Header="거주지 주소" Binding="{Binding Address}"/>
             </DataGrid.Columns>
         </DataGrid>

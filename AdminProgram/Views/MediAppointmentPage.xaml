@@ -66,9 +66,9 @@
                       SelectedItem="{Binding SelectedItem2}" IsSynchronizedWithCurrentItem="True">
                 <DataGrid.Columns>
                     <!--나머지 정보는 상세정보 페이지에서만 볼 수 있도록-->
-                    <DataGridTextColumn Header="이름" Binding="{Binding PatientName}"/>
-                    <DataGridTextColumn Header="대기 등록 시간" Binding="{Binding RequestToWait}"/>
-                    <DataGridTextColumn Width="*" Header="증상 설명" Binding="{Binding Symptom}"/>
+                    <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
+                    <DataGridTextColumn Width="2*" Header="대기 등록 시간" Binding="{Binding RequestToWait}"/>
+                    <DataGridTextColumn Width="3*" Header="증상 설명" Binding="{Binding Symptom}"/>
                 </DataGrid.Columns>
                 <!--한 행을 더블클릭 하면 새 창을 띄우기 위한 코드-->
                 <DataGrid.ItemContainerStyle>
@@ -93,10 +93,10 @@
                   ItemsSource="{Binding Path=RModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
                   SelectedItem="{Binding SelectedItem}" IsSynchronizedWithCurrentItem="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="환자 이름" MinWidth="50" Binding="{Binding PatientName}"/>
-                    <DataGridTextColumn Header="예약 일시" MinWidth="100" Binding="{Binding ReservationDT}"/>
-                    <DataGridTextColumn Header="증상 설명" MinWidth="200" Binding="{Binding Symptom}"/>
-                    <DataGridTextColumn Header="담당 의사" Width="*" Binding="{Binding Doctor}"/>
+                    <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
+                    <DataGridTextColumn Width="2*" Header="예약 일시" Binding="{Binding ReservationDT}"/>
+                    <DataGridTextColumn Width="2*" Header="증상 설명" Binding="{Binding Symptom}"/>
+                    <DataGridTextColumn Width="1*" Header="담당 의사" Binding="{Binding Doctor}"/>
                 </DataGrid.Columns>
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
@@ -117,11 +117,11 @@
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=TreatmentCompleteModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="환자 아이디" Binding="{Binding PatientName}"/>
-                    <DataGridTextColumn Header="환자 이름" Binding="{Binding PatientName}"/>
-                    <DataGridTextColumn Header="전화번호" Binding="{Binding PatientPhoneNum}"/>
-                    <DataGridTextColumn Header="방문 경로" Binding="{Binding VisitType}"/>
-                    <DataGridTextColumn Header="진료 날짜" Binding="{Binding Time}"/>
+                    <DataGridTextColumn Width="0.5*" Header="환자 아이디" Binding="{Binding PatientName}"/>
+                    <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
+                    <DataGridTextColumn Width="1*" Header="전화번호" Binding="{Binding PatientPhoneNum}"/>
+                    <DataGridTextColumn Width="1*" Header="방문 경로" Binding="{Binding VisitType}"/>
+                    <DataGridTextColumn Width="2*" Header="진료 날짜" Binding="{Binding Time}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
