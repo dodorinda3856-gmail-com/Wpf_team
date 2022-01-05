@@ -109,5 +109,19 @@ namespace AdminProgram
         {
             this.frame.Navigate(new Uri("DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("로그아웃 하시겠습니까?", "취소", MessageBoxButton.YesNo);
+
+            // If the no button was pressed ...
+            if (result == MessageBoxResult.Yes)
+            {
+                MainWindow m = new();
+                m.Show();
+                this.Close();
+            }
+                
+        }
     }
 }

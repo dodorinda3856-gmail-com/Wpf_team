@@ -45,6 +45,7 @@
                 <Image Width="30" Height="30" Source="icon.ico" ></Image>
             </DockPanel>
             <Label x:Name="Global_Name" Content="" HorizontalContentAlignment="Center" Foreground="White"></Label>
+            <Button x:Name="Logout" Content="로그아웃" Height="27" Width="96"  HorizontalAlignment="Right" Margin="5" Cursor="Hand" Click="LogoutBtn_Click"/>
         </StackPanel>
     </Grid>
 </Window>
