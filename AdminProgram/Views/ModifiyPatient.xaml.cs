@@ -55,7 +55,7 @@ namespace AdminProgram
 
         public ModifiyPatient()
         {
-            LogRecord.LogWrite("환자 상세 정보창 오픈");
+            LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 상세 정보창 열림");
             InitializeComponent();
             InitPatient();
         }
@@ -122,12 +122,12 @@ namespace AdminProgram
         //수정버튼 이벤트
         private void Modifiy_btn_Click(object sender, RoutedEventArgs e)
         {
-            LogRecord.LogWrite("환자 정보 수정 버튼 클릭");
+            LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 수정 버튼 클릭");
             var result = MessageBox.Show("위 내용으로 수정하시겠습니까?", "수정", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                LogRecord.LogWrite("환자 정보 수정 완료 버튼 클릭");
+                LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 수정 완료 버튼 클릭");
                 ConnectDB();
 
                 ModifiedInsertSQL();
@@ -136,19 +136,19 @@ namespace AdminProgram
                 Close();
             }
             else
-                LogRecord.LogWrite("환자 정보 수정 취소 버튼 클릭");
+                LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 수정 취소 버튼 클릭");
         }
 
 
         //삭제버튼 이벤트
         private void Delete_btn_Click(object sender, RoutedEventArgs e)
         {
-            LogRecord.LogWrite("환자 정보 삭제 버튼 클릭");
+            LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 삭제 버튼 클릭");
             var result = MessageBox.Show("환자정보를 삭제하시겠습니까?", "삭제", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                LogRecord.LogWrite("환자 정보 삭제 완료버튼 클릭");
+                LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 삭제 완료버튼 클릭");
                 ConnectDB();
 
                 DeleteInsertSQL();
@@ -157,7 +157,7 @@ namespace AdminProgram
                 Close();
             }
             else
-                LogRecord.LogWrite("환자 정보 삭제 취소 버튼 클릭");
+                LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 삭제 취소 버튼 클릭");
         }
     }
 }
