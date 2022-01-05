@@ -175,7 +175,16 @@ namespace AdminProgram
 		//시술상세정보
 		private void Row_TreatmentDoubleClick(object sender, MouseButtonEventArgs e)
 		{
+			var row = sender as DataGridRow;
 
+			if (row != null && row.IsSelected)
+			{
+				ProcedureModel tmp = (ProcedureModel)row.Item;
+				ModifyProcedure.PassedProcedure = tmp;
+				ModifyProcedure tw = new ModifyProcedure();
+
+				tw.ShowDialog();
+			}
 		}
 
 		//시술추가버튼클릭
