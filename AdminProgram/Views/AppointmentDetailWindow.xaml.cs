@@ -12,9 +12,15 @@ namespace AdminProgram.Views
             InitializeComponent();
         }
 
-        private void Delete_Reservation(object sender, RoutedEventArgs e)
+        private void Delete_Reservation_Date(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("예약 정보를 삭제했습니다");
+            MessageBox.Show("예약 정보를 삭제했습니다.");
+            Window.GetWindow(this).Close();
+        }
+
+        private void Fin_Treatment(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("수납을 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
     }

@@ -30,7 +30,7 @@
         <TextBlock Text="주민등록번호 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
             <TextBox.InputBindings>
-                <KeyBinding Command="{Binding SearchPatientBtn}" Key="Enter"/>
+                <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
 
@@ -43,11 +43,6 @@
                 <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="2*" Header="거주지 주소" Binding="{Binding Address}"/>
             </DataGrid.Columns>
-            <!--<DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
-                </Style>
-            </DataGrid.ItemContainerStyle>-->
         </DataGrid>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="5" Background="#FFF3F3F3" Margin="0,0,0,10">
@@ -87,9 +82,9 @@
         </Grid>
         
         
-        <Button Content="등록" Grid.Row="7" Grid.Column="1"
+        <Button Content="대기자 등록" Grid.Row="7" Grid.Column="1"
                 Command="{Binding RegisterWaitingData}" Click="Add_Waiting_Btn"/>
-        <Button Content="등록 취소" Grid.Row="7" Grid.Column="3" 
+        <Button Content="대기자 등록 취소" Grid.Row="7" Grid.Column="3" 
                 Click="Close_Window"/>
     </Grid>
 </Window>

@@ -102,5 +102,10 @@ namespace AdminProgram
         {
             this.frame.Navigate(new Uri("Views/StaffPage.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        private void Disease_Management_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.frame.Navigate(new Uri("DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
+        }
     }
 }

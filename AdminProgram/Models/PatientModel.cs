@@ -46,6 +46,20 @@ namespace AdminProgram.Models
             get => birth;
             set => SetProperty(ref birth, value);
         }
+        
+        private string address;
+        public string Address
+        {
+            get => address;
+            set => SetProperty(ref address, value);
+        }
+
+        private string phoneNumber;
+        public string PhoneNumber
+        {
+            get => phoneNumber;
+            set => SetProperty(ref phoneNumber, value);
+        }
 
     }
 }

@@ -7,26 +7,51 @@ using System.Threading.Tasks;
 
 namespace AdminProgram.Models
 {
-    public class ProcedureModel: ObservableObject
-    {
-        private int procedure_id;
-        private int amount;
-        private string procedure_name;
+	public class ProcedureModel : ObservableObject
+	{
+		private int         mediProcedureID = 0;		//시술번호
+		private int         treatmentAmount = 0;		//단가
+		private DateTime    createtionDate;				//생성날짜
+		private DateTime    revisedDate;				//개정날짜
+		private string?		afterS = null;              //사후관리
+		private string?		procedureName = null;		//시술이름
 
-        public int Procedure_Id
-        {
-            get { return procedure_id; }
-            set => SetProperty(ref procedure_id, value);
-        }
-        public int Amount
-        {
-            get { return amount; }
-            set => SetProperty(ref amount, value);
-        }
-        public string Procedure_Name
-        {
-            get { return procedure_name; }
-            set => SetProperty(ref procedure_name, value);
-        }
-    }
+
+		public int MediProcedureID
+		{
+			get => mediProcedureID;
+			set => SetProperty(ref mediProcedureID, value);
+		}
+
+		public int TreatmentAmount
+		{
+			get => treatmentAmount;
+			set => SetProperty(ref treatmentAmount, value);
+		}
+
+		public DateTime CreatetionDate
+		{
+			get => createtionDate;
+			set => SetProperty(ref createtionDate, value);
+		}
+
+		public DateTime RevisedDate
+		{
+			get => revisedDate;
+			set => SetProperty(ref revisedDate, value);
+		}
+
+		public string? AfterS
+		{
+			get => afterS;
+			set => SetProperty(ref afterS, value);
+		}
+
+		public string? ProcedureName
+		{
+			get => procedureName;
+			set => SetProperty(ref procedureName, value);
+		}
+
+	}
 }

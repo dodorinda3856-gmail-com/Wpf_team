@@ -29,7 +29,7 @@
 
         <Label Content="이름: " Grid.Row="0" Grid.Column="0" 
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Text="{Binding Path=SelectedPatient.PatientName, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"
+        <TextBlock Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"
                    VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Label Content="성별: " Grid.Row="0" Grid.Column="2" 
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>

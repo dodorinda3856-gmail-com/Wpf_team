@@ -33,6 +33,17 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref dmModel, value); }
         }
 
+        private ObservableCollection<MediStaffModel> staffModel;
+        public ObservableCollection<MediStaffModel> StaffModels
+        {
+            get { return staffModel; }
+            set { SetProperty(ref staffModel, value); }
+        }
+
+
+
+
+
         private ICollectionView filteredTreatment;
         public ICollectionView FilteredTreatment
         {
@@ -40,8 +51,8 @@ namespace AdminProgram.ViewModels
             set { filteredTreatment=value; }
         }
 
-        private ObservableCollection<ProcedureModel> pModel;
-        public ObservableCollection<ProcedureModel> PModels
+        private ObservableCollection<ProcedureFilterModel> pModel;
+        public ObservableCollection<ProcedureFilterModel> PModels
         {
             get { return pModel; }
             set { SetProperty(ref pModel, value); }
@@ -66,26 +77,25 @@ namespace AdminProgram.ViewModels
             DmModels = new ObservableCollection<DiseaseModel>();
             DmModels.CollectionChanged += ContentCollectionChanged;
 
-            PModels = new ObservableCollection<ProcedureModel>();
+            PModels = new ObservableCollection<ProcedureFilterModel>();
             PModels.CollectionChanged += ContentCollectionChanged;
 
-            PModels = new ObservableCollection<ProcedureModel>();
+            PModels = new ObservableCollection<ProcedureFilterModel>();
             PModels.CollectionChanged += ContentCollectionChanged;
+
+            StaffModels = new ObservableCollection<MediStaffModel>();
+            StaffModels.CollectionChanged += ContentCollectionChanged;
 
             GetTreatmentData();
 
-            // Collection which will take your Filter
+            GetStafftData();
+
+            //Filter Treatment list model and.
             _itemSourceList = new CollectionViewSource() { Source = TMModels };
-
-            //now we add our Filter
             _itemSourceList.Filter += new FilterEventHandler(yourFilter);
-
-            // ICollectionView the View/UI part 
             FilteredTreatment = _itemSourceList.View;
             FilteredTreatment.Refresh();
-
-            Debug.WriteLine("constructor ", FilteredTreatment);
-
+         
         }
 
         //== Messenger 사용 start ==//
@@ -151,7 +161,7 @@ namespace AdminProgram.ViewModels
 
                     //DataGrid 사용 시 이전에 검색했던(조회했던) 내용이 없어지지 않고
                     //계속 남아있는 문제점 해결을 위해 추가
-                    PModels = new ObservableCollection<ProcedureModel>();
+                    PModels = new ObservableCollection<ProcedureFilterModel>();
                     PModels.CollectionChanged += ContentCollectionChanged;
 
                     using (OracleCommand comm = new OracleCommand())
@@ -166,7 +176,7 @@ namespace AdminProgram.ViewModels
                             {
                                 while (reader.Read())
                                 {
-                                    PModels.Add(new ProcedureModel()
+                                    PModels.Add(new ProcedureFilterModel()
                                     {
                                         Procedure_Id= reader.GetInt32(reader.GetOrdinal("MEDI_PROCEDURE_ID")),
                                         Procedure_Name = reader.GetString(reader.GetOrdinal("PROCEDURE_NAME")),
@@ -191,28 +201,12 @@ namespace AdminProgram.ViewModels
             }
         }
 
-     
-
-
+       
 
         private void GetTreatmentData()
         {
             string sql = "SELECT T3.TREAT_ID, T3.TREAT_DATE,T5.STAFF_NAME, T3.TREAT_DETAILS,T4.PATIENT_ID,T4.PATIENT_NAME, T4.PHONE_NUM,T4.GENDER,T1.PROCEDURE_LIST, T2.DISEASE_LIST FROM (SELECT TREAT_ID, LISTAGG(PROCEDURE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) PROCEDURE_LIST FROM(SELECT T.TREAT_ID, MP.PROCEDURE_NAME  FROM TREATMENT T JOIN TREAT_MEDI TM ON T.TREAT_ID = TM.TREATMENT_ID JOIN MEDI_PROCEDURE MP ON MP.MEDI_PROCEDURE_ID = TM.MEDI_PROCEDURE_ID) GROUP BY TREAT_ID) T1 LEFT join (SELECT TREAT_ID, LISTAGG(DISEASE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) DISEASE_LIST FROM (SELECT T.TREAT_ID, D.DISEASE_NAME  FROM TREATMENT T JOIN TREAT_DISEASE TD ON T.TREAT_ID = TD.TREATMENT_ID JOIN NAME_OF_DISEASE D ON TD.DISEASE_ID = D.DISEASE_ID) GROUP BY TREAT_ID) T2 ON T1.TREAT_ID = T2.TREAT_ID JOIN TREATMENT T3 ON T3.TREAT_ID = T2.TREAT_ID JOIN PATIENT T4 ON T3.PATIENT_ID = T4.PATIENT_ID JOIN MEDI_STAFF T5 ON T5.STAFF_ID = T3.STAFF_ID"; 
-           
-            /*
-            if (name != null)
-            {
-                sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
-                "FROM PATIENT p, TREATMENT t " +
-                "WHERE p.PATIENT_ID = t.PATIENT_ID AND p.PATIENT_NAME LIKE '" + searchText + "%'";
-            }
-            else
-            {
-                sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, t.TREAT_DETAILS " +
-                "FROM PATIENT p, TREATMENT t " +
-                "WHERE p.PATIENT_ID = t.PATIENT_ID";
-            }*/
-
+          
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -267,12 +261,14 @@ namespace AdminProgram.ViewModels
             }
         }
 
+        
         private DiseaseModel selectedDisease;
         public DiseaseModel SelectedDisease
         {
             get => selectedDisease;
             set => SetProperty(ref selectedDisease, value);
         }
+
 
         private PatientModel selectedPatient;
         public PatientModel SelectedPatient
@@ -290,8 +286,8 @@ namespace AdminProgram.ViewModels
             set => SetProperty(ref searchDiseaseText, value);
         }
 
-        private ProcedureModel selectedProcedure;
-        public ProcedureModel SelectedProcedure
+        private ProcedureFilterModel selectedProcedure;
+        public ProcedureFilterModel SelectedProcedure
         {
             get => selectedProcedure;
             set => SetProperty(ref selectedProcedure, value);
@@ -312,7 +308,66 @@ namespace AdminProgram.ViewModels
             set => SetProperty(ref searchPatientText, value);
         }
 
-        
+
+        public void GetStafftData()
+        {
+            string sql ="SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
+                            "FROM MEDI_STAFF ms " +
+                            "WHERE \"POSITION\" = 'D' ";
+
+     
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+
+                try
+                {
+                    conn.Open();
+                    _logger.LogInformation("DB Connection OK...");
+
+                    //DataGrid 사용 시 이전에 검색했던(조회했던) 내용이 없어지지 않고
+                    //계속 남아있는 문제점 해결을 위해 추가
+                    StaffModels = new ObservableCollection<MediStaffModel>();
+                    StaffModels.CollectionChanged += ContentCollectionChanged;
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            _logger.LogInformation("GetStaffData() : select 실행");
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    StaffModels.Add(new MediStaffModel()
+                                    {
+                                        StaffId = reader.GetInt32(reader.GetOrdinal("STAFF_ID")),
+                                        StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
+                                        MediSubject = reader.GetString(reader.GetOrdinal("MEDI_SUBJECT"))
+                                    });
+
+                                }
+                            }
+                            finally
+                            {
+
+                                _logger.LogInformation("의사 데이터 읽어오기 성공");
+                                reader.Close();
+                            }
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogInformation(err + "");
+                }
+            }
+
+        }
+
+
 
         public void GetPatientData()
         {
@@ -349,7 +404,8 @@ namespace AdminProgram.ViewModels
                                         ResidentRegistNum = reader.GetString(reader.GetOrdinal("RESIDENT_REGIST_NUM")).Insert(6,"-"),
                                         Gender = reader.GetString(reader.GetOrdinal("GENDER")),
                                         Name = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
-                                   
+                                        PhoneNumber = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                                        Address = reader.GetString(reader.GetOrdinal("ADDRESS")),
                                     });
 
                                 }
@@ -428,6 +484,18 @@ namespace AdminProgram.ViewModels
             }
         }
 
+        private void ResetFilter()
+        {
+            SelectedStaff = null;
+            SelectedProcedure = null;
+            SelectedDisease = null;
+            SelectedPatient = null;
+            SelectedDateEnd = null;
+            SelectedDateStart = null;
+        }
+
+
+        //filter logic for treatment data
         private void yourFilter(object sender, FilterEventArgs e)
         {
             var obj = e.Item as TreatmentModel;
@@ -450,6 +518,22 @@ namespace AdminProgram.ViewModels
                     e.Accepted = false;
                     return;
                 }
+                if (selectedStaff != null && !(obj.StaffName == selectedStaff.StaffName))
+                {
+                    e.Accepted = false;
+                    return;
+                }
+                if( selectedDateStart != null && obj.Date < selectedDateStart)
+                {
+                    e.Accepted = false;
+                    return;
+                }
+                if (selectedDateEnd != null && obj.Date > selectedDateEnd)
+                {
+                    e.Accepted = false;
+                    return;
+                }
+
                 e.Accepted = true;
             }
         }
@@ -477,6 +561,9 @@ namespace AdminProgram.ViewModels
         private RelayCommand filterSearchBtn;
         public ICommand FilterSearchBtn => filterSearchBtn ??= new RelayCommand(FilterTreatment);
 
+        private RelayCommand filterResetBtn;
+        public ICommand FilterResetBtn => filterResetBtn ??= new RelayCommand(ResetFilter);
+
 
         private string searchText;
         public string SearchText    
@@ -485,12 +572,33 @@ namespace AdminProgram.ViewModels
             set => SetProperty(ref searchText, value);
         }
 
-       
+
+        private DateTime? selectedDateStart;
+        public DateTime? SelectedDateStart
+        {
+            get => selectedDateStart;
+            set => SetProperty(ref selectedDateStart, value);
+        }
+
+        private DateTime? selectedDateEnd;
+        public DateTime? SelectedDateEnd
+        {
+            get => selectedDateEnd;
+            set => SetProperty(ref selectedDateEnd, value);
+        }
+
         private TreatmentModel selectedTreatment;
         public TreatmentModel SelectedTreatment
         {
             get => selectedTreatment;
             set => SetProperty(ref selectedTreatment, value);
+        }
+
+        private MediStaffModel selectedStaff;
+        public MediStaffModel SelectedStaff
+        {
+            get => selectedStaff;
+            set => SetProperty(ref selectedStaff, value);
         }
 
         //== 진료 내용 저장 start ==//
