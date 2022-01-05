@@ -18,21 +18,6 @@ using System.Windows.Shapes;
 
 namespace AdminProgram
 {
-	/// <summary>
-	/// DiseaseManagementPage.xaml에 대한 상호 작용 논리
-	/// </summary>
-	
-	
-	
-	///해야할것들 - 추가버튼클릭시 window 띄우기
-	///           - 상세정보페이지 구성, 상세정보에서 수정,삭제버튼이벤트
-	///           - 데이터 모델 넣고 가져오기
-	///           - 상병코드 데이터 넣기
-	
-
-
-
-
 	public partial class DiseaseManagementPage : Page
 	{
 		OracleConnection connn;
@@ -40,6 +25,7 @@ namespace AdminProgram
 		public DiseaseManagementPage()
 		{
 			InitializeComponent();
+			
 			LogRecord.LogWrite("상병/시술페이지 오픈");
 		}
 
@@ -59,33 +45,20 @@ namespace AdminProgram
 		}
 
 		//상병 SQL
-		/*private void MakeDiseaseSQL(ref string? sql)
+		private void MakeDiseaseSQL(ref string? sql)
 		{
-			if (gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] == "-")
-			{
-				if (bod_txtbox.Text == "")
-					sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-					"where PATIENT_STATUS_VAL = 'T' and " +
-					"PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
-					"PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
-					"DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
-					"DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
-					"PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
-					" order by PATIENT_ID";
-
-			}
-			//sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
-		}*/
+			sql = "select DISEASE_ID, DISEASE_NAME, CREATION_DATE, REVISED_DATE, A_S, DISEASE_CODE, DISEASE_ENG from NAME_OF_DISEASE " +
+			"where DELETE_OR_NOT = 'T' and " +
+			"DISEASE_CODE like '%" + diseaseNum_txtbox.Text + "%' and " +
+			"DISEASE_NAME LIKE '%" + diseaseName_txtbox.Text + "%' " +
+			"order by DISEASE_CODE";
+		}
 
 		//상병코드검색--------------------------------------
-		/*private void Search_Disease_Button_Click(object sender, RoutedEventArgs e)
+		private void Search_Disease_Button_Click(object sender, RoutedEventArgs e)
 		{
 			LogRecord.LogWrite("상병 검색 버튼 클릭");
 			string? sql = null;
-
-
-			//if (CheckRightValue())
-				return;
 
 			ConnectDB();
 
@@ -96,28 +69,23 @@ namespace AdminProgram
 			comm.Connection = connn;
 			comm.CommandText = sql;
 			OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-			List<DiseaseModel> datas = new();
+			List<DMPDiseaseModel> datas = new();
 
 			while (reader.Read())
 			{
-				datas.Add(new DiseaseModel()
+				datas.Add(new DMPDiseaseModel()
 				{
-					Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-					Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")),
-					Address = reader.GetString(reader.GetOrdinal("Address")),
-					Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
-					Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
-					Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
-					Gender = reader.GetString(reader.GetOrdinal("Gender")),
-					Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
-					Age = Calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
+					Disease_Code = reader.GetString(reader.GetOrdinal("DISEASE_CODE")),
+					Disease_Name = reader.GetString(reader.GetOrdinal("DISEASE_NAME")),
+					Disease_ENG = reader.GetString(reader.GetOrdinal("DISEASE_ENG")),
+					AfterS = reader.GetString(reader.GetOrdinal("A_S")),
+					CreatetionDate = reader.GetDateTime(reader.GetOrdinal("CREATION_DATE"))
 				});
 			}
 			diseaseDataGrid.ItemsSource = datas;
 
 			reader.Close();
-
-		}*/
+		}
 
 		//상병상세정보
 		private void Row_DiseaseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -140,9 +108,6 @@ namespace AdminProgram
 		{
 			LogRecord.LogWrite("시술 검색 버튼 클릭");
 			string? sql = null;
-
-
-			//if (CheckRightValue())
 
 			ConnectDB();
 
