@@ -77,19 +77,19 @@ namespace AdminProgram.ViewModels
             set => SetProperty(ref dob, value);
         }
 
-        public string Agreemarketing
+        public string? Agreemarketing
         {
             get => agreemarketing;
             set => SetProperty(ref agreemarketing, value);
         }
 
-        public string Home_Num
+        public string? Home_Num
         {
             get => home_Num;
             set => SetProperty(ref home_Num, value);
         }
 
-        public string IsDelete
+        public string? IsDelete
         {
             get => isDelete;
             set => SetProperty(ref isDelete, value);
