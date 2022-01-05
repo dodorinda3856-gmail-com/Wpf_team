@@ -13,7 +13,7 @@
 
         <!--시술명-->
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="31,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ko-kr" Text="시술명"/></TextBlock>
-        <TextBox x:Name="procedureName_textBox" Padding="3" HorizontalAlignment="Left" Margin="75,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="procedureName_textBox" Padding="3" HorizontalAlignment="Left" Margin="75,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
 
         <!--시술단가-->
         <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="20,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="시술"/><Run Language="ko-kr" Text="단가"/></TextBlock>
