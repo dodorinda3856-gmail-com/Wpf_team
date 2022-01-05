@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding AWRVM, Source={StaticResource ViewModelLocator}}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="대기자 등록 페이지" Height="450" Width="800">
     <Grid Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
@@ -27,13 +28,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
-        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
+        <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="searchText" Text="{Binding SearchText}" Grid.Row="0" Grid.Column="1" FontSize="16" Cursor="IBeam">
             <TextBox.InputBindings>
-                <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
+                <KeyBinding Command="{Binding SearchPatientActW}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
-        <Button Command="{Binding SearchPatientAct}" Content="검색" Grid.Column="2"/>
+        <Button Command="{Binding SearchPatientActW}" Content="검색" Grid.Column="2"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" 
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
@@ -64,29 +69,37 @@
             </Grid.RowDefinitions>
 
             <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
+            <TextBlock x:Name="patientName" Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
 
             <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
+            <TextBlock x:Name="patientResidentRegistNum" Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
 
             <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
+            <TextBlock x:Name="patientGender" Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
 
             <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
+            <TextBlock x:Name="patientAddress" Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
 
             <Label Content="증상 설명: " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBox Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="explainSymtom" Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
         </Grid>
         
         
         <Button Content="대기자 등록" Grid.Row="7" Grid.Column="1"
-                Command="{Binding RegisterWaitingData}" Click="Add_Waiting_Btn"/>
+                Command="{Binding RegisterWaitingData}" Click="Add_Waiting_Btn"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
         <Button Content="대기자 등록 취소" Grid.Row="7" Grid.Column="3" 
-                Click="Close_Window"/>
+                Click="Close_Window"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
     </Grid>
 </Window>

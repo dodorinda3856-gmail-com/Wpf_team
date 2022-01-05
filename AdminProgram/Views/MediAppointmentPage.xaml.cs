@@ -24,6 +24,7 @@ namespace AdminProgram.Views
         //== 대기자 등록 윈도우로 이동 ==//
         private void Add_Waiting_Btn(object sender, RoutedEventArgs e)
         {
+            
             AddWaitingWindow aw = new AddWaitingWindow();
             aw.ShowDialog();
         }

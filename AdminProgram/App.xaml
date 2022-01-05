@@ -5,20 +5,36 @@
              StartupUri="MainWindow.xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Application.Resources>
+        
         <ResourceDictionary>
+            
+            <!--Meterial Design start-->
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- primary -->
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#5f5fc4"/> 
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
+
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#283593"/> <!--이거 색상 기준임-->
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+            
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#001064"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+            
+            <!-- accent -->
+            <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#b71c1c"/>
+            <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#FFFFFF"/>
+            <!--Meterial Design end-->
+            
             <!--ViewModel 정의 위치-->
             <local:ViewModelLocator x:Key="ViewModelLocator"/>
+            
         </ResourceDictionary>
-        <!--배경 색상
-        <LinearGradientBrush x:Key="background">
-            <GradientStop Color="#FF617498" Offset="0"/>
-            <GradientStop Color="#FF1E355F" Offset="1"/>
-        </LinearGradientBrush>
-        -->
+        
     </Application.Resources>
 </Application>

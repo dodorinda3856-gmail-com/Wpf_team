@@ -45,14 +45,6 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref wModel, value); }
         }
 
-        /*// 3) 시간 table 사용 위함
-        private ObservableCollection<TimeModel> timeModel;
-        public ObservableCollection<TimeModel> TimeModels
-        {
-            get { return timeModel; }
-            set { SetProperty(ref timeModel, value); }
-        }*/
-
         // 4) 진료 완료 리스트 Model 사용을 위함
         private ObservableCollection<TreatmentCompleteListModel> treatmentCompleteModels;
         public ObservableCollection<TreatmentCompleteListModel > TreatmentCompleteModels

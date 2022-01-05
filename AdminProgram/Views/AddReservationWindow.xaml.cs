@@ -12,6 +12,17 @@ namespace AdminProgram.Views
         public AddReservationWindow()
         {
             InitializeComponent();
+            //== 화면 초기화 ==//
+            //직접 입력 부분
+            searchText.Text = "";
+            /*doctorCombo.Items.Clear();
+            timeCombo.Items.Clear();*/
+            explainSymtom.Text = "";
+            //세부 데이터 부분
+            patientName.Text = "";
+            patientResidentRegistNum.Text = "";
+            patientGender.Text = "";
+            patientAddress.Text = "";
         }
 
         private void Close_Window(object sender, RoutedEventArgs e)
