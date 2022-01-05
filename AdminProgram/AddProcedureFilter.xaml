@@ -43,6 +43,6 @@
 
         </DataGrid>
 
-        <Button Content="확인" Grid.Row="7" Grid.Column="2"/>
+        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click"/>
     </Grid>
 </Window>

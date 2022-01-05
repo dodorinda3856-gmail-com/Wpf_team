@@ -94,8 +94,6 @@ namespace AdminProgram.ViewModels
             _itemSourceList = new CollectionViewSource() { Source = TMModels };
             _itemSourceList.Filter += new FilterEventHandler(yourFilter);
             FilteredTreatment = _itemSourceList.View;
-            FilteredTreatment.Refresh();
-         
         }
 
         //== Messenger 사용 start ==//
@@ -124,30 +122,54 @@ namespace AdminProgram.ViewModels
         private void ProductOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             //Model 값의 변경을 감지
-            var rModels = sender as TreatmentModel;
-            if (rModels != null)
+            var tModels = sender as TreatmentModel;
+            if (tModels != null)
             {
-                _logger.LogInformation("{@rModels}", rModels);
-                WeakReferenceMessenger.Default.Send(TMModels); //이거 필수
+                _logger.LogInformation("{@rModels}", tModels);
+                WeakReferenceMessenger.Default.Send(TMModels); 
                 _logger.LogInformation("send 성공");
             }
 
-            //Model 값의 변경을 감지
-            //var dModels = sender as DiseaseModel;
-            //if (dModels != null)
-            //{
-            //    _logger.LogInformation("{@rModels}", dModels);
-            //    WeakReferenceMessenger.Default.Send(DmModels); //이거 필수
-            //    _logger.LogInformation("send 성공");
-            //}
-        }
-        //== Messenger 사용 end ==//
+            var dModels = sender as DiseaseModel;
+            if (dModels != null)
+            {
+                _logger.LogInformation("{@rModels}", dModels);
+                WeakReferenceMessenger.Default.Send(DmModels); 
+                _logger.LogInformation("send 성공");
+            }
 
-        //== SQL : 진료 정보 가져오기 ==//
-        //검색어를 기준으로 진료 정보 가져옴
-        //검색어가 없으면 그냥 전체 진료 정보를 가져옴
+            var sModels = sender as MediStaffModel;
+            if (sModels != null)
+            {
+                _logger.LogInformation("{@rModels}", sModels);
+                WeakReferenceMessenger.Default.Send(StaffModels); 
+                _logger.LogInformation("send 성공");
+            }
 
-        private void GetProcedureData()
+            var procModels = sender as ProcedureFilterModel;
+            if (procModels != null)
+            {
+                _logger.LogInformation("{@rModels}", procModels);
+                WeakReferenceMessenger.Default.Send(PModels);
+                _logger.LogInformation("send 성공");
+            }
+
+            var patientModels = sender as PatientModel;
+            if (patientModels != null)
+            {
+                _logger.LogInformation("{@rModels}", patientModels);
+                WeakReferenceMessenger.Default.Send(PtModels); 
+                _logger.LogInformation("send 성공");
+            }
+
+    }
+    //== Messenger 사용 end ==//
+
+    //== SQL : 진료 정보 가져오기 ==//
+    //검색어를 기준으로 진료 정보 가져옴
+    //검색어가 없으면 그냥 전체 진료 정보를 가져옴
+
+    private void GetProcedureData()
         {
             string sql = "SELECT * FROM MEDI_PROCEDURE WHERE PROCEDURE_NAME LIKE '%" + searchProcedureText + "%'"; 
 
@@ -501,8 +523,7 @@ namespace AdminProgram.ViewModels
             var obj = e.Item as TreatmentModel;
             if (obj != null)
             {
-                _logger.LogInformation(obj.Diseases+" : "+ selectedDisease?.DiseaseName);
-                if (selectedPatient != null && obj.PatientId != selectedPatient.PatientId)
+               if (selectedPatient != null && obj.PatientId != selectedPatient.PatientId)
                 {
                     e.Accepted = false;
                     return;

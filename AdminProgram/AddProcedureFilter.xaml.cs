@@ -28,5 +28,7 @@ namespace AdminProgram
         {
             Close();
         }
+
+     
     }
 }
