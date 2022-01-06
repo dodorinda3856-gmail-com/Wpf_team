@@ -10,6 +10,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
       DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="MediAppointmentPage">
     <Page.Resources>
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
@@ -18,7 +19,7 @@
         <Grid Margin="60,20,20,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.05*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -51,10 +52,22 @@
                 <DatePicker x:Name="datePicker" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center"
                             SelectedDate="{Binding SelectedDateTime}" FontSize="16" />
 
-                <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn"/>
-                <Button Content="대기자 등록" Grid.Column="9" Click="Add_Waiting_Btn" />
-                <Button Content="동기화" Grid.Column="11" 
-                        Command ="{Binding ReservationUpdateBtn}"/>
+                <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn" Cursor="Hand" FontSize="16" FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        ToolTip="MaterialDesignRaisedLightButton with Round Corners"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                <Button Content="대기자 등록" Grid.Column="9" Click="Add_Waiting_Btn" FontWeight="Bold" FontSize="16" 
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        ToolTip="MaterialDesignRaisedLightButton with Round Corners"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                <Button Content="동기화" Grid.Column="11" FontWeight="Bold" FontSize="16"
+                        Command ="{Binding ReservationUpdateBtn}" 
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        ToolTip="MaterialDesignRaisedLightButton with Round Corners"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
             </Grid>
 
             <!--방문 대기 환자-->

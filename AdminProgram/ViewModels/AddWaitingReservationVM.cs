@@ -313,7 +313,7 @@ namespace AdminProgram.ViewModels
                     try
                     {
                         conn.Open();
-                        _logger.LogInformation("DB Connection OK...");
+                        _logger.LogInformation("DB Connection OK..."); LogRecord.LogWrite("DB Connection OK...");
 
                         //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                         PModels = new ObservableCollection<PatientModelTemp>();
