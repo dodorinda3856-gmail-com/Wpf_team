@@ -79,7 +79,7 @@
                    VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"/>
         </Grid>
 
-        <Button Content="예약 등록" Grid.Row="7" Grid.Column="2" Click="Button_Click" />
+        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click" />
 
     </Grid>
 </Window>
