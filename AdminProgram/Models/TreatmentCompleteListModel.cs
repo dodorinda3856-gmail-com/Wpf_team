@@ -6,6 +6,14 @@ namespace AdminProgram.Models
     public class TreatmentCompleteListModel : ObservableObject
     {
         //== 공통 ==//
+        //환자 아이디
+        private int patientId;
+        public int PatientId
+        {
+            get => patientId;
+            set => SetProperty(ref patientId, value);
+        }
+
         //환자 이름
         private string patientName;
         public string PatientName
@@ -20,6 +28,14 @@ namespace AdminProgram.Models
         {
             get => patientPhoneNum;
             set => SetProperty(ref patientPhoneNum, value);
+        }
+
+        //방문 목적(?)
+        private string visitType;
+        public string VisitType
+        {
+            get => visitType;
+            set => SetProperty(ref visitType, value);
         }
 
         //방문(예약) 시간

@@ -18,7 +18,7 @@ using LiveCharts.Wpf;
 namespace AdminProgram
 {
     /// <summary>
-    /// StartPage.xaml에 대한 상호 작용 논리
+    /// StartPage.xaml에 대한 상호 작용 논리, choi -> devline
     /// </summary>
     public partial class StartPage : Page
     {
