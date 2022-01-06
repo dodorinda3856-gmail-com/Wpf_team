@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 
 /**
  * 진료 관리 페이지 Model
@@ -7,11 +8,11 @@ namespace AdminProgram.Models
 {
     public partial class TreatmentModel : ObservableObject
     {
-        private int patientNumber; //환자 번호
-        public int PatientNumber
+        private int patientId; //환자 번호
+        public int PatientId
         {
-            get => patientNumber; 
-            set => SetProperty(ref patientNumber, value); 
+            get => patientId;
+            set => SetProperty(ref patientId, value);
         }
 
         private string patientName; //환자 이름
@@ -40,7 +41,33 @@ namespace AdminProgram.Models
         {
             get => treatDetail;
             set => SetProperty(ref treatDetail, value);
+        }
+        private DateTime date;
+        public DateTime Date
+        {
+            get => date;
+            set => SetProperty(ref date, value);
+        }
+        private string staffName;
+        public string StaffName
+        {
+            get => staffName;
+            set => SetProperty(ref staffName, value);
+        }
 
+        private string diseases;
+        public string Diseases
+        {
+            get => diseases;
+            set => SetProperty(ref diseases, value);
+        }
+
+
+        private string procedures;
+        public string Procedures
+        {
+            get => procedures;
+            set => SetProperty(ref procedures, value);
         }
     }
 }

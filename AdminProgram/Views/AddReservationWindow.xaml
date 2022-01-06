@@ -7,12 +7,16 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding AWRVM, Source={StaticResource ViewModelLocator}}"
-        Title="진료 예약 추가 페이지" Height="450" Width="800">
-    <Grid Margin="10,10,10,10">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+        Title="진료 예약 추가 페이지" Height="450" Width="800" >
+    <Grid Margin="10,10,10,10" Cursor="IBeam">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
@@ -27,15 +31,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
+        <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+        <TextBox x:Name="searchText" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontSize="16">
             <TextBox.InputBindings>
-                <KeyBinding Command="{Binding SearchPatientAct}" Key="Enter"/>
+                <KeyBinding Command="{Binding SearchPatientActR}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
-        <Button Command="{Binding SearchPatientAct}" Content="검색" Grid.Column="2"/>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+        <Button Command="{Binding SearchPatientActR}" Content="검색" Grid.Column="3"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedLightButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
                   SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10">
             <DataGrid.Columns>
@@ -46,7 +55,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="5" Background="#FFF3F3F3" Margin="0,0,0,10">
+        <Grid Grid.Row="2" Grid.ColumnSpan="7" Background="#FFF3F3F3" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -64,23 +73,23 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
-            <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
-            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
-            <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
-                   VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <TextBlock x:Name="patientName" Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Bold"/>
+            <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <TextBlock x:Name="patientResidentRegistNum" Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" FontWeight="Bold"/>
+            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <TextBlock x:Name="patientGender" Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontWeight="Bold"/>
+            <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <TextBlock x:Name="patientAddress" Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
+                   VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Bold"/>
 
-            <Label Content="담당 의사 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
-            <ComboBox Grid.Row="4" Grid.Column="1"
+            <Label Content="담당 의사 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <ComboBox x:Name="doctorCombo" Grid.Row="4" Grid.Column="1"
                       ItemsSource="{Binding Path=StaffModels, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedStaff}"
-                      IsSynchronizedWithCurrentItem="True">
+                      IsSynchronizedWithCurrentItem="True" SelectedIndex="-1">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -90,12 +99,12 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             
-            <Label Content="예약 날짜 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
+            <Label Content="예약 날짜 : " Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
             <DatePicker x:Name="datePicker" Grid.Row="5" Grid.Column="1"
-                        SelectedDate="{Binding SelectedDateTime, Mode=TwoWay}"/>
+                        SelectedDate="{Binding SelectedDateTime, Mode=TwoWay}" FontWeight="Bold"/>
             
-            <Label Content="예약 시간 : " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right"/>
-            <ComboBox Grid.Row="5" Grid.Column="3"
+            <Label Content="예약 시간 : " Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <ComboBox x:Name="timeCombo" Grid.Row="5" Grid.Column="3"
                       ItemsSource="{Binding Path=TimeModels, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedTime}"
                       IsSynchronizedWithCurrentItem="True">
                 <ComboBox.ItemTemplate>
@@ -107,14 +116,28 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Label Content="증상 설명 : " Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBox VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
-                     Text="{Binding ExplainSymtom}"/>
+            <Label Content="증상 설명 : " Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <TextBox x:Name="explainSymtom" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                     Text="{Binding ExplainSymtom}" FontWeight="Bold"/>
+
+            <Label Content="질병 타입 : " Grid.Row="6" Grid.Column="3" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <ComboBox Grid.Row="6" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
+                <ComboBoxItem Content="Hives"/>
+                <ComboBoxItem Content="Allergy"/>
+                <ComboBoxItem Content="Bueaty"/>
+            </ComboBox>
         </Grid>
-        
-        <Button Content="예약 등록" Grid.Row="7" Grid.Column="1"
-                Command="{Binding RegisterReservationData}" Click="Button_Click"/>
-        <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="3" 
-                Click="Close_Window"/>
+
+        <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
+                Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+        <Button Content="예약 등록" Grid.Row="7" Grid.Column="5"
+                Command="{Binding RegisterReservationData}" Click="Button_Click"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
     </Grid>
 </Window>
