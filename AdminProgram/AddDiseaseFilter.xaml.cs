@@ -10,21 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace AdminProgram
 {
     /// <summary>
-    /// StartPage.xaml에 대한 상호 작용 논리, choi -> devline
+    /// AddDiseaseFilter.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class StartPage : Page
+    public partial class AddDiseaseFilter : Window
     {
-        public StartPage()
+        public AddDiseaseFilter()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("예약 정보를 삭제했습니다");
+            Window.GetWindow(this).Close();
         }
     }
 }

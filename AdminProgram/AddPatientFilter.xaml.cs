@@ -12,16 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace AdminProgram.Views
+namespace AdminProgram
 {
     /// <summary>
-    /// AddAppointment.xaml에 대한 상호 작용 논리
+    /// AddPatientFilter.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddAppointment : Window
+    public partial class AddPatientFilter : Window
     {
-        public AddAppointment()
+        public AddPatientFilter()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

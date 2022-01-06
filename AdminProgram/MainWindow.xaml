@@ -5,10 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d"
-        Background="{StaticResource background}"
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="484" Width="775">
+        Title="MainWindow" Height="484" Width="775"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        >
+
     <Grid>
         <StackPanel Orientation="Horizontal">
             <Image Width="65" Margin="110,75,10,10"
@@ -34,11 +43,14 @@
         <StackPanel Orientation="Horizontal">
             <Button Name="btnLogin"  FontSize="21" Width="90" Height="35" IsDefault="True"
                     IsEnabled="True" BorderBrush="Transparent" Click="Login_Click_Btn"
-                    Margin="250,200,0,0" VerticalAlignment="Center" Background="Transparent"> 확인
+                    Margin="250,200,0,0" VerticalAlignment="Center" > 확인
             </Button>
             <Button Name="btnCancel" FontSize="21" Width="90" Height="35"
-                    IsEnabled="True" BorderBrush="Transparent" Click="Cancel_Click_Btn"
-                    Margin="100,200,0,0"  Background="Transparent"> 취소
+                     BorderBrush="Transparent" Click="Cancel_Click_Btn"
+                    Margin="100,200,0,0" Cursor="Hand"  Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"> 취소
             </Button>
         </StackPanel>
         <StackPanel Orientation="Vertical">

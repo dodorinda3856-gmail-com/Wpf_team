@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d"
-        Background="{StaticResource background}"
         WindowStartupLocation="CenterScreen"
-        Title="MainUnit" Height="800" Width="1200">
+        Background="{DynamicResource MaterialDesignPaper}"
+        Title="MainUnit" Height="800" Width="1200"
+        >
     <Grid>
         <Frame x:Name="frame" Source="/StartPage.xaml"
                NavigationUIVisibility="Hidden"/>
-        <StackPanel x:Name="stpMenu" HorizontalAlignment="Left" Width="240" Margin="-200,0,0,0" Background="#FF26384B" MouseLeave="StpMenu_MouseLeave" MouseEnter="StpMenu_MouseEnter">
+        <StackPanel x:Name="stpMenu" Background="{DynamicResource MaterialDesignDarkBackground}" HorizontalAlignment="Left" Width="240" Margin="-200,0,0,0" MouseLeave="StpMenu_MouseLeave" MouseEnter="StpMenu_MouseEnter">
             <DockPanel HorizontalAlignment="Right" Margin="5">
                 <Label x:Name="Home_Label" Width="200" Foreground="White"
                        PreviewMouseDown="Home_Label_PreviewMouseDown">Home</Label>
@@ -43,6 +44,8 @@
                 <Label x:Name="Disease_Management" Width="200" PreviewMouseDown="Disease_Management_PreviewMouseDown" Foreground="White">상병 / 시술관리</Label>
                 <Image Width="30" Height="30" Source="icon.ico" ></Image>
             </DockPanel>
+            <Label x:Name="Global_Name" Content="" HorizontalContentAlignment="Center" Foreground="White"></Label>
+            <Button x:Name="Logout" Content="로그아웃" Height="27" Width="96"  HorizontalAlignment="Right" Margin="5" Cursor="Hand" Click="LogoutBtn_Click"/>
         </StackPanel>
     </Grid>
 </Window>

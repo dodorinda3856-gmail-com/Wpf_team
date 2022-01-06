@@ -14,18 +14,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--상단 로그인 정보 파트-->
-        <Grid Grid.Row="0" Background="Black">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="1"  Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" FontSize="16" Foreground="White" Margin="10,10,20,10"> 이성찬님</TextBlock>
-                <Button Content="로그아웃" Margin="10,10,25,10"/>
-            </WrapPanel>
-        </Grid>
-
         <!--하단부 구현-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -60,54 +48,92 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <!--사번-->
                     <WrapPanel Grid.Column="0" Orientation="Horizontal">
                         <TextBlock Text="사번 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox Width="50" Height="23" Margin="0,5,5,5" VerticalAlignment="Center"/>
+                        <TextBox x:Name="staffId_txtbox"
+                            Width="50" 
+                            Height="23" 
+                            Margin="0,5,5,5" 
+                            VerticalAlignment="Center"/>
                     </WrapPanel>
 
                     <!--이름-->
                     <WrapPanel Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="이름 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
+                        <TextBox x:Name="staffName_txtbox"
+                            Width="60" 
+                            Height="23" 
+                            Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--성별-->
                     <WrapPanel Grid.Column="2" Orientation="Horizontal">
                         <TextBlock Text="성별 :" Margin="5" VerticalAlignment="Center"/>
-                        <ComboBox Width="40" Height="23" Margin="0,5,5,5">
+                        <ComboBox x:Name="staffGender_combobox"
+                            Width="40" 
+                            Height="23" 
+                            Margin="0,5,5,5">
+                            <ComboBoxItem Content=""/>
                             <ComboBoxItem Content="남"/>
                             <ComboBoxItem Content="여"/>
                         </ComboBox>
                     </WrapPanel>
 
-                    <!--담당분야-->
+                    <!--직책-->
                     <WrapPanel Grid.Column="3" Orientation="Horizontal">
+                        <TextBlock Text="직책 :" Margin="5" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="staffPosition_combobox"
+                            Width="50" 
+                            Height="23" 
+                            Margin="0,5,5,5">
+                            <ComboBoxItem Content=""/>
+                            <ComboBoxItem Content="의사"/>
+                            <ComboBoxItem Content="간호사"/>
+                        </ComboBox>
+                    </WrapPanel>
+
+                    <!--담당분야-->
+                    <WrapPanel Grid.Column="4" Orientation="Horizontal">
                         <TextBlock Text="담당분야 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
+                        <ComboBox x:Name="staffMajor_combobox"
+                            Width="70" 
+                            Height="23" 
+                            Margin="0,5,5,5">
+                            <ComboBoxItem Content=""/>
+                            <ComboBoxItem Content="두드러기"/>
+                            <ComboBoxItem Content="알러지"/>
+                            <ComboBoxItem Content="미용"/>
+                        </ComboBox>
                     </WrapPanel>
 
                     <!--전화번호-->
-                    <WrapPanel Grid.Column="4" Orientation="Horizontal">
-                        <TextBlock Text="담당분야 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox Width="50" Height="23" Margin="0,5,5,5"/>
+                    <WrapPanel Grid.Column="5" Orientation="Horizontal">
+                        <TextBlock Text="전화번호 :" Margin="5" VerticalAlignment="Center"/>
+                        <TextBox x:Name="staffPhoneNumber_txtbox"
+                            Width="120" 
+                            Height="23" 
+                            Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--이메일-->
-                    <WrapPanel Grid.Column="5" Orientation="Horizontal">
-                        <TextBlock Text="이메일 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
-                        <TextBox Width="80" Height="23" Margin="0,5,5,5"/>
+                    <WrapPanel Grid.Column="6" Orientation="Horizontal">
+                        <TextBlock 
+                            Text="이메일 :" 
+                            Margin="10,5,5,5" 
+                            VerticalAlignment="Center"/>
+                        <TextBox x:Name="staffEmail_txtbox" Width="200" Height="23" Margin="0,5,5,5"/>
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="6" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
+                    <Button Grid.Column="7" Click="searchButton_Click" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                     <!--추가-->
-                    <Button Grid.Column="7" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">추가</Button>
+                    <Button Grid.Column="8" Click="addButton_Click" Height="23" Margin="5,5,10,5" HorizontalAlignment="Right">추가</Button>
 
                 </Grid>
 
@@ -122,15 +148,21 @@
 
                         <!--나중에 수정해야할지도 모르는 부분 끝-->
 
-                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="사번" Binding="{Binding Staff_ID}"/>
-                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Staff_Name}"/>
+                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="사번" Binding="{Binding Staff_id}"/>
+                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Staff_name}"/>
                         <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Gender}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="담당분야" Binding="{Binding Medi_Subject}"/>
-                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="전화번호" Binding="{Binding Phone_Num}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="이메일" Binding="{Binding Staff_Email}"/>
-                        <DataGridTextColumn MinWidth="100" Width="*" Header="직책" Binding="{Binding Postion}"/>
+                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="직책" Binding="{Binding Position}"/>
+                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="담당분야" Binding="{Binding Medi_subject}"/>
+                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="전화번호" Binding="{Binding Phone_num}"/>
+                        <DataGridTextColumn MinWidth="100" Width="*" Header="이메일" Binding="{Binding Staff_email}"/>
+                        
                     </DataGrid.Columns>
-
+                    <!--아이템 더블클릭 이벤트-->
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
                 </DataGrid>
 
             </Grid>

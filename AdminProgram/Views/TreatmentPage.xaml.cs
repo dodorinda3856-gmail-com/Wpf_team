@@ -1,5 +1,6 @@
 ﻿using AdminProgram.Views;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AdminProgram
@@ -25,5 +26,30 @@ namespace AdminProgram
                 tw.ShowDialog();
             }
         }
+
+ 
+
+        private void AddDiseaseFilterBtn(object sender, RoutedEventArgs e)
+        {
+           
+            AddDiseaseFilter ad = new AddDiseaseFilter();
+
+            ad.ShowDialog();
+        }
+        private void AddPatientFilterBtn(object sender, RoutedEventArgs e)
+        {
+            AddPatientFilter pf = new AddPatientFilter();
+            pf.ShowDialog();
+        }
+
+        private void AddProcedureFilterBtn(object sender, RoutedEventArgs e)
+        {
+         
+            AddProcedureFilter ap = new AddProcedureFilter();
+
+            ap.ShowDialog();
+        }
+
+      
     }
 }
