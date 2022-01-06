@@ -1,6 +1,4 @@
-﻿using AdminProgram.ViewModels;
-using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace AdminProgram.Views
 {

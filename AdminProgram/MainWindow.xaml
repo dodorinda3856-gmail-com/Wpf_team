@@ -46,8 +46,11 @@
                     Margin="250,200,0,0" VerticalAlignment="Center" > 확인
             </Button>
             <Button Name="btnCancel" FontSize="21" Width="90" Height="35"
-                    IsEnabled="True" BorderBrush="Transparent" Click="Cancel_Click_Btn"
-                    Margin="100,200,0,0" Cursor="Hand"  > 취소
+                     BorderBrush="Transparent" Click="Cancel_Click_Btn"
+                    Margin="100,200,0,0" Cursor="Hand"  Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"> 취소
             </Button>
         </StackPanel>
         <StackPanel Orientation="Vertical">

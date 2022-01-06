@@ -30,7 +30,7 @@
             </Grid.RowDefinitions>
 
             <!--상단바-->
-            <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <Grid Grid.Row="0" Grid.ColumnSpan="3" Cursor="Hand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -49,7 +49,7 @@
                 </Grid.ColumnDefinitions>
 
                 <DatePicker x:Name="datePicker" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                            SelectedDate="{Binding SelectedDateTime}" />
+                            SelectedDate="{Binding SelectedDateTime}" FontSize="16" />
 
                 <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn"/>
                 <Button Content="대기자 등록" Grid.Column="9" Click="Add_Waiting_Btn" />

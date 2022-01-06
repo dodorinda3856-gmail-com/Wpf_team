@@ -12,8 +12,8 @@ namespace AdminProgram.Views
             InitializeComponent();
             //== 화면 초기화 ==//
             //직접 입력 부분
-            searchText.Text = "";
-            explainSymtom.Text = "";
+            searchText.Text = null;
+            explainSymtom.Text = null;
             //세부 사항 부분
             patientAddress.Text = "";
             patientGender.Text = "";
@@ -28,9 +28,7 @@ namespace AdminProgram.Views
 
         private void Add_Waiting_Btn(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("환자를 대기 명단에 등록하였습니다");
             Window.GetWindow(this).Close();
-            
         }
     }
 }
