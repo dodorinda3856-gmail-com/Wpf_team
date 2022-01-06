@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace AdminProgram
 {
@@ -44,7 +45,7 @@ namespace AdminProgram
 			}
 		}
 
-		//상병 SQL
+		//상병 SQL------------------------------------------------------------------------------------
 		private void MakeDiseaseSQL(ref string? sql)
 		{
 			sql = "select DISEASE_ID, DISEASE_NAME, CREATION_DATE, REVISED_DATE, A_S, DISEASE_CODE, DISEASE_ENG from NAME_OF_DISEASE " +
@@ -54,34 +55,35 @@ namespace AdminProgram
 			"order by DISEASE_CODE";
 		}
 
-		//상병코드검색--------------------------------------
+		//상병코드검색
 		private void Search_Disease_Button_Click(object sender, RoutedEventArgs e)
 		{
 			LogRecord.LogWrite("상병 검색 버튼 클릭");
 			string? sql = null;
 
 			ConnectDB();
-
 			MakeDiseaseSQL(ref sql);
 
 			OracleCommand comm = new();
 
 			comm.Connection = connn;
 			comm.CommandText = sql;
-			OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+			OracleDataReader reader = comm.ExecuteReader();
 			List<DMPDiseaseModel> datas = new();
 
 			while (reader.Read())
 			{
 				datas.Add(new DMPDiseaseModel()
 				{
-					Disease_Code = reader.GetString(reader.GetOrdinal("DISEASE_CODE")),
-					Disease_Name = reader.GetString(reader.GetOrdinal("DISEASE_NAME")),
-					Disease_ENG = reader.GetString(reader.GetOrdinal("DISEASE_ENG")),
-					AfterS = reader.GetString(reader.GetOrdinal("A_S")),
-					CreatetionDate = reader.GetDateTime(reader.GetOrdinal("CREATION_DATE"))
+					Disease_Code = reader.GetString(4),
+					Disease_Name = reader.GetString(1),
+					Disease_ENG = reader.GetString(5),
+					AfterS = reader.GetString(3),
+					CreatetionDate = reader.GetDateTime(2)
 				});
+
 			}
+
 			diseaseDataGrid.ItemsSource = datas;
 
 			reader.Close();
@@ -93,7 +95,14 @@ namespace AdminProgram
 
 		}
 
-		//시술 SQL--------------------------------------
+		//상병추가버튼클릭
+		private void Add_Procedure_Button_Click(object sender, RoutedEventArgs e)
+		{
+			AddProcedure addprocedure = new();
+			addprocedure.ShowDialog();
+		}
+
+		//시술 SQL--------------------------------------------------------------------------------------
 		private void MakeProcedureSQL(ref string? sql)
 		{
 			sql = "select MEDI_PROCEDURE_ID, TREATMENT_AMOUNT, CREATETION_DATE, REVISED_DATE, A_S, PROCEDURE_NAME, PROCEDURE_INFO from MEDI_PROCEDURE " +

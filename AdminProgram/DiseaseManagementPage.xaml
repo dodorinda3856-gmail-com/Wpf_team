@@ -67,14 +67,14 @@
             </Grid>
 
             <!--상세목록-->
-            <DataGrid x:Name="diseaseDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+            <DataGrid x:Name="diseaseDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" VirtualizingStackPanel.IsVirtualizing = "true"
                           ItemsSource="{Binding Path=DMPDiseaseModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
-                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병코드" Binding="{Binding Disease_Code}"/>
-                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="상병명칭" Binding="{Binding Disease_Name}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="영어명칭" Binding="{Binding Disease_ENG}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="사후처리" Binding="{Binding AfterS}"/>
+                    <DataGridTextColumn MinWidth ="60" Width="80" Header="상병코드" Binding="{Binding Disease_Code}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="상병명칭" Binding="{Binding Disease_Name}"/>
+                    <DataGridTextColumn MinWidth="100" Width="2*" Header="영어명칭" Binding="{Binding Disease_ENG}"/>
+                    <DataGridTextColumn MinWidth="100" Width="2*" Header="사후처리" Binding="{Binding AfterS}"/>
                     <DataGridTextColumn MinWidth="100" Width="100" Header="등록날짜" Binding="{Binding CreatetionDate, StringFormat={}{0:yyyy/MM/dd}}"/>
                 </DataGrid.Columns>
                 <!--아이템 더블클릭 이벤트-->
@@ -126,7 +126,7 @@
 
             <!--상세목록-->
             <DataGrid x:Name="treatmentDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=ProcedureModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                          ItemsSource="{Binding Path=ProcedureModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" IsEnabled="True">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
                     <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding MediProcedureID}"/>
