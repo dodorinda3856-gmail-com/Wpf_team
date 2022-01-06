@@ -144,13 +144,13 @@ namespace AdminProgram.ViewModels
             }
             string date = SelectedDateTime.Year + "" + month + day;
 
-            // 1) 진료 예약을 한 환자의 리스트를 가져옴
+            // 1) 오늘 날짜에 진료 예약을 한 환자의 리스트를 가져옴
             string sql =
                 "SELECT p.PATIENT_NAME, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.RESERVATION_ID " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID " +
-                "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') >= " + date +
+                "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') = " + date +
                 " AND r.RESERVE_STATUS_VAL = 'T'" + 
                 " ORDER BY r.RESERVATION_DATE ";
 
@@ -207,6 +207,7 @@ namespace AdminProgram.ViewModels
                             }
                         }
 
+                        // 2) 방문해서 대기 중인 환자 리스트를 가져옴
                         sql =
                             "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
@@ -216,7 +217,6 @@ namespace AdminProgram.ViewModels
                             " ORDER BY w.REQUEST_TO_WAIT";
                         comm.CommandText = sql;
 
-                        // 2) 방문해서 대기 중인 환자 리스트를 가져옴
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
                             _logger.LogInformation("select 실행");
@@ -251,10 +251,6 @@ namespace AdminProgram.ViewModels
                         }
 
                         // 3) 진료 완료된 환자 리스트를 가져옴
-                        //진행중...
-
-
-
                         sql =
                             "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '방문' AS VISIT_TYPE, w.REQUEST_TO_WAIT AS TR_DATETIME " +
                             "FROM WAITING w " +
@@ -352,8 +348,6 @@ namespace AdminProgram.ViewModels
         public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) end ==//
 
-
-        
 
         //== 예약 환자가 수납을 완료하는 경우 start ==//
         private void FinDiagnosis()

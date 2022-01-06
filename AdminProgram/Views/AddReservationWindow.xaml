@@ -119,6 +119,13 @@
             <Label Content="증상 설명 : " Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
             <TextBox x:Name="explainSymtom" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
                      Text="{Binding ExplainSymtom}" FontWeight="Bold"/>
+
+            <Label Content="질병 타입 : " Grid.Row="6" Grid.Column="3" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <ComboBox Grid.Row="6" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
+                <ComboBoxItem Content="Hives"/>
+                <ComboBoxItem Content="Allergy"/>
+                <ComboBoxItem Content="Bueaty"/>
+            </ComboBox>
         </Grid>
 
         <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
