@@ -12,6 +12,7 @@ namespace AdminProgram
     /// </summary
     public partial class MainWindow : Window
     {
+
         OracleConnection conn;
         public MainWindow()
         {
@@ -56,9 +57,9 @@ namespace AdminProgram
                     OracleCommand cmd = new();
                     MSModel admin = new MSModel();
                     
-                    sql = "SELECT STAFF_LOGIN_ID , STAFF_ID , STAFF_LOGIN_PW " +
-                          "FROM MEDI_STAFF_LOGIN msl " +
-                          "WHERE msl.STAFF_LOGIN_ID ='" + txtBoxUserName.Text +"'";
+                    sql = "SELECT msl.STAFF_LOGIN_ID , msl.STAFF_ID , msl.STAFF_LOGIN_PW, ms.STAFF_NAME " +
+                          "FROM MEDI_STAFF_LOGIN msl, MEDI_STAFF ms " +
+                          "WHERE msl.STAFF_ID = ms.STAFF_ID AND msl.STAFF_LOGIN_ID ='" + txtBoxUserName.Text +"'";
                     
                     cmd.Connection = conn;
                     cmd.CommandText = sql;
@@ -68,6 +69,10 @@ namespace AdminProgram
                     {
                         if ((txtBoxPwd.Password).Equals(read.GetString(read.GetOrdinal("STAFF_LOGIN_PW"))))
                         {
+                            Application.Current.Properties["globalName"] = read.GetString(read.GetOrdinal("STAFF_NAME"));
+                            Debug.WriteLine("스탭내임값:"+read.GetString(read.GetOrdinal("STAFF_NAME")));
+                            
+                            Debug.WriteLine("프로퍼티에저장된스탭내임값:" + Application.Current.Properties["globalName"]);
                             MainUnit m = new();
                             m.Show();
                             this.Close();

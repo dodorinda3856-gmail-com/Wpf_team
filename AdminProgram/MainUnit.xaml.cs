@@ -10,11 +10,13 @@ namespace AdminProgram
     /// </summary>
     public partial class MainUnit : Window
     {
+
         public MainUnit()
         {
             InitializeComponent();
+            Global_Name.Content = Application.Current.Properties["globalName"] + "님 안녕하세요.";
         }
-
+        
         bool isMenuAction = false;   // 메뉴 이동중인지 확인
         bool isMenuShow = false;   // 메뉴 이동중인지 확인
         void ActMenu(string strTargetName, bool isMouseOver)
