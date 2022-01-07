@@ -56,48 +56,49 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Grid Grid.Row="2" Grid.ColumnSpan="7" Background="#FFDBDDFF" Margin="0,0,0,10" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <Border Grid.Row="2" Grid.ColumnSpan="7" Margin="0,0,0,10">
+                    <Grid Background="#FFDBDDFF">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="patientName" Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
+                        <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+                        <TextBlock x:Name="patientName" Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Bold"/>
 
-                    <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="patientResidentRegistNum" Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
+                        <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+                        <TextBlock x:Name="patientResidentRegistNum" Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" FontWeight="Bold"/>
 
-                    <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="patientGender" Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
+                        <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+                        <TextBlock x:Name="patientGender" Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontWeight="Bold"/>
 
-                    <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="patientAddress" Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
+                        <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+                        <TextBlock x:Name="patientAddress" Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
                    VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Bold"/>
 
-                    <Label Content="증상 설명 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBox x:Name="explainSymtom" Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Bold"/>
-                    <Label Content="질병 타입 : " Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox Grid.Row="4" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
-                        <ComboBoxItem Content="Hives"/>
-                        <ComboBoxItem Content="Allergy"/>
-                        <ComboBoxItem Content="Bueaty"/>
-                    </ComboBox>
-
-                </Grid>
+                        <Label Content="증상 설명 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+                        <TextBox x:Name="explainSymtom" Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Bold"/>
+                        <Label Content="질병 타입 : " Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <ComboBox Grid.Row="4" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
+                            <ComboBoxItem Content="Hives"/>
+                            <ComboBoxItem Content="Allergy"/>
+                            <ComboBoxItem Content="Bueaty"/>
+                        </ComboBox>
+                    </Grid>
+                </Border>
 
                 <Button Content="등록 취소" Grid.Row="7" Grid.Column="1" 
                 Click="Close_Window"
