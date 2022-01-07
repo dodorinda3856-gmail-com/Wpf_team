@@ -75,11 +75,12 @@ namespace AdminProgram
 			{
 				datas.Add(new DMPDiseaseModel()
 				{
-					Disease_Code = reader.GetString(4),
-					Disease_Name = reader.GetString(1),
-					Disease_ENG = reader.GetString(5),
-					AfterS = reader.GetString(3),
-					CreatetionDate = reader.GetDateTime(2)
+					Disease_Code = reader.GetString(reader.GetOrdinal("DISEASE_CODE")),
+					Disease_Name = reader.GetString(reader.GetOrdinal("DISEASE_NAME")),
+					Disease_ENG = reader.GetString(reader.GetOrdinal("DISEASE_ENG")),
+					AfterS = reader.GetString(reader.GetOrdinal("A_S")),
+					CreatetionDate = reader.GetDateTime(reader.GetOrdinal("CREATION_DATE"))
+
 				});
 
 			}
@@ -96,10 +97,10 @@ namespace AdminProgram
 		}
 
 		//상병추가버튼클릭
-		private void Add_Procedure_Button_Click(object sender, RoutedEventArgs e)
+		private void Add_Disease_Button_Click(object sender, RoutedEventArgs e)
 		{
-			AddProcedure addprocedure = new();
-			addprocedure.ShowDialog();
+			AddDisease adddisease = new();
+			adddisease.ShowDialog();
 		}
 
 		//시술 SQL--------------------------------------------------------------------------------------
