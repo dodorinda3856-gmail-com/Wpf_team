@@ -144,6 +144,7 @@ namespace AdminProgram.ViewModels
                         {
                             conn.Open();
                             _logger.LogInformation("DB Connection OK...");
+                            LogRecord.LogWrite("DB Connection OK...");
 
                             //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                             PModels = new ObservableCollection<PatientModelTemp>();
@@ -166,6 +167,7 @@ namespace AdminProgram.ViewModels
                                 {
                                     _logger.LogInformation("환자 검색 select 실행");
                                     _logger.LogInformation("[SQL QUERY] " + sql);
+                                    LogRecord.LogWrite("[검색한 환자 리스트 가져오기 SQL Query] " + sql);
                                     try
                                     {
                                         while (reader.Read())
@@ -186,10 +188,12 @@ namespace AdminProgram.ViewModels
                                         //화면에서 보여야 하는 값이 null인 경우에도 발생함
                                         //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
                                         _logger.LogCritical(e + "");
+                                        LogRecord.LogWrite("[검색한 환자 리스트 가져오기 ERROR] " + e);
                                     }
                                     finally
                                     {
                                         _logger.LogInformation("검색한 환자 리스트 가져오기 성공");
+                                        LogRecord.LogWrite("[검색한 환자 리스트 가져오기 OK]");
                                         reader.Close();
                                     }
                                 }
@@ -210,7 +214,7 @@ namespace AdminProgram.ViewModels
                                     _logger.LogInformation("DatePicker의 값은 " + SelectedDateTime);
                                     _logger.LogInformation("TIME TABLE값 가져오기 select 실행");
                                     _logger.LogInformation("[SQL QUERY] " + sql);
-
+                                    LogRecord.LogWrite("[TIME TABLE 값 가져오기 SQL Query] " + sql);
                                     try
                                     {
                                         while (reader.Read())
@@ -227,10 +231,12 @@ namespace AdminProgram.ViewModels
                                     {
                                         //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                         _logger.LogCritical(e + "");
+                                        LogRecord.LogWrite("[TIME TABLE 가져오기 ERROR] " + e);
                                     }
                                     finally
                                     {
                                         _logger.LogInformation("TIME TABLE 가져오기 성공");
+                                        LogRecord.LogWrite("[TIME TABLE 가져오기 OK]");
                                         reader.Close();
                                     }
                                 }
@@ -242,11 +248,12 @@ namespace AdminProgram.ViewModels
                                     "WHERE \"POSITION\" = 'D' ";
                                 comm.CommandText = sql;
                                 _logger.LogInformation("[SQL QUERY] " + sql);
+                                
 
                                 using (OracleDataReader reader = comm.ExecuteReader())
                                 {
-                                    _logger.LogInformation("진료진 정보 Table 값 가져오기 select 실행");
-
+                                    _logger.LogInformation("의료진 정보 Table 값 가져오기 select 실행");
+                                    LogRecord.LogWrite("[의료진 정보 가져오기 SQL Query] " + sql);
 
                                     try
                                     {
@@ -264,10 +271,12 @@ namespace AdminProgram.ViewModels
                                     {
                                         //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                         _logger.LogCritical(e + "");
+                                        LogRecord.LogWrite("[의료진 정보 가져오기 ERROR] " + e);
                                     }
                                     finally
                                     {
-                                        _logger.LogInformation("진료진 정보 Table 가져오기 성공");
+                                        _logger.LogInformation("의료진 정보 Table 가져오기 성공");
+                                        LogRecord.LogWrite("[의료진 정보 가져오기 OK]");
                                         reader.Close();
                                     }
                                 }
@@ -276,6 +285,11 @@ namespace AdminProgram.ViewModels
                         catch (Exception err)
                         {
                             _logger.LogInformation(err + "");
+                            LogRecord.LogWrite("[진료 예약 등록 페이지에 DATA 가져오기 ERROR] " + err);
+                        }
+                        finally
+                        {
+                            LogRecord.LogWrite("[진료 예약 등록 페이지에 DATA 가져오기 OK]");
                         }
                     }
                 }
@@ -296,7 +310,7 @@ namespace AdminProgram.ViewModels
             string sql;
             string patientName = searchText; //환자 이름
 
-            if(patientName == "")
+            if(patientName == "") //null 처리
             {
                 MessageBox.Show("환자 이름을 검색해주세요");
             }
@@ -306,14 +320,16 @@ namespace AdminProgram.ViewModels
                     "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
                     "FROM PATIENT p " +
                     "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
-                _logger.LogInformation("[의사 진료 코드(?)] " + SelectedDiseaseType);
+                //_logger.LogInformation("[의사 진료 코드(?)] " + SelectedDiseaseType);
 
                 using (OracleConnection conn = new OracleConnection(strCon))
                 {
                     try
                     {
                         conn.Open();
-                        _logger.LogInformation("DB Connection OK..."); LogRecord.LogWrite("DB Connection OK...");
+                        _logger.LogInformation("DB Connection OK...");
+                        LogRecord.LogWrite("DB Connection OK...");
+                        //LogRecord.LogWrite("[AddWaitingReservationVM] DB Connection OK...");
 
                         //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                         PModels = new ObservableCollection<PatientModelTemp>();
@@ -330,8 +346,8 @@ namespace AdminProgram.ViewModels
                             // 1) 환자 검색
                             using (OracleDataReader reader = comm.ExecuteReader())
                             {
-                                _logger.LogInformation("환자 검색 select 실행");
-                                _logger.LogInformation("[SQL QUERY] " + sql);
+                                _logger.LogInformation("[환자 검색 SQL QUERY] " + sql);
+                                LogRecord.LogWrite("[AddWaitingReservationVM][대기자 등록 페이지 환자 검색 SQL Query] " + sql);
                                 try
                                 {
                                     while (reader.Read())
@@ -352,10 +368,12 @@ namespace AdminProgram.ViewModels
                                     //화면에서 보여야 하는 값이 null인 경우에도 발생함
                                     //처음에 데이터를 넣을 때 관련 값들은 null이 없게 하는것도 중요할듯
                                     _logger.LogCritical(e + "");
+                                    LogRecord.LogWrite("[환자 검색 ERROR] " + e);
                                 }
                                 finally
                                 {
                                     _logger.LogInformation("검색한 환자 리스트 가져오기 성공");
+                                    LogRecord.LogWrite("[환자 검색 OK]");
                                     reader.Close();
                                 }
                             }
@@ -364,6 +382,11 @@ namespace AdminProgram.ViewModels
                     catch (Exception err)
                     {
                         _logger.LogInformation(err + "");
+                        LogRecord.LogWrite("[대기자 등록 페이지에 정보 가져오기 ERROR] " + err);
+                    }
+                    finally
+                    {
+                        LogRecord.LogWrite("[대기자 등록 페이지에 정보 가져오기 OK]");
                     }
                 }
             }
@@ -395,6 +418,7 @@ namespace AdminProgram.ViewModels
                     {
                         conn.Open();
                         _logger.LogInformation("DB Connection OK...");
+                        LogRecord.LogWrite("DB Connection OK...");
 
                         PModels = new ObservableCollection<PatientModelTemp>();
                         PModels.CollectionChanged += ContentCollectionChanged;
@@ -405,6 +429,7 @@ namespace AdminProgram.ViewModels
                             comm.CommandText = sql;
                             _logger.LogInformation("Insert 시작");
                             _logger.LogInformation("[SQL Query] : " + sql);
+                            LogRecord.LogWrite("[방문 대기자 등록 SQL Query] " + sql);
                             //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                             comm.ExecuteNonQuery();
                             _logger.LogInformation("Insert 완료");
@@ -413,10 +438,12 @@ namespace AdminProgram.ViewModels
                     catch (Exception err)
                     {
                         _logger.LogInformation(err + "");
+                        LogRecord.LogWrite("[방문 대기자 등록 ERROR] " + err);
                     }
                     finally
                     {
                         _logger.LogInformation("이 환자를 대기자 명단에 등록하였습니다...");
+                        LogRecord.LogWrite("[방문 대기자 등록 OK]");
                     }
                 }
 
@@ -443,7 +470,6 @@ namespace AdminProgram.ViewModels
                     SelectedTime.TimeId + ", " +
                     SelectedStaff.StaffId + ", " +
                     "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
-            _logger.LogInformation("[SQL Query] " + sql);
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -451,6 +477,7 @@ namespace AdminProgram.ViewModels
                 {
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
+                    LogRecord.LogWrite("DB Connection OK...");
 
                     PModels = new ObservableCollection<PatientModelTemp>();
                     PModels.CollectionChanged += ContentCollectionChanged;
@@ -460,14 +487,21 @@ namespace AdminProgram.ViewModels
                         comm.Connection = conn;
                         comm.CommandText = sql;
 
+                        _logger.LogInformation("[SQL Query] " + sql);
+                        LogRecord.LogWrite("[진료 예약 등록 SQL Query] " + sql);
                         //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
                     }
                 }
-                catch (Exception err) { _logger.LogInformation(err + ""); }
+                catch (Exception err) 
+                { 
+                    _logger.LogInformation(err + "");
+                    LogRecord.LogWrite("[진료 예약 등록 ERROR] " + err);
+                }
                 finally
                 {
                     _logger.LogInformation("이 예약 정보를 예약자 리스트에 등록했습니다.");
+                    LogRecord.LogWrite("[진료 예약 등록 OK]");
                 }
             }
         }
