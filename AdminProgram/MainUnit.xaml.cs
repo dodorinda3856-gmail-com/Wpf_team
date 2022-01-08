@@ -34,17 +34,17 @@ namespace AdminProgram
 
         private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("Views/PatientPage.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/PatientPage/PatientPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Staff_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("Views/StaffPage.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/StaffPage/StaffPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Disease_Management_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.frame.Navigate(new Uri("DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
+            this.frame.Navigate(new Uri("Views/DiseaseManagePage/DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
