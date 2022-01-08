@@ -31,7 +31,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Margin="23,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="  시술명 :"/>
-                    <TextBlock Grid.Column="1" Margin="3,23,40,0" x:Name="procedureName_textBox" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                    <TextBlock Grid.Column="1" Margin="3,22,40,0" x:Name="procedureName_textBox" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
                 </Grid>
 
                 <!--시술단가-->
@@ -43,8 +43,8 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="시술단가 :"/>
-                    <TextBox Grid.Column="1" Background="#e0e0e0" Margin="2,18,0,0" x:Name="treatment_textbox" FontSize="14" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Grid.Column="2" Margin="0,18,0,0" x:Name="textBlock1_Copy3" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top">원</Label>
+                    <TextBox Grid.Column="1" Background="#e0e0e0" Margin="2,17,0,0" x:Name="treatment_textbox" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Grid.Column="2" Margin="0,17,0,0" x:Name="textBlock1_Copy3" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top">원</Label>
                 </Grid>
 
                 <!--시술정보-->
@@ -55,7 +55,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Margin="20,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top">시술정보 :</Label>
-                    <TextBox x:Name="procedure_textbox" Background="#e0e0e0" Margin="95,25,40,25" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="procedure_textbox" Background="#e0e0e0" Margin="95,25,40,25" FontSize="14" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
                 </Grid>
 
                 <!--사후관리-->
@@ -66,7 +66,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Margin="20,20,0,30" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top">사후관리 :</Label>
-                    <TextBox x:Name="as_textbox" Background="#e0e0e0" Margin="95,20,40,25" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="as_textbox" Background="#e0e0e0" Margin="95,20,40,25" FontSize="14" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
                 </Grid>
 
