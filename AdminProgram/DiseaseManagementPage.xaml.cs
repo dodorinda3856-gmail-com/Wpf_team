@@ -21,7 +21,7 @@ namespace AdminProgram
 {
 	public partial class DiseaseManagementPage : Page
 	{
-		OracleConnection connn;
+		OracleConnection? connn;
 
 		public DiseaseManagementPage()
 		{
@@ -93,7 +93,16 @@ namespace AdminProgram
 		//상병상세정보
 		private void Row_DiseaseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
+			var row = sender as DataGridRow;
 
+			if (row != null && row.IsSelected)
+			{
+				DMPDiseaseModel tmp = (DMPDiseaseModel)row.Item;
+				ModifyDisease.Passvalue = tmp;
+				ModifyDisease tw = new ModifyDisease();
+
+				tw.ShowDialog();
+			}
 		}
 
 		//상병추가버튼클릭
