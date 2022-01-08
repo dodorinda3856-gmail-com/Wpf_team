@@ -10,53 +10,57 @@
         DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
         Title="예약 환자 상세 정보 페이지" Height="330" Width="550">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.5*"/>
-        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="20" Background="#FFEDEDED">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
 
-        <Label Content="환자 이름 : " Grid.Column="0" Grid.Row="1" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
-        <TextBlock Text="{Binding Path=SelectedItem.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
+                <Label Content="환 자 이 름 : " Grid.Column="0" Grid.Row="1" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                <TextBlock Text="{Binding Path=SelectedItem.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
 
-        <Label Content="예약 일시 : " Grid.Column="0" Grid.Row="2"
-               VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
-        <TextBlock Text="{Binding Path=SelectedItem.ReservationDT, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        
-        <Label Content="담당 의사 : " Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
-        <TextBlock Text="{Binding Path=SelectedItem.Doctor, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
-                   VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
-        
-        <Label Content="증상 : " Grid.Column="0" Grid.Row="4" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
-        <TextBlock Text="{Binding Path=SelectedItem.TreatType, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
+                <Label Content="예 약 일 시 : " Grid.Column="0" Grid.Row="2"
+               VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                <TextBlock Text="{Binding Path=SelectedItem.ReservationDT, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <Label Content="담 당 의 사 : " Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+                <TextBlock Text="{Binding Path=SelectedItem.Doctor, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
 
-        <!--방문 대기 환자랑 수납 완료 기능 자체는 똑같은데 쿼리는 달라... 어떻게 구현할지?-->
-        <Button Content="예약 삭제" Grid.Column="1" Grid.Row="5"
+                <Label Content="증         상 : " Grid.Column="0" Grid.Row="4" 
+                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                <TextBlock Text="{Binding Path=SelectedItem.TreatType, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
+
+                <!--방문 대기 환자랑 수납 완료 기능 자체는 똑같은데 쿼리는 달라... 어떻게 구현할지?-->
+                <Button Content="예약 삭제" Grid.Column="1" Grid.Row="5"
                 Command="{Binding DeleteReservationDataBtn}" Click="Delete_Reservation_Date"
                 Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
-        <Button Content="수납완료" Grid.Column="3" Grid.Row="5"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="16" FontWeight="Bold"/>
+                <Button Content="수납완료" Grid.Column="3" Grid.Row="5"
                 Command="{Binding FinDiagnosisBtn}" Click="Fin_Treatment"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="16" FontWeight="Bold"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

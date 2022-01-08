@@ -160,7 +160,6 @@ namespace AdminProgram.ViewModels
                 {
                     conn.Open();
                     _logger.LogInformation("DB Connection OK...");
-                    _logger.LogInformation("" + month);
 
                     //데이터가 누적되던 문제 해결
                     RModels = new ObservableCollection<ReservationListModel>();
