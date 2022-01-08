@@ -7,7 +7,7 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		WindowStartupLocation="CenterScreen"
 		mc:Ignorable="d"
-		Title="시술등록" Height="472" Width="650">
+		Title="시술등록" MinHeight="472" MinWidth="650" Height="472" Width="650">
 	<Grid>
 		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">
 			<Grid>
@@ -89,12 +89,5 @@
 				</Grid>
 			</Grid>
 		</Border>
-		
-		
-		
-		
-		
-		
-		
 	</Grid>
 </Window>

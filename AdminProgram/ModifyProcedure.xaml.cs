@@ -21,10 +21,10 @@ namespace AdminProgram
     /// </summary>
     public partial class ModifyProcedure : Window
     {
-        OracleConnection connn;
+        OracleConnection? connn;
 
-        private static ProcedureModel passedProcedure;
-        public static ProcedureModel PassedProcedure
+        private static ProcedureModel? passedProcedure;
+        public static ProcedureModel? PassedProcedure
         {
             get { return passedProcedure; }
             set { passedProcedure = value; }
@@ -70,11 +70,12 @@ namespace AdminProgram
                                 "where MEDI_PROCEDURE_ID = " + passedProcedure.MediProcedureID;
 
             comm.ExecuteNonQuery();
-            connn.Close();
+            if (connn != null)
+                connn.Close();
         }
 
         //수정버튼 클릭이벤트
-        private void modify_Procedure_Click(object sender, RoutedEventArgs e)
+        private void Modify_Procedure_Click(object sender, RoutedEventArgs e)
         {
             LogRecord.LogWrite("'" + procedureName_textBox.Text + "' 시술 정보 수정 임시버튼 클릭");
             var result = MessageBox.Show("위 내용으로 수정하시겠습니까?", "수정", MessageBoxButton.YesNo);
@@ -104,11 +105,12 @@ namespace AdminProgram
                                 "where MEDI_PROCEDURE_ID = " + passedProcedure.MediProcedureID;
 
             comm.ExecuteNonQuery();
-            connn.Close();
+            if (connn != null)
+                connn.Close();
         }
 
         //삭제버튼 클릭이벤트
-        private void delete_Procedure_Click(object sender, RoutedEventArgs e)
+        private void Delete_Procedure_Click(object sender, RoutedEventArgs e)
         {
             LogRecord.LogWrite("'" + procedureName_textBox.Text + "' 시술 정보 삭제 임시버튼 클릭");
             var result = MessageBox.Show("시술정보를 삭제하시겠습니까?", "삭제", MessageBoxButton.YesNo);

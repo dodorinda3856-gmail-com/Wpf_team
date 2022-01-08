@@ -67,7 +67,7 @@
             </Grid>
 
             <!--상세목록-->
-            <DataGrid x:Name="diseaseDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" VirtualizingStackPanel.IsVirtualizing = "true"
+            <DataGrid x:Name="diseaseDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" VirtualizingStackPanel.IsVirtualizing = "true" Background="#FFD2CFCF"
                           ItemsSource="{Binding Path=DMPDiseaseModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
@@ -125,7 +125,7 @@
             </Grid>
 
             <!--상세목록-->
-            <DataGrid x:Name="treatmentDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+            <DataGrid x:Name="treatmentDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" Background="#FFD2CFCF"
                           ItemsSource="{Binding Path=ProcedureModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" IsEnabled="True">
                 <DataGrid.Columns>
                     <!--체크박스고민-->
