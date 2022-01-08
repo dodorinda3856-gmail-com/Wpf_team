@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DiseaseManagementPage">
 
-    <Grid Margin="40,0,0,0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
@@ -47,21 +47,21 @@
 
                 <!--상병코드-->
                 <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="상병코드 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="상병코드 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                     <TextBox x:Name="diseaseNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
                 </WrapPanel>
 
                 <!--상병명칭-->
                 <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Text="병명 :" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="병명 :" Margin="5,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                     <TextBox x:Name="diseaseName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
                 </WrapPanel>
 
                 <!--검색-->
-                <Button Grid.Column="2" Click="Search_Disease_Button_Click" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
+                <Button Grid.Column="2" Click="Search_Disease_Button_Click" Width="80" Height="30" FontSize="16" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                 <!--추가-->
-                <Button Grid.Column="3" Click="Add_Disease_Button_Click" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+                <Button Grid.Column="3" Click="Add_Disease_Button_Click" Width="80" Height="30" FontSize="16 " Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
 
                 <Canvas Grid.Column="4" Background="Gray"/>
             </Grid>
@@ -105,21 +105,21 @@
 
                 <!--시술번호-->
                 <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="시술번호 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="시술번호 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                     <TextBox x:Name="treatmentNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
                 </WrapPanel>
 
                 <!--시술명-->
                 <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Text="시술명 :" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <TextBlock Text="시술명 :" Margin="5,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                     <TextBox x:Name="treatmentName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
                 </WrapPanel>
 
                 <!--검색-->
-                <Button Grid.Column="2" Click="Search_Procedure_Button_Click" Width="70" Height="27" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
+                <Button Grid.Column="2" Click="Search_Procedure_Button_Click" FontSize="16" Width="70" Height="30" Margin="13,5,10,5" HorizontalAlignment="Right">검색</Button>
 
                 <!--추가-->
-                <Button Grid.Column="3" Click="Add_Procedure_Button_Click" Width="70" Height="27" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+                <Button Grid.Column="3" Click="Add_Procedure_Button_Click" FontSize="16" Width="70" Height="30" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
 
                 <Canvas Grid.Column="4" Background="Gray"/>
             </Grid>
