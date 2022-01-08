@@ -4,35 +4,92 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminProgram"
-        mc:Ignorable="d" ResizeMode="NoResize"
-        Title="시술상세정보" Height="472" Width="650">
+        WindowStartupLocation="CenterScreen"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="시술상세정보" MinHeight="472" MinWidth="650" Height="472" Width="650">
     <Grid>
-        <TextBlock x:Name="textBlock" Margin="10,10,363,10" TextWrapping="Wrap"><Run Language="ko-kr" Text="시술정보"/></TextBlock>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10,31,10,10"/>
+        <Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <!--시술명-->
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="31,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ko-kr" Text="시술명"/></TextBlock>
-        <TextBox x:Name="procedureName_textBox" Padding="3" HorizontalAlignment="Left" Margin="75,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                <!--시술명-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
 
-        <!--시술단가-->
-        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="20,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="시술"/><Run Language="ko-kr" Text="단가"/></TextBlock>
-        <TextBox x:Name="treatment_textbox" Padding="3" HorizontalAlignment="Left" Margin="75,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="200,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ko-kr" Text="원"/></TextBlock>
+                    <Label Grid.Column="0" Margin="23,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="  시술명 :"/>
+                    <TextBlock Grid.Column="1" Margin="3,23,40,0" x:Name="procedureName_textBox" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                </Grid>
 
-        <!--시술정보-->
-        <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="20,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ko-kr" Text="시술정보"/></TextBlock>
-        <TextBox x:Name="procedure_textbox" Padding="3" Margin="75,120,28,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="109"/>
+                <!--시술단가-->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-        <!--사후관리-->
-        <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="20,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ko-kr" Text="사후관리"/></TextBlock>
-        <TextBox x:Name="as_textbox" Padding="3" Margin="75,250,28,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="124"/>
+                    <Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="시술단가 :"/>
+                    <TextBox Grid.Column="1" Background="#e0e0e0" Margin="2,18,0,0" x:Name="treatment_textbox" FontSize="14" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Grid.Column="2" Margin="0,18,0,0" x:Name="textBlock1_Copy3" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top">원</Label>
+                </Grid>
 
-        <!--수정/삭제버튼-->
-        <Button x:Name="modify_Procedure" Click="modify_Procedure_Click" Content="수정" Margin="444,386,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="72"/>
-        <Button x:Name="delete_Procedure" Click="delete_Procedure_Click" Content="삭제" Margin="535,386,0,0" HorizontalAlignment="Left" Width="72" Height="28" VerticalAlignment="Top"/>
+                <!--시술정보-->
+                <Grid Grid.Row="2" Grid.RowSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
 
-        <!--등록날짜-->
-        <TextBlock x:Name="textBlock1_Copy5" HorizontalAlignment="Left" Margin="468,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ko-kr" Text="등록날짜"/></TextBlock>
-        <TextBox x:Name="create_Date" IsReadOnly="True" Padding="6,3,3,3" Margin="523,51,28,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#bfbfbf"/>
+                    <Label Grid.Column="0" Margin="20,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top">시술정보 :</Label>
+                    <TextBox x:Name="procedure_textbox" Background="#e0e0e0" Margin="95,25,40,25" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+                </Grid>
+
+                <!--사후관리-->
+                <Grid Grid.Row="5" Grid.RowSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Margin="20,20,0,30" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top">사후관리 :</Label>
+                    <TextBox x:Name="as_textbox" Background="#e0e0e0" Margin="95,20,40,25" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+
+                </Grid>
+
+                <!--수정/삭제버튼-->
+                <Grid Grid.Row="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="3" x:Name="modify_Procedure" Click="modify_Procedure_Click" Content="수정" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="72" Height="28"/>
+                    <Button Grid.Column="1" x:Name="delete_Procedure" Click="delete_Procedure_Click" Content="삭제" FontSize="16" HorizontalAlignment="Left"  Width="72" Height="28" VerticalAlignment="Top"
+                            Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            ToolTip="MaterialDesignRaisedButton with Round Corners"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+
     </Grid>
 </Window>

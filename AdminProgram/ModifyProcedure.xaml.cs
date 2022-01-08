@@ -38,7 +38,6 @@ namespace AdminProgram
             treatment_textbox.Text = passedProcedure.TreatmentAmount.ToString();
             procedure_textbox.Text = passedProcedure.Procedure_Info;
             as_textbox.Text = passedProcedure.AfterS;
-            create_Date.Text = passedProcedure.CreatetionDate.ToString().Substring(0,10);
         }
 
 
