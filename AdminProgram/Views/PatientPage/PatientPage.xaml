@@ -31,108 +31,101 @@
             <Canvas Grid.Row="0" Grid.Column="1" Background="#00ff0000"/>
             <Canvas Grid.Row="2" Grid.Column="1" Background="#00ff0000"/>
 
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" CornerRadius="5,5,5,5" BorderThickness="1" Background="#FFF3F3F3">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <!--검색창-->
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <!--검색창-->
+                    <Grid Grid.Row="0" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                    <!--환자번호-->
-                    <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="환자번호 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="patientNum_txtbox" Padding="4" Width="50" Height="auto" Margin="0,5,5,5"/>
-                    </WrapPanel>
+                        <!--환자번호-->
+                        <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="환자번호 :" Margin="5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="patientNum_txtbox" Padding="4" FontSize="14" Width="50" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
 
-                    <!--이름-->
-                    <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                        <TextBlock Text="이름 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="patientName_txtbox" Padding="4" Width="50" Height="auto" Margin="0,5,5,5"/>
-                    </WrapPanel>
+                        <!--이름-->
+                        <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="이름 :" Margin="15,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="patientName_txtbox" FontSize="14" Padding="4" Width="70" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
 
-                    <!--성별-->
-                    <WrapPanel Grid.Column="2" Orientation="Horizontal">
-                        <TextBlock Text="성별 :" Margin="5" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="gender_combobox" Width="40" Height="26" Margin="0,5,5,5">
-                            <ComboBoxItem Content="-"/>
-                            <ComboBoxItem Content="M"/>
-                            <ComboBoxItem Content="F"/>
-                        </ComboBox>
-                    </WrapPanel>
+                        <!--성별-->
+                        <WrapPanel Grid.Column="2" Orientation="Horizontal">
+                            <TextBlock Text="성별 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <ComboBox x:Name="gender_combobox" FontSize="14" Width="40" Height="26" Margin="0,5,5,5">
+                                <ComboBoxItem Content="-"/>
+                                <ComboBoxItem Content="M"/>
+                                <ComboBoxItem Content="F"/>
+                            </ComboBox>
+                        </WrapPanel>
 
-                    <!--생년월일-->
-                    <WrapPanel Grid.Column="3" Orientation="Horizontal">
-                        <TextBlock Text="생년월일 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="bod_txtbox" Padding="4" Width="70" Height="auto" Margin="0,5,5,5"/>
-                    </WrapPanel>
+                        <!--생년월일-->
+                        <WrapPanel Grid.Column="3" Orientation="Horizontal">
+                            <TextBlock Text="생년월일 :" Margin="15,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="bod_txtbox" Padding="4" FontSize="14" Width="70" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
 
-                    <!--나이-->
-                    <WrapPanel Grid.Column="4" Orientation="Horizontal">
-                        <TextBlock Text="나이 :" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="startAge_txtbox" Padding="4" Width="30" Height="auto" Margin="0,5,0,5" VerticalAlignment="Center"/>
-                        <TextBlock Text="~" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="endAge_txtbox" Padding="4" Width="30" Height="auto" Margin="0,5,5,5" VerticalAlignment="Center"/>
-                    </WrapPanel>
+                        <!--나이-->
+                        <WrapPanel Grid.Column="4" Orientation="Horizontal">
+                            <TextBlock Text="나이 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="startAge_txtbox" Padding="4" FontSize="14" Width="30" Height="auto" Margin="0,5,0,5" VerticalAlignment="Center"/>
+                            <TextBlock Text="~" Margin="5" VerticalAlignment="Center"/>
+                            <TextBox x:Name="endAge_txtbox" Padding="4" FontSize="14" Width="30" Height="auto" Margin="0,5,5,5" VerticalAlignment="Center"/>
+                        </WrapPanel>
 
-                    <!--방문날짜-->
-                    <WrapPanel Grid.Column="5" Orientation="Horizontal">
-                        <TextBlock Text="방문날짜 :" Margin="5" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="lastCome_datePicker" Margin="0,5,5,5" VerticalAlignment="Center" SelectedDateChanged="SelectedDate" Width="113" Height="26"/>
-                    </WrapPanel>
 
-                    <!--전화번호-->
-                    <WrapPanel Grid.Column="6" Orientation="Horizontal">
-                        <TextBlock Text="전화번호 :" Margin="10,5,5,5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="phoneNum_txtbox" Padding="4" Width="80" Height="auto" Margin="0,5,5,5"/>
-                    </WrapPanel>
+                        <!--전화번호-->
+                        <WrapPanel Grid.Column="5" Orientation="Horizontal">
+                            <TextBlock Text="전화번호 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="phoneNum_txtbox" Padding="4" FontSize="14" Width="80" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
 
-                    <!--검색-->
-                    <Button Grid.Column="7" Click="Search_Button_Click" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">검색</Button>
+                        <!--검색-->
+                        <Button Grid.Column="6" Click="Search_Button_Click" Margin="25,5,5,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">검색</Button>
 
-                    <!--추가-->
-                    <Button Grid.Column="8" Click="AddPatient_Btn" Margin="5,5,10,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">추가</Button>
+                        <!--추가-->
+                        <Button Grid.Column="7" Click="AddPatient_Btn" Margin="20,5,5,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">추가</Button>
 
-                </Grid>
+                    </Grid>
 
-                <Canvas Grid.Row="1" Background="#00ff0000"/>
-
-                <!--상세목록-->
-                <DataGrid x:Name="dataGrid" Grid.Row="2" Background="#FFD2CFCF" IsReadOnly="True" AutoGenerateColumns="False"
+                    <!--상세목록-->
+                    <DataGrid x:Name="dataGrid" Grid.Row="2" Background="#FFD2CFCF" IsReadOnly="True" AutoGenerateColumns="False"
                           ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
-                    <DataGrid.Columns>
-                        <!--체크박스고민-->
-                        <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>
-                        <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Patient_Name}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Gender}"/>
-                        <DataGridTextColumn MinWidth="60" Width="Auto" Header="전화번호" Binding="{Binding Phone_Num}"/>
-                        <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Age}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding Resident_Regist_Num}"/>
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Dob, StringFormat={}{0:yyyy/MM/dd}}" />
-                        <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Regist_Date, StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn MinWidth="100" Width="*" Header="주소" Binding="{Binding Address}"/>
-                    </DataGrid.Columns>
-                    <!--아이템 더블클릭 이벤트-->
-                    <DataGrid.ItemContainerStyle>
-                        <Style TargetType="DataGridRow">
-                            <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
-                        </Style>
-                    </DataGrid.ItemContainerStyle>
-                </DataGrid>
-            </Grid>
+                        <DataGrid.Columns>
+                            <!--체크박스고민-->
+                            <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>
+                            <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Patient_Name}"/>
+                            <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Gender}"/>
+                            <DataGridTextColumn MinWidth="60" Width="Auto" Header="전화번호" Binding="{Binding Phone_Num}"/>
+                            <DataGridTextColumn MinWidth="30" Width="Auto" Header="나이" Binding="{Binding Age}"/>
+                            <DataGridTextColumn MinWidth="100" Width="Auto" Header="주민번호" Binding="{Binding Resident_Regist_Num}"/>
+                            <DataGridTextColumn MinWidth="100" Width="Auto" Header="생년월일" Binding="{Binding Dob, StringFormat={}{0:yyyy/MM/dd}}" />
+                            <DataGridTextColumn MinWidth="100" Width="Auto" Header="최근내원" Binding="{Binding Regist_Date, StringFormat={}{0:yyyy/MM/dd}}"/>
+                            <DataGridTextColumn MinWidth="100" Width="*" Header="주소" Binding="{Binding Address}"/>
+                        </DataGrid.Columns>
+                        <!--아이템 더블클릭 이벤트-->
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                    </DataGrid>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>
