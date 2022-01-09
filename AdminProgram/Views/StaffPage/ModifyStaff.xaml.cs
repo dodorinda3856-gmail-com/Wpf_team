@@ -37,7 +37,7 @@ namespace AdminProgram
             staffName.Text = Passvalue.Staff_name;
             medi_subject.Text = Passvalue.Medi_subject;
             email.Text = Passvalue.Staff_email;
-            phoneNum.Text = Passvalue.Staff_email;
+            phoneNum.Text = Passvalue.Phone_num;
             staffId = Passvalue.Staff_id;
             if (Passvalue.Gender == "M")
             {
