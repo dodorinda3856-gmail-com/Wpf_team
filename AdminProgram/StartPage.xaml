@@ -11,7 +11,6 @@
 
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
@@ -26,7 +25,7 @@
         <Button Grid.Column="0" Grid.Row="1" Content="직원 관리"/>
         <Button Grid.Column="1" Grid.Row="0" Content="환자 관리"/>-->
 
-        <Border Grid.Column="1" Grid.Row="2">
+        <Border Grid.Column="0" Grid.Row="2">
             <local:PieChart/>
         </Border>
         
