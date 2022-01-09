@@ -36,27 +36,27 @@
 
                 <Label Content="환 자 번 호 : " Grid.Column="0" Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.PatientId, Mode=TwoWay}" Grid.Column="1"  Grid.Row="1" 
+                <TextBlock Text="{Binding Path=SelectedItem2.PatientId, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="이         름 : " Grid.Column="0" Grid.Row="2" 
                    VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.PatientName, Mode=TwoWay}" Grid.Column="1"  Grid.Row="2" 
+                <TextBlock Text="{Binding Path=SelectedItem2.PatientName, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="성         별 : " Grid.Column="0" Grid.Row="3"
                VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.PatientGender, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
+                <TextBlock Text="{Binding Path=SelectedItem2.PatientGender, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="대 기 시 간 : " Grid.Column="0" Grid.Row="4"
                VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1"  Grid.Row="4" 
+                <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="전 화 번 호 : " Grid.Column="0" Grid.Row="5" 
                    VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1"  Grid.Row="5" 
+                <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="주         소 : " Grid.Column="0" Grid.Row="6" 
@@ -70,14 +70,14 @@
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold" FontSize="16"/>
                 <!--막상 환자가 없는 경우-->
-                <Button Content="대기자 삭제" Grid.Column="1" Grid.Row="7"
+                <Button Content="대기 삭제" Grid.Column="1" Grid.Row="7"
                 Command="{Binding DeleteWaitingDataBtn}" Click="Delete_Waiting_Data"
                 Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="16" FontWeight="Bold"/>
             </Grid>
         </Border>
     </Grid>

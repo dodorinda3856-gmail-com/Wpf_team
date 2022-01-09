@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- primary -->
@@ -33,6 +34,13 @@
             
             <!--ViewModel 정의 위치-->
             <local:ViewModelLocator x:Key="ViewModelLocator"/>
+
+            <FontFamily x:Key="NanumSquareRound">applicaton:,,,/Fonts/#{나눔스퀘어라운드}</FontFamily>
+            <FontFamily x:Key="BMHANNAPro">applicaton:,,,/Fonts/#{배달의민족 한나체 Pro}</FontFamily>
+
+            <Style x:Key="mainFont" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="{StaticResource BMHANNAPro}"/>
+            </Style>
             
         </ResourceDictionary>
         
