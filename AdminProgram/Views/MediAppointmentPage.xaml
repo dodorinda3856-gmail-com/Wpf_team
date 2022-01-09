@@ -12,11 +12,13 @@
       DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="MediAppointmentPage">
-    <Page.Resources>
+    
+    <!--<Page.Resources>
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
-    </Page.Resources>
+    </Page.Resources>-->
+
     <Grid>
-        <Grid Margin="60,20,20,20">
+        <Grid Margin="20,20,20,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="0.05*"/>
@@ -50,33 +52,33 @@
                 </Grid.ColumnDefinitions>
 
                 <DatePicker x:Name="datePicker" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                            SelectedDate="{Binding SelectedDateTime}" FontSize="16" />
+                            SelectedDate="{Binding SelectedDateTime}" FontSize="16" FontFamily="NanumSquareRound Bold" />
 
                 <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn" Cursor="Hand" FontSize="16" FontWeight="Bold"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="{StaticResource BMHANNAPro}"/>
                 <Button Content="대기자 등록" Grid.Column="9" Click="Add_Waiting_Btn" FontWeight="Bold" FontSize="16" 
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="{StaticResource BMHANNAPro}"/>
                 <Button Content="동기화" Grid.Column="11" FontWeight="Bold" FontSize="16"
                         Command ="{Binding ReservationUpdateBtn}" 
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="{StaticResource BMHANNAPro}"/>
             </Grid>
 
             <!--방문 대기 환자-->
             <Label Content="방문 대기 환자 리스트" Grid.Row="1" Grid.Column="0" 
-               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+               FontWeight="Bold" FontSize="22" VerticalAlignment="Center" FontFamily="{StaticResource BMHANNAPro}"/>
             <DataGrid x:Name="waitingGrid" Grid.Row="2" Grid.Column="0" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=WModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                      SelectedItem="{Binding SelectedItem2}" IsSynchronizedWithCurrentItem="True">
+                      SelectedItem="{Binding SelectedItem2}" IsSynchronizedWithCurrentItem="True" FontFamily="NanumSquareRound Bold" FontSize="14">
                 <DataGrid.Columns>
                     <!--나머지 정보는 상세정보 페이지에서만 볼 수 있도록-->
                     <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
@@ -100,11 +102,11 @@
 
             <!--예약 환자-->
             <Label Content="예약 환자 리스트" Grid.Row="1" Grid.Column="2" 
-               FontWeight="Bold" FontSize="20" VerticalAlignment="Center" />
+               FontWeight="Bold" FontSize="22" VerticalAlignment="Center" FontFamily="{StaticResource BMHANNAPro}" />
             <DataGrid x:Name="reservationGrid" Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=RModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                  SelectedItem="{Binding SelectedItem}" IsSynchronizedWithCurrentItem="True">
+                  SelectedItem="{Binding SelectedItem}" IsSynchronizedWithCurrentItem="True" FontFamily="NanumSquareRound Bold" FontSize="14">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
                     <DataGridTextColumn Width="2*" Header="예약 일시" Binding="{Binding ReservationDT}"/>
@@ -125,12 +127,12 @@
 
             <!--진료 완료-->
             <Label Content="진료 완료 리스트" Grid.ColumnSpan="3" Grid.Row="3" 
-               FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+               FontWeight="Bold" FontSize="22" VerticalAlignment="Center" FontFamily="NanumSquareRoundOTF ExtraBold"/>
             <DataGrid x:Name="finGrid" Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=TreatmentCompleteModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=TreatmentCompleteModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="0.5*" Header="환자 아이디" Binding="{Binding PatientId}"/>
+                    <DataGridTextColumn Width="0.5*" Header="ID" Binding="{Binding PatientId}"/>
                     <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
                     <DataGridTextColumn Width="1*" Header="전화번호" Binding="{Binding PatientPhoneNum}"/>
                     <DataGridTextColumn Width="1*" Header="방문 경로" Binding="{Binding VisitType}"/>

@@ -26,8 +26,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="환자이름 검색 : "  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Text="{Binding SearchPatientText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
+        <TextBlock Text="환자이름 입력 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontFamily="NanumSquareRound Bold" FontWeight="Bold"/>
+        <TextBox Text="{Binding SearchPatientText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding GetPatientBtn}" Key="Enter"/>
             </TextBox.InputBindings>
@@ -35,11 +35,11 @@
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PtModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10">
+                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10" FontFamily="NanumSquareRound Bold" FontSize="14">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding Name}"/>
-                <DataGridTextColumn Width="1*" Header="주민등록 번호" Binding="{Binding ResidentRegistNum}"/>
-                <DataGridTextColumn Width="1*" Header="성별" Binding="{Binding Gender}"/>
+                <DataGridTextColumn MinWidth="100" Header="환자 이름" Binding="{Binding Name}"/>
+                <DataGridTextColumn MinWidth="200" Header="주민등록 번호" Binding="{Binding ResidentRegistNum}"/>
+                <DataGridTextColumn MinWidth="100" Width="*" Header="성별" Binding="{Binding Gender}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -60,26 +60,30 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
-            <TextBlock Text="{Binding SelectedPatient.Name}"
-                   VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
-            <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
-            <TextBlock
-                   VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Text="{Binding SelectedPatient.ResidentRegistNum}"/>
-            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock
-                   VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Text="{Binding SelectedPatient.Gender}"/>
+            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" 
+                   FontSize="14" FontFamily="NanumSquareRound Bold" FontWeight="Bold" />
+            <TextBlock Text="{Binding SelectedPatient.Name}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" FontSize="14" FontFamily="NanumSquareRound Bold"/>
+            
+            <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" 
+                   HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold" />
+            <TextBlock Text="{Binding SelectedPatient.ResidentRegistNum}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal" />
+            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedPatient.Gender}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
 
-            <Label Content="전화번호 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock  Text="{Binding SelectedPatient.PhoneNumber}"
-                   VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Label Content="전화번호 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold"/>
+            <TextBlock  Text="{Binding SelectedPatient.PhoneNumber}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
 
-            <Label Content="주소 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
-            <TextBlock  Text="{Binding SelectedPatient.Address}"
-                   VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"/>
+            <Label Content="주소 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold"/>
+            <TextBlock  Text="{Binding SelectedPatient.Address}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
+                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
         </Grid>
 
-        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click" />
+        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click" 
+                FontSize="16" FontFamily="NanumSquareRoundOTF ExtraBold" FontWeight="Bold" />
 
     </Grid>
 </Window>
