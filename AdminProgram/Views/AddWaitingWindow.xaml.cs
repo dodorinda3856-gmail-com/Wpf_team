@@ -19,11 +19,15 @@ namespace AdminProgram.Views
             patientGender.Text = "";
             patientName.Text = "";
             patientResidentRegistNum.Text = "";
+            
         }
 
         private void Close_Window(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
+            //detailGrid.Items.Clear();
+            //detailGrid.Items.Clear();
+            //detailGrid.Items.Refresh();
         }
 
         private void Add_Waiting_Btn(object sender, RoutedEventArgs e)
