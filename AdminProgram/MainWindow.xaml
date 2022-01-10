@@ -33,12 +33,12 @@
                    Margin="-160,55,0,0" HorizontalAlignment="Left" FontWeight="Bold"/>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <TextBox Name="txtBoxUserName" Width="190" Height="30" 
-                     VerticalContentAlignment="Center"  FontSize="18"
-                     Margin="100,199,10,10" VerticalAlignment="Center"/>
-            <PasswordBox Name="txtBoxPwd" Width="190" Height="30" PasswordChar="*"
-                         VerticalContentAlignment="Center"  FontSize="18"
-                         Margin="100,25,10,10" VerticalAlignment="Center"/>
+            <TextBox Name="txtBoxUserName" Width="190" Height="35" Padding="5"
+                     VerticalContentAlignment="Center"  FontSize="20"
+                     Margin="100,192,10,10" VerticalAlignment="Center"/>
+            <PasswordBox Name="txtBoxPwd" Width="190" Height="35" PasswordChar="*"
+                         VerticalContentAlignment="Center"  FontSize="20"
+                         Margin="100,15,10,10" VerticalAlignment="Center"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Name="btnLogin"  FontSize="20" Width="90" Height="35" IsDefault="True"
@@ -47,14 +47,14 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold"> 확인
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold">확인
             </Button>
             <Button Name="btnCancel" FontSize="20" Width="90" Height="35"
                      BorderBrush="Transparent" Click="Cancel_Click_Btn"
                     Margin="100,200,0,0" Cursor="Hand"  Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold"> 취소
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold">취소
             </Button>
         </StackPanel>
         <StackPanel Orientation="Vertical">
