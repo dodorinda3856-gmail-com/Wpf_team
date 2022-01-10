@@ -63,6 +63,7 @@ namespace AdminProgram
         {
             InitializeComponent();
             InitStaff();
+            LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 상세 페이지 오픈");
         }
 
         //DB 연결
@@ -122,12 +123,12 @@ namespace AdminProgram
         //수정버튼 이벤트
         private void Modify_btn_Click(object sender, RoutedEventArgs e)
         {
-            LogRecord.LogWrite("의료진 정보 수정 버튼 클릭");
+            LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 수정 버튼 클릭");
             var result = MessageBox.Show("위 내용으로 수정하시겠습니까?", "수정", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                LogRecord.LogWrite("의료진 정보 수정 완료 버튼 클릭");
+                LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 수정 완료 버튼 클릭");
                 ConnectDB();
 
                 ModifiedInsertSQL();
@@ -136,18 +137,18 @@ namespace AdminProgram
                 Close();
             }
             else
-                LogRecord.LogWrite("의료진 정보 수정 취소 버튼 클릭");
+                LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 수정 취소 버튼 클릭");
         }
 
         //삭제버튼 이벤트
         private void Delete_btn_Click(object sender, RoutedEventArgs e)
         {
-            LogRecord.LogWrite("의료진 정보 삭제 버튼 클릭");
+            LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 삭제 버튼 클릭");
             var result = MessageBox.Show("의료진 정보를 삭제하시겠습니까?", "삭제", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                LogRecord.LogWrite("의료진 정보 삭제 완료버튼 클릭");
+                LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 삭제 완료버튼 클릭");
                 ConnectDB();
 
                 DeleteInsertSQL();
@@ -156,7 +157,7 @@ namespace AdminProgram
                 Close();
             }
             else
-                LogRecord.LogWrite("의료진 정보 삭제 취소 버튼 클릭");
+                LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 삭제 취소 버튼 클릭");
         }
     }
 }

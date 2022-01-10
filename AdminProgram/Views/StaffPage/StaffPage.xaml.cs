@@ -45,7 +45,7 @@ namespace AdminProgram
                 
                 ModifyStaff.Passvalue = tmp;
                 ModifyStaff tw = new ModifyStaff();
-                LogRecord.LogWrite("의료진 상세 페이지 오픈");
+                
                 tw.ShowDialog();
                 
             }
