@@ -1,19 +1,17 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using AdminProgram.ViewModels;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using AdminProgram.Models;
+using LiveCharts.Defaults;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
+using System.Collections;
+using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace AdminProgram
 {
@@ -22,17 +20,53 @@ namespace AdminProgram
     /// </summary>
     public partial class PieChart : UserControl
     {
-        public Func<ChartPoint, string> PointLabel { get; set; }
+
+        private readonly ILogger _logger;
+        public SeriesCollection _seriesCollection { get; set; }
 
         public PieChart()
         {
-            InitializeComponent();
 
-            PointLabel = chartPoint =>
-                string.Format("{0} ({1:명})", chartPoint.Y, chartPoint.Participation);
+            InitializeComponent();
+            List<TMTModel> pieDatas = new SPViewModel().PieChartStart();
+
+            _seriesCollection = new SeriesCollection{};
+            foreach (TMTModel item in pieDatas) { 
+                _seriesCollection.Add(new PieSeries { Title = item.TREAT_TYPE, Values = new ChartValues<ObservableValue> { new ObservableValue(item.TREAT_COUNT) }, DataLabels = true });
+            }
+
 
             DataContext = this;
         }
+
+
+
+
+        //private void Next_Month(object sender, RoutedEventArgs e) {
+        //    if (DateTime.Now.ToString("yyyy-MM") == search.ToString("yyyy-MM"))
+        //    {
+        //        MessageBox.Show("이번 달의 정보입니다.");
+        //    }
+        //    else {
+        //        search.AddMonths(1);
+
+        //        PieChartStart(search);
+        //    }
+        //}
+
+        //private void Prev_Month(object sender, RoutedEventArgs e)
+        //{
+        //    if (DateTime.Now.ToString("yyyy-MM") == search.ToString("yyyy-MM"))
+        //    {
+        //        MessageBox.Show("이번 달의 정보입니다.");
+        //    }
+        //    else
+        //    {
+        //        search.AddMonths(-1);
+
+        //        PieChartStart(search);
+        //    }
+        //}
 
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {

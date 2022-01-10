@@ -15,11 +15,10 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="187*"/>
+            <RowDefinition Height="183*"/>
         </Grid.RowDefinitions>
-        
+
         <!--<Button Grid.Column="0" Grid.Row="0" Content="진료 예약 관리"/>
         <Button Grid.Column="1" Grid.Row="1" Content="진료 예약 관리"/>
         <Button Grid.Column="0" Grid.Row="1" Content="직원 관리"/>
@@ -28,11 +27,12 @@
         <Border Grid.Column="0" Grid.Row="2">
             <local:PieChart/>
         </Border>
-        
+
         <!--UserControl 만들고 사용하는 방법-->
-        <Border Grid.Column="2" Grid.Row="2">
+        <Border Grid.Column="2" Grid.Row="1">
             <local:LiveChartEx/>
         </Border>
+        
 
 
     </Grid>
