@@ -100,7 +100,7 @@ namespace AdminProgram
 				DMPDiseaseModel tmp = (DMPDiseaseModel)row.Item;
 				ModifyDisease.Passvalue = tmp;
 				ModifyDisease tw = new ModifyDisease();
-
+				LogRecord.LogWrite("상병코드 상세정보창 들어감");
 				tw.ShowDialog();
 			}
 		}
@@ -109,6 +109,7 @@ namespace AdminProgram
 		private void Add_Disease_Button_Click(object sender, RoutedEventArgs e)
 		{
 			AddDisease adddisease = new();
+			LogRecord.LogWrite("상병코드 추가버튼 클릭");
 			adddisease.ShowDialog();
 		}
 
@@ -166,7 +167,7 @@ namespace AdminProgram
 				ProcedureModel tmp = (ProcedureModel)row.Item;
 				ModifyProcedure.PassedProcedure = tmp;
 				ModifyProcedure tw = new ModifyProcedure();
-
+				LogRecord.LogWrite("시술 상세정보창 들어감");
 				tw.ShowDialog();
 			}
 		}
@@ -175,6 +176,7 @@ namespace AdminProgram
 		private void Add_Procedure_Button_Click(object sender, RoutedEventArgs e)
 		{
 			AddProcedure addprocedure = new();
+			LogRecord.LogWrite("시술 추가버튼 클릭");
 			addprocedure.ShowDialog();
 		}
 	}

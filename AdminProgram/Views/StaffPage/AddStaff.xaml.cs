@@ -51,10 +51,15 @@ namespace AdminProgram
         private void Cancel_btn_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
-
+            LogRecord.LogWrite("의료진 추가 취소 임시버튼 클릭");
             // If the no button was pressed ...
             if (result == MessageBoxResult.Yes)
+            {
+                LogRecord.LogWrite("의료진 추가 취소 최종버튼 클릭");
                 Close();
+            }
+            else
+                LogRecord.LogWrite("의료진 추가 취소 최종버튼 클릭");
         }
 
         //숫자만 있는지 확인하는 함수, 휴대폰 번호 유효성 체크시 사용
@@ -174,7 +179,7 @@ namespace AdminProgram
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("저장하시겠습니까?", "저장", MessageBoxButton.YesNo);
-
+            LogRecord.LogWrite("의료진 추가 저장 임시버튼 클릭");
             if (result == MessageBoxResult.Yes)
             {
                 if (CheckRightValue())
@@ -183,10 +188,12 @@ namespace AdminProgram
                 ConnectDB();
 
                 InsertSQL();
-
+                LogRecord.LogWrite("의료진 추가 저장 최종버튼 클릭");
                 MessageBox.Show("저장되었습니다.");
                 Close();
             }
+            else
+                LogRecord.LogWrite("의료진 추가 저장 취소버튼 클릭");
         }
 
     }

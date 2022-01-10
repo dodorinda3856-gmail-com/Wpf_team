@@ -23,10 +23,11 @@ namespace AdminProgram
     /// </summary>
     public partial class AddPatient : Window
     {
-        OracleConnection connn;
+        OracleConnection? connn;
 
         public AddPatient()
         {
+            LogRecord.LogWrite("신규환자 추가창 열림");
             InitializeComponent();
         }
 
@@ -38,11 +39,6 @@ namespace AdminProgram
             if (date == null)
             {
                 MessageBox.Show("No Date");
-            }
-            else
-            {
-                //날짜 가져오는 부분
-                MessageBox.Show(date.Value.ToShortDateString());
             }
         }
 
@@ -63,14 +59,20 @@ namespace AdminProgram
             else
                 return "F";
         }
+
         //취소버튼 클릭 이벤트
         private void Cancel_btn_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("신규환자 추가 취소 임시버튼 클릭");
             var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
 
             // If the no button was pressed ...
             if (result == MessageBoxResult.Yes)
+            {
+                LogRecord.LogWrite("신규환자 추가 취소 최종버튼 클릭");
                 Close();
+            }
+               
         }
 
         //숫자만 있는지 확인하는 함수
@@ -176,11 +178,12 @@ namespace AdminProgram
             connn.Close();
         }
 
-       
+
 
         //저장버튼 클릭 이벤트
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("신규환자 저장 임시버튼 클릭");
             var result = MessageBox.Show("저장하시겠습니까?", "저장", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
@@ -189,12 +192,13 @@ namespace AdminProgram
                     return;
 
                 ConnectDB();
-                
-                InsertSQL();
 
+                InsertSQL();
+                LogRecord.LogWrite("신규환자 저장 최종버튼 클릭");
                 MessageBox.Show("저장되었습니다.");
                 Close();
             }
-        }        
+            LogRecord.LogWrite("신규환자 저장 취소버튼 클릭");
+        }
     }
 }

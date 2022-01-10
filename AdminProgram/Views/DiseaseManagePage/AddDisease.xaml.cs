@@ -25,21 +25,28 @@ namespace AdminProgram
         public AddDisease()
         {
             InitializeComponent();
+            LogRecord.LogWrite("상병코드 추가창 열림");
         }
 
         //취소버튼
         private void cancel_add_Disease_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("상병코드 추가 취소 임시버튼 클릭");
             var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
 
             // If the no button was pressed ...
             if (result == MessageBoxResult.Yes)
+            {
+                LogRecord.LogWrite("상병코드 추가 취소 최종버튼 클릭");
                 Close();
+            }
+               
         }
 
         //저장버튼
         private void add_Disease_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("상병코드 추가 저장 임시버튼 클릭");
             var result = MessageBox.Show("저장하시겠습니까?", "저장", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
@@ -50,7 +57,7 @@ namespace AdminProgram
                 ConnectDB();
 
                 InsertSQL();
-
+                LogRecord.LogWrite("상병코드 추가 저장 최종버튼 클릭");
                 MessageBox.Show("저장되었습니다.");
                 Close();
             }

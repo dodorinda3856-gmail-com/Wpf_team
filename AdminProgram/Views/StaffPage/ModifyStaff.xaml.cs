@@ -61,7 +61,6 @@ namespace AdminProgram
 
         public ModifyStaff()
         {
-            //LogRecord.LogWrite("의료진 상세 정보창 오픈");
             InitializeComponent();
             InitStaff();
         }
@@ -123,12 +122,12 @@ namespace AdminProgram
         //수정버튼 이벤트
         private void Modify_btn_Click(object sender, RoutedEventArgs e)
         {
-            //LogRecord.LogWrite("의료진 정보 수정 버튼 클릭");
+            LogRecord.LogWrite("의료진 정보 수정 버튼 클릭");
             var result = MessageBox.Show("위 내용으로 수정하시겠습니까?", "수정", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                //LogRecord.LogWrite(의료진 정보 수정 완료 버튼 클릭");
+                LogRecord.LogWrite("의료진 정보 수정 완료 버튼 클릭");
                 ConnectDB();
 
                 ModifiedInsertSQL();
@@ -136,19 +135,19 @@ namespace AdminProgram
                 MessageBox.Show("수정되었습니다.");
                 Close();
             }
-            //else
-                //LogRecord.LogWrite("의료진 정보 수정 취소 버튼 클릭");
+            else
+                LogRecord.LogWrite("의료진 정보 수정 취소 버튼 클릭");
         }
 
         //삭제버튼 이벤트
         private void Delete_btn_Click(object sender, RoutedEventArgs e)
         {
-            //LogRecord.LogWrite(의료진 정보 삭제 버튼 클릭");
+            LogRecord.LogWrite("의료진 정보 삭제 버튼 클릭");
             var result = MessageBox.Show("의료진 정보를 삭제하시겠습니까?", "삭제", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                //LogRecord.LogWrite("의료진 정보 삭제 완료버튼 클릭");
+                LogRecord.LogWrite("의료진 정보 삭제 완료버튼 클릭");
                 ConnectDB();
 
                 DeleteInsertSQL();
@@ -156,8 +155,8 @@ namespace AdminProgram
                 MessageBox.Show("해당 의료진이 삭제되었습니다.");
                 Close();
             }
-            //else
-                //LogRecord.LogWrite("의료진 정보 삭제 취소 버튼 클릭");
+            else
+                LogRecord.LogWrite("의료진 정보 삭제 취소 버튼 클릭");
         }
     }
 }

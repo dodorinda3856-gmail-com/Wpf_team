@@ -28,6 +28,7 @@ namespace AdminProgram
 
         public StaffPage()
         {
+            LogRecord.LogWrite("의료진정보페이지 오픈");
             InitializeComponent();
             
         }
@@ -35,6 +36,7 @@ namespace AdminProgram
         //선택된 의료진 상세정보 가져오기
         private void Row_DoubleClick(object sender, EventArgs args)
         {
+           
             var row = sender as DataGridRow;
 
             if (row != null && row.IsSelected)
@@ -43,7 +45,7 @@ namespace AdminProgram
                 
                 ModifyStaff.Passvalue = tmp;
                 ModifyStaff tw = new ModifyStaff();
-
+                LogRecord.LogWrite("의료진 상세 페이지 오픈");
                 tw.ShowDialog();
                 
             }
@@ -54,11 +56,13 @@ namespace AdminProgram
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             AddStaff addStaff = new();
+            LogRecord.LogWrite("의료진 추가 버튼 클릭");
             addStaff.ShowDialog();
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("의료진 검색 버튼 클릭");
             string? checkgen = "";
             string? position = "";
 

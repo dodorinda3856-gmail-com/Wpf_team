@@ -20,11 +20,12 @@ namespace AdminProgram
     /// </summary>
     public partial class AddProcedure : Window
     {
-        OracleConnection connn;
+        OracleConnection? connn;
 
         public AddProcedure()
         {
             InitializeComponent();
+            LogRecord.LogWrite("시술 추가창 열림");
         }
         
 
@@ -90,6 +91,7 @@ namespace AdminProgram
                                                     ", REVISED_DATE" +
                                                     ", DELETE_OR_NOT" +
                                                     ", A_S" +
+                                                    ", PROCEDURE_INFO" +
                                                     ", PROCEDURE_NAME) " +
                                 "VALUES(MEDI_PRO_SEQ.NEXTVAL" +
                                         ", '" + treatment_textbox.Text + "'" +
@@ -97,6 +99,7 @@ namespace AdminProgram
                                         ", To_Date('" + DateTime.Now.ToString("yyyy-MM-dd") + "', 'yyyy-MM-dd')" +
                                         ", 'T'" +
                                         ", '" + as_textbox.Text + "'" +
+                                        ", '" + procedure_textbox.Text + "'" +
                                         ", '" + procedureName_textBox.Text + "')";
 
             //실행시키는기능
@@ -107,10 +110,12 @@ namespace AdminProgram
         //저장버튼
         private void add_Procedure_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("시술 추가 저장 임시버튼 클릭");
             var result = MessageBox.Show("저장하시겠습니까?", "저장", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
+                LogRecord.LogWrite("시술 추가 저장 최종버튼 클릭");
                 if (CheckRightValue())
                     return;
 
@@ -121,16 +126,22 @@ namespace AdminProgram
                 MessageBox.Show("저장되었습니다.");
                 Close();
             }
+            else
+                LogRecord.LogWrite("시술 추가 저장 취소버튼 클릭");
         }
 
         //취소버튼
         private void cancel_add_Procedure_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("시술 추가 취소 임시버튼 클릭");
             var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
 
             // If the no button was pressed ...
             if (result == MessageBoxResult.Yes)
+            {
+                LogRecord.LogWrite("시술 추가 취소 최종버튼 클릭");
                 Close();
+            }
         }
     }
 }

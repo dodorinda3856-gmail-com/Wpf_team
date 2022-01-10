@@ -15,6 +15,7 @@ namespace AdminProgram
         {
             InitializeComponent();
             Global_Name.Content = Application.Current.Properties["globalName"] + "님 안녕하세요.";
+            LogRecord.LogWrite("------------'" + Application.Current.Properties["globalName"] + "' 로그인---------");
         }
 
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -50,11 +51,12 @@ namespace AdminProgram
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("로그아웃 하시겠습니까?", "취소", MessageBoxButton.YesNo);
-
+            LogRecord.LogWrite("로그아웃 클릭");
             // If the no button was pressed ...
             if (result == MessageBoxResult.Yes)
             {
                 MainWindow m = new();
+                LogRecord.LogWrite("로그아웃 최종확인 클릭");
                 m.Show();
                 this.Close();
             }

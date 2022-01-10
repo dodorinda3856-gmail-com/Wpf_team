@@ -37,6 +37,7 @@ namespace AdminProgram
             diseaseName_Kor_textBlock.Text = s_value.Disease_Name;
             diseaseName_Eng_textBlock.Text = s_value.Disease_ENG;
             diseaseAs_textBox.Text = s_value.AfterS;
+            LogRecord.LogWrite("'" + s_value.Disease_Code + ", " + s_value.Disease_Name + "' 상병코드 상세 정보창 열림");
         }
 
 

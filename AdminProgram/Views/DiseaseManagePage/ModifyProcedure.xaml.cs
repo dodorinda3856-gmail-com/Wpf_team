@@ -40,6 +40,41 @@ namespace AdminProgram
             as_textbox.Text = passedProcedure.AfterS;
         }
 
+        //숫자만 있는지 확인
+        private bool checkOnlyNum(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] >= '0' && s[i] <= '9')
+                    return true;
+            }
+            return false;
+        }
+
+        //올바른 값이 들어왔는지 확인
+        private bool CheckRightValue()
+        {
+            if (procedureName_textBox.Text == "")
+            {
+                MessageBox.Show("시술명을 입력해주세요.");
+                return true;
+            }
+            else if (treatment_textbox.Text == "" || !checkOnlyNum(treatment_textbox.Text))
+            {
+                MessageBox.Show("단가를 숫자로만 입력해주세요\n(단위 : 원)");
+                return true;
+            }
+            else if (procedure_textbox.Text == "")
+            {
+                MessageBox.Show("시술정보를 입력해주세요.");
+                return true;
+            }
+            else if (as_textbox.Text == "")
+            {
+                as_textbox.Text = "-";
+            }
+            return false;
+        }
 
         private void ConnectDB()
         {
@@ -82,7 +117,10 @@ namespace AdminProgram
 
             if (result == MessageBoxResult.Yes)
             {
-                LogRecord.LogWrite("'" + procedureName_textBox.Text + "' 시술 정보 수정 최종버튼 클릭");
+                if (CheckRightValue())
+                    return;
+
+                LogRecord.LogWrite("'" + procedureName_textBox.Text + "' 시술 정보 수정 최종 버튼 클릭");
                 ConnectDB();
 
                 ModifiedInsertSQL();
