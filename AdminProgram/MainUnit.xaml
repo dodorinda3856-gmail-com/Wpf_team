@@ -59,8 +59,8 @@
             </StackPanel>
             <Grid Width="200" Background="{DynamicResource MaterialDesignDarkBackground}" Margin="0,291,0,53" Grid.RowSpan="3"/>
             <StackPanel Grid.Row="2" Background="{DynamicResource MaterialDesignDarkBackground}">
-                <Label x:Name="Global_Name" Content="" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="White"></Label>
-                <Button x:Name="Logout" Content="로그아웃" Height="27" Width="96" FontWeight="Bold" HorizontalAlignment="Right" Margin="5,5,20,10" Cursor="Hand" Click="LogoutBtn_Click"/>
+                <Label x:Name="Global_Name" Content="" FontSize="16" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="White"></Label>
+                <Button x:Name="Logout" Content="로그아웃" Height="27" HorizontalAlignment="Center" Width="96" FontWeight="Bold" Margin="0,20,0,30" Cursor="Hand" Click="LogoutBtn_Click"/>
             </StackPanel>
         </Grid>
 
