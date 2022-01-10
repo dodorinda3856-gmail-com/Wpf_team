@@ -15,7 +15,7 @@ namespace AdminProgram
         {
             InitializeComponent();
             Global_Name.Content = Application.Current.Properties["globalName"] + "님 안녕하세요.";
-            LogRecord.LogWrite("------------'" + Application.Current.Properties["globalName"] + "' 로그인---------");
+            LogRecord.LogWrite("------------'" + Application.Current.Properties["globalName"] + "' 로그인------------");
         }
 
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
