@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using AdminProgram.Models;
+using System.Windows;
 
 namespace AdminProgram.Views
 {
@@ -11,6 +12,7 @@ namespace AdminProgram.Views
         {
             InitializeComponent();
             //== 화면 초기화 ==//
+
             //직접 입력 부분
             searchText.Text = "";
             /*doctorCombo.Items.Clear();
@@ -21,12 +23,18 @@ namespace AdminProgram.Views
             patientResidentRegistNum.Text = "";
             patientGender.Text = "";
             patientAddress.Text = "";
+            //
+            
         }
 
         private void Close_Window(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("예약 정보를 삭제했습니다");
             Window.GetWindow(this).Close();
+            //detailGrid.Items.Clear();
+            //detailGrid.Items.Clear();
+            //detailGrid.Items.Refresh();
+            /*PatientModel pm = new PatientModel();
+            pm.PatientId = 0;*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

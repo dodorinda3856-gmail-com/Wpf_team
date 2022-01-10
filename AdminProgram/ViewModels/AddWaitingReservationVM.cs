@@ -37,6 +37,13 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref pModel, value); }
         }
 
+        private ObservableCollection<PatientModelTemp1> pModel1;
+        public ObservableCollection<PatientModelTemp1> PModels1
+        {
+            get { return pModel1; }
+            set { SetProperty(ref pModel1, value); }
+        }
+
         //예약 시간 정보
         private ObservableCollection<TimeModel> timeModel;
         public ObservableCollection<TimeModel> TimeModels
@@ -60,6 +67,9 @@ namespace AdminProgram.ViewModels
 
             PModels = new ObservableCollection<PatientModelTemp>();
             PModels.CollectionChanged += ContentCollectionChanged;
+
+            PModels1 = new ObservableCollection<PatientModelTemp1>();
+            PModels1.CollectionChanged += ContentCollectionChanged;
 
             TimeModels = new ObservableCollection<TimeModel>();
             TimeModels.CollectionChanged += ContentCollectionChanged;
@@ -149,6 +159,9 @@ namespace AdminProgram.ViewModels
                             //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                             PModels = new ObservableCollection<PatientModelTemp>();
                             PModels.CollectionChanged += ContentCollectionChanged;
+
+                            PModels1 = new ObservableCollection<PatientModelTemp1>();
+                            PModels1.CollectionChanged += ContentCollectionChanged;
 
                             TimeModels = new ObservableCollection<TimeModel>();
                             TimeModels.CollectionChanged += ContentCollectionChanged;
@@ -335,8 +348,8 @@ namespace AdminProgram.ViewModels
                         PModels = new ObservableCollection<PatientModelTemp>();
                         PModels.CollectionChanged += ContentCollectionChanged;
 
-                        StaffModels = new ObservableCollection<MediStaffModel>();
-                        StaffModels.CollectionChanged += ContentCollectionChanged;
+                        PModels1 = new ObservableCollection<PatientModelTemp1>();
+                        PModels1.CollectionChanged += ContentCollectionChanged;
 
                         using (OracleCommand comm = new OracleCommand())
                         {
@@ -352,7 +365,7 @@ namespace AdminProgram.ViewModels
                                 {
                                     while (reader.Read())
                                     {
-                                        PModels.Add(new PatientModelTemp() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
+                                        PModels1.Add(new PatientModelTemp1() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
                                         {
                                             PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                             Name = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
@@ -420,8 +433,8 @@ namespace AdminProgram.ViewModels
                         _logger.LogInformation("DB Connection OK...");
                         LogRecord.LogWrite("DB Connection OK...");
 
-                        PModels = new ObservableCollection<PatientModelTemp>();
-                        PModels.CollectionChanged += ContentCollectionChanged;
+                        PModels1 = new ObservableCollection<PatientModelTemp1>();
+                        PModels1.CollectionChanged += ContentCollectionChanged;
 
                         using (OracleCommand comm = new OracleCommand())
                         {

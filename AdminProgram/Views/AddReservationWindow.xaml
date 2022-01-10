@@ -46,7 +46,7 @@
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="16" FontWeight="Bold" Cursor="Hand"/>
 
-                <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+                <DataGrid x:Name="detailGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
                   SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10">
                     <DataGrid.Columns>
@@ -122,12 +122,12 @@
                     <TextBox x:Name="explainSymtom" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
                      Text="{Binding ExplainSymtom}" FontWeight="Bold"/>
 
-                    <Label Content="질병 타입 : " Grid.Row="6" Grid.Column="3" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    <!--<Label Content="질병 타입 : " Grid.Row="6" Grid.Column="3" HorizontalAlignment="Right" FontWeight="Bold"/>
                     <ComboBox Grid.Row="6" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
                         <ComboBoxItem Content="Hives"/>
                         <ComboBoxItem Content="Allergy"/>
                         <ComboBoxItem Content="Bueaty"/>
-                    </ComboBox>
+                    </ComboBox>-->
                 </Grid>
 
                 <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"

@@ -19,7 +19,7 @@
 
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="5" Background="#FFEDEDED">
-            <Grid>
+            <!--<Grid>-->
                 <Grid Margin="20,20,20,20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -76,7 +76,7 @@
 
                     <!--방문 대기 환자-->
                     <Label Content="방문 대기 환자 리스트" Grid.Row="1" Grid.Column="0" 
-               FontWeight="Bold" FontSize="22" VerticalAlignment="Center" FontFamily="{StaticResource BMHANNAPro}"/>
+               FontWeight="Normal" FontSize="22" VerticalAlignment="Center" FontFamily="BM HANNA Pro"/>
                     <DataGrid x:Name="waitingGrid" Grid.Row="2" Grid.Column="0" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=WModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
@@ -104,7 +104,7 @@
 
                     <!--예약 환자-->
                     <Label Content="예약 환자 리스트" Grid.Row="1" Grid.Column="2" 
-               FontWeight="Bold" FontSize="22" VerticalAlignment="Center" FontFamily="{StaticResource BMHANNAPro}" />
+               FontWeight="Normal" FontSize="22" VerticalAlignment="Center" FontFamily="BM HANNA Pro" />
                     <DataGrid x:Name="reservationGrid" Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=RModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -129,7 +129,7 @@
 
                     <!--진료 완료-->
                     <Label Content="진료 완료 리스트" Grid.ColumnSpan="3" Grid.Row="3" 
-               FontWeight="Bold" FontSize="22" VerticalAlignment="Center" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+               FontWeight="Normal" FontSize="22" VerticalAlignment="Center" FontFamily="BM HANNA Pro"/>
                     <DataGrid x:Name="finGrid" Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=TreatmentCompleteModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal">
@@ -143,7 +143,7 @@
                     </DataGrid>
 
                 </Grid>
-            </Grid>
+            <!--</Grid>-->
         </Border>
     </Grid>
     
