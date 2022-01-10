@@ -7,14 +7,12 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-		Title="ModifyStaff" MinHeight="400" MinWidth="400" Height="400" Width="400">
+		Title="ModifyStaff" MinHeight="380" MinWidth="400" Height="380" Width="400">
 	<Grid>
 		<!--테두리-->
 		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
@@ -84,31 +82,8 @@
 					<RadioButton Margin="10,15,0,0" IsEnabled="False" Grid.Column="2" x:Name="nurse" GroupName = "POSITION" FontWeight="Bold" Content="간호사" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 				</Grid>
 
-				<!--로그인 아이디-->
-				<Grid Grid.Row="5">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-
-					<Label Grid.Column="0" Margin="23,5,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content=" 아 이 디 : "/>
-					<TextBox Grid.Column="1" Margin="2,7,0,0" x:Name="staffLoginId" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-				</Grid>
-
-				<!--패스워드-->
-				<Grid Grid.Row="6">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-
-					<Label Grid.Column="0" Margin="23,1,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="비밀번호 : "/>
-					<PasswordBox Grid.Column="1" Margin="2,3,0,0" x:Name="staffPassword" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200"/>
-
-				</Grid>
-
 				<!--수정, 삭제 버튼-->
-				<Grid Grid.Row="7">
+				<Grid Grid.Row="5">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="Auto"/>

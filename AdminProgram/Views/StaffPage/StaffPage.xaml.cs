@@ -75,7 +75,6 @@ namespace AdminProgram
             }
             Debug.WriteLine("진료과목 : " + staffMajor_combobox.Text);
             Debug.WriteLine("폰번호 : " + staffPhoneNumber_txtbox.Text);
-            Debug.WriteLine("스탭이메일 : " + staffEmail_txtbox.Text);
             Debug.WriteLine("직책 : " + staffPosition_combobox.Text);
             
             if (staffPosition_combobox.Text.Equals("의사"))
@@ -95,7 +94,6 @@ namespace AdminProgram
                             "GENDER LIKE '%" + checkgen + "%' AND " +
                             "MEDI_SUBJECT LIKE '%" + staffMajor_combobox.Text + "%' AND " +
                             "PHONE_NUM LIKE '%" + staffPhoneNumber_txtbox.Text + "%' AND " +
-                            "STAFF_EMAIL LIKE '%" + staffEmail_txtbox.Text + "%' AND " +
                             "POSITION LIKE '%" + position + "%' AND " +
                             "MEDI_STAFF_STATUS = 'T' " +
                             "order by staff_id";
