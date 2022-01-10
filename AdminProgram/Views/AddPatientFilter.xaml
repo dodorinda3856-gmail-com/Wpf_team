@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:AdminProgram.Views"
         mc:Ignorable="d"
         DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
-        Title="AddPatientFilter" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="환자 검색 페이지" Height="450" Width="800">
     <Grid Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -27,11 +28,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="환자이름 입력 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontFamily="NanumSquareRound Bold" FontWeight="Bold"/>
-        <TextBox Text="{Binding SearchPatientText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal">
+        <TextBox Text="{Binding SearchPatientText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal" Cursor="IBeam">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding GetPatientBtn}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
+        <Button Grid.Column="2" Content="검색" FontSize="18" FontWeight="Normal" Command="{Binding GetPatientBtn}"
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" />
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PtModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
@@ -82,8 +87,11 @@
                    VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
         </Grid>
 
-        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click" 
-                FontSize="16" FontFamily="NanumSquareRoundOTF ExtraBold" FontWeight="Bold" />
+        <Button Content="적용" Grid.Row="7" Grid.Column="2" Click="Button_Click" 
+                FontSize="18" FontFamily="BM HANNA Pro" FontWeight="Normal" 
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
 
     </Grid>
 </Window>

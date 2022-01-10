@@ -65,12 +65,11 @@
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro"/>
-                    <Button Content="동기화" Grid.Column="11" FontWeight="Normal" FontSize="18"
-                        Command ="{Binding ReservationUpdateBtn}" 
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        materialDesign:ButtonAssist.CornerRadius="5"
-                        ToolTip="MaterialDesignRaisedLightButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro"/>
+                    <Button Content="동기화" Grid.Column="11" FontWeight="Normal" FontSize="18" Command ="{Binding ReservationUpdateBtn}" 
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            ToolTip="MaterialDesignRaisedLightButton with Round Corners"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro"/>
                 </Grid>
 
                 <!--방문 대기 환자-->

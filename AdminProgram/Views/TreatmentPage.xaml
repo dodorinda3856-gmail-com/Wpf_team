@@ -50,11 +50,10 @@
                             <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Label Content="환자 이름 : " VerticalAlignment="Center" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold"/>
                                 <TextBlock x:Name="patient_txtbox" Text="{Binding SelectedPatient.Name}" MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" FontFamily="NanumSquareRound Bold"/>
-                                <Button Content="환자 검색" Click="AddPatientFilterBtn" Cursor="Hand" FontWeight="Normal" FontSize="18" 
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            ToolTip="MaterialDesignRaisedButton with Round Corners"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                                <Button Content="환자 검색" Click="AddPatientFilterBtn" FontWeight="Normal" FontSize="18" Cursor="Hand"
+                                        Style="{StaticResource MaterialDesignRaisedLightButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                                        ToolTip="MaterialDesignRaisedLightButton with Round Corners"
+                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </WrapPanel>
 
                             <!--방문 날짜 범위 조절-->
@@ -99,7 +98,7 @@
                                 <TextBlock Text="{Binding SelectedDisease.DiseaseName}" FontWeight="Bold" FontSize="14" 
                            MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
                                 <Button Content="진단명 검색" Click="AddDiseaseFilterBtn" FontWeight="Normal" FontSize="18" 
-                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedButton with Round Corners"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
@@ -111,10 +110,10 @@
                                 <TextBlock x:Name="procedure_txtbox" Text="{Binding SelectedProcedure.Procedure_Name}" 
                            MinWidth="150" MaxWidth="200" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
                                 <Button Content="처방명 검색" Click="AddProcedureFilterBtn" FontWeight="Normal" FontSize="18" 
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            ToolTip="MaterialDesignRaisedButton with Round Corners"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                        materialDesign:ButtonAssist.CornerRadius="5"
+                                        ToolTip="MaterialDesignRaisedButton with Round Corners"
+                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
                             </WrapPanel>
                         </Grid>
 
