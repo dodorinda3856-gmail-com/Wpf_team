@@ -47,7 +47,7 @@
                 <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Label Content="환자 이름 : " VerticalAlignment="Center" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold"/>
                     <TextBlock x:Name="patient_txtbox" Text="{Binding SelectedPatient.Name}" MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" FontFamily="NanumSquareRound Bold"/>
-                    <Button Content="환자 검색" Click="AddPatientFilterBtn" Cursor="Hand" FontWeight="Bold" FontSize="16" 
+                    <Button Content="환자 검색" Click="AddPatientFilterBtn" Cursor="Hand" FontWeight="Normal" FontSize="18" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedButton with Round Corners"
@@ -56,7 +56,7 @@
 
                 <!--방문 날짜 범위 조절-->
                 <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="방문 날짜 :" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                    <Label Content="방문 날짜 :" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="NanumSquareRound Bold"/>
                     <Label Content="(시작)" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" FontFamily="NanumSquareRound Bold"/>
                     <DatePicker x:Name="lastCome_datePicker_start" VerticalAlignment="Center" MinWidth="150"
                             SelectedDate="{Binding SelectedDateStart}" FontFamily="NanumSquareRound Bold" />
@@ -95,7 +95,7 @@
                     <Label Content="진단명 : " VerticalAlignment="Center" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
                     <TextBlock Text="{Binding SelectedDisease.DiseaseName}" FontWeight="Bold" FontSize="14" 
                            MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
-                    <Button Content="진단명 검색" Click="AddDiseaseFilterBtn" FontWeight="Bold" FontSize="16" 
+                    <Button Content="진단명 검색" Click="AddDiseaseFilterBtn" FontWeight="Normal" FontSize="18" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedButton with Round Corners"
@@ -107,11 +107,11 @@
                     <Label Content="처방명 : " VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="NanumSquareRound Bold"/>
                     <TextBlock x:Name="procedure_txtbox" Text="{Binding SelectedProcedure.Procedure_Name}" 
                            MinWidth="150" MaxWidth="200" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
-                    <Button Content="처방명 검색" Click="AddProcedureFilterBtn" FontWeight="Bold" FontSize="16" 
+                    <Button Content="처방명 검색" Click="AddProcedureFilterBtn" FontWeight="Normal" FontSize="18" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedButton with Round Corners"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="NanumSquareRound Bold" VerticalAlignment="Center"/>
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
                 </WrapPanel>
             </Grid>
 
@@ -124,18 +124,18 @@
                 </Grid.RowDefinitions>
 
                 <Button Content="검색" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" MinWidth="80"
-                        Command="{Binding FilterSearchBtn}" FontWeight="Bold" VerticalAlignment="Center" FontSize="16"
+                        Command="{Binding FilterSearchBtn}" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="NanumSquareRound Bold"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro"/>
                 <Label Content="" Grid.Row="1"/>
                 <Button Content="초기화" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" MinWidth="80"
                         Command="{Binding FilterResetBtn}" FontWeight="Bold" Cursor="Hand"
                         Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="16" FontFamily="NanumSquareRound Bold" VerticalAlignment="Center"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
 
