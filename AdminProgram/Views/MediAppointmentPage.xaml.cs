@@ -13,50 +13,42 @@ namespace AdminProgram.Views
         {
             InitializeComponent();
         }
-        
-        //날짜 관련 정보 필요 시 사용
-        private void SelectedDate(object sender, SelectionChangedEventArgs e)
-        {
-            var picker = sender as DatePicker;
 
-            DateTime? date = picker.SelectedDate;
-            if (date == null)
-            {
-                MessageBox.Show("No Date");
-            }
-            else
-            {//날짜 가져오는 부분
-                MessageBox.Show(date.Value.ToShortDateString());
-            }
-        }
-
-        //==예약 등록 윈도우로 이동==//
-        private void AddAppointmentBtn(object sender, RoutedEventArgs e)
+        //== 예약 등록 윈도우로 이동 ==//
+        private void Add_Appointment_Btn(object sender, RoutedEventArgs e)
         {
-            AddAppointment aa = new AddAppointment();
-            aa.Title = "진료 예약 등록";
+            AddReservationWindow aa = new AddReservationWindow();
             aa.ShowDialog();
         }
 
-        //==예약 수정, 삭제 윈도우로 이동==//
+        //== 대기자 등록 윈도우로 이동 ==//
+        private void Add_Waiting_Btn(object sender, RoutedEventArgs e)
+        {
+            
+            AddWaitingWindow aw = new AddWaitingWindow();
+            aw.ShowDialog();
+        }
+
+        //== 예약 상세정보 윈도우로 이동 ==//
         private void Row_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
                 AppointmentDetailWindow ad = new AppointmentDetailWindow();
-                ad.Title = "진료 예약 환자 상세정보";
+                ad.Title = "예약 환자 상세정보";
                 ad.ShowDialog();
             }
         }
 
+        //== 대기자 상세정보 윈도우로 이동 ==//
         private void Waiting_Row_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var row = sender as DataGridRow;
             if (row != null && row.IsSelected)
             {
                 WaitingListDetailWindow ad = new WaitingListDetailWindow();
-                ad.Title = "방문 대기 환자 상세정보";
+                ad.Title = "대기자 상세정보";
                 ad.ShowDialog();
             }
         }

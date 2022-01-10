@@ -5,10 +5,13 @@
  */
 namespace AdminProgram.Models
 {
+    /**
+     * 요일별로 진료보는 시간이 다름
+     */
     public partial class TimeModel : ObservableObject
     {
-        private string timeId;
-        public string TimeId
+        private int timeId;
+        public int TimeId
         {
             get => timeId;
             set => SetProperty(ref timeId, value);
@@ -21,7 +24,7 @@ namespace AdminProgram.Models
             set => SetProperty(ref hour, value);
         }
 
-        private string day;
+        private string day; //요일
         public string Day
         {
             get => day;

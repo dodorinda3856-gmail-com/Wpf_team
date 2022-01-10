@@ -1,0 +1,105 @@
+﻿<Window x:Class="AdminProgram.ModifyStaff"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:AdminProgram"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		mc:Ignorable="d"
+		WindowStartupLocation="CenterScreen"
+		Title="ModifyStaff" MinHeight="380" MinWidth="400" Height="380" Width="400">
+	<Grid>
+		<!--테두리-->
+		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<!--이름, 남여 파트-->
+				<Grid Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<Label Grid.Column="0" Margin="23,13,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="이     름 : "/>
+					<TextBox Grid.Column="1" Margin="2,15,0,0" x:Name="staffName" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+					<RadioButton Grid.Column="2" IsEnabled="False" x:Name="male" Margin="20,18,0,0" GroupName = "SEX" FontWeight="Bold" Content="남" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+					<RadioButton Grid.Column="3" IsEnabled="False" x:Name="female" Margin="15,18,0,0" GroupName = "SEX" FontWeight="Bold" Content="여" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				</Grid>
+
+				<!--진료과목입력 파트-->
+				<Grid Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<Label Grid.Column="0" Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="진료과목 : "/>
+					<TextBox Grid.Column="1" Margin="2,12,0,0" x:Name="medi_subject" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+				</Grid>
+
+				<!--이메일 주소-->
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<Label Grid.Column="0" Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content=" 이 메 일 : "/>
+					<TextBox Grid.ColumnSpan="2" Margin="100,12,0,0" x:Name="email" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+				</Grid>
+
+				<!--휴대폰 번호 파트-->
+				<Grid Grid.Row="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<Label Grid.Column="0" Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content=" 휴 대 폰 : "/>
+					<TextBox Grid.Column="1" Margin="2,12,0,0" x:Name="phoneNum" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+				</Grid>
+
+				<!--직책-->
+				<Grid Grid.Row="4">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<Label Grid.Column="0" Margin="23,10,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="직     책 : "/>
+					<RadioButton Margin="10,15,0,0" IsEnabled="False" Grid.Column="1" x:Name="doctor" GroupName = "POSITION" FontWeight="Bold" Content="의사" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+					<RadioButton Margin="10,15,0,0" IsEnabled="False" Grid.Column="2" x:Name="nurse" GroupName = "POSITION" FontWeight="Bold" Content="간호사" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+				</Grid>
+
+				<!--수정, 삭제 버튼-->
+				<Grid Grid.Row="5">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Column="3" Margin="10,5,0,0" x:Name="Modify_btn" Click="Modify_btn_Click" Content="수정"  FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="72" Height="28"/>
+					<Button Grid.Column="1" Margin="10,5,0,0" x:Name="Delete_btn" Click="Delete_btn_Click" Content="삭제"  FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="72" Height="28"
+							Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+							materialDesign:ButtonAssist.CornerRadius="5"
+							ToolTip="MaterialDesignRaisedButton with Round Corners"
+							IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand"/>
+				</Grid>
+			</Grid>
+		</Border>
+	</Grid>
+</Window>

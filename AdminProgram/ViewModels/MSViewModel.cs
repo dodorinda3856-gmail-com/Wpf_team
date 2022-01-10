@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdminProgram.ViewModels
 {
-    public class PMViewModel
+    public class MSViewModel
     {
     }
 }

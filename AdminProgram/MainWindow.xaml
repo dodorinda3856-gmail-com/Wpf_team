@@ -7,37 +7,54 @@
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="484" Width="775">
+        Title="MainWindow" Height="484" Width="775"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        >
+
     <Grid>
         <StackPanel Orientation="Horizontal">
             <Image Width="65" Margin="110,75,10,10"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Name="labelSys" Content="ezcaretech" Width="200" Height="40" 
-                   FontSize="22" Foreground="Black"
-                   Margin="0,90,10,10" VerticalAlignment="Top"/>
+            <Label Name="labelSys" Content="ezcaretech"
+                   FontSize="36" Foreground="Black"
+                   Margin="0,90,10,10" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label Name="labelUserName" Content="사용자명：" Width="100" Height="35" 
-                   FontSize="19" Foreground="Black"
-                   Margin="-160,-60,0,0" HorizontalAlignment="Left"/>
+                   FontSize="20" Foreground="Black"
+                   Margin="-160,-60,0,0" HorizontalAlignment="Left" FontWeight="Bold"/>
             <Label Name="labelPwd" Content="비밀번호：" Width="100" Height="35" 
-                   FontSize="19" Foreground="Black"
-                   Margin="-160,55,0,0" HorizontalAlignment="Left"/>
+                   FontSize="20" Foreground="Black"
+                   Margin="-160,55,0,0" HorizontalAlignment="Left" FontWeight="Bold"/>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <TextBox Name="txtBoxUserName" Width="190" Height="25" 
-                     VerticalContentAlignment="Center"  FontSize="16"
-                     Margin="100,199,10,10" VerticalAlignment="Center"/>
-            <PasswordBox Name="txtBoxPwd" Width="190" Height="25" PasswordChar="*"
-                         VerticalContentAlignment="Center"  FontSize="16"
-                         Margin="100,25,10,10" VerticalAlignment="Center"/>
+            <TextBox Name="txtBoxUserName" Width="190" Height="35" Padding="5"
+                     VerticalContentAlignment="Center"  FontSize="20"
+                     Margin="100,192,10,10" VerticalAlignment="Center"/>
+            <PasswordBox Name="txtBoxPwd" Width="190" Height="35" PasswordChar="*"
+                         VerticalContentAlignment="Center"  FontSize="20"
+                         Margin="100,15,10,10" VerticalAlignment="Center"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Name="btnLogin"  FontSize="21" Width="90" Height="35" IsDefault="True"
-                    IsEnabled="True" BorderBrush="Transparent" Click="Login_Click_Btn"
-                    Margin="250,200,0,0" VerticalAlignment="Center" Background="Transparent"> 확인
+            <Button Name="btnLogin"  FontSize="20" Width="90" Height="35" IsDefault="True"
+                    BorderBrush="Transparent" Click="Login_Click_Btn"
+                    Margin="250,200,0,0" VerticalAlignment="Center" 
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        ToolTip="MaterialDesignRaisedButton with Round Corners"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold">확인
             </Button>
-            <Button Name="btnCancel" FontSize="21" Width="90" Height="35"
-                    IsEnabled="True" BorderBrush="Transparent" Click="Cancel_Click_Btn"
-                    Margin="100,200,0,0"  Background="Transparent"> 취소
+            <Button Name="btnCancel" FontSize="20" Width="90" Height="35"
+                     BorderBrush="Transparent" Click="Cancel_Click_Btn"
+                    Margin="100,200,0,0" Cursor="Hand"  Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold">취소
             </Button>
         </StackPanel>
         <StackPanel Orientation="Vertical">

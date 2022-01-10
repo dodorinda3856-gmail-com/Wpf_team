@@ -10,19 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AdminProgram
 {
     /// <summary>
-    /// StaffPage.xaml에 대한 상호 작용 논리
+    /// AddDiseaseFilter.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class StaffPage : Page
+    public partial class AddDiseaseFilter : Window
     {
-        public StaffPage()
+        public AddDiseaseFilter()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("예약 정보를 삭제했습니다");
+            Window.GetWindow(this).Close();
         }
     }
 }

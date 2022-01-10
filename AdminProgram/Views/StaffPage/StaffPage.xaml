@@ -1,0 +1,153 @@
+﻿<Page x:Class="AdminProgram.StaffPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AdminProgram"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StaffPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--하단부 구현-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Grid.RowSpan="3" Grid.Column="0" Background="#00ff0000"/>
+            <Canvas Grid.RowSpan="3" Grid.Column="2" Background="#00ff0000"/>
+            <Canvas Grid.Row="0" Grid.Column="1" Background="#00ff0000"/>
+            <Canvas Grid.Row="2" Grid.Column="1" Background="#00ff0000"/>
+
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" CornerRadius="5,5,5,5" BorderThickness="1" Background="#FFF3F3F3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--검색창-->
+                    <Grid Grid.Row="0" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--사번-->
+                        <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="사번 :" Margin="5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="staffId_txtbox"
+                            Width="50" 
+                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
+
+                        <!--이름-->
+                        <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="이름 :" Margin="15,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="staffName_txtbox"
+                            Width="60" 
+                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
+
+                        <!--성별-->
+                        <WrapPanel Grid.Column="2" Orientation="Horizontal">
+                            <TextBlock Text="성별 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <ComboBox x:Name="staffGender_combobox"
+                            Width="40" 
+                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5">
+                                <ComboBoxItem Content=""/>
+                                <ComboBoxItem Content="남"/>
+                                <ComboBoxItem Content="여"/>
+                            </ComboBox>
+                        </WrapPanel>
+
+                        <!--직책-->
+                        <WrapPanel Grid.Column="3" Orientation="Horizontal">
+                            <TextBlock Text="직책 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <ComboBox x:Name="staffPosition_combobox"
+                            Width="50" 
+                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5">
+                                <ComboBoxItem Content=""/>
+                                <ComboBoxItem Content="의사"/>
+                                <ComboBoxItem Content="간호사"/>
+                            </ComboBox>
+                        </WrapPanel>
+
+                        <!--담당분야-->
+                        <WrapPanel Grid.Column="4" Orientation="Horizontal">
+                            <TextBlock Text="담당분야 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <ComboBox x:Name="staffMajor_combobox"
+                            Width="70" 
+                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5">
+                                <ComboBoxItem Content=""/>
+                                <ComboBoxItem Content="두드러기"/>
+                                <ComboBoxItem Content="알러지"/>
+                                <ComboBoxItem Content="미용"/>
+                            </ComboBox>
+                        </WrapPanel>
+
+                        <!--전화번호-->
+                        <WrapPanel Grid.Column="5" Orientation="Horizontal">
+                            <TextBlock Text="전화번호 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox x:Name="staffPhoneNumber_txtbox"
+                            Width="120" 
+                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5"/>
+                        </WrapPanel>
+
+                        <!--검색-->
+                        <Button Grid.Column="6" Click="searchButton_Click" Margin="25,5,5,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">검색</Button>
+
+                        <!--추가-->
+                        <Button Grid.Column="7" Click="addButton_Click" Margin="20,5,5,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">추가</Button>
+
+                    </Grid>
+
+                    <!--상세목록-->
+                    <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True"  Background="#FFD2CFCF" AutoGenerateColumns="False" CanUserAddRows="False"
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                        <DataGrid.Columns>
+
+                            <!--나중에 수정해야할지도 모르는 부분 시작-->
+
+                            <!--나중에 수정해야할지도 모르는 부분 끝-->
+
+                            <DataGridTextColumn MinWidth ="60" Width="Auto" Header="사번" Binding="{Binding Staff_id}"/>
+                            <DataGridTextColumn MinWidth="40" Width="Auto" Header="이름" Binding="{Binding Staff_name}"/>
+                            <DataGridTextColumn MinWidth="30" Width="Auto" Header="성별" Binding="{Binding Gender}"/>
+                            <DataGridTextColumn MinWidth="100" Width="Auto" Header="직책" Binding="{Binding Position}"/>
+                            <DataGridTextColumn MinWidth="30" Width="Auto" Header="담당분야" Binding="{Binding Medi_subject}"/>
+                            <DataGridTextColumn MinWidth="60" Width="Auto" Header="전화번호" Binding="{Binding Phone_num}"/>
+                            <DataGridTextColumn MinWidth="100" Width="*" Header="이메일" Binding="{Binding Staff_email}"/>
+
+                        </DataGrid.Columns>
+                        <!--아이템 더블클릭 이벤트-->
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                    </DataGrid>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

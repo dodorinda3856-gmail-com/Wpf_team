@@ -8,7 +8,16 @@ namespace AdminProgram.Models
 {
     public partial class ReservationListModel : ObservableObject //속성 변경 알림을 지원해야하는 모든 객체에 대한 시작점으로 사용할 수 있음
     {
-        private string? patientName; //예약한 환자 이름
+        //예약 번호
+        private int reservationId; 
+        public int ReservationId
+        {
+            get => reservationId;
+            set => SetProperty(ref reservationId, value);
+        }
+
+        //예약한 환자 이름
+        private string? patientName; 
         public string PatientName
         {
             get => patientName;

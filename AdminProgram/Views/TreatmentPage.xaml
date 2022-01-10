@@ -1,5 +1,4 @@
-﻿
-<!--진료 관리 페이지-->
+﻿<!--진료 관리 페이지-->
 
 <Page x:Class="AdminProgram.TreatmentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,99 +6,231 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AdminProgram"
-      xmlns:vm="clr-namespace:AdminProgram.ViewModels"
+      xmlns:vm="clr-namespace:AdminProgram.ViewModels" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
       DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
       Title="TreatmentPage">
+    
     <Page.Resources>
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
     </Page.Resources>
-    <Grid Margin="60,20,20,20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.8*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <!--상단 바 자리-->
-        <Grid Grid.ColumnSpan="4" Background="DimGray" HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="5" Background="#FFEDEDED" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
 
-            <Label Content="분류" Grid.Column="0" 
-                   FontWeight="Bold" FontSize="20" Margin="10,0,10,0"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label Content="진료과" Grid.Column="1" 
-                   FontWeight="Bold" FontSize="20" Margin="10,0,10,0"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border BorderThickness="1" CornerRadius="5" Background="#FFEDEDED">
+                    <Grid Grid.Row="0" Background="#FFE6E6E6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Name="searchTextBox" Grid.Column="3" 
-                     Width="287" Height="30" Margin="469,0,10,0" 
-                     VerticalAlignment="Center" HorizontalAlignment="Right">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding GetTreatmentBtn}" Key="Enter"/>
-                </TextBox.InputBindings>
-            </TextBox>
-            <!--placeholder와 비슷한 느낌을 내는 부분 start-->
-            <TextBlock Text="환자 이름을 검색하세요..." IsHitTestVisible="False" Grid.Column="3"
-                   VerticalAlignment="Center" Margin="475,0,20,0" HorizontalAlignment="Right">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Hidden"/>
-                        <Setter Property="Foreground" Value="Gray"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=searchTextBox}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <!--placeholder와 비슷한 느낌을 내는 부분 end-->
-        </Grid>
-        
-        <!--진료 리스트-->
-        <!--가장 최근에 진료 명단에 들어온 환자를 가장 위에 둘 것인가?-->
-        <DataGrid x:Name="treatDataGrid" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,30,0,0"
+                        <!--검색창1(환자 자체에 대한 정보)-->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--환자 이름 검색 후 등록-->
+                            <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label Content="환자 이름 : " VerticalAlignment="Center" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold"/>
+                                <TextBlock x:Name="patient_txtbox" Text="{Binding SelectedPatient.Name}" MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" FontFamily="NanumSquareRound Bold"/>
+                                <Button Content="환자 검색" Click="AddPatientFilterBtn" Cursor="Hand" FontSize="18" 
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            ToolTip="MaterialDesignRaisedButton with Round Corners"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                            </WrapPanel>
+
+                            <!--방문 날짜 범위 조절-->
+                            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Label Content="방문 날짜 :" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                                <Label Content="(시작)" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" FontFamily="NanumSquareRound Bold"/>
+                                <DatePicker x:Name="lastCome_datePicker_start" VerticalAlignment="Center" MinWidth="150"
+                            SelectedDate="{Binding SelectedDateStart}" FontFamily="NanumSquareRound Bold" />
+                                <Label Content="(끝)" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" FontFamily="NanumSquareRound Bold"/>
+                                <DatePicker x:Name="lastCome_datePicker_end" VerticalAlignment="Center" MinWidth="150"
+                            SelectedDate="{Binding SelectedDateEnd}" FontFamily="NanumSquareRound Bold" />
+                            </WrapPanel>
+                        </Grid>
+
+                        <!--검색창2(병원의 정보)-->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--의사 이름 선택-->
+                            <WrapPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label Content="의사 선택 : " FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
+                                <ComboBox MinWidth="100" MaxWidth="150" 
+                          ItemsSource="{Binding Path=StaffModels, Mode=TwoWay, NotifyOnSourceUpdated=True}" 
+                          SelectedItem="{Binding Path=SelectedStaff}" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="NanumSquareRound Bold">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding StaffName}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </WrapPanel>
+
+                            <!--진단명으로 검색 후 등록-->
+                            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Label Content="진단명 : " VerticalAlignment="Center" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
+                                <TextBlock Text="{Binding SelectedDisease.DiseaseName}" FontWeight="Bold" FontSize="14" 
+                           MinWidth="100" MaxWidth="150" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
+                                <Button Content="진단명 검색" Click="AddDiseaseFilterBtn" FontSize="18" 
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            ToolTip="MaterialDesignRaisedButton with Round Corners"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                            </WrapPanel>
+
+                            <!--처방명으로 검색 후 등록-->
+                            <WrapPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Label Content="처방명 : " VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="NanumSquareRound Bold"/>
+                                <TextBlock x:Name="procedure_txtbox" Text="{Binding SelectedProcedure.Procedure_Name}" 
+                           MinWidth="150" MaxWidth="200" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="NanumSquareRound Bold"/>
+                                <Button Content="처방명 검색" Click="AddProcedureFilterBtn" FontSize="18" 
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            ToolTip="MaterialDesignRaisedButton with Round Corners"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                            </WrapPanel>
+                        </Grid>
+
+                        <!--검색창3(검색, 초기화 파트)-->
+                        <Grid Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Button Content="검  색" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" MinWidth="80"
+                        Command="{Binding FilterSearchBtn}" FontWeight="Normal" VerticalAlignment="Center" FontSize="18"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        ToolTip="MaterialDesignRaisedButton with Round Corners"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" Cursor="Hand"/>
+                            <Label Content="" Grid.Row="1"/>
+                            <Button Content="초기화" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" MinWidth="80"
+                        Command="{Binding FilterResetBtn}" FontWeight="Normal" Cursor="Hand"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        ToolTip="MaterialDesignRaisedButton with Round Corners"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+
+                <Border>
+                    
+                </Border>
+                <!--진료 리스트-->
+                <Label Content="진료 정보" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" FontWeight="Normal" FontFamily="BM HANNA Pro"/>
+                <DataGrid x:Name="treatDataGrid" Grid.Row="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=TMModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True">
-            <DataGrid.ColumnHeaderStyle>
-                <Style></Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="환자 번호" 
-                                    Binding="{Binding PatientNumber}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
-                <DataGridTextColumn Width="Auto" Header="환자 이름" 
-                                    Binding="{Binding PatientName}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
-                <DataGridTextColumn Width="Auto" Header="환자 전화번호" 
-                                    Binding="{Binding PatientPhoneNum}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
-                <DataGridTextColumn Width="*" Header="진료 상세" 
-                                    Binding="{Binding TreatDetail}" HeaderStyle="{StaticResource DGHeaderStyle}"/>
-            </DataGrid.Columns>
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
-                </Style>
-            </DataGrid.ItemContainerStyle>
-        </DataGrid>
-        <TextBlock Text="" Grid.Row="3" />
-        <!--<Button Content="확인" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" 
-                    Style="{StaticResource RadiusBtn}"/>
-        <Button Content="수정" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" 
-                    Style="{StaticResource RadiusBtn}"/>-->
+                  ItemsSource="{Binding Path=FilteredTreatment, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                  SelectedItem="{Binding SelectedTreatment}" IsSynchronizedWithCurrentItem="True" FontFamily="NanumSquareRound Bold" FontSize="14">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth ="150" Header="진료 날짜" Binding="{Binding Date, StringFormat={}{0:yy/MM/dd HH:mm}}"/>
+                        <DataGridTextColumn MinWidth ="50" Header="환자 번호" Binding="{Binding PatientId}"/>
+                        <DataGridTextColumn MinWidth ="100" Header="환자 이름" Binding="{Binding PatientName}"/>
+                        <DataGridTextColumn MinWidth="100" Header="의사 이름" Binding="{Binding StaffName}"/>
+                        <DataGridTextColumn MinWidth="100" Header="진단명" Binding="{Binding Diseases}"/>
+                        <DataGridTextColumn MinWidth="150" Width="*" Header="처방명" Binding="{Binding Procedures}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <!--<EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>-->
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                </DataGrid>
+                <TextBlock Text="" Grid.Row="3" Margin="10,0,10,0" />
+
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="5" Background="#FFEDEDED">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <!--환자 진료 내용 세부사항(수정 가능)-->
+                <Label Content="진료 정보 세부사항" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" FontWeight="Normal" FontFamily="BM HANNA Pro" Margin="10,0,0,0"/>
+                <Border Grid.Row="1" BorderThickness="1" Margin="10,0,10,10" CornerRadius="5" >
+                    <Grid Grid.ColumnSpan="2" Background="AliceBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="날짜 : " VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       FontSize="16" FontWeight="Bold" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="환자 이름 : " Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       FontSize="16" FontWeight="Bold" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="담당 의사 : " Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       FontSize="16" FontWeight="Bold" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="병명 : " Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       FontSize="16" FontWeight="Bold" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="처방 : " Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       FontSize="16" FontWeight="Bold" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="메모 : " Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       FontSize="16" FontWeight="Bold" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+
+                        <TextBlock Text="{Binding Path=SelectedTreatment.Date, Mode=TwoWay}" 
+                       Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="{Binding Path=SelectedTreatment.PatientName, Mode=TwoWay}" 
+                       Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="{Binding Path=SelectedTreatment.StaffName, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="{Binding Path=SelectedTreatment.Diseases, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="NanumSquareRoundOTF ExtraBold" />
+                        <TextBlock Text="{Binding Path=SelectedTreatment.Procedures, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                        <TextBlock Text="{Binding Path=SelectedTreatment.TreatDetail, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="5"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="NanumSquareRoundOTF ExtraBold"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Border>
     </Grid>
 </Page>

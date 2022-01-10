@@ -23,10 +23,11 @@ namespace AdminProgram
     /// </summary>
     public partial class AddPatient : Window
     {
-        OracleConnection connn;
+        OracleConnection? connn;
 
         public AddPatient()
         {
+            LogRecord.LogWrite("신규환자 추가창 열림");
             InitializeComponent();
         }
 
@@ -38,11 +39,6 @@ namespace AdminProgram
             if (date == null)
             {
                 MessageBox.Show("No Date");
-            }
-            else
-            {
-                //날짜 가져오는 부분
-                MessageBox.Show(date.Value.ToShortDateString());
             }
         }
 
@@ -63,14 +59,20 @@ namespace AdminProgram
             else
                 return "F";
         }
+
         //취소버튼 클릭 이벤트
         private void Cancel_btn_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("신규환자 추가 취소 임시버튼 클릭");
             var result = MessageBox.Show("취소하시겠습니까?", "취소", MessageBoxButton.YesNo);
 
             // If the no button was pressed ...
             if (result == MessageBoxResult.Yes)
+            {
+                LogRecord.LogWrite("신규환자 추가 취소 최종버튼 클릭");
                 Close();
+            }
+               
         }
 
         //숫자만 있는지 확인하는 함수
@@ -170,37 +172,18 @@ namespace AdminProgram
                                         ", '" + homeNum.Text + "'" +
                                         ", To_Date('2021-12-20', 'yyyy-MM-dd')" +
                                         ", 'T')";
-                                        
-            /*  
-                                        ", :securityNum" +
-                                        ", :name" +
-                                        ", :address" +
-                                        ", :phoneNum" +
-                                        ", :gender" +
-                                        ", To_Date(:date, 'yyyy-MM-dd')" +
-                                        ", :smsCheck" +
-                                        ", :homeNum" +
-                                        ", To_Date('2021-12-20', 'yyyy-MM-dd'))";
-
-            comm.Parameters.Add(new OracleParameter("name", patientName.Text));
-            comm.Parameters.Add(new OracleParameter("securityNum", securityNum.Text));
-            comm.Parameters.Add(new OracleParameter("address", address.Text));
-            comm.Parameters.Add(new OracleParameter("phoneNum", phoneNum.Text));
-            comm.Parameters.Add(new OracleParameter("homeNum", homeNum.Text));
-            comm.Parameters.Add(new OracleParameter("smsCheck", checksms()));
-            comm.Parameters.Add(new OracleParameter("gender", checkgen()));
-            comm.Parameters.Add(new OracleParameter("date", datePicker.Text)); */
 
             //실행시키는기능
             comm.ExecuteNonQuery();
             connn.Close();
         }
 
-       
+
 
         //저장버튼 클릭 이벤트
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.LogWrite("신규환자 저장 임시버튼 클릭");
             var result = MessageBox.Show("저장하시겠습니까?", "저장", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
@@ -209,12 +192,13 @@ namespace AdminProgram
                     return;
 
                 ConnectDB();
-                
-                InsertSQL();
 
+                InsertSQL();
+                LogRecord.LogWrite("신규환자 저장 최종버튼 클릭");
                 MessageBox.Show("저장되었습니다.");
                 Close();
             }
-        }        
+            LogRecord.LogWrite("신규환자 저장 취소버튼 클릭");
+        }
     }
 }

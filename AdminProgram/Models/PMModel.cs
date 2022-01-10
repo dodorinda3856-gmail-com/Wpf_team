@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,69 +7,92 @@ using System.Threading.Tasks;
 
 namespace AdminProgram.ViewModels
 {
-    public class PMModel: Notifier
+    public class PMModel: ObservableObject
     {
-        private int patient_ID = 0;
-        private string? resident_Regist_Num = null;
-        private string? address = null;
-        private string? patient_Name = null;
-        private string? phone_Num = null;
-        private DateTime regist_Date;
-        private string? gender = null;
-        private DateTime dob;
-        private int age = 0;
+        private int         patient_ID = 0;                     //환자id
+        private string?     resident_Regist_Num = null;         //주민번호
+        private string?     address = null;                     //주소
+        private string?     patient_Name = null;                //이름
+        private string?     phone_Num = null;                   //핸드폰번호
+        private DateTime    regist_Date;                        //방문날짜
+        private string?     gender = null;                      //성별
+        private DateTime    dob;                                //생년월일
+        private int         age = 0;                            //나이
+        private string?     agreemarketing = null;              //마케팅동의 여부
+        private string?     isDelete = null;                    //환자삭제상태 여부
+        private string?     home_Num = null;                    //집번호
+
 
         public int Patient_ID 
         {
-            get { return patient_ID; }
-            set { this.patient_ID = value; }
+            get => patient_ID;
+            set => SetProperty(ref patient_ID, value);
         }
+
         public string? Resident_Regist_Num
         {
-            get { return resident_Regist_Num; }
-            set { this.resident_Regist_Num = value; }
+            get => resident_Regist_Num;
+            set => SetProperty(ref resident_Regist_Num, value);
         }
 
         public string? Address
         {
-            get { return address; }
-            set { this.address = value; }
+            get => address;
+            set => SetProperty(ref address, value);
         }
 
         public string? Patient_Name
         {
-            get { return patient_Name; }
-            set { this.patient_Name = value; }
+            get => patient_Name;
+            set => SetProperty(ref patient_Name, value);
         }
 
         public string? Phone_Num
         {
-            get { return phone_Num; }
-            set { this.phone_Num = value; }
+            get => phone_Num;
+            set => SetProperty(ref phone_Num, value);
         }
 
         public DateTime Regist_Date
         {
-            get { return regist_Date; }
-            set { this.regist_Date = value; }
+            get => regist_Date;
+            set => SetProperty(ref regist_Date, value);
         }
 
         public string? Gender
         {
-            get { return gender; }
-            set { this.gender = value; }
+            get => gender;
+            set => SetProperty(ref gender, value);
         }
+
         public int Age
         {
-            get { return age; }
-            set { this.age = value; }
+            get => age;
+            set => SetProperty(ref age, value);
         }
 
         public DateTime Dob
         {
-            get { return dob; }
-            set { this.dob = value; }
+            get => dob;
+            set => SetProperty(ref dob, value);
         }
 
+        public string? Agreemarketing
+        {
+            get => agreemarketing;
+            set => SetProperty(ref agreemarketing, value);
+        }
+
+        public string? Home_Num
+        {
+            get => home_Num;
+            set => SetProperty(ref home_Num, value);
+        }
+
+        public string? IsDelete
+        {
+            get => isDelete;
+            set => SetProperty(ref isDelete, value);
+        }
     }
 }
