@@ -37,13 +37,6 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref pModel, value); }
         }
 
-        private ObservableCollection<PatientModelTemp1> pModel1;
-        public ObservableCollection<PatientModelTemp1> PModels1
-        {
-            get { return pModel1; }
-            set { SetProperty(ref pModel1, value); }
-        }
-
         //예약 시간 정보
         private ObservableCollection<TimeModel> timeModel;
         public ObservableCollection<TimeModel> TimeModels
@@ -67,9 +60,6 @@ namespace AdminProgram.ViewModels
 
             PModels = new ObservableCollection<PatientModelTemp>();
             PModels.CollectionChanged += ContentCollectionChanged;
-
-            PModels1 = new ObservableCollection<PatientModelTemp1>();
-            PModels1.CollectionChanged += ContentCollectionChanged;
 
             TimeModels = new ObservableCollection<TimeModel>();
             TimeModels.CollectionChanged += ContentCollectionChanged;
@@ -127,7 +117,7 @@ namespace AdminProgram.ViewModels
         //== Messenger ==//
 
 
-        //== (진료 예약 등록)환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
+        //== (진료 예약 등록) 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
         private void SearchPatientR()
         {
             string getDate = MakeDate(SelectedDateTime);
@@ -159,9 +149,6 @@ namespace AdminProgram.ViewModels
                             //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                             PModels = new ObservableCollection<PatientModelTemp>();
                             PModels.CollectionChanged += ContentCollectionChanged;
-
-                            PModels1 = new ObservableCollection<PatientModelTemp1>();
-                            PModels1.CollectionChanged += ContentCollectionChanged;
 
                             TimeModels = new ObservableCollection<TimeModel>();
                             TimeModels.CollectionChanged += ContentCollectionChanged;
@@ -261,7 +248,7 @@ namespace AdminProgram.ViewModels
                                     "WHERE \"POSITION\" = 'D' ";
                                 comm.CommandText = sql;
                                 _logger.LogInformation("[SQL QUERY] " + sql);
-                                
+
 
                                 using (OracleDataReader reader = comm.ExecuteReader())
                                 {
@@ -314,25 +301,26 @@ namespace AdminProgram.ViewModels
         }
         private RelayCommand searchPatientActR;
         public ICommand SearchPatientActR => searchPatientActR ??= new RelayCommand(SearchPatientR);
-        //== (진료 예약 등록)환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 end ==//
+        //== (진료 예약 등록) 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 end ==//
 
 
-        //== (대기자 등록)환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
+        //== (대기자 등록) 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
         private void SearchPatientW()
         {
             string sql;
             string patientName = searchText; //환자 이름
 
-            if(patientName == "") //null 처리
+            if (patientName == "") //null 처리
             {
                 MessageBox.Show("환자 이름을 검색해주세요");
             }
             else
             {
                 sql =
-                    "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
-                    "FROM PATIENT p " +
-                    "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
+                "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
+                "FROM PATIENT p " +
+                "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
+
                 //_logger.LogInformation("[의사 진료 코드(?)] " + SelectedDiseaseType);
 
                 using (OracleConnection conn = new OracleConnection(strCon))
@@ -348,9 +336,6 @@ namespace AdminProgram.ViewModels
                         PModels = new ObservableCollection<PatientModelTemp>();
                         PModels.CollectionChanged += ContentCollectionChanged;
 
-                        PModels1 = new ObservableCollection<PatientModelTemp1>();
-                        PModels1.CollectionChanged += ContentCollectionChanged;
-
                         using (OracleCommand comm = new OracleCommand())
                         {
                             comm.Connection = conn;
@@ -365,7 +350,7 @@ namespace AdminProgram.ViewModels
                                 {
                                     while (reader.Read())
                                     {
-                                        PModels1.Add(new PatientModelTemp1() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
+                                        PModels.Add(new PatientModelTemp() //.Add()를 해야지 데이터의 변화를 감지할 수 있음
                                         {
                                             PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                             Name = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
@@ -402,6 +387,9 @@ namespace AdminProgram.ViewModels
                         LogRecord.LogWrite("[대기자 등록 페이지에 정보 가져오기 OK]");
                     }
                 }
+
+
+
             }
 
         }
@@ -433,8 +421,8 @@ namespace AdminProgram.ViewModels
                         _logger.LogInformation("DB Connection OK...");
                         LogRecord.LogWrite("DB Connection OK...");
 
-                        PModels1 = new ObservableCollection<PatientModelTemp1>();
-                        PModels1.CollectionChanged += ContentCollectionChanged;
+                        PModels = new ObservableCollection<PatientModelTemp>();
+                        PModels.CollectionChanged += ContentCollectionChanged;
 
                         using (OracleCommand comm = new OracleCommand())
                         {
@@ -506,8 +494,8 @@ namespace AdminProgram.ViewModels
                         comm.ExecuteNonQuery();
                     }
                 }
-                catch (Exception err) 
-                { 
+                catch (Exception err)
+                {
                     _logger.LogInformation(err + "");
                     LogRecord.LogWrite("[진료 예약 등록 ERROR] " + err);
                 }
