@@ -128,6 +128,8 @@ namespace AdminProgram.ViewModels
         public void GetReservationPatientList()
         {
             //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
+            LogRecord.LogWrite("[MediAppointmentVM - GetReservationPatientList()] [실행]");
+
             string month = "";
             string day = "";
 
@@ -164,6 +166,7 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
+                    LogRecord.LogWrite("[MediAppointmentVM] [예약 환자 데이터 읽어오기 SQL QUERY] " + sql);
                     //_loger.LogInformation("DB Connection OK...");
 
                     //데이터가 누적되던 문제 해결
@@ -201,12 +204,15 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 //_loger.LogCritical(e + "");
+                                LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
                             {
                                 //_loger.LogInformation("예약 환자 리스트 데이터 읽어오기 성공");
+                                LogRecord.LogWrite("[MediAppointmentVM] 예약 환자 데이터 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -225,6 +231,7 @@ namespace AdminProgram.ViewModels
                         {
                             //_loger.LogInformation("select 실행");
                             //_loger.LogInformation("[SQL QUERY] " + sql);
+                            LogRecord.LogWrite("[MediAppointmentVM] [방문 대기 리스트 읽어오기 SQL Query] " + sql);
 
                             try
                             {
@@ -244,12 +251,15 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 //_loger.LogCritical(e + "");
+                                LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
                             {
                                 //_loger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
+                                LogRecord.LogWrite("[MediAppointmentVM] 방문 대기 리스트 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -273,6 +283,7 @@ namespace AdminProgram.ViewModels
                         {
                             //_loger.LogInformation("select 실행");
                             //_loger.LogInformation("[SQL QUERY] " + sql);
+                            LogRecord.LogWrite("[MediAppointmentVM] [진료 완료 리스트 읽어오기 SQL Query] " + sql);
 
                             try
                             {
@@ -289,12 +300,15 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {
+                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 //_loger.LogCritical(e + "");
+                                LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
                             {
                                 //_loger.LogInformation("오늘 진료가 끝난 환자 목록 읽어오기 성공");
+                                LogRecord.LogWrite("[MediAppointmentVM] 진료 완료 리스트 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -303,6 +317,7 @@ namespace AdminProgram.ViewModels
                 catch (Exception err)
                 {
                     //_loger.LogInformation(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM - GetReservationPatientList()] [exception 발생] " + err);
                 }
             }
         }
