@@ -25,7 +25,7 @@ namespace AdminProgram.ViewModels
         // messenger의 send와 receive도 하는 곳
         // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
 
-        private readonly ILogger _logger;
+        //private readonly ILogger //_loger;
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
         // rModels을 observable collection 형식(사실상 list)으로 받아옴
@@ -53,10 +53,11 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref treatmentCompleteModels, value); }
         }
 
-        public MediAppointmentVM(ILogger<MediAppointmentVM> logger)
+        public MediAppointmentVM()
         {
-            _logger = logger;
-            _logger.LogInformation("{@ILogger}", logger);
+            /*ILogger<MediAppointmentVM> logger
+            //_loger = logger;
+            //_loger.LogInformation("{@ILogger}", logger);*/
 
             RModels = new ObservableCollection<ReservationListModel>();
             RModels.CollectionChanged += ContentCollectionChanged;
@@ -82,7 +83,7 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged removed in e.OldItems)
                 {
                     removed.PropertyChanged -= ProductOnPropertyChanged;
-                    _logger.LogInformation("리스트 삭제");
+                    ////_loger.LogInformation("리스트 삭제");
                 }
             }
             else
@@ -90,7 +91,7 @@ namespace AdminProgram.ViewModels
                 foreach (INotifyPropertyChanged added in e.NewItems)
                 {
                     added.PropertyChanged += ProductOnPropertyChanged;
-                    _logger.LogInformation("리스트 불러옴");
+                    ////_loger.LogInformation("리스트 불러옴");
                 }
             }
         }
@@ -101,30 +102,30 @@ namespace AdminProgram.ViewModels
             var rModels = sender as ReservationListModel;
             if (rModels != null)
             {
-                _logger.LogInformation("{@rModels}", rModels);
+                //_loger.LogInformation("{@rModels}", rModels);
                 WeakReferenceMessenger.Default.Send(RModels); //이거 필수
-                _logger.LogInformation("ReservationList send 성공");
+                //_loger.LogInformation("ReservationList send 성공");
             }
             var wModels = sender as WaitingListModel;
             if (wModels != null)
             {
-                _logger.LogInformation("{@wModels}", wModels);
+                //_loger.LogInformation("{@wModels}", wModels);
                 WeakReferenceMessenger.Default.Send(WModels); //이거 필수
-                _logger.LogInformation("WaitingList send 성공");
+                //_loger.LogInformation("WaitingList send 성공");
             }
             var tcModels = sender as WaitingListModel;
             if (tcModels != null)
             {
-                _logger.LogInformation("{@tcModels}", tcModels);
+                //_loger.LogInformation("{@tcModels}", tcModels);
                 WeakReferenceMessenger.Default.Send(TreatmentCompleteModels); //이거 필수
-                _logger.LogInformation("WaitingList send 성공");
+                //_loger.LogInformation("WaitingList send 성공");
             }
         }
         //== Messenger 기초 end ==//
 
 
         //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query start ==//
-        private void GetReservationPatientList()
+        public void GetReservationPatientList()
         {
             //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
             string month = "";
@@ -163,7 +164,7 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-                    _logger.LogInformation("DB Connection OK...");
+                    //_loger.LogInformation("DB Connection OK...");
 
                     //데이터가 누적되던 문제 해결
                     RModels = new ObservableCollection<ReservationListModel>();
@@ -182,8 +183,8 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            _logger.LogInformation("select 실행");
-                            _logger.LogInformation("[SQL QUERY] " + sql);
+                            //_loger.LogInformation("select 실행");
+                            //_loger.LogInformation("[SQL QUERY] " + sql);
                             try
                             {
                                 while (reader.Read())
@@ -201,11 +202,11 @@ namespace AdminProgram.ViewModels
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogCritical(e + "");
+                                //_loger.LogCritical(e + "");
                             }
                             finally
                             {
-                                _logger.LogInformation("예약 환자 리스트 데이터 읽어오기 성공");
+                                //_loger.LogInformation("예약 환자 리스트 데이터 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -222,8 +223,8 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            _logger.LogInformation("select 실행");
-                            _logger.LogInformation("[SQL QUERY] " + sql);
+                            //_loger.LogInformation("select 실행");
+                            //_loger.LogInformation("[SQL QUERY] " + sql);
 
                             try
                             {
@@ -244,11 +245,11 @@ namespace AdminProgram.ViewModels
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogCritical(e + "");
+                                //_loger.LogCritical(e + "");
                             }
                             finally
                             {
-                                _logger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
+                                //_loger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -270,8 +271,8 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            _logger.LogInformation("select 실행");
-                            _logger.LogInformation("[SQL QUERY] " + sql);
+                            //_loger.LogInformation("select 실행");
+                            //_loger.LogInformation("[SQL QUERY] " + sql);
 
                             try
                             {
@@ -289,11 +290,11 @@ namespace AdminProgram.ViewModels
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                _logger.LogCritical(e + "");
+                                //_loger.LogCritical(e + "");
                             }
                             finally
                             {
-                                _logger.LogInformation("오늘 진료가 끝난 환자 목록 읽어오기 성공");
+                                //_loger.LogInformation("오늘 진료가 끝난 환자 목록 읽어오기 성공");
                                 reader.Close();
                             }
                         }
@@ -301,7 +302,7 @@ namespace AdminProgram.ViewModels
                 }
                 catch (Exception err)
                 {
-                    _logger.LogInformation(err + "");
+                    //_loger.LogInformation(err + "");
                 }
             }
         }
@@ -315,8 +316,8 @@ namespace AdminProgram.ViewModels
         //현재 바로바로 동기화는 못하고 있음
         private void DeleteWaitingData()
         {
-            _logger.LogInformation("이 환자를 대기자 리스트에서 삭제합니다.");
-            _logger.LogInformation("SelectedItem2(대기 번호) = " + SelectedItem2.WaitingId);
+            //_loger.LogInformation("이 환자를 대기자 리스트에서 삭제합니다.");
+            //_loger.LogInformation("SelectedItem2(대기 번호) = " + SelectedItem2.WaitingId);
 
             string sql = "DELETE FROM WAITING w WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
 
@@ -325,25 +326,25 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-                    _logger.LogInformation("DB Connection OK...");
+                    //_loger.LogInformation("DB Connection OK...");
 
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
 
-                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //_loger.LogInformation("[SQL Query] : " + sql);
                         //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
                     }
                 }
                 catch(Exception err)
                 {
-                    _logger.LogCritical(err + "");
+                    //_loger.LogCritical(err + "");
                 }
                 finally
                 {
-                    _logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
+                    //_loger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
                 }
             }
             //동기화
@@ -358,7 +359,7 @@ namespace AdminProgram.ViewModels
         private void FinDiagnosis()
         {
             //후속 처리 쿼리 짜서 넣으면 됨
-            _logger.LogInformation("예약 환자 수납 진행");
+            //_loger.LogInformation("예약 환자 수납 진행");
 
             string sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
 
@@ -367,25 +368,25 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-                    _logger.LogInformation("DB Connection OK...");
+                    //_loger.LogInformation("DB Connection OK...");
 
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
 
-                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //_loger.LogInformation("[SQL Query] : " + sql);
                         //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
                     }
                 }
                 catch (Exception err)
                 {
-                    _logger.LogCritical(err + "");
+                    //_loger.LogCritical(err + "");
                 }
                 finally
                 {
-                    _logger.LogInformation("이 환자는 수납을 완료하였습니다.");
+                    //_loger.LogInformation("이 환자는 수납을 완료하였습니다.");
                 }
             }
 
@@ -402,7 +403,7 @@ namespace AdminProgram.ViewModels
         private void FinDiagnosis2()
         {
             //후속 처리 쿼리 짜서 넣으면 됨
-            _logger.LogInformation("방문 대기 환자 수납 진행");
+            //_loger.LogInformation("방문 대기 환자 수납 진행");
 
             string sql = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
 
@@ -411,25 +412,25 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-                    _logger.LogInformation("DB Connection OK...");
+                    //_loger.LogInformation("DB Connection OK...");
 
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
 
-                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //_loger.LogInformation("[SQL Query] : " + sql);
                         //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
                     }
                 }
                 catch (Exception err)
                 {
-                    _logger.LogCritical(err + "");
+                    //_loger.LogCritical(err + "");
                 }
                 finally
                 {
-                    _logger.LogInformation("이 환자는 수납을 완료하였습니다.");
+                    //_loger.LogInformation("이 환자는 수납을 완료하였습니다.");
                 }
             }
             //동기화
@@ -453,8 +454,8 @@ namespace AdminProgram.ViewModels
         //== 예약 정보를 삭제하는 경우 start ==//
         private void DeleteReservationData()
         {
-            _logger.LogInformation("예약 정보를 리스트에서 삭제합니다.");
-            _logger.LogInformation("SelectedItem(예약 번호) = " + SelectedItem.ReservationId);
+            //_loger.LogInformation("예약 정보를 리스트에서 삭제합니다.");
+            //_loger.LogInformation("SelectedItem(예약 번호) = " + SelectedItem.ReservationId);
 
             string sql = "DELETE FROM RESERVATION r WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
 
@@ -463,25 +464,25 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-                    _logger.LogInformation("DB Connection OK...");
+                    //_loger.LogInformation("DB Connection OK...");
 
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
 
-                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //_loger.LogInformation("[SQL Query] : " + sql);
                         //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
                     }
                 }
                 catch (Exception err)
                 {
-                    _logger.LogCritical(err + "");
+                    //_loger.LogCritical(err + "");
                 }
                 finally
                 {
-                    _logger.LogInformation("이 예약 정보를 예약자 리스트에서 삭제했습니다.");
+                    //_loger.LogInformation("이 예약 정보를 예약자 리스트에서 삭제했습니다.");
                 }
             }
 
@@ -512,12 +513,11 @@ namespace AdminProgram.ViewModels
             try
             {//데이터가 없는 부분에 더블 클릭하면 프로그램 중단되는 문제 해결을 위해 try-catch문 사용
                 var selected = SelectedItem;
-                _logger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom,
-                    "담당 의사는 " + selected.Doctor);
+                //_loger.LogInformation("선택된 행의 환자 이름은 " + selected.PatientName + ", 증상은 " + selected.Symptom, "담당 의사는 " + selected.Doctor);
             } 
             catch (NullReferenceException e)
             {
-                _logger.LogCritical(e + "");
+                //_loger.LogCritical(e + "");
             }
         }
 
@@ -539,11 +539,11 @@ namespace AdminProgram.ViewModels
             try
             {//데이터가 없는 부분에 더블 클릭하면 프로그램 중단되는 문제 해결을 위해 try-catch문 사용
                 var selected2 = SelectedItem2;
-                _logger.LogInformation("선택된 행의 환자 이름은 " + selected2.PatientName + ", 증상은 " + selected2.Symptom);
+                //_loger.LogInformation("선택된 행의 환자 이름은 " + selected2.PatientName + ", 증상은 " + selected2.Symptom);
             }
             catch(NullReferenceException e)
             {
-                _logger.LogCritical(e + "");
+                //_loger.LogCritical(e + "");
             }
         }
         //== 더블 클릭 후 상세 화면에서 클릭한 행의 정보를 보여주기 위한 코드 end ==//
