@@ -179,5 +179,5 @@ namespace AdminProgram
 			LogRecord.LogWrite("시술 추가버튼 클릭");
 			addprocedure.ShowDialog();
 		}
-	}
+    }
 }

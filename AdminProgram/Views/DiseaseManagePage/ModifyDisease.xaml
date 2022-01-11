@@ -27,8 +27,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="   상병코드  : " FontSize="14" Margin="20,20,0,0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="diseaseCode_textBlock" FontSize="14" Margin="0,20,40,0" Grid.Column="1" FontWeight="Bold" Padding="3" VerticalAlignment="Top"/>
+                    <Label Content="   상병코드  : " FontSize="17" Margin="20,20,0,0" Grid.Column="0" HorizontalAlignment="Right" FontFamily="BM HANNA Pro"/>
+                    <TextBlock x:Name="diseaseCode_textBlock" FontSize="17" Margin="0,20,40,0" Grid.Column="1" Padding="3" VerticalAlignment="Top" FontFamily="BM HANNA Pro"/>
                 </Grid>
 
                 <!--상병한글명-->
@@ -37,8 +37,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="상병한글명  : " FontSize="14" Margin="20,25,0,0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="diseaseName_Kor_textBlock" FontSize="14" Margin="0,25,40,0" Grid.Column="1" FontWeight="Bold" Padding="3" VerticalAlignment="Top"/>
+                    <Label Content="상병한글명  : " FontSize="17" Margin="20,25,0,0" Grid.Column="0" HorizontalAlignment="Right" FontFamily="BM HANNA Pro"/>
+                    <TextBlock x:Name="diseaseName_Kor_textBlock" FontSize="17" Margin="0,25,40,0" Grid.Column="1" Padding="3" VerticalAlignment="Top" FontFamily="BM HANNA Pro"/>
                 </Grid>
 
                 <!--상병영어명-->
@@ -47,8 +47,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="상병영어명  : " FontSize="14" Margin="20,25,0,0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBlock x:Name="diseaseName_Eng_textBlock" FontSize="14" Margin="0,25,40,0" TextWrapping="Wrap" Grid.Column="1" FontWeight="Bold" Padding="3" VerticalAlignment="Top"/>
+                    <Label Content="상병영어명  : " FontSize="17" Margin="20,25,0,0" Grid.Column="0" HorizontalAlignment="Right" FontFamily="BM HANNA Pro"/>
+                    <TextBlock x:Name="diseaseName_Eng_textBlock" FontSize="17" Margin="0,25,40,0" TextWrapping="Wrap" Grid.Column="1" Padding="3" VerticalAlignment="Top" FontFamily="BM HANNA Pro"/>
                 </Grid>
 
                 <!--사후관리-->
@@ -57,8 +57,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="   사후관리  : " FontSize="14" Margin="20,25,0,30" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <TextBox x:Name="diseaseAs_textBox" Background="#e0e0e0" FontSize="14" Margin="117,25,40,25" TextWrapping="Wrap" Padding="3" Grid.ColumnSpan="2"/>
+                    <Label Content="   사후관리  : " FontSize="17" Margin="20,25,0,30" Grid.Column="0" HorizontalAlignment="Right" FontFamily="BM HANNA Pro"/>
+                    <TextBox x:Name="diseaseAs_textBox" Background="#e0e0e0" FontSize="17" Margin="117,25,40,25" TextWrapping="Wrap" Padding="3" Grid.ColumnSpan="2" Cursor="IBeam"/>
                 </Grid>
 
                 <!--추가/취소버튼-->
@@ -70,12 +70,12 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="delete_add_Disease" Click="delete_add_Disease_Click" Grid.Column="1" FontSize="18" FontWeight="Bold" Content="삭제" HorizontalAlignment="Center"  Width="140" Height="35" VerticalAlignment="Top" 
+                    <Button x:Name="delete_add_Disease" Click="delete_add_Disease_Click" Grid.Column="1" FontSize="18" Content="삭  제" HorizontalAlignment="Center"  Width="140" Height="35" VerticalAlignment="Top" 
                             Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedButton with Round Corners"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand"/>
-                    <Button x:Name="modify_Disease" Click="modify_Disease_Click" Grid.Column="3" FontSize="18" FontWeight="Bold" Content="수정" HorizontalAlignment="Center" Width="140" Height="35" VerticalAlignment="Top"/>
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro"/>
+                    <Button x:Name="modify_Disease" Click="modify_Disease_Click" Grid.Column="3" FontSize="18" Content="수  정" HorizontalAlignment="Center" Width="140" Height="35" VerticalAlignment="Top" FontFamily="BM HANNA Pro" Cursor="Hand"/>
                 </Grid>
 
             </Grid>
