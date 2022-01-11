@@ -71,7 +71,7 @@
 					</Grid.ColumnDefinitions>
 
 					<Label Grid.Column="0" Margin="23,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="주     소 : " FontFamily="BM HANNA Pro"/>
-					<TextBox Margin="3,15,47,9" x:Name="address" FontSize="17" Padding="3" TextWrapping="Wrap" Grid.Column="1"/>
+					<TextBox Margin="3,15,47,9" x:Name="address" FontSize="17" Padding="3" TextWrapping="Wrap" Grid.Column="1" Cursor="IBeam"/>
 				</Grid>
 
 				<!--휴대폰 번호 파트 / 수신동의체크박스-->

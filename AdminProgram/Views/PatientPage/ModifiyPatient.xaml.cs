@@ -85,6 +85,36 @@ namespace AdminProgram
             }
         }
 
+        //숫자만 있는지 확인하는 함수
+        private bool NotOnlyNum(string str)
+        {
+            for (int j = 0; j < str.Length; j++)
+            {
+                if (!(str[j] >= '0' && str[j] <= '9'))
+                    return true;
+                j++;
+            }
+            return false;
+        }
+
+        //입력이 잘되었는지 판단하는 함수
+        private bool CheckRightValue()
+        {
+            
+            if (address.Text == "")
+            {
+                MessageBox.Show("주소를 입력해주세요.");
+                return true;
+            }
+            else if (phoneNum.Text == "" || NotOnlyNum(phoneNum.Text))
+            {
+                MessageBox.Show("핸드폰 번호를 입력해주세요.");
+                return true;
+            }
+           
+            return false;
+        }
+
         //수정버전 sql
         private void ModifiedInsertSQL()
         {
@@ -127,6 +157,8 @@ namespace AdminProgram
 
             if (result == MessageBoxResult.Yes)
             {
+                if (CheckRightValue())
+                    return;
                 LogRecord.LogWrite("'" + Passvalue.Patient_Name + "' 환자 정보 수정 완료 버튼 클릭");
                 ConnectDB();
 
