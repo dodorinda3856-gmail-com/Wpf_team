@@ -66,8 +66,6 @@ namespace AdminProgram.ViewModels
 
             //StaffModels = new ObservableCollection<MediStaffModel>();
             //StaffModels.CollectionChanged += ContentCollectionChanged;
-
-            //SearchPatientR();
         }
 
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

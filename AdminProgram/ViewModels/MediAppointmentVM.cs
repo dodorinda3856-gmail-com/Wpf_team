@@ -66,8 +66,12 @@ namespace AdminProgram.ViewModels
 
             TreatmentCompleteModels = new ObservableCollection<TreatmentCompleteListModel>();
             TreatmentCompleteModels.CollectionChanged += ContentCollectionChanged;
+
+            //페이지에 처음 들어가면 오늘 데이터 바로 보임
+            GetReservationPatientList();
         }
 
+        
         //== Messenger 기초 start ==//
         //데이터의 변경을 감지하기 위함
         //데이터 변경이나 데이터 가져오기가 발생하는 Model을 작성해서 처리해야 함...
@@ -342,6 +346,8 @@ namespace AdminProgram.ViewModels
                     _logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
                 }
             }
+            //동기화
+            GetReservationPatientList(); 
         }
         private RelayCommand deleteWaitingDataBtn;
         public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
@@ -383,6 +389,9 @@ namespace AdminProgram.ViewModels
                 }
             }
 
+            //동기화
+            GetReservationPatientList();
+
         }
         private RelayCommand finDiagnosisBtn;
         public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
@@ -423,7 +432,8 @@ namespace AdminProgram.ViewModels
                     _logger.LogInformation("이 환자는 수납을 완료하였습니다.");
                 }
             }
-
+            //동기화
+            GetReservationPatientList();
         }
         private RelayCommand finDiagnosisBtn2;
         public ICommand FinDiagnosisBtn2 => finDiagnosisBtn2 ??= new RelayCommand(FinDiagnosis2);
@@ -474,6 +484,9 @@ namespace AdminProgram.ViewModels
                     _logger.LogInformation("이 예약 정보를 예약자 리스트에서 삭제했습니다.");
                 }
             }
+
+            //동기화
+            GetReservationPatientList();
         }
         private RelayCommand deleteReservationDataBtn;
         public ICommand DeleteReservationDataBtn => deleteReservationDataBtn ??= new RelayCommand(DeleteReservationData);
