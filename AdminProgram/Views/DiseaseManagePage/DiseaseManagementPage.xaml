@@ -48,28 +48,28 @@
 
                     <!--상병코드-->
                     <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="상병코드 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                        <TextBox x:Name="diseaseNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
+                        <TextBlock Text="상병코드 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
+                        <TextBox x:Name="diseaseNum_txtbox" Padding="4" VerticalAlignment="Center" Width="80" Height="auto" Margin="5,5,8,5" FontSize="17"/>
                     </WrapPanel>
 
                     <!--상병명칭-->
                     <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                        <TextBlock Text="병명 :" Margin="5,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                        <TextBox x:Name="diseaseName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
+                        <TextBlock Text="병명 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
+                        <TextBox x:Name="diseaseName_txtbox" Padding="4" VerticalAlignment="Center" Width="120" Height="auto" Margin="5,5,10,5" FontSize="17"/>
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="2" Click="Search_Disease_Button_Click" Width="80" Height="30" FontSize="16" Margin="13,5,10,5" HorizontalAlignment="Right" Cursor="Hand">검색</Button>
+                    <Button Grid.Column="2" Click="Search_Disease_Button_Click" Width="100" Height="30" FontSize="18" Margin="13,5,10,5" HorizontalAlignment="Right" Cursor="Hand" FontFamily="BM HANNA Pro">검  색</Button>
 
                     <!--추가-->
-                    <Button Grid.Column="3" Click="Add_Disease_Button_Click" Width="80" Height="30" FontSize="16 " Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+                    <Button Grid.Column="3" Click="Add_Disease_Button_Click" Width="100" Height="30" FontSize="18" Margin="10,5,10,5" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추  가</Button>
 
                     <Canvas Grid.Column="4" Background="#00ff0000"/>
                 </Grid>
 
                 <!--상세목록-->
                 <DataGrid x:Name="diseaseDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" VirtualizingStackPanel.IsVirtualizing = "true" Background="#FFD2CFCF"
-                              ItemsSource="{Binding Path=DMPDiseaseModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                              ItemsSource="{Binding Path=DMPDiseaseModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontSize="16" FontFamily="BM HANNA Pro">
                     <DataGrid.Columns>
                         <!--체크박스고민-->
                         <DataGridTextColumn MinWidth ="60" Width="Auto" Header="상병코드" Binding="{Binding Disease_Code}"/>
@@ -108,28 +108,28 @@
 
                     <!--시술번호-->
                     <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="시술번호 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                        <TextBox x:Name="treatmentNum_txtbox" Padding="4" VerticalAlignment="Center" Width="50" Height="auto" Margin="5,5,8,5"/>
+                        <TextBlock Text="시술번호 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
+                        <TextBox x:Name="treatmentNum_txtbox" Padding="4" VerticalAlignment="Center" Width="80" Height="auto" Margin="5,5,8,5" FontSize="17"/>
                     </WrapPanel>
 
                     <!--시술명-->
                     <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                        <TextBlock Text="시술명 :" Margin="5,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                        <TextBox x:Name="treatmentName_txtbox" Padding="4" VerticalAlignment="Center" Width="100" Height="auto" Margin="5,5,10,5"/>
+                        <TextBlock Text="시술명 :" Margin="10,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
+                        <TextBox x:Name="treatmentName_txtbox" Padding="4" VerticalAlignment="Center" Width="120" Height="auto" Margin="5,5,10,5" FontSize="17"/>
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="2" Click="Search_Procedure_Button_Click" Margin="13,5,10,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">검색</Button>
+                    <Button Grid.Column="2" Click="Search_Procedure_Button_Click" Margin="13,5,10,5" FontSize="18" Width="100" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검  색</Button>
 
                     <!--추가-->
-                    <Button Grid.Column="3" Click="Add_Procedure_Button_Click" FontSize="16" Width="80" Height="30" Margin="10,5,10,5" HorizontalAlignment="Right">추가</Button>
+                    <Button Grid.Column="3" Click="Add_Procedure_Button_Click" FontSize="18" Width="100" Height="30" Margin="10,5,10,5" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추  가</Button>
 
                     <Canvas Grid.Column="4" Background="#00ff0000"/>
                 </Grid>
 
                 <!--상세목록-->
                 <DataGrid x:Name="treatmentDataGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" Background="#FFD2CFCF"
-                              ItemsSource="{Binding Path=ProcedureModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" IsEnabled="True">
+                              ItemsSource="{Binding Path=ProcedureModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" IsEnabled="True" FontFamily="BM HANNA Pro" FontSize="16">
                     <DataGrid.Columns>
                         <!--체크박스고민-->
                         <DataGridTextColumn MinWidth ="60" Width="Auto" Header="시술번호" Binding="{Binding MediProcedureID}"/>
