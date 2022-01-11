@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="MainUnit" Height="800" Width="1360"
+        Title="MainUnit" Height="800" Width="1400"
         >
     <Grid>
         <Grid.ColumnDefinitions>
