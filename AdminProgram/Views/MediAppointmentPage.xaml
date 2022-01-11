@@ -53,7 +53,7 @@
                     </Grid.ColumnDefinitions>
 
                     <DatePicker x:Name="datePicker" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                            SelectedDate="{Binding SelectedDateTime}" FontSize="16" FontFamily="NanumSquareRound Bold" />
+                            SelectedDate="{Binding SelectedDateTime}" FontSize="16" />
 
                     <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn" Cursor="Hand" FontSize="18" FontWeight="Normal"
                         Style="{StaticResource MaterialDesignRaisedButton}"
@@ -74,11 +74,11 @@
 
                 <!--방문 대기 환자-->
                 <Label Content="방문 대기 환자 리스트" Grid.Row="1" Grid.Column="0" 
-               FontWeight="Normal" FontSize="24" VerticalAlignment="Center" FontFamily="BM HANNA Pro"/>
+                       FontWeight="Normal" FontSize="24" VerticalAlignment="Center" FontFamily="BM HANNA Pro"/>
                 <DataGrid x:Name="waitingGrid" Grid.Row="2" Grid.Column="0" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=WModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                      SelectedItem="{Binding SelectedItem2}" IsSynchronizedWithCurrentItem="True" FontFamily="NanumSquareRound Bold" FontSize="14">
+                      SelectedItem="{Binding SelectedItem2}" IsSynchronizedWithCurrentItem="True" FontFamily="BM HANNA Pro" FontSize="14">
                     <DataGrid.Columns>
                         <!--나머지 정보는 상세정보 페이지에서만 볼 수 있도록-->
                         <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
@@ -106,7 +106,7 @@
                 <DataGrid x:Name="reservationGrid" Grid.Row="2" Grid.Column="2" Background="#FFD2CFCF"
                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=RModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                  SelectedItem="{Binding SelectedItem}" IsSynchronizedWithCurrentItem="True" FontFamily="NanumSquareRound Bold" FontSize="14">
+                  SelectedItem="{Binding SelectedItem}" IsSynchronizedWithCurrentItem="True" FontFamily="BM HANNA Pro" FontSize="14">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
                         <DataGridTextColumn Width="2*" Header="예약 일시" Binding="{Binding ReservationDT}"/>
@@ -125,12 +125,12 @@
                     </DataGrid.InputBindings>
                 </DataGrid>
 
-                <!--진료 완료-->
-                <Label Content="진료 완료 리스트" Grid.ColumnSpan="3" Grid.Row="3" 
-               FontWeight="Normal" FontSize="24" VerticalAlignment="Center" FontFamily="BM HANNA Pro"/>
-                <DataGrid x:Name="finGrid" Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF"
-                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
-                  ItemsSource="{Binding Path=TreatmentCompleteModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal">
+                <!--수납 완료-->
+                <Label Content="수납 완료 리스트" Grid.ColumnSpan="3" Grid.Row="3" 
+                       FontWeight="Normal" FontSize="24" VerticalAlignment="Center" FontFamily="BM HANNA Pro"/>
+                <DataGrid x:Name="finGrid" Grid.ColumnSpan="3" Grid.Row="4" Background="#FFD2CFCF" 
+                          AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"  
+                          ItemsSource="{Binding Path=TreatmentCompleteModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="0.5*" Header="ID" Binding="{Binding PatientId}"/>
                         <DataGridTextColumn Width="1*" Header="환자 이름" Binding="{Binding PatientName}"/>
@@ -139,9 +139,7 @@
                         <DataGridTextColumn Width="2*" Header="진료 날짜" Binding="{Binding Time}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-
             </Grid>
         </Border>
-        
     </Grid>
 </Page>
