@@ -7,7 +7,7 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-		Title="환자정보수정" MinHeight="400" MinWidth="500" Height="400" Width="500">
+		Title="환자정보수정" MinHeight="440" MinWidth="500" Height="440" Width="500">
 	<Grid>
 		<!--테두리-->
 		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">
@@ -29,8 +29,8 @@
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" Margin="23,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="이     름 : "/>
-					<TextBlock Grid.Column="1" Margin="2,22,0,0" x:Name="patientName" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+					<Label Grid.Column="0" Margin="23,20,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="이     름 : " FontFamily="BM HANNA Pro"/>
+					<TextBlock Grid.Column="1" Margin="2,24,0,0" x:Name="patientName" FontSize="17" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" FontFamily="BM HANNA Pro"/>
 				</Grid>
 
 				<!--주민번호, 남녀 파트-->
@@ -42,10 +42,10 @@
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="주민번호 : "/>
-					<TextBlock Grid.Column="1" Margin="2,17,0,0" FontWeight="Bold" x:Name="securityNum" FontSize="14" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
-					<RadioButton Grid.Column="2" x:Name="male" IsEnabled="False" Margin="30,20,0,0" GroupName = "SEX" Content="남" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-					<RadioButton Grid.Column="3" x:Name="female" IsEnabled="False" Margin="20,20,0,0" GroupName = "SEX" Content="여" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+					<Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="주민번호 : " FontFamily="BM HANNA Pro"/>
+					<TextBlock Grid.Column="1" Margin="2,19,0,0" x:Name="securityNum" FontSize="17" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" FontFamily="BM HANNA Pro"/>
+					<RadioButton Grid.Column="2" x:Name="male" IsEnabled="False" Margin="30,20,0,0" GroupName = "SEX" Content="남" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="BM HANNA Pro" FontSize="17"/>
+					<RadioButton Grid.Column="3" x:Name="female" IsEnabled="False" Margin="20,20,0,0" GroupName = "SEX" Content="여" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="17" FontFamily="BM HANNA Pro"/>
 				</Grid>
 
 				<!--생일 파트-->
@@ -57,10 +57,10 @@
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" Margin="23,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="생     일 : "/>
-					<TextBlock x:Name="datePicker" Grid.Column="1" FontSize="14" FontWeight="Bold" Padding="3" Margin="3,17,0,0" VerticalAlignment="Top"/>
-					<RadioButton Grid.Column="2" x:Name="yang" IsEnabled="False" IsChecked="True" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="30,20,0,0" VerticalAlignment="Top"/>
-					<RadioButton Grid.Column="3" x:Name="ymm" IsEnabled="False" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+					<Label Grid.Column="0" Margin="23,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="생     일 : " FontFamily="BM HANNA Pro"/>
+					<TextBlock x:Name="datePicker" Grid.Column="1" FontSize="17" Margin="3,19,0,0" VerticalAlignment="Top" FontFamily="BM HANNA Pro"/>
+					<RadioButton Grid.Column="2" x:Name="yang" IsEnabled="False" IsChecked="True" GroupName = "CALENDAR" Content="양" HorizontalAlignment="Left" Margin="30,20,0,0" VerticalAlignment="Top" FontFamily="BM HANNA Pro" FontSize="17"/>
+					<RadioButton Grid.Column="3" x:Name="ymm" IsEnabled="False" GroupName = "CALENDAR" Content="음" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontFamily="BM HANNA Pro" FontSize="17"/>
 				</Grid>
 
 				<!--주소 파트-->
@@ -70,8 +70,8 @@
 						<ColumnDefinition Width="2*"/>
 					</Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" Margin="23,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="주     소 : "/>
-					<TextBox Margin="3,17,47,9" FontWeight="Bold" x:Name="address" FontSize="14" Padding="3" TextWrapping="Wrap" Grid.Column="1"/>
+					<Label Grid.Column="0" Margin="23,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="주     소 : " FontFamily="BM HANNA Pro"/>
+					<TextBox Margin="3,15,47,9" x:Name="address" FontSize="17" Padding="3" TextWrapping="Wrap" Grid.Column="1"/>
 				</Grid>
 
 				<!--휴대폰 번호 파트 / 수신동의체크박스-->
@@ -82,9 +82,9 @@
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content=" 휴 대 폰 : "/>
-					<TextBox Grid.Column="1" Margin="3,17,0,0" Width="130" FontWeight="Bold" x:Name="phoneNum" FontSize="14" Padding="3" TextWrapping="Wrap" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-					<CheckBox Grid.Column="2" Margin="30,23,0,0" x:Name="smsCheck" Content="SMS수신동의" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+					<Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content=" 휴 대 폰 : " FontFamily="BM HANNA Pro"/>
+					<TextBox Grid.Column="1" Margin="3,15,0,0" Width="130" x:Name="phoneNum" FontSize="17" Padding="3" TextWrapping="Wrap" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+					<CheckBox Grid.Column="2" Margin="30,21,0,0" x:Name="smsCheck" Content="SMS수신동의" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="BM HANNA Pro" FontSize="17"/>
 				</Grid>
 
 				<!--전화번호 파트-->
@@ -94,8 +94,8 @@
 						<ColumnDefinition Width="2*"/>
 					</Grid.ColumnDefinitions>
 
-					<Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="전화번호 : "/>
-					<TextBox Grid.Column="1" Margin="3,17,0,0" Width="130" FontWeight="Bold" x:Name="homeNum" FontSize="14" Padding="3" TextWrapping="Wrap" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+					<Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="전화번호 : " FontFamily="BM HANNA Pro"/>
+					<TextBox Grid.Column="1" Margin="3,15,0,0" Width="130" x:Name="homeNum" FontSize="17" Padding="3" TextWrapping="Wrap" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
 				</Grid>
 
@@ -103,18 +103,18 @@
 				<Grid Grid.Row="6">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
-					<Button Grid.Column="3" Margin="10,10,0,0" x:Name="Modifiy_btn" Click="Modifiy_btn_Click" Content="수정" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="72" Height="28"/>
-					<Button Grid.Column="1" Margin="10,10,0,0" x:Name="Delete_btn" Click="Delete_btn_Click" Content="삭제"  FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="72" Height="28"
+					<Button Grid.Column="3" Margin="10,10,0,0" x:Name="Modifiy_btn" Click="Modifiy_btn_Click" Content="수정" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"/>
+					<Button Grid.Column="1" Margin="10,10,0,0" x:Name="Delete_btn" Click="Delete_btn_Click" Content="삭제"  FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28"
 							Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
 							materialDesign:ButtonAssist.CornerRadius="5"
 							ToolTip="MaterialDesignRaisedButton with Round Corners"
-							IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand"/>
+							IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro"/>
 				</Grid>
 			</Grid>
 		</Border>
