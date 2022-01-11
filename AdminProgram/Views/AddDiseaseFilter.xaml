@@ -1,0 +1,56 @@
+﻿<Window x:Class="AdminProgram.AddDiseaseFilter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminProgram"
+        mc:Ignorable="d"
+        DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="진단명 검색 페이지" Height="450" Width="800">
+    <Grid Margin="10,10,10,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="진단명 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="16"/>
+        <TextBox Text="{Binding SearchDiseaseText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Cursor="IBeam" FontSize="16" FontFamily="BM HANNA Pro">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding GetDiseaseBtn}" Key="Enter"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Grid.Column="2" Content="검  색" FontSize="18" FontWeight="Normal" Command="{Binding GetDiseaseBtn}"
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" Cursor="Hand" />
+        
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" IsReadOnly="True" Background="#FFD2CFCF"
+                  ItemsSource="{Binding Path=DmModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                  SelectedItem="{Binding SelectedDisease}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10" FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*" Header="이름" Binding="{Binding DiseaseName}"/>
+       
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="적  용" Grid.Row="7" Grid.Column="2" Click="Button_Click"  FontFamily="BM HANNA Pro" FontSize="18"
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+    </Grid>
+</Window>
