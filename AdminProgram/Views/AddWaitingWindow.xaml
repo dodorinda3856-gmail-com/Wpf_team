@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AdminProgram.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        DataContext="{Binding AWRVM, Source={StaticResource ViewModelLocator}}"
+        DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="대기자 등록 페이지" Height="450" Width="800">
     <Grid>
@@ -33,7 +33,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="환자 이름 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Normal" FontFamily="BM HANNA Pro"/>
-                <TextBox x:Name="searchText" Text="{Binding SearchText}" Grid.Row="0" Grid.Column="1" FontSize="16" Cursor="IBeam">
+                <TextBox x:Name="searchText" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontSize="16" Cursor="IBeam">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding SearchPatientActW}" Key="Enter"/>
                     </TextBox.InputBindings>
@@ -73,23 +73,23 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14"/>
+                        <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14" VerticalAlignment="Center"/>
                         <TextBlock x:Name="patientName" Text="{Binding Path=SelectedPatient.Name, Mode=TwoWay}" 
                                    VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Normal" FontSize="14"/>
 
-                        <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14"/>
+                        <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14" VerticalAlignment="Center"/>
                         <TextBlock x:Name="patientResidentRegistNum" Text="{Binding Path=SelectedPatient.ResidentRegistNum, Mode=TwoWay}" 
                                    VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" FontWeight="Normal" FontSize="14"/>
 
-                        <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14"/>
+                        <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14" VerticalAlignment="Center"/>
                         <TextBlock x:Name="patientGender" Text="{Binding Path=SelectedPatient.Gender, Mode=TwoWay}" 
                                    VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontWeight="Normal" FontSize="14"/>
 
-                        <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14"/>
+                        <Label Content="주소 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14" VerticalAlignment="Center"/>
                         <TextBlock x:Name="patientAddress" Text="{Binding Path=SelectedPatient.Address, Mode=TwoWay}" 
                                    VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Normal" FontSize="14"/>
 
-                        <Label Content="증상 설명 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14"/>
+                        <Label Content="증상 설명 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14" VerticalAlignment="Center"/>
                         <TextBox x:Name="explainSymtom" Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Normal" FontSize="14"/>
                         <!--<Label Content="질병 타입 : " Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold"/>
                         <ComboBox Grid.Row="4" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
@@ -105,13 +105,13 @@
                         Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
                 <Button Content="대기자 등록" Grid.Row="7" Grid.Column="5"
                         Command="{Binding RegisterWaitingData}" Click="Add_Waiting_Btn"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>

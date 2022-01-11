@@ -58,14 +58,14 @@ namespace AdminProgram.ViewModels
             _logger = logger;
             _logger.LogInformation("{@ILogger}", logger);
 
-            PModels = new ObservableCollection<PatientModelTemp>();
-            PModels.CollectionChanged += ContentCollectionChanged;
+            //PModels = new ObservableCollection<PatientModelTemp>();
+            //PModels.CollectionChanged += ContentCollectionChanged;
 
-            TimeModels = new ObservableCollection<TimeModel>();
-            TimeModels.CollectionChanged += ContentCollectionChanged;
+            //TimeModels = new ObservableCollection<TimeModel>();
+            //TimeModels.CollectionChanged += ContentCollectionChanged;
 
-            StaffModels = new ObservableCollection<MediStaffModel>();
-            StaffModels.CollectionChanged += ContentCollectionChanged;
+            //StaffModels = new ObservableCollection<MediStaffModel>();
+            //StaffModels.CollectionChanged += ContentCollectionChanged;
         }
 
         private void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -90,29 +90,29 @@ namespace AdminProgram.ViewModels
 
         private void ProductOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            var pModels = sender as PatientModelTemp;
-            if (pModels != null)
-            {
-                _logger.LogInformation("{@pModels}", pModels);
-                WeakReferenceMessenger.Default.Send(PModels); //이거 필수
-                _logger.LogInformation("send 성공");
-            }
+            //var pModels = sender as PatientModelTemp;
+            //if (pModels != null)
+            //{
+            //    _logger.LogInformation("{@pModels}", pModels);
+            //    WeakReferenceMessenger.Default.Send(PModels); //이거 필수
+            //    _logger.LogInformation("send 성공");
+            //}
 
-            var tModels = sender as PatientModelTemp;
-            if (tModels != null)
-            {
-                _logger.LogInformation("{@tModels}", tModels);
-                WeakReferenceMessenger.Default.Send(TimeModels);
-                _logger.LogInformation("send 성공");
-            }
+            //var tModels = sender as PatientModelTemp;
+            //if (tModels != null)
+            //{
+            //    _logger.LogInformation("{@tModels}", tModels);
+            //    WeakReferenceMessenger.Default.Send(TimeModels);
+            //    _logger.LogInformation("send 성공");
+            //}
 
-            var mediStaffModels = sender as PatientModelTemp;
-            if (mediStaffModels != null)
-            {
-                _logger.LogInformation("{@mediStaffModels}", mediStaffModels);
-                WeakReferenceMessenger.Default.Send(StaffModels);
-                _logger.LogInformation("send 성공");
-            }
+            //var mediStaffModels = sender as PatientModelTemp;
+            //if (mediStaffModels != null)
+            //{
+            //    _logger.LogInformation("{@mediStaffModels}", mediStaffModels);
+            //    WeakReferenceMessenger.Default.Send(StaffModels);
+            //    _logger.LogInformation("send 성공");
+            //}
         }
         //== Messenger ==//
 
@@ -131,7 +131,13 @@ namespace AdminProgram.ViewModels
             {
                 string sql;
                 string patientName = searchText; //환자 이름
-                if (patientName != "") //이름 입력하면
+                
+                if(patientName == "'")
+                {
+                    MessageBox.Show("다시 입력해주세요");
+
+                }
+                else if (patientName != "") //이름 입력하면
                 {
                     sql =
                         "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
@@ -206,6 +212,7 @@ namespace AdminProgram.ViewModels
                                     "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
                                     "FROM \"TIME\" t " +
                                     "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd'))-1 " +
+                                    "AND \"HOUR\" NOT IN (SELECT t.\"HOUR\" FROM RESERVATION r, \"TIME\" t WHERE r.TIME_ID = t.TIME_ID AND TO_CHAR(r.RESERVATION_DATE , 'YYYYMMDD') = " + date + ") " + 
                                     "ORDER BY TIME_ID ";
                                 comm.CommandText = sql;
 
@@ -245,7 +252,8 @@ namespace AdminProgram.ViewModels
                                 sql =
                                     "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
                                     "FROM MEDI_STAFF ms " +
-                                    "WHERE \"POSITION\" = 'D' ";
+                                    "WHERE \"POSITION\" = 'D' " +
+                                    "ORDER BY STAFF_ID DESC";
                                 comm.CommandText = sql;
                                 _logger.LogInformation("[SQL QUERY] " + sql);
 
@@ -310,18 +318,16 @@ namespace AdminProgram.ViewModels
             string sql;
             string patientName = searchText; //환자 이름
 
-            if (patientName == "") //null 처리
+            if (patientName == "'") //작은 따옴표 입력하면(에러 처리)
             {
-                MessageBox.Show("환자 이름을 검색해주세요");
+                MessageBox.Show("다시 입력해주세요");
             }
-            else
+            else if (patientName != "") //이름 입력하면
             {
                 sql =
                 "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.ADDRESS, p.RESIDENT_REGIST_NUM, p.GENDER " +
                 "FROM PATIENT p " +
                 "WHERE p.PATIENT_NAME LIKE '%" + patientName + "%' ";
-
-                //_logger.LogInformation("[의사 진료 코드(?)] " + SelectedDiseaseType);
 
                 using (OracleConnection conn = new OracleConnection(strCon))
                 {
@@ -387,11 +393,11 @@ namespace AdminProgram.ViewModels
                         LogRecord.LogWrite("[대기자 등록 페이지에 정보 가져오기 OK]");
                     }
                 }
-
-
-
             }
-
+            else
+            {
+                MessageBox.Show("환자 이름을 검색해주세요");
+            }
         }
         private RelayCommand searchPatientActW;
         public ICommand SearchPatientActW => searchPatientActW ??= new RelayCommand(SearchPatientW);

@@ -12,8 +12,8 @@ namespace AdminProgram.Views
             InitializeComponent();
             //== 화면 초기화 ==//
             //직접 입력 부분
-            searchText.Text = null;
-            explainSymtom.Text = null;
+            searchText.Text = "";
+            explainSymtom.Text = "";
             //세부 사항 부분
             patientAddress.Text = "";
             patientGender.Text = "";

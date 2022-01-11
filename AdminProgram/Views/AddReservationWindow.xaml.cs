@@ -15,28 +15,20 @@ namespace AdminProgram.Views
 
             //직접 입력 부분
             searchText.Text = "";
-            /*doctorCombo.Items.Clear();
-            timeCombo.Items.Clear();*/
             explainSymtom.Text = "";
             //세부 데이터 부분
             patientName.Text = "";
             patientResidentRegistNum.Text = "";
             patientGender.Text = "";
             patientAddress.Text = "";
-            //
-            
         }
 
         private void Close_Window(object sender, RoutedEventArgs e)
         {
+            doctorCombo.SelectedIndex = 0;
+            timeCombo.SelectedIndex = 0;
             Window.GetWindow(this).Close();
-            //detailGrid.Items.Clear();
-            //detailGrid.Items.Clear();
-            //detailGrid.Items.Refresh();
-            /*PatientModel pm = new PatientModel();
-            pm.PatientId = 0;*/
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("진료 예약을 완료하였습니다.");
