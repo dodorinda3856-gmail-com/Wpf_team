@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminProgram.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -56,6 +57,12 @@ namespace AdminProgram.Views
         private void FinishedBtn(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*MediAppointmentVM vm = new();
+            vm.GetReservationPatientList();*/
         }
     }
 }
