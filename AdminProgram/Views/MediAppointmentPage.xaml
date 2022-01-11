@@ -53,7 +53,7 @@
                     </Grid.ColumnDefinitions>
 
                     <DatePicker x:Name="datePicker" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                            SelectedDate="{Binding SelectedDateTime}" FontSize="16"/>
+                            SelectedDate="{Binding SelectedDateTimeM}" FontSize="16"/>
 
                     <Button Content="예약 등록" Grid.Column="7" Click="Add_Appointment_Btn" Cursor="Hand" FontSize="18" FontWeight="Normal"
                         Style="{StaticResource MaterialDesignRaisedButton}"
@@ -65,7 +65,7 @@
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro"/>
-                    <Button Content="동기화" Grid.Column="11" FontWeight="Normal" FontSize="18" Command ="{Binding ReservationUpdateBtn}" 
+                    <Button Content="검  색" Grid.Column="11" FontWeight="Normal" FontSize="18" Command ="{Binding ReservationUpdateBtn}" 
                             Style="{StaticResource MaterialDesignRaisedLightButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedLightButton with Round Corners"
