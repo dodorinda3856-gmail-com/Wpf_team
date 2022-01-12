@@ -103,14 +103,14 @@
 				<Grid Grid.Row="6">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="3" Margin="10,10,0,0" x:Name="Save_btn" Click="Save_btn_Click" Content="저장" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"/>
-                    <Button Grid.Column="1" Margin="10,10,0,0" x:Name="Cancel_btn" Click="Cancel_btn_Click" Content="취소"  FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"
+					<Button Grid.Column="3" Margin="10,10,0,0" x:Name="Save_btn" Click="Save_btn_Click" Content="저장" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"/>
+					<Button Grid.Column="1" Margin="10,10,0,0" x:Name="Cancel_btn" Click="Cancel_btn_Click" Content="취소"  FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"
 							Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
 							materialDesign:ButtonAssist.CornerRadius="5"
 							ToolTip="MaterialDesignRaisedButton with Round Corners"
