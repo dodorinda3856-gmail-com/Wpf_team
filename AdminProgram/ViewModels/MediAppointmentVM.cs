@@ -27,7 +27,7 @@ namespace AdminProgram.ViewModels
         // messenger의 send와 receive도 하는 곳
         // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
 
-        //private readonly ILogger //_loger;
+        private readonly ILogger _loger;
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
         // rModels을 observable collection 형식(사실상 list)으로 받아옴
@@ -55,11 +55,11 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref treatmentCompleteModels, value); }
         }
 
-        public MediAppointmentVM()
+        public MediAppointmentVM(ILogger<MediAppointmentVM> logger)
         {
-            /*ILogger<MediAppointmentVM> logger
-            //_loger = logger;
-            //_loger.LogInformation("{@ILogger}", logger);*/
+
+            _loger = logger;
+            _loger.LogInformation("{@ILogger}", logger);
 
             RModels = new ObservableCollection<ReservationListModel>();
             RModels.CollectionChanged += ContentCollectionChanged;
@@ -862,6 +862,11 @@ namespace AdminProgram.ViewModels
         //==  방문 대기자 등록 start ==//
         private void RegisterWaiting()
         {
+            if(explainSymtom == null)
+            {
+                _loger.LogInformation("explainSysmtom = " + explainSymtom);
+                explainSymtom = "딱히 없음";
+            }
             if (ExplainSymtom == null)
             {
                 MessageBox.Show("증상을 입력해주세요");
@@ -893,6 +898,7 @@ namespace AdminProgram.ViewModels
                     }
                     catch (Exception err)
                     {
+                        _loger.LogCritical("[error] " + err);
                         LogRecord.LogWrite("[방문 대기자 등록 ERROR] " + err);
                     }
                     finally
@@ -915,45 +921,58 @@ namespace AdminProgram.ViewModels
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
-            //환자 번호, 진료예약 시간, 
-            string date = MakeDate(SelectedDateTime);
-            string sql =
-                "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
-                "VALUES(RESERVATION_SEQ1.NEXTVAL, " +
-                    SelectedPatient.PatientId + ", " +
-                    SelectedTime.TimeId + ", " +
-                    SelectedStaff.StaffId + ", " +
-                    "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
-
-            using (OracleConnection conn = new OracleConnection(strCon))
+            if(explainSymtom == null)
             {
-                try
+                _loger.LogInformation("explainSysmtom = " + explainSymtom);
+                explainSymtom = "딱히 없음";
+            }
+            if(ExplainSymtom == null)
+            {
+                MessageBox.Show("증상을 입력해주세요");
+            }
+            else
+            {
+                //환자 번호, 진료예약 시간, 
+                string date = MakeDate(SelectedDateTime);
+                string sql =
+                    "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
+                    "VALUES(RESERVATION_SEQ1.NEXTVAL, " +
+                        SelectedPatient.PatientId + ", " +
+                        SelectedTime.TimeId + ", " +
+                        SelectedStaff.StaffId + ", " +
+                        "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
+
+                using (OracleConnection conn = new OracleConnection(strCon))
                 {
-                    conn.Open();
-                    LogRecord.LogWrite("DB Connection OK...");
-
-                    PModels = new ObservableCollection<PatientModelTemp>();
-                    PModels.CollectionChanged += ContentCollectionChanged;
-
-                    using (OracleCommand comm = new OracleCommand())
+                    try
                     {
-                        comm.Connection = conn;
-                        comm.CommandText = sql;
+                        conn.Open();
+                        LogRecord.LogWrite("DB Connection OK...");
 
-                        LogRecord.LogWrite("[진료 예약 등록 SQL Query] " + sql);
-                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
-                        comm.ExecuteNonQuery();
+                        PModels = new ObservableCollection<PatientModelTemp>();
+                        PModels.CollectionChanged += ContentCollectionChanged;
+
+                        using (OracleCommand comm = new OracleCommand())
+                        {
+                            comm.Connection = conn;
+                            comm.CommandText = sql;
+
+                            LogRecord.LogWrite("[진료 예약 등록 SQL Query] " + sql);
+                            //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                            comm.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        LogRecord.LogWrite("[진료 예약 등록 ERROR] " + err);
+                    }
+                    finally
+                    {
+                        LogRecord.LogWrite("[진료 예약 등록 OK]");
                     }
                 }
-                catch (Exception err)
-                {
-                    LogRecord.LogWrite("[진료 예약 등록 ERROR] " + err);
-                }
-                finally
-                {
-                    LogRecord.LogWrite("[진료 예약 등록 OK]");
-                }
             }
+            
         }
         private RelayCommand registerReservationData;
         public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
