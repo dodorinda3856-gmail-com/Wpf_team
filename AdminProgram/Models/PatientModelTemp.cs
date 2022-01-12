@@ -17,7 +17,7 @@ namespace AdminProgram.Models
         private string residentRegistNum;
         public string ResidentRegistNum
         {
-            get => residentRegistNum;
+            get => residentRegistNum.Substring(0, 7) + "*******";
             set => SetProperty(ref residentRegistNum, value);
         }
 

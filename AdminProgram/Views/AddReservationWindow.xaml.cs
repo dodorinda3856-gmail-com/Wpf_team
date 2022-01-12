@@ -11,8 +11,8 @@ namespace AdminProgram.Views
         public AddReservationWindow()
         {
             InitializeComponent();
-            //== 화면 초기화 ==//
 
+            //== 화면 초기화 ==//
             //직접 입력 부분
             searchText.Text = "";
             explainSymtom.Text = "";
@@ -22,7 +22,7 @@ namespace AdminProgram.Views
             patientGender.Text = "";
             patientAddress.Text = "";
         }
-
+        
         private void Close_Window(object sender, RoutedEventArgs e)
         {
             doctorCombo.SelectedIndex = 0;
@@ -34,6 +34,5 @@ namespace AdminProgram.Views
             MessageBox.Show("진료 예약을 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
-
     }
 }
