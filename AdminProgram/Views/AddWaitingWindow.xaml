@@ -91,12 +91,6 @@
 
                         <Label Content="증상 설명 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Normal" FontFamily="BM HANNA Pro" FontSize="14" VerticalAlignment="Center"/>
                         <TextBox x:Name="explainSymtom" Text="{Binding ExplainSymtom}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FontWeight="Normal" FontSize="14"/>
-                        <!--<Label Content="질병 타입 : " Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <ComboBox Grid.Row="4" Grid.Column="4" SelectedItem="{Binding SelectedDiseaseType}">
-                            <ComboBoxItem Content="Hives"/>
-                            <ComboBoxItem Content="Allergy"/>
-                            <ComboBoxItem Content="Bueaty"/>
-                        </ComboBox>-->
                     </Grid>
                 </Border>
 
@@ -111,7 +105,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center" Cursor="Hand"/>
             </Grid>
         </Border>
     </Grid>

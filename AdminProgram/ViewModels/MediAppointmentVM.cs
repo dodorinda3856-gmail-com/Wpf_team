@@ -575,7 +575,7 @@ namespace AdminProgram.ViewModels
 
 
         //////////
-        ///대기, 예약 등록
+        ///대기, 예약 등록 페이지들 코드
         //////////
 
         //환자 정보
