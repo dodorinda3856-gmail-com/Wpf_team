@@ -27,33 +27,33 @@
                 <DockPanel HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Home_Label" Width="150" FontSize="15" Foreground="White"
                        PreviewMouseDown="Home_Label_PreviewMouseDown">Home</Label>
-                    <Image Width="30" Height="30" Source="/icon.ico" ></Image>
+                    <Image Width="30" Height="30" Source="/main_page.png" ></Image>
                 </DockPanel>
                 <DockPanel HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="MediAppointment_Label" Width="150" FontSize="15"
                        PreviewMouseDown="MediAppointment_Label_PreviewMouseDown" Foreground="White">
                         대기 / 예약 관리
                     </Label>
-                    <Image Width="30" Height="30" Source="icon.ico" ></Image>
+                    <Image Width="30" Height="30" Source="wait_reserve_page.png" ></Image>
                 </DockPanel>
                 <DockPanel HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Medi_Label" Width="150" FontSize="15"
                        PreviewMouseDown="Medi_Label_PreviewMouseDown" Foreground="White">
                         진료 내역 관리
                     </Label>
-                    <Image Width="30" Height="30" Source="icon.ico" ></Image>
+                    <Image Width="30" Height="30" Source="treatment_page.png" ></Image>
                 </DockPanel>
                 <DockPanel HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Patient_Label" Width="150" FontSize="15" PreviewMouseDown="Patient_Label_PreviewMouseDown" Foreground="White">환자정보</Label>
-                    <Image Width="30" Height="30" Source="icon.ico" ></Image>
+                    <Image Width="30" Height="30" Source="patient.png" ></Image>
                 </DockPanel>
                 <DockPanel HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Staff_Label" Width="150" FontSize="15" PreviewMouseDown="Staff_Label_PreviewMouseDown" Foreground="White">의료진정보</Label>
-                    <Image Width="30" Height="30" Source="icon.ico" ></Image>
+                    <Image Width="30" Height="30" Source="doctor.png" ></Image>
                 </DockPanel>
                 <DockPanel HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Disease_Management" Width="150" FontSize="15" PreviewMouseDown="Disease_Management_PreviewMouseDown" Foreground="White">상병 / 시술관리</Label>
-                    <Image Width="30" Height="30" Source="icon.ico" ></Image>
+                    <Image Width="30" Height="30" Source="disease.png" ></Image>
                 </DockPanel>
 
             </StackPanel>
