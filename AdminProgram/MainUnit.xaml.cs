@@ -38,29 +38,6 @@ namespace AdminProgram
             this.frame.Navigate(new Uri("Views/TreatmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        private void ConnectDB()
-        {
-            try
-            {
-                string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
-                connn = new OracleConnection(strCon);
-                connn.Open();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.ToString());
-            }
-        }
-        private int Calculate_age(DateTime date)
-        {
-            int now = 2022;
-            string str_tmp = date.ToString("yyyy");
-            int age = Convert.ToInt32(str_tmp);
-            age = now - age + 1;
-
-            return age;
-        }
-
         private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.frame.Navigate(new Uri("Views/PatientPage/PatientPage.xaml", UriKind.RelativeOrAbsolute));

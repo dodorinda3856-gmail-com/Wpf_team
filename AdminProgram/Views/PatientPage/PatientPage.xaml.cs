@@ -15,19 +15,12 @@ namespace AdminProgram
     {
         OracleConnection connn;
 
-        private static List<PMModel> start_value = new List<PMModel>();
-        public static List<PMModel> StartValue
-        {
-            get { return start_value; }
-            set { start_value = value; }
-        }
-
         public PatientPage()
         {
             InitializeComponent();
             LogRecord.LogWrite("환자페이지 오픈");
             gender_combobox.SelectedIndex = 0;
-           // dataGridPatient.ItemsSource = start_value; //안돼유..
+
         }
 
           
