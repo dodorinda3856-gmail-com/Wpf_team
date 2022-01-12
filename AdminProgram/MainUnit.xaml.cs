@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AdminProgram.ViewModels;
+using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -10,6 +14,7 @@ namespace AdminProgram
     /// </summary>
     public partial class MainUnit : Window
     {
+        OracleConnection connn;
 
         public MainUnit()
         {

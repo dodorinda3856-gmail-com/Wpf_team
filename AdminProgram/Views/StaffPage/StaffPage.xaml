@@ -113,7 +113,7 @@
                         </WrapPanel>
 
                         <!--검색-->
-                        <Button Grid.Column="6" Click="searchButton_Click" Margin="25,5,5,5" FontSize="17" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검색</Button>
+                        <Button x:Name="search" Grid.Column="6" Click="searchButton_Click" Margin="25,5,5,5" FontSize="17" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검색</Button>
 
                         <!--추가-->
                         <Button Grid.Column="7" Click="addButton_Click" Margin="20,5,5,5" FontSize="17" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추가</Button>

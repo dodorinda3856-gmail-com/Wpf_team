@@ -119,6 +119,57 @@ namespace AdminProgram
             connn.Close();
         }
 
+        //숫자만 있는지 확인하는 함수, 휴대폰 번호 유효성 체크시 사용
+        private bool NotOnlyNum(string str)
+        {
+            for (int j = 0; j < str.Length; j++)
+            {
+                if (!(str[j] >= '0' && str[j] <= '9'))
+                    return true;
+                j++;
+            }
+            return false;
+        }
+
+        //입력이 잘되었는지 판단하는 함수
+        private bool CheckRightValue()
+        {
+            if (staffName.Text == "")
+            {
+                MessageBox.Show("이름을 입력해주세요.");
+                return true;
+            }
+
+            else if (medi_subject.Text == "")
+            {
+                MessageBox.Show("진료과목을 입력해주세요.");
+                return true;
+            }
+            else if (email.Text == "")
+            {
+                MessageBox.Show("이메일을 입력해주세요.");
+                return true;
+            }
+            else if (phoneNum.Text == "" || NotOnlyNum(phoneNum.Text) || phoneNum.Text.Length != 11)
+            {
+                MessageBox.Show("핸드폰 번호 11자리를 입력해주세요.\nex) 010XXXXXXXX");
+                return true;
+            }
+            else if (male.IsChecked == false && female.IsChecked == false)
+            {
+                MessageBox.Show("성별을 선택해주세요.");
+                return true;
+            }
+            else if (doctor.IsChecked == false && nurse.IsChecked == false)
+            {
+                MessageBox.Show("직책을 선택해주세요.");
+                return true;
+            }
+
+            
+
+            return false;
+        }
 
         //수정버튼 이벤트
         private void Modify_btn_Click(object sender, RoutedEventArgs e)
@@ -128,6 +179,8 @@ namespace AdminProgram
 
             if (result == MessageBoxResult.Yes)
             {
+                if (CheckRightValue())
+                    return;
                 LogRecord.LogWrite("'" + Form2_value.Staff_name + "' 의료진 정보 수정 완료 버튼 클릭");
                 ConnectDB();
 

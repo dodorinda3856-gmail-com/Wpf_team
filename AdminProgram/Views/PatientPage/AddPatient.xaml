@@ -7,7 +7,7 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-		Title="AddPatient" MinHeight="440" MinWidth="500" Height="440" Width="500">
+		Title="환자추가" MinHeight="440" MinWidth="500" Height="440" Width="500">
 	<Grid>
 		<!--테두리-->
 		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">
@@ -103,14 +103,14 @@
 				<Grid Grid.Row="6">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="3" Margin="10,10,0,0" x:Name="Save_btn" Click="Save_btn_Click" Content="저장" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"/>
-                    <Button Grid.Column="1" Margin="10,10,0,0" x:Name="Cancel_btn" Click="Cancel_btn_Click" Content="취소"  FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"
+					<Button Grid.Column="3" Margin="10,10,0,0" x:Name="Save_btn" Click="Save_btn_Click" Content="저장" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"/>
+					<Button Grid.Column="1" Margin="10,10,0,0" x:Name="Cancel_btn" Click="Cancel_btn_Click" Content="취소"  FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="28" FontFamily="BM HANNA Pro"
 							Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
 							materialDesign:ButtonAssist.CornerRadius="5"
 							ToolTip="MaterialDesignRaisedButton with Round Corners"

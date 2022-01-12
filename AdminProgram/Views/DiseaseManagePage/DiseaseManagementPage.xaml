@@ -59,7 +59,7 @@
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="2" Click="Search_Disease_Button_Click" Width="100" Height="30" FontSize="18" Margin="13,5,10,5" HorizontalAlignment="Right" Cursor="Hand" FontFamily="BM HANNA Pro">검  색</Button>
+                    <Button x:Name="search1" Grid.Column="2" Click="Search_Disease_Button_Click" Width="100" Height="30" FontSize="18" Margin="13,5,10,5" HorizontalAlignment="Right" Cursor="Hand" FontFamily="BM HANNA Pro">검  색</Button>
 
                     <!--추가-->
                     <Button Grid.Column="3" Click="Add_Disease_Button_Click" Width="100" Height="30" FontSize="18" Margin="10,5,10,5" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추  가</Button>
@@ -119,7 +119,7 @@
                     </WrapPanel>
 
                     <!--검색-->
-                    <Button Grid.Column="2" Click="Search_Procedure_Button_Click" Margin="13,5,10,5" FontSize="18" Width="100" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검  색</Button>
+                    <Button x:Name="search2" Grid.Column="2" Click="Search_Procedure_Button_Click" Margin="13,5,10,5" FontSize="18" Width="100" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검  색</Button>
 
                     <!--추가-->
                     <Button Grid.Column="3" Click="Add_Procedure_Button_Click" FontSize="18" Width="100" Height="30" Margin="10,5,10,5" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추  가</Button>

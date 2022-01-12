@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AdminProgram" xmlns:viewmodels="clr-namespace:AdminProgram.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1200"
       Title="PatientPage">
 
     <Grid>
@@ -95,7 +95,7 @@
                         </WrapPanel>
 
                         <!--검색-->
-                        <Button Grid.Column="6" Click="Search_Button_Click" Margin="25,5,5,5" FontSize="18" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검색</Button>
+                        <Button x:Name="search" Grid.Column="6" Click="Search_Button_Click" Margin="25,5,5,5" FontSize="18" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검색</Button>
 
                         <!--추가-->
                         <Button Grid.Column="7" Click="AddPatient_Btn" Margin="20,5,5,5" FontSize="18" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추가</Button>
@@ -103,8 +103,8 @@
                     </Grid>
 
                     <!--상세목록-->
-                    <DataGrid x:Name="dataGrid" Grid.Row="2" Background="#FFD2CFCF" IsReadOnly="True" AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="BM HANNA Pro" FontSize="16">
+                    <DataGrid x:Name="dataGridPatient" Grid.Row="2" Background="#FFD2CFCF" IsReadOnly="True" AutoGenerateColumns="False"
+                          ItemsSource="{Binding Path=Return_patients, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="BM HANNA Pro" FontSize="16">
                         <DataGrid.Columns>
                             <!--체크박스고민-->
                             <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>

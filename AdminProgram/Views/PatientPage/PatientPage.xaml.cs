@@ -19,9 +19,11 @@ namespace AdminProgram
         {
             InitializeComponent();
             LogRecord.LogWrite("환자페이지 오픈");
-            gender_combobox.SelectedIndex = 0;  //콤보박스 인덱스로 기본값설정
+            gender_combobox.SelectedIndex = 0;
+
         }
 
+          
         //환자정보에서 안받아왔던 마케팅동의 알람, 집전화번호받아오는 함수
         void GetMarketingNum(ref string sql, ref PMModel tmp)
         {
@@ -50,7 +52,7 @@ namespace AdminProgram
             {
                 PMModel tmp = (PMModel)row.Item;
                 LogRecord.LogWrite("'" + tmp.Patient_Name + "' 환자정보 상세페이지 들어감");
-                string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where Resident_Regist_Num = " + tmp.Resident_Regist_Num;
+                string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where PATIENT_ID = " + tmp.Patient_ID;
                 GetMarketingNum(ref sql, ref tmp);
                
                 ModifiyPatient.Passvalue = tmp;
@@ -59,6 +61,7 @@ namespace AdminProgram
                 ModifiyPatient tw = new ModifiyPatient();
 
                 tw.ShowDialog();
+                search.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
 
@@ -72,10 +75,6 @@ namespace AdminProgram
             {
                 MessageBox.Show("No Date");
             }
-            else
-            {
-                MessageBox.Show(date.Value.ToShortDateString());
-            }
         }
 
         //환자추가하기 버튼이벤트
@@ -84,6 +83,7 @@ namespace AdminProgram
             LogRecord.LogWrite("환자페이지 추가 버튼 클릭");
             AddPatient addPatient = new();
             addPatient.ShowDialog();
+            search.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         //생년월일로 나이 구하는 함수
@@ -112,7 +112,7 @@ namespace AdminProgram
         {
             if (bod_txtbox.Text != "" && bod_txtbox.Text.Length != 8)
             {
-                MessageBox.Show("나이: 8자리로 입력해주세요(ex 19990101)");
+                MessageBox.Show("생년월일: 8자리로 입력해주세요(ex 19990101)");
                 return true;
             }
             if (bod_txtbox.Text != "" && (startAge_txtbox.Text != "" || endAge_txtbox.Text != ""))
@@ -210,7 +210,7 @@ namespace AdminProgram
         }
 
         //검색 클릭 이벤트
-        private void Search_Button_Click(object sender, RoutedEventArgs e)
+        private void Search_Button_Click(object? sender, RoutedEventArgs e)
         {
             LogRecord.LogWrite("환자정보페이지 검색 버튼 클릭");
             string? startyear = null;
@@ -227,29 +227,21 @@ namespace AdminProgram
 
             MakeSQL(ref sql, endyear, startyear);
 
-            /* Connection, Command, DataReader를 통한 데이터 추출 */
-            //OracleCommand : SQL 서버에 어떤 명령을 내리기 위해 사용하는 클래스 ===== 명령문 실행 용도
-            //데이타를 가져오거나(SELECT), 테이블 내용을 삽입(INSERT), 갱신(UPDATE), 삭제(DELETE) 하기 위해
-            //이 클래스를 사용할 수 있으며, 저장 프로시져(Stored Procedure)를 사용할 때도 사용
             OracleCommand comm = new();
             
             comm.Connection = connn;
             comm.CommandText = sql;
 
-            //ExecuteReader : Sends the CommandText to the Connection and builds a SqlDataReader.
-            //SQL Server와 연결을 유지한 상태에서 한번에 한 레코드(One Row)씩 데이타를 가져오는데 사용
-            //DataReader는 하나의 Connection에 하나만 Open되어 있어야 하며, 사용이 끝나면 Close() 메서드를 호출하여 닫아 준다.
             OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-            List<PMModel> datas = new();    //listView에 데이터 뿌리기 위한 틀
+            List<PMModel> datas = new();
 
-            while (reader.Read())   // 다음 레코드 계속 가져와서 루핑 - Advances the SqlDataReader to the next record. true if there are more rows; otherwise false.
+            while (reader.Read())
             {
                 datas.Add(new PMModel()
                 {
-                    //GetString : Gets the column ordinal, given the name of the column.
-                    //가져올 데이터의 컬럼명을 인수로 넣어줌
+                    
                     Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                    Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")), //listView의 textblock id(?)
+                    Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")).Substring(0,7) + "*****",
                     Address = reader.GetString(reader.GetOrdinal("Address")),
                     Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
                     Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
@@ -259,11 +251,18 @@ namespace AdminProgram
                     Age = Calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
                 }) ;
             }
-            dataGrid.ItemsSource = datas; //listview의 데이터 바인딩 진행
+            dataGridPatient.ItemsSource = datas;
 
             reader.Close();
 
         }
+
+        /*private void dataGridPatient_Loaded(object sender, RoutedEventArgs e)
+        {
+            dataGridPatient.ItemsSource = start_value; //안돼유..
+            bool test=dataGridPatient.IsEnabled;
+            bool test2 =dataGridPatient.IsVisible;
+        }*/
     }
     
 }
