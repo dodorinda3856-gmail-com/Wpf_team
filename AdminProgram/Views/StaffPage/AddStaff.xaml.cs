@@ -166,7 +166,7 @@ namespace AdminProgram
             comm.ExecuteNonQuery();
 
             //--------------------------------------------------A
-            comm.CommandText = "INSERT INTO MEDI_STAFF_LOGIN(STAFF_ID, STAFF_LOGIN_ID, STAFF_LOGIN_PW) VALUES(MEDI_LOGIN_SEQ.NEXTVAL, " +
+            comm.CommandText = "INSERT INTO MEDI_STAFF_LOGIN(STAFF_ID, STAFF_LOGIN_ID, STAFF_LOGIN_PW) VALUES(MEDI_STAFF_SEQ.CURRVAL, " +
                                 "'" + staffLoginId.Text + "'" +
                                 ", '" + staffPassword.Password + "'" + ")";
             comm.ExecuteNonQuery();

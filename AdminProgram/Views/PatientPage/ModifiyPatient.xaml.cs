@@ -126,7 +126,7 @@ namespace AdminProgram
                                   ", PHONE_NUM = '" + phoneNum.Text + "'" +
                                   ", AGREE_OF_ALARM = '" + checksms() + "'" +
                                   ", HOME_NUM = '" + homeNum.Text + "' " +
-                                "where RESIDENT_REGIST_NUM = " + securityNum.Text;
+                                "where PATIENT_ID = " + Form2_value.Patient_ID;
 
             //실행시키는기능
             comm.ExecuteNonQuery();
@@ -141,7 +141,7 @@ namespace AdminProgram
             comm.Connection = connn;
             comm.CommandText = "update PATIENT " +
                                 "set PATIENT_STATUS_VAL = 'F' " +
-                                "where RESIDENT_REGIST_NUM = " + securityNum.Text;
+                                "where PATIENT_ID = " + Form2_value.Patient_ID;
 
             //실행시키는기능
             comm.ExecuteNonQuery();

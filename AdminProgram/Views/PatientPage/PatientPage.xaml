@@ -103,8 +103,8 @@
                     </Grid>
 
                     <!--상세목록-->
-                    <DataGrid x:Name="dataGrid" Grid.Row="2" Background="#FFD2CFCF" IsReadOnly="True" AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=PMModel, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="BM HANNA Pro" FontSize="16">
+                    <DataGrid x:Name="dataGridPatient" Grid.Row="2" Background="#FFD2CFCF" IsReadOnly="True" AutoGenerateColumns="False"
+                          ItemsSource="{Binding Path=Return_patients, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontFamily="BM HANNA Pro" FontSize="16">
                         <DataGrid.Columns>
                             <!--체크박스고민-->
                             <DataGridTextColumn MinWidth ="60" Width="Auto" Header="환자번호" Binding="{Binding Patient_ID}"/>

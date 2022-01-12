@@ -6,17 +6,6 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace System.Windows.Controls
-{
-    public static class MyExt
-    {
-        public static void PerformClick(this Button btn)
-        {
-            btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        }
-    }
-}
-
 namespace AdminProgram
 {
     /// <summary>
@@ -25,20 +14,23 @@ namespace AdminProgram
     public partial class PatientPage : Page
     {
         OracleConnection connn;
-        
+
+        private static List<PMModel> start_value = new List<PMModel>();
+        public static List<PMModel> StartValue
+        {
+            get { return start_value; }
+            set { start_value = value; }
+        }
+
         public PatientPage()
         {
             InitializeComponent();
             LogRecord.LogWrite("환자페이지 오픈");
-            gender_combobox.SelectedIndex = 0;  //콤보박스 인덱스로 기본값설정
-            viewtest();
+            gender_combobox.SelectedIndex = 0;
+           // dataGridPatient.ItemsSource = start_value; //안돼유..
         }
 
-        public void viewtest()
-        {
-            search.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        }
-
+          
         //환자정보에서 안받아왔던 마케팅동의 알람, 집전화번호받아오는 함수
         void GetMarketingNum(ref string sql, ref PMModel tmp)
         {
@@ -67,7 +59,7 @@ namespace AdminProgram
             {
                 PMModel tmp = (PMModel)row.Item;
                 LogRecord.LogWrite("'" + tmp.Patient_Name + "' 환자정보 상세페이지 들어감");
-                string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where Resident_Regist_Num = " + tmp.Resident_Regist_Num;
+                string? sql = "select AGREE_OF_ALARM, HOME_NUM from PATIENT where PATIENT_ID = " + tmp.Patient_ID;
                 GetMarketingNum(ref sql, ref tmp);
                
                 ModifiyPatient.Passvalue = tmp;
@@ -225,7 +217,7 @@ namespace AdminProgram
         }
 
         //검색 클릭 이벤트
-        public void Search_Button_Click(object? sender, RoutedEventArgs e)
+        private void Search_Button_Click(object? sender, RoutedEventArgs e)
         {
             LogRecord.LogWrite("환자정보페이지 검색 버튼 클릭");
             string? startyear = null;
@@ -256,7 +248,7 @@ namespace AdminProgram
                 {
                     
                     Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                    Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")),
+                    Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")).Substring(0,7) + "*****",
                     Address = reader.GetString(reader.GetOrdinal("Address")),
                     Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
                     Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
@@ -266,11 +258,18 @@ namespace AdminProgram
                     Age = Calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
                 }) ;
             }
-            dataGrid.ItemsSource = datas;
+            dataGridPatient.ItemsSource = datas;
 
             reader.Close();
 
         }
+
+        /*private void dataGridPatient_Loaded(object sender, RoutedEventArgs e)
+        {
+            dataGridPatient.ItemsSource = start_value; //안돼유..
+            bool test=dataGridPatient.IsEnabled;
+            bool test2 =dataGridPatient.IsVisible;
+        }*/
     }
     
 }
