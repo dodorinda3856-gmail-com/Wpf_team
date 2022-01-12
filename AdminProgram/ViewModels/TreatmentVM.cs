@@ -40,15 +40,11 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref staffModel, value); }
         }
 
-
-
-
-
         private ICollectionView filteredTreatment;
         public ICollectionView FilteredTreatment
         {
             get { return filteredTreatment; }
-            set { filteredTreatment=value; }
+            set { filteredTreatment = value; }
         }
 
         private ObservableCollection<ProcedureFilterModel> pModel;
@@ -100,7 +96,7 @@ namespace AdminProgram.ViewModels
         //== 데이터의 변경을 감지함 ==//
         private void ContentCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            
+
             if (e.OldItems != null)
             {
                 foreach (INotifyPropertyChanged removed in e.OldItems)
@@ -126,7 +122,7 @@ namespace AdminProgram.ViewModels
             if (tModels != null)
             {
                 _logger.LogInformation("{@rModels}", tModels);
-                WeakReferenceMessenger.Default.Send(TMModels); 
+                WeakReferenceMessenger.Default.Send(TMModels);
                 _logger.LogInformation("send 성공");
             }
 
@@ -134,7 +130,7 @@ namespace AdminProgram.ViewModels
             if (dModels != null)
             {
                 _logger.LogInformation("{@rModels}", dModels);
-                WeakReferenceMessenger.Default.Send(DmModels); 
+                WeakReferenceMessenger.Default.Send(DmModels);
                 _logger.LogInformation("send 성공");
             }
 
@@ -142,7 +138,7 @@ namespace AdminProgram.ViewModels
             if (sModels != null)
             {
                 _logger.LogInformation("{@rModels}", sModels);
-                WeakReferenceMessenger.Default.Send(StaffModels); 
+                WeakReferenceMessenger.Default.Send(StaffModels);
                 _logger.LogInformation("send 성공");
             }
 
@@ -158,20 +154,20 @@ namespace AdminProgram.ViewModels
             if (patientModels != null)
             {
                 _logger.LogInformation("{@rModels}", patientModels);
-                WeakReferenceMessenger.Default.Send(PtModels); 
+                WeakReferenceMessenger.Default.Send(PtModels);
                 _logger.LogInformation("send 성공");
             }
 
-    }
-    //== Messenger 사용 end ==//
+        }
+        //== Messenger 사용 end ==//
 
-    //== SQL : 진료 정보 가져오기 ==//
-    //검색어를 기준으로 진료 정보 가져옴
-    //검색어가 없으면 그냥 전체 진료 정보를 가져옴
+        //== SQL : 진료 정보 가져오기 ==//
+        //검색어를 기준으로 진료 정보 가져옴
+        //검색어가 없으면 그냥 전체 진료 정보를 가져옴
 
-    private void GetProcedureData()
+        private void GetProcedureData()
         {
-            string sql = "SELECT * FROM MEDI_PROCEDURE WHERE PROCEDURE_NAME LIKE '%" + searchProcedureText + "%'"; 
+            string sql = "SELECT * FROM MEDI_PROCEDURE WHERE PROCEDURE_NAME LIKE '%" + searchProcedureText + "%'";
 
 
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -200,11 +196,11 @@ namespace AdminProgram.ViewModels
                                 {
                                     PModels.Add(new ProcedureFilterModel()
                                     {
-                                        Procedure_Id= reader.GetInt32(reader.GetOrdinal("MEDI_PROCEDURE_ID")),
+                                        Procedure_Id = reader.GetInt32(reader.GetOrdinal("MEDI_PROCEDURE_ID")),
                                         Procedure_Name = reader.GetString(reader.GetOrdinal("PROCEDURE_NAME")),
                                         Amount = reader.GetInt32(reader.GetOrdinal("TREATMENT_AMOUNT")),
                                     });
-                               
+
                                 }
                             }
                             finally
@@ -223,12 +219,10 @@ namespace AdminProgram.ViewModels
             }
         }
 
-       
-
         private void GetTreatmentData()
         {
-            string sql = "SELECT T3.TREAT_ID, T3.TREAT_DATE,T5.STAFF_NAME, T3.TREAT_DETAILS,T4.PATIENT_ID,T4.PATIENT_NAME, T4.PHONE_NUM,T4.GENDER,T1.PROCEDURE_LIST, T2.DISEASE_LIST FROM (SELECT TREAT_ID, LISTAGG(PROCEDURE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) PROCEDURE_LIST FROM(SELECT T.TREAT_ID, MP.PROCEDURE_NAME  FROM TREATMENT T JOIN TREAT_MEDI TM ON T.TREAT_ID = TM.TREATMENT_ID JOIN MEDI_PROCEDURE MP ON MP.MEDI_PROCEDURE_ID = TM.MEDI_PROCEDURE_ID) GROUP BY TREAT_ID) T1 LEFT join (SELECT TREAT_ID, LISTAGG(DISEASE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) DISEASE_LIST FROM (SELECT T.TREAT_ID, D.DISEASE_NAME  FROM TREATMENT T JOIN TREAT_DISEASE TD ON T.TREAT_ID = TD.TREATMENT_ID JOIN NAME_OF_DISEASE D ON TD.DISEASE_ID = D.DISEASE_ID) GROUP BY TREAT_ID) T2 ON T1.TREAT_ID = T2.TREAT_ID JOIN TREATMENT T3 ON T3.TREAT_ID = T2.TREAT_ID JOIN PATIENT T4 ON T3.PATIENT_ID = T4.PATIENT_ID JOIN MEDI_STAFF T5 ON T5.STAFF_ID = T3.STAFF_ID"; 
-          
+            string sql = "SELECT T3.TREAT_ID, T3.TREAT_DATE,T5.STAFF_NAME, T3.TREAT_DETAILS,T4.PATIENT_ID,T4.PATIENT_NAME, T4.PHONE_NUM,T4.GENDER,T1.PROCEDURE_LIST, T2.DISEASE_LIST FROM (SELECT TREAT_ID, LISTAGG(PROCEDURE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) PROCEDURE_LIST FROM(SELECT T.TREAT_ID, MP.PROCEDURE_NAME  FROM TREATMENT T JOIN TREAT_MEDI TM ON T.TREAT_ID = TM.TREATMENT_ID JOIN MEDI_PROCEDURE MP ON MP.MEDI_PROCEDURE_ID = TM.MEDI_PROCEDURE_ID) GROUP BY TREAT_ID) T1 LEFT join (SELECT TREAT_ID, LISTAGG(DISEASE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) DISEASE_LIST FROM (SELECT T.TREAT_ID, D.DISEASE_NAME  FROM TREATMENT T JOIN TREAT_DISEASE TD ON T.TREAT_ID = TD.TREATMENT_ID JOIN NAME_OF_DISEASE D ON TD.DISEASE_ID = D.DISEASE_ID) GROUP BY TREAT_ID) T2 ON T1.TREAT_ID = T2.TREAT_ID JOIN TREATMENT T3 ON T3.TREAT_ID = T2.TREAT_ID JOIN PATIENT T4 ON T3.PATIENT_ID = T4.PATIENT_ID JOIN MEDI_STAFF T5 ON T5.STAFF_ID = T3.STAFF_ID";
+
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -271,19 +265,18 @@ namespace AdminProgram.ViewModels
                             {
                                 _logger.LogInformation("진료 데이터 읽어오기 성공");
                                 reader.Close();
-                                                            
                             }
                         }
                     }
                 }
                 catch (Exception err)
                 {
-                    _logger.LogInformation(err+"");
+                    _logger.LogInformation(err + "");
                 }
             }
         }
 
-        
+
         private DiseaseModel selectedDisease;
         public DiseaseModel SelectedDisease
         {
@@ -333,11 +326,11 @@ namespace AdminProgram.ViewModels
 
         public void GetStafftData()
         {
-            string sql ="SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
+            string sql = "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
                             "FROM MEDI_STAFF ms " +
                             "WHERE \"POSITION\" = 'D' ";
 
-     
+
             using (OracleConnection conn = new OracleConnection(strCon))
             {
 
@@ -389,11 +382,9 @@ namespace AdminProgram.ViewModels
 
         }
 
-
-
         public void GetPatientData()
         {
-            string sql = "SELECT * FROM PATIENT WHERE PATIENT_NAME LIKE '"+ searchPatientText + "%'";
+            string sql = "SELECT * FROM PATIENT WHERE PATIENT_NAME LIKE '" + searchPatientText + "%'";
 
 
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -423,7 +414,7 @@ namespace AdminProgram.ViewModels
                                     PtModels.Add(new PatientModel()
                                     {
                                         PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                                        ResidentRegistNum = reader.GetString(reader.GetOrdinal("RESIDENT_REGIST_NUM")).Insert(6,"-"),
+                                        ResidentRegistNum = reader.GetString(reader.GetOrdinal("RESIDENT_REGIST_NUM")).Insert(6, "-"),
                                         Gender = reader.GetString(reader.GetOrdinal("GENDER")),
                                         Name = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
                                         PhoneNumber = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
@@ -448,10 +439,6 @@ namespace AdminProgram.ViewModels
             }
 
         }
-
-
-
-
 
         public void GetDiseaseData()
         {
@@ -523,14 +510,14 @@ namespace AdminProgram.ViewModels
             var obj = e.Item as TreatmentModel;
             if (obj != null)
             {
-               if (selectedPatient != null && obj.PatientId != selectedPatient.PatientId)
+                if (selectedPatient != null && obj.PatientId != selectedPatient.PatientId)
                 {
                     e.Accepted = false;
                     return;
                 }
-                if(selectedDisease != null && !obj.Diseases.Contains(selectedDisease.DiseaseName))
+                if (selectedDisease != null && !obj.Diseases.Contains(selectedDisease.DiseaseName))
                 {
-                    
+
                     e.Accepted = false;
                     return;
                 }
@@ -544,7 +531,7 @@ namespace AdminProgram.ViewModels
                     e.Accepted = false;
                     return;
                 }
-                if( selectedDateStart != null && obj.Date < selectedDateStart)
+                if (selectedDateStart != null && obj.Date < selectedDateStart)
                 {
                     e.Accepted = false;
                     return;
@@ -563,7 +550,7 @@ namespace AdminProgram.ViewModels
         {
             _itemSourceList.Filter -= new FilterEventHandler(yourFilter);
             _itemSourceList.Filter += new FilterEventHandler(yourFilter);
-            FilteredTreatment.Refresh();      
+            FilteredTreatment.Refresh();
         }
 
 
@@ -587,7 +574,7 @@ namespace AdminProgram.ViewModels
 
 
         private string searchText;
-        public string SearchText    
+        public string SearchText
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
