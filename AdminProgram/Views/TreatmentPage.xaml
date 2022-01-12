@@ -17,7 +17,7 @@
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
     </Page.Resources>
 
-    <Grid Margin="10,10,10,10">
+    <Grid Loaded="PageLoaded" Margin="10,10,10,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.25*"/>
             <RowDefinition Height="7*"/>

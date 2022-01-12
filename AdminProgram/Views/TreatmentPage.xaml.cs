@@ -1,4 +1,5 @@
-﻿using AdminProgram.Views;
+﻿using AdminProgram.ViewModels;
+using AdminProgram.Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,9 +11,12 @@ namespace AdminProgram
     /// </summary>
     public partial class TreatmentPage : Page
     {
+        TreatmentVM model;
+        
         public TreatmentPage()
         {
             InitializeComponent();
+            model = this.DataContext as TreatmentVM;
         }
 
         private void AddDiseaseFilterBtn(object sender, RoutedEventArgs e)
@@ -34,6 +38,12 @@ namespace AdminProgram
             ap.ShowDialog();
         }
 
-      
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            if(model != null)
+            {
+                model.GetTreatmentData();
+            }
+        }
     }
 }
