@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using AdminProgram.ViewModels;
 
 namespace AdminProgram
 {
@@ -25,6 +26,11 @@ namespace AdminProgram
         public StartPage()
         {
             InitializeComponent();
+            DateTime dt = DateTime.Now;
+            SPViewModel sp = new SPViewModel();
+            WaitTitle.Content = dt.ToString("yyyy/MMM/dd") + "일 대기자 수 ";
+            WaitContent.Text = "" + sp.WaitCount() + "명";
+
         }
     }
 }

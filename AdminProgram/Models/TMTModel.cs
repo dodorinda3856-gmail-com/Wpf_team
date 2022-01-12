@@ -6,5 +6,7 @@ namespace AdminProgram.Models
     {
         public string TREAT_TYPE { get; set; }
         public int TREAT_COUNT { get; set;  }
+        
+        public int WAIT_COUNT { get; set; }
     }
 }

@@ -42,7 +42,6 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
@@ -131,6 +130,51 @@ namespace AdminProgram.ViewModels
                 }
             }
             return monthCount;
+        }
+        public int WaitCount()
+        {
+            TMTModel tm = new TMTModel(); 
+            string sql = "SELECT count(WATING_ID) AS WAIT_COUNT " +
+                "FROM WAITING " +
+                "WHERE WAIT_STATUS_VAL = 'T' AND TO_CHAR(REQUEST_TO_WAIT, 'yyyy-mm-dd') BETWEEN '" + (DateTime.Now).ToString("yyyy-MM-dd") + "'  AND '"+ (DateTime.Now).ToString("yyyy-MM-dd") + "' "
+                ;
+
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+                        using (OracleDataReader reader = comm.ExecuteReader())
+                        {
+                            try
+                            {
+                                while (reader.Read()) {
+                                    tm.WAIT_COUNT = reader.GetInt16(reader.GetOrdinal("WAIT_COUNT"));
+                                }
+
+                            }
+                            catch (Exception e) {
+                                return 0;
+                            }
+                            finally
+                            {
+                                reader.Close();
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return 0;
+                }
+            }
+            return tm.WAIT_COUNT;
         }
     }
 }
