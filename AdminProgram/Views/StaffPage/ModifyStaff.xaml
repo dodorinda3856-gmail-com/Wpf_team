@@ -7,7 +7,7 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-		Title="ModifyStaff" MinHeight="380" MinWidth="400" Height="380" Width="400">
+		Title="의료진정보수정" MinHeight="380" MinWidth="400" Height="380" Width="400">
 	<Grid>
 		<!--테두리-->
 		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">

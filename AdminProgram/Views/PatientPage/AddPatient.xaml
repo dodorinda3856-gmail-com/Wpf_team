@@ -7,7 +7,7 @@
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-		Title="AddPatient" MinHeight="440" MinWidth="500" Height="440" Width="500">
+		Title="환자추가" MinHeight="440" MinWidth="500" Height="440" Width="500">
 	<Grid>
 		<!--테두리-->
 		<Border BorderBrush="Black" CornerRadius="20" BorderThickness="1" Background="#FFF3F3F3" Margin="10,10,10,10">

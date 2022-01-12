@@ -22,7 +22,7 @@
         <StackPanel Orientation="Horizontal">
             <Image Width="65" Margin="110,75,10,10"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Name="labelSys" Content="ezcaretech"
+            <Label Name="labelSys" Content="ezwaiting"
                    FontSize="36" Foreground="Black"
                    Margin="0,90,10,10" VerticalAlignment="Top" FontWeight="Normal" FontFamily="BM HANNA Pro"/>
             <Label Name="labelUserName" Content="사용자명：" Width="100" Height="35" 
