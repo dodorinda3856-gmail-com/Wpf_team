@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:AdminProgram"
         mc:Ignorable="d"
            DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
-        Title="AddProcedureFilter" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="처방명 검색 페이지" Height="450" Width="800">
     <Grid Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -26,13 +27,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="처방명 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
+        <TextBlock Text="처방명 검색 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBox Text="{Binding SearchProcedureText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding GetProcedureBtn}" Key="Return"/>
             </TextBox.InputBindings>
         </TextBox>
-
+        <Button Grid.Column="2" Content="검색" FontSize="18" FontWeight="Normal" Command="{Binding GetProcedureBtn}"
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" />
+        
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   ItemsSource="{Binding Path=PModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
                   SelectedItem="{Binding SelectedProcedure}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10">
@@ -43,6 +48,9 @@
 
         </DataGrid>
 
-        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click"/>
+        <Button Content="적용" Grid.Row="7" Grid.Column="2" Click="Button_Click" FontFamily="BM HANNA Pro" FontSize="18"
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
     </Grid>
 </Window>

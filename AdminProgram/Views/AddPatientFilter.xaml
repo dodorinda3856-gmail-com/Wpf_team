@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:AdminProgram.Views"
         mc:Ignorable="d"
         DataContext="{Binding TMVM, Source={StaticResource ViewModelLocator}}"
-        Title="AddPatientFilter" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="환자 검색 페이지" Height="450" Width="800">
     <Grid Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -26,14 +27,19 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="환자이름 입력 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontFamily="NanumSquareRound Bold" FontWeight="Bold"/>
-        <TextBox Text="{Binding SearchPatientText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal">
+        <TextBlock Text="환자 이름 입력 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="BM HANNA Pro" FontWeight="Normal"/>
+        <TextBox Text="{Binding SearchPatientText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal" Cursor="IBeam">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding GetPatientBtn}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
+        <Button Grid.Column="2" Content="검  색" FontSize="18" FontWeight="Normal" Command="{Binding GetPatientBtn}"
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontFamily="BM HANNA Pro" />
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" IsReadOnly="True" Background="#FFD2CFCF"
                   ItemsSource="{Binding Path=PtModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
                   SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10" FontFamily="NanumSquareRound Bold" FontSize="14">
             <DataGrid.Columns>
@@ -60,30 +66,35 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" 
-                   FontSize="14" FontFamily="NanumSquareRound Bold" FontWeight="Bold" />
+            <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontFamily="BM HANNA Pro" FontWeight="Normal" FontSize="14" />
             <TextBlock Text="{Binding SelectedPatient.Name}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" FontSize="14" FontFamily="NanumSquareRound Bold"/>
+                   VerticalAlignment="Center" FontSize="14" FontFamily="BM HANNA Pro"/>
             
             <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" 
-                   HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold" />
+                   HorizontalAlignment="Right" FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal" />
             <TextBlock Text="{Binding SelectedPatient.ResidentRegistNum}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Normal" />
-            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold"/>
+                       VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal" />
+            <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" 
+                   FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal"/>
             <TextBlock Text="{Binding SelectedPatient.Gender}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
+                       VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14"/>
 
-            <Label Content="전화번호 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold"/>
+            <Label Content="전화번호 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" 
+                   FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal"/>
             <TextBlock  Text="{Binding SelectedPatient.PhoneNumber}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
-                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
+                        VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14"/>
 
-            <Label Content="주소 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontFamily="NanumSquareRound Bold" FontSize="14" FontWeight="Bold"/>
+            <Label Content="주소 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" 
+                   FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal"/>
             <TextBlock  Text="{Binding SelectedPatient.Address}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
-                   VerticalAlignment="Center" FontFamily="NanumSquareRound Bold" FontSize="14"/>
+                   VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14"/>
         </Grid>
 
-        <Button Content="확인" Grid.Row="7" Grid.Column="2" Click="Button_Click" 
-                FontSize="16" FontFamily="NanumSquareRoundOTF ExtraBold" FontWeight="Bold" />
+        <Button Content="적  용" Grid.Row="7" Grid.Column="2" Click="Button_Click" 
+                FontSize="18" FontFamily="BM HANNA Pro" FontWeight="Normal" 
+                Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
 
     </Grid>
 </Window>

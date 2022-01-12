@@ -30,8 +30,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Margin="23,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="  시술명 :"/>
-                    <TextBlock Grid.Column="1" Margin="3,22,40,0" x:Name="procedureName_textBox" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                    <Label Grid.Column="0" Margin="23,20,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="  시술명 :" FontFamily="BM HANNA Pro"/>
+                    <TextBlock Grid.Column="1" Margin="3,22,40,0" x:Name="procedureName_textBox" FontSize="17" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontFamily="BM HANNA Pro"/>
                 </Grid>
 
                 <!--시술단가-->
@@ -42,9 +42,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top" Content="시술단가 :"/>
-                    <TextBox Grid.Column="1" Background="#e0e0e0" Margin="2,17,0,0" x:Name="treatment_textbox" FontSize="14" FontWeight="Bold" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Grid.Column="2" Margin="0,17,0,0" x:Name="textBlock1_Copy3" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top">원</Label>
+                    <Label Grid.Column="0" Margin="20,15,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" Content="시술단가 :" FontFamily="BM HANNA Pro"/>
+                    <TextBox Grid.Column="1" Background="#e0e0e0" Margin="2,17,0,0" x:Name="treatment_textbox" FontSize="17" Padding="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Grid.Column="2" Margin="0,17,0,0" x:Name="textBlock1_Copy3" FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="BM HANNA Pro">원</Label>
                 </Grid>
 
                 <!--시술정보-->
@@ -54,8 +54,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Margin="20,20,0,0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top">시술정보 :</Label>
-                    <TextBox x:Name="procedure_textbox" Background="#e0e0e0" Margin="95,25,40,25" FontSize="14" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+                    <Label Grid.Column="0" Margin="20,20,0,0" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" FontFamily="BM HANNA Pro">시술정보 :</Label>
+                    <TextBox x:Name="procedure_textbox" Background="#e0e0e0" Margin="95,25,40,25" FontSize="17" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
                 </Grid>
 
                 <!--사후관리-->
@@ -65,8 +65,8 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Margin="20,20,0,30" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" VerticalAlignment="Top">사후관리 :</Label>
-                    <TextBox x:Name="as_textbox" Background="#e0e0e0" Margin="95,20,40,25" FontSize="14" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+                    <Label Grid.Column="0" Margin="20,20,0,30" HorizontalAlignment="Left" FontSize="17" VerticalAlignment="Top" FontFamily="BM HANNA Pro">사후관리 :</Label>
+                    <TextBox x:Name="as_textbox" Background="#e0e0e0" Margin="95,20,40,25" FontSize="17" Padding="3" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
                 </Grid>
 
@@ -80,12 +80,12 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="3" x:Name="modify_Procedure" Click="Modify_Procedure_Click" FontSize="18" FontWeight="Bold" Content="수정" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="140" Height="35"/>
-                    <Button Grid.Column="1" x:Name="delete_Procedure" Click="Delete_Procedure_Click" FontSize="18" FontWeight="Bold" Content="삭제" HorizontalAlignment="Left"  Width="140" Height="35" VerticalAlignment="Top"
+                    <Button Grid.Column="3" x:Name="modify_Procedure" Click="Modify_Procedure_Click" FontSize="18" Content="수  정" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="170" Height="35" FontFamily="BM HANNA Pro"/>
+                    <Button Grid.Column="1" x:Name="delete_Procedure" Click="Delete_Procedure_Click" FontSize="18" Content="삭  제" HorizontalAlignment="Left"  Width="170" Height="35" VerticalAlignment="Top"
                             Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             ToolTip="MaterialDesignRaisedButton with Round Corners"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand"/>
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontFamily="BM HANNA Pro"/>
                 </Grid>
             </Grid>
         </Border>
