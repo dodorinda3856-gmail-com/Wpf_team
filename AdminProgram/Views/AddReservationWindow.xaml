@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AdminProgram.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
+        DataContext="{Binding AWRVM, Source={StaticResource ViewModelLocator}}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         Title="진료 예약 추가 페이지" Height="450" Width="800" >
@@ -131,7 +131,7 @@
                     </ComboBox>-->
                 </Grid>
 
-                <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
+                <Button Content="예약 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
                         Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"

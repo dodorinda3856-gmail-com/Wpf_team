@@ -44,6 +44,12 @@ namespace AdminProgram.Models
             get => staffName; 
             set => SetProperty(ref staffName, value); 
         }
+        private int staffId;
+        public int StaffId
+        {
+            get => staffId;
+            set => SetProperty(ref staffId, value);
+        }
 
         private DateTime reservationDT; //진료 예약 날짜
         public DateTime ReservationDT

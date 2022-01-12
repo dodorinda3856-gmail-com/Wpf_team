@@ -66,11 +66,20 @@
 
                 <!--대기자가 진료를 완료한 경우-->
                 <Button Content="수납 완료" Grid.Column="3" Grid.Row="7"
+                Command="{Binding FinPaymentBtn2}" Click="Fin_Payment"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold" FontSize="16"/>
+                
+                <Button Content="진료" Grid.Column="2" Grid.Row="7"
                 Command="{Binding FinDiagnosisBtn2}" Click="Fin_Treatment"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold" FontSize="16"/>
+
+
                 <!--막상 환자가 없는 경우-->
                 <Button Content="대기 삭제" Grid.Column="1" Grid.Row="7"
                 Command="{Binding DeleteWaitingDataBtn}" Click="Delete_Waiting_Data"

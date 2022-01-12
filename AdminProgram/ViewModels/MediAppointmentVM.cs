@@ -29,7 +29,8 @@ namespace AdminProgram.ViewModels
         private int[] randomMedicalStaffId = new int[] { 1, 2, 3, 11, 17 };
         private int[] randomMediProcedureId = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         private int[] randomDiseaseId = new int[] { 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526 };
-
+        private string[] randomTreatMemo = new string[] { "2차 레이저 시술(박피시술)", "레이저 시술 고급 사용여드름 치료를 위한 프락셀 1회 시술","피부 염증완화를 위한 스피큘링 항염 치료",
+        "화농성 여드름 치료위한 PDT 광역동 치료 시술","2도 화상 치료를 위한 LED 화상 진료", "표피층 흉터 제거를 위한 포토나 XS-Dynamics 치료", "레이저 시술 진행"};
         // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
         // messenger의 send와 receive도 하는 곳
         // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
@@ -163,11 +164,11 @@ namespace AdminProgram.ViewModels
 
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
             string sql =
-                "SELECT p.PATIENT_NAME,r.PATIENT_ID, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.RESERVATION_ID " +
+                "SELECT p.PATIENT_NAME,r.PATIENT_ID,r.MEDICAL_STAFF_ID, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.RESERVATION_ID " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID " +
-                "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') >= " + date +
+                "WHERE TO_CHAR(r.RESERVATION_DATE, 'YYYYMMDD') = " + date +
                 " AND r.RESERVE_STATUS_VAL = 'T'" +
                 " ORDER BY r.RESERVATION_DATE ";
 
@@ -199,6 +200,8 @@ namespace AdminProgram.ViewModels
                             _logger.LogInformation("select 실행");
                             _logger.LogInformation("[SQL QUERY] " + sql);
                             try
+
+
                             {
                                 while (reader.Read())
                                 {
@@ -207,11 +210,13 @@ namespace AdminProgram.ViewModels
                                         ReservationId = reader.GetInt32(reader.GetOrdinal("RESERVATION_ID")),
                                         PatientId = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
                                         PatientName = reader.GetString(reader.GetOrdinal("PATIENT_NAME")),
+                                        StaffId = reader.GetInt32(reader.GetOrdinal("MEDICAL_STAFF_ID")),
                                         ReservationDT = reader.GetDateTime(reader.GetOrdinal("RESERVATION_DATE")),
                                         Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM")),
                                         Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
                                         //TreatType = reader.GetString(reader.GetOrdinal("TREAT_TYPE"))
                                     });
+                                    _logger.LogInformation("예약 존재합니다 ㅠㅠ "+ reader.GetString(reader.GetOrdinal("PATIENT_NAME")));
                                 }
                             }
                             catch (InvalidCastException e)
@@ -274,17 +279,19 @@ namespace AdminProgram.ViewModels
 
 
                         sql =
-                            "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '방문' AS VISIT_TYPE, w.REQUEST_TO_WAIT AS TR_DATETIME " +
+                            "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '방문' AS VISIT_TYPE, t.TREAT_DATE AS TR_DATETIME, t.TREAT_STATUS__VAL " +
                             "FROM WAITING w " +
-                            "JOIN PATIENT p ON p.PATIENT_ID = w.PATIENT_ID " +
+                            "JOIN PATIENT p ON p.PATIENT_ID = w.PATIENT_ID JOIN TREATMENT t ON t.PATIENT_ID=w.PATIENT_ID "+ 
                                 "WHERE TO_CHAR(w.REQUEST_TO_WAIT , 'YYYYMMDD') = " + date +
-                                "AND w.WAIT_STATUS_VAL = 'F' " +
+                                " AND TO_CHAR(t.TREAT_DATE, 'YYYYMMDD') = " +date + 
+                                " AND w.WAIT_STATUS_VAL = 'F' " +
                             "UNION ALL " +
-                            "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '예약' AS VISIT_TYPE, r.RESERVATION_DATE " +
+                            "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '예약' AS VISIT_TYPE, t.TREAT_DATE , T.TREAT_STATUS__VAL " +
                             "FROM RESERVATION r " +
-                            "JOIN PATIENT p ON p.PATIENT_ID = r.PATIENT_ID " +
+                            "JOIN PATIENT p ON p.PATIENT_ID = r.PATIENT_ID JOIN TREATMENT t ON t.PATIENT_ID=r.PATIENT_ID " +
                                 "WHERE TO_CHAR(r.RESERVATION_DATE , 'YYYYMMDD') = " + date +
-                                "AND r.RESERVE_STATUS_VAL = 'F' ";
+                             " AND TO_CHAR(t.TREAT_DATE, 'YYYYMMDD') = " + date +
+                                " AND r.RESERVE_STATUS_VAL = 'F' ";
                         comm.CommandText = sql;
 
                         using (OracleDataReader reader = comm.ExecuteReader())
@@ -382,6 +389,11 @@ namespace AdminProgram.ViewModels
             int procId = rand.Next(randomMediProcedureId.Length);
             string sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
 
+            if(selectedItem.ReservationDT.Date != DateTime.Now.Date)
+            {
+                return;
+            }
+
 
             OracleTransaction STrans = null;  //오라클 트랜젝션
 
@@ -429,21 +441,20 @@ namespace AdminProgram.ViewModels
                             int disId = rand.Next(randomDiseaseId.Length);
                             comm.Connection = conn;
 
-                            sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
                             _logger.LogInformation("[SQL Query] : " + sql);
                             //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                             comm.Transaction = STrans;
 
 
-                            comm.CommandText = sql;
-                            comm.ExecuteNonQuery();
+                           
 
 
 
                             //진료 데이터 추가
                             int staffId = rand.Next(randomMedicalStaffId.Length);
-                            sql = "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem.PatientId + "," + randomMedicalStaffId[staffId] +
-                                ", '치료함', 'T'," + disId + ", sysdate + (interval '9' hour))";
+                            int memoId = rand.Next(randomTreatMemo.Length);
+                            sql = "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem.PatientId + "," + SelectedItem.StaffId+
+                                " , '"+ randomTreatMemo[memoId] +  "', 'T'," + randomDiseaseId[disId] + ", sysdate + (interval '9' hour))";
                             _logger.LogInformation("[SQL Query] : " + sql);
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
@@ -465,11 +476,11 @@ namespace AdminProgram.ViewModels
 
 
                             //진료에 payment추가
-                            sql = "INSERT INTO PAYMENT (PAYMENT_ID, TREAT_ID, DISEASE_ID, PATIENT_ID, ORIGIN_AMOUNT, DISCOUNT_AMOUNT, FIN_PAYMENT_AMOUNT,CREATION_DATE) VALUES (" +
+                            /*sql = "INSERT INTO PAYMENT (PAYMENT_ID, TREAT_ID, DISEASE_ID, PATIENT_ID, ORIGIN_AMOUNT, DISCOUNT_AMOUNT, FIN_PAYMENT_AMOUNT,CREATION_DATE) VALUES (" +
                                 "PAYMENT_SEQ.NEXTVAL,TREATMENT_SEQ.CURRVAL," + randomDiseaseId[disId] + "," + selectedItem.PatientId + "," + procedurePrice[0] + "," + procedurePrice[0] / 2 + "," + (procedurePrice[0] - (procedurePrice[0] / 2)) + ",sysdate + (interval '9' hour)) ";
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
-
+                            */
 
                             comm.Transaction.Commit();   //커밋
 
@@ -553,21 +564,17 @@ namespace AdminProgram.ViewModels
                             int disId = rand.Next(randomDiseaseId.Length);
                             comm.Connection = conn;
 
-                            sql = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
-                            _logger.LogInformation("[SQL Query] : " + sql);
+                     
+                        
                             //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                             comm.Transaction = STrans;
 
 
-                            comm.CommandText = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
-                            comm.ExecuteNonQuery();
-
-
-
                             //진료 데이터 추가
                             int staffId = rand.Next(randomMedicalStaffId.Length);
+                            int memoId = rand.Next(randomTreatMemo.Length);
                             sql = "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem2.PatientId + "," + randomMedicalStaffId[staffId] +
-                                ", '치료함', 'T'," + disId + ", sysdate + (interval '9' hour))";
+                                ", '" + randomTreatMemo[memoId] + "', 'T'," + disId + ", sysdate + (interval '9' hour))";
                             _logger.LogInformation("[SQL Query] : " + sql);
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
@@ -589,11 +596,12 @@ namespace AdminProgram.ViewModels
 
 
                             //진료에 payment추가
+                            /*
                             sql = "INSERT INTO PAYMENT (PAYMENT_ID, TREAT_ID, DISEASE_ID, PATIENT_ID, ORIGIN_AMOUNT, DISCOUNT_AMOUNT, FIN_PAYMENT_AMOUNT,CREATION_DATE) VALUES (" +
                                 "PAYMENT_SEQ.NEXTVAL,TREATMENT_SEQ.CURRVAL," + randomDiseaseId[disId] + "," + selectedItem2.PatientId + "," + procedurePrice[0] + "," + procedurePrice[0] / 2 + "," + (procedurePrice[0] - (procedurePrice[0] / 2)) + ",sysdate + (interval '9' hour)) ";
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
-
+                            */
 
                             comm.Transaction.Commit();   //커밋
 
@@ -617,9 +625,91 @@ namespace AdminProgram.ViewModels
                 }
             }
         }
+
+
+        private void FinPayment()
+        {
+
+            string sql = "UPDATE TREATMENT SET TREAT_STATUS__VAL = 'F' WHERE PATIENT_ID=" + SelectedItem.PatientId + " AND TREAT_STATUS__VAL='T'";
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+
+
+                        sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
+                        comm.CommandText = sql;
+                        comm.ExecuteNonQuery();
+
+                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogCritical(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
+                    GetReservationPatientList();
+                }
+            }
+        }
+
+
+        private void FinPayment2()
+        {
+            string sql = "UPDATE TREATMENT SET TREAT_STATUS__VAL = 'F' WHERE PATIENT_ID=" + SelectedItem2.PatientId + " AND TREAT_STATUS__VAL='T'";
+            using (OracleConnection conn = new OracleConnection(strCon))
+            {
+                try
+                {
+                    conn.Open();
+
+                    using (OracleCommand comm = new OracleCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandText = sql;
+                        
+                        comm.CommandText = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
+                        comm.ExecuteNonQuery();
+
+                        _logger.LogInformation("[SQL Query] : " + sql);
+                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception err)
+                {
+                    _logger.LogCritical(err + "");
+                }
+                finally
+                {
+                    _logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
+                    GetReservationPatientList();
+                }
+            }
+        }
+
         private RelayCommand finDiagnosisBtn2;
         public ICommand FinDiagnosisBtn2 => finDiagnosisBtn2 ??= new RelayCommand(FinDiagnosis2);
         //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 end ==//
+
+
+        private RelayCommand finPaymentBtn;
+        public ICommand FinPaymentBtn => finPaymentBtn ??= new RelayCommand(FinPayment);
+        private RelayCommand finPaymentBtn2;
+        public ICommand FinPaymentBtn2 => finPaymentBtn2 ??= new RelayCommand(FinPayment2);
+        //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 end ==//
+
 
 
         //== 예약 정보를 수정하는 경우 start ==//
