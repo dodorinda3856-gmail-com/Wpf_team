@@ -110,7 +110,7 @@
                 </Grid>
 
             </Grid>
-            <Grid Width="200" Background="{DynamicResource MaterialDesignDarkBackground}" Margin="0,350,0,53" Grid.RowSpan="3"/>
+            <Grid Width="200" Background="{DynamicResource MaterialDesignDarkBackground}" Margin="0,345,0,53" Grid.RowSpan="3"/>
             <StackPanel Grid.Row="2" Background="{DynamicResource MaterialDesignDarkBackground}">
                 <Label x:Name="Global_Name" Content="" FontSize="18" HorizontalContentAlignment="Center" Foreground="White" FontFamily="BM HANNA Pro"></Label>
                 <Button x:Name="Logout" Content="로그아웃" Height="33" HorizontalAlignment="Center" Width="110" Margin="0,20,0,30" Cursor="Hand" Click="LogoutBtn_Click" FontFamily="BM HANNA Pro" FontSize="18"/>
