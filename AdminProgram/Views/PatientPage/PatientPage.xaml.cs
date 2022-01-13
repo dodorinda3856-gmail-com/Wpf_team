@@ -110,9 +110,12 @@ namespace AdminProgram
         //제대로된 값이 들어오는지 확인하는 함수
         private bool CheckRightValue()
         {
+            
+
             if (bod_txtbox.Text != "" && bod_txtbox.Text.Length != 8)
             {
                 MessageBox.Show("생년월일: 8자리로 입력해주세요(ex 19990101)");
+                bod_txtbox.Clear();
                 return true;
             }
             if (bod_txtbox.Text != "" && (startAge_txtbox.Text != "" || endAge_txtbox.Text != ""))
@@ -120,6 +123,18 @@ namespace AdminProgram
                 MessageBox.Show("생년월일과 나이범위를 함께 쓸 수 없습니다.");
                 bod_txtbox.Clear();
                 startAge_txtbox.Clear();
+                endAge_txtbox.Clear();
+                return true;
+            }
+            if (startAge_txtbox.Text != "" && (Convert.ToInt32(startAge_txtbox.Text) <= 0 || Convert.ToInt32(startAge_txtbox.Text) > 100))
+            {
+                MessageBox.Show("나이는 0~99세까지 입니다.");
+                startAge_txtbox.Clear();
+                return true;
+            }
+            if (endAge_txtbox.Text != "" && (Convert.ToInt32(endAge_txtbox.Text) <= 0 || Convert.ToInt32(endAge_txtbox.Text) > 100))
+            {
+                MessageBox.Show("나이는 0~99세까지 입니다.");
                 endAge_txtbox.Clear();
                 return true;
             }
@@ -255,6 +270,12 @@ namespace AdminProgram
 
             reader.Close();
 
+            patientNum_txtbox.Text = "";
+            patientName_txtbox.Text = "";
+            bod_txtbox.Text = "";
+            startAge_txtbox.Text = "";
+            endAge_txtbox.Text = "";
+            phoneNum_txtbox.Text = "";
         }
 
         /*private void dataGridPatient_Loaded(object sender, RoutedEventArgs e)
