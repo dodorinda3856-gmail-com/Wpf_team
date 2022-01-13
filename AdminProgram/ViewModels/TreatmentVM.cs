@@ -19,6 +19,8 @@ namespace AdminProgram.ViewModels
         private readonly ILogger _logger; // 로그   
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
+
+
         //진료 정보 관련 Model 사용을 위함
         private ObservableCollection<TreatmentModel> tmModel;
         public ObservableCollection<TreatmentModel> TMModels
@@ -219,9 +221,9 @@ namespace AdminProgram.ViewModels
             }
         }
 
-        private void GetTreatmentData()
+        public void GetTreatmentData()
         {
-            string sql = "SELECT T3.TREAT_ID, T3.TREAT_DATE,T5.STAFF_NAME, T3.TREAT_DETAILS,T4.PATIENT_ID,T4.PATIENT_NAME, T4.PHONE_NUM,T4.GENDER,T1.PROCEDURE_LIST, T2.DISEASE_LIST FROM (SELECT TREAT_ID, LISTAGG(PROCEDURE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) PROCEDURE_LIST FROM(SELECT T.TREAT_ID, MP.PROCEDURE_NAME  FROM TREATMENT T JOIN TREAT_MEDI TM ON T.TREAT_ID = TM.TREATMENT_ID JOIN MEDI_PROCEDURE MP ON MP.MEDI_PROCEDURE_ID = TM.MEDI_PROCEDURE_ID) GROUP BY TREAT_ID) T1 LEFT join (SELECT TREAT_ID, LISTAGG(DISEASE_NAME, ',') WITHIN GROUP(ORDER BY TREAT_ID) DISEASE_LIST FROM (SELECT T.TREAT_ID, D.DISEASE_NAME  FROM TREATMENT T JOIN TREAT_DISEASE TD ON T.TREAT_ID = TD.TREATMENT_ID JOIN NAME_OF_DISEASE D ON TD.DISEASE_ID = D.DISEASE_ID) GROUP BY TREAT_ID) T2 ON T1.TREAT_ID = T2.TREAT_ID JOIN TREATMENT T3 ON T3.TREAT_ID = T2.TREAT_ID JOIN PATIENT T4 ON T3.PATIENT_ID = T4.PATIENT_ID JOIN MEDI_STAFF T5 ON T5.STAFF_ID = T3.STAFF_ID";
+            string sql = "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, t.TREAT_DETAILS,t.TREAT_DATE, m.STAFF_NAME, n.DISEASE_NAME, mp.PROCEDURE_NAME FROM TREATMENT t JOIN PATIENT p ON t.PATIENT_ID = p.PATIENT_ID JOIN MEDI_STAFF m ON m.STAFF_ID = t.STAFF_ID JOIN NAME_OF_DISEASE n ON t.DISEASE_ID = n.DISEASE_ID JOIN MEDI_PROCEDURE mp ON n.MEDI_PROCEDURE_ID = mp.MEDI_PROCEDURE_ID";
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -256,8 +258,8 @@ namespace AdminProgram.ViewModels
                                         Gender = reader.GetString(reader.GetOrdinal("GENDER")),
                                         Date = reader.GetDateTime(reader.GetOrdinal("TREAT_DATE")),
                                         StaffName = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
-                                        Diseases = reader.GetString(reader.GetOrdinal("DISEASE_LIST")),
-                                        Procedures = reader.GetString(reader.GetOrdinal("PROCEDURE_LIST"))
+                                        Diseases = reader.GetString(reader.GetOrdinal("DISEASE_NAME")),
+                                        Procedures = reader.GetString(reader.GetOrdinal("PROCEDURE_NAME"))
                                     });
                                 }
                             }

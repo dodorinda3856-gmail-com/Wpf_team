@@ -16,6 +16,13 @@ namespace AdminProgram.Models
             set => SetProperty(ref reservationId, value);
         }
 
+        private int patientId;
+        public int PatientId
+        {
+            get => patientId;
+            set => SetProperty(ref patientId, value);
+        }
+
         //예약한 환자 이름
         private string? patientName; 
         public string PatientName
@@ -36,6 +43,12 @@ namespace AdminProgram.Models
         { 
             get => staffName; 
             set => SetProperty(ref staffName, value); 
+        }
+        private int staffId;
+        public int StaffId
+        {
+            get => staffId;
+            set => SetProperty(ref staffId, value);
         }
 
         private DateTime reservationDT; //진료 예약 날짜

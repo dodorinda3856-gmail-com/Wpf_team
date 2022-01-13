@@ -45,5 +45,12 @@ namespace AdminProgram.Models
             get => time;
             set => SetProperty(ref time, value);
         }
+
+        private Char treatStatusVal;
+        public Char TreatStatusVal
+        {
+            get => treatStatusVal;
+            set => SetProperty(ref treatStatusVal, value);
+        } 
     }
 }

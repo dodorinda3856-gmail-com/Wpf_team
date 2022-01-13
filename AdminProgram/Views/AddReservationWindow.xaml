@@ -124,7 +124,7 @@
                      Text="{Binding ExplainSymtom}" FontWeight="Normal" FontSize="14"/>
                 </Grid>
 
-                <Button Content="예약 등록 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
+                <Button Content="예약 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
                         Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"

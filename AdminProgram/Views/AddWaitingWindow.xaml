@@ -100,7 +100,7 @@
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Cursor="Hand" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro" VerticalAlignment="Center"/>
-                <Button Content="대기자 등록" Grid.Row="7" Grid.Column="5"
+                <Button Content="대기 등록" Grid.Row="7" Grid.Column="5"
                         Command="{Binding RegisterWaitingData}" Click="Add_Waiting_Btn"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
