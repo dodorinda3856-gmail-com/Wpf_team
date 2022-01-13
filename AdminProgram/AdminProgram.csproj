@@ -12,6 +12,7 @@
     <!--<None Remove="icon.ico" />-->
 	  <None Remove="disease.png" />
 	  <None Remove="doctor.png" />
+	  <None Remove="LogImage.png" />
 	  <None Remove="main_page.png" />
 	  <None Remove="patient.png" />
 	  <None Remove="treatment_page.png" />
@@ -39,6 +40,7 @@
     <!--<Resource Include="icon.ico" />-->
 	  <Resource Include="disease.png" />
 	  <Resource Include="doctor.png" />
+	  <Resource Include="LogImage.png" />
 	  <Resource Include="main_page.png" />
 	  <Resource Include="patient.png" />
 	  <Resource Include="treatment_page.png" />
