@@ -38,6 +38,8 @@ namespace AdminProgram
             Patient_Label.Foreground = Brushes.White;
             Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
             Staff_Label.Foreground = Brushes.White;
+            Log_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Log_Management.Foreground = Brushes.White;
 
 
             MediAppointment_Label_grid.Background = Brushes.White;
@@ -58,6 +60,8 @@ namespace AdminProgram
             Patient_Label.Foreground = Brushes.White;
             Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
             Staff_Label.Foreground = Brushes.White;
+            Log_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Log_Management.Foreground = Brushes.White;
 
             Home_Label_grid.Background = Brushes.White;
             Home_Label.Foreground = Brushes.Black;
@@ -77,6 +81,8 @@ namespace AdminProgram
             Patient_Label.Foreground = Brushes.White;
             Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
             Staff_Label.Foreground = Brushes.White;
+            Log_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Log_Management.Foreground = Brushes.White;
 
             Medi_Label_grid.Background = Brushes.White;
             Medi_Label.Foreground = Brushes.Black;
@@ -96,6 +102,8 @@ namespace AdminProgram
             Medi_Label.Foreground = Brushes.White;
             Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
             Staff_Label.Foreground = Brushes.White;
+            Log_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Log_Management.Foreground = Brushes.White;
 
             Patient_Label_grid.Background = Brushes.White;
             Patient_Label.Foreground = Brushes.Black;
@@ -115,6 +123,8 @@ namespace AdminProgram
             Medi_Label.Foreground = Brushes.White;
             Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
             Patient_Label.Foreground = Brushes.White;
+            Log_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Log_Management.Foreground = Brushes.White;
 
             Staff_Label_grid.Background = Brushes.White;
             Staff_Label.Foreground = Brushes.Black;
@@ -134,11 +144,35 @@ namespace AdminProgram
             Patient_Label.Foreground = Brushes.White;
             Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
             Staff_Label.Foreground = Brushes.White;
+            Log_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Log_Management.Foreground = Brushes.White;
 
             Disease_Management_grid.Background = Brushes.White;
             Disease_Management.Foreground = Brushes.Black;
             
             this.frame.Navigate(new Uri("Views/DiseaseManagePage/DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        //로그관리페이지
+        private void Log_Management_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MediAppointment_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            MediAppointment_Label.Foreground = Brushes.White;
+            Home_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Home_Label.Foreground = Brushes.White;
+            Medi_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Medi_Label.Foreground = Brushes.White;
+            Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Patient_Label.Foreground = Brushes.White;
+            Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Staff_Label.Foreground = Brushes.White;
+            Disease_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Disease_Management.Foreground = Brushes.White;
+
+            Log_Management_grid.Background = Brushes.White;
+            Log_Management.Foreground = Brushes.Black;
+
+            this.frame.Navigate(new Uri("Views/LogPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)

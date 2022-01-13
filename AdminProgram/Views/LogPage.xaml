@@ -1,0 +1,49 @@
+﻿<Page x:Class="AdminProgram.Views.LogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AdminProgram.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="LogPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.RowSpan="3" Grid.Column="0" Background="#00ff0000"/>
+        <Canvas Grid.RowSpan="3" Grid.Column="2" Background="#00ff0000"/>
+        <Canvas Grid.Row="0" Grid.Column="1" Background="#00ff0000"/>
+        <Canvas Grid.Row="2" Grid.Column="1" Background="#00ff0000"/>
+        
+        <!--로그 데이터-->
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" CornerRadius="5,5,5,5" BorderThickness="1" Background="#FFF3F3F3">
+            
+            <DataGrid x:Name="LogGrid" IsReadOnly="True"  Background="#FFD2CFCF" AutoGenerateColumns="False" CanUserAddRows="False"
+                  ItemsSource="{Binding Path=샘플데이터, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontSize="16" FontFamily="BM HANNA Pro">
+                
+                <DataGrid.Columns>
+                    
+                    <!--minwidth는 나중에 데이터 들어오는거보고 수정해야할듯!!
+                        SQL 정렬은 USER_ID, LOG_DATE 순으로 정렬할것-->
+                    
+                    <DataGridTextColumn MinWidth ="60" Width="Auto" Header="USER_ID" Binding="{Binding user_id}"/>
+                    <DataGridTextColumn MinWidth="60" Width="Auto" Header="LOG_LEVEL" Binding="{Binding Staff_name}"/>
+                    <DataGridTextColumn MinWidth="120" Width="Auto" Header="ACCESS_PATH" Binding="{Binding Gender}"/>
+                    <DataGridTextColumn MinWidth="100" Width="Auto" Header="LOG_MESSAGE" Binding="{Binding Position}"/>
+                    <DataGridTextColumn MinWidth="70" Width="Auto" Header="USER_IP" Binding="{Binding Medi_subject}"/>
+                    <DataGridTextColumn MinWidth="60" Width="Auto" Header="LOG_DATE" Binding="{Binding Phone_num}"/>
+                </DataGrid.Columns>
+                
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>
