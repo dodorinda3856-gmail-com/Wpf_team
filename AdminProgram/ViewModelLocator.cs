@@ -12,5 +12,6 @@ namespace AdminProgram
         //public PatientVM PMVM => Ioc.Default.GetService<PatientVM>(); // 아직 App.xaml.cs에 등록 안함
         public TreatmentVM TMVM => Ioc.Default.GetService<TreatmentVM>();
         public AddWaitingReservationVM AWRVM => Ioc.Default.GetService<AddWaitingReservationVM>();
+        public SPViewModel SPVM => Ioc.Default.GetService<SPViewModel>();
     }
 }
