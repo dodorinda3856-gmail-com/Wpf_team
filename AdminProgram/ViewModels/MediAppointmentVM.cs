@@ -24,20 +24,33 @@ namespace AdminProgram.ViewModels
 {
     public class MediAppointmentVM : ObservableRecipient
     {
+        // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
+        // messenger의 send와 receive도 하는 곳
+        // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
 
         private ObservableCollection<int> procedurePrice;
 
         //진료 랜덤 생성
         private Random rand = new Random();
-        private int[] randomMedicalStaffId = new int[] { 1, 2, 3, 11, 17 };
-        private int[] randomMediProcedureId = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        private int[] randomDiseaseId = new int[] { 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526 };
-        private string[] randomTreatMemo = new string[] { "2차 레이저 시술(박피시술)", "레이저 시술 고급 사용여드름 치료를 위한 프락셀 1회 시술","피부 염증완화를 위한 스피큘링 항염 치료",
-        "화농성 여드름 치료위한 PDT 광역동 치료 시술","2도 화상 치료를 위한 LED 화상 진료", "표피층 흉터 제거를 위한 포토나 XS-Dynamics 치료", "레이저 시술 진행"};
-        // viewmodel에서는 model의 값/을 가져와서 view에 뿌리기 전에 전처리 하는 곳
-        // messenger의 send와 receive도 하는 곳
-        // viewmodel은 messenger를 사용하는 통신에 직접적인 영향을 미침
-
+        private int[] randomMedicalStaffId = new int[] 
+        { 
+            1, 2, 3, 11, 17 
+        };
+        private int[] randomMediProcedureId = new int[] 
+        { 
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10 
+        };
+        private int[] randomDiseaseId = new int[] 
+        { 
+            514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526 
+        };
+        private string[] randomTreatMemo = new string[] 
+        {
+            "2차 레이저 시술(박피시술)", "레이저 시술 고급 사용여드름 치료를 위한 프락셀 1회 시술",
+            "피부 염증완화를 위한 스피큘링 항염 치료", "화농성 여드름 치료위한 PDT 광역동 치료 시술",
+            "2도 화상 치료를 위한 LED 화상 진료", "표피층 흉터 제거를 위한 포토나 XS-Dynamics 치료", "레이저 시술 진행"
+        };
+        
         private readonly ILogger _loger;
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
@@ -74,8 +87,9 @@ namespace AdminProgram.ViewModels
             set { SetProperty(ref treatmentCompleteModels, value); }
         }
 
-        public MediAppointmentVM(ILogger<MediAppointmentVM> logger)
+        public MediAppointmentVM()
         {
+            //ILogger<MediAppointmentVM> logger
             //_logger = logger;
             //_logger.LogInformation("{@ILogger}", logger);
 
@@ -89,6 +103,7 @@ namespace AdminProgram.ViewModels
             TreatmentCompleteModels = new ObservableCollection<TreatmentCompleteListModel>();
             TreatmentCompleteModels.CollectionChanged += ContentCollectionChanged;
 
+            //동기화
             GetReservationPatientList();
         }
 
@@ -143,10 +158,10 @@ namespace AdminProgram.ViewModels
         //== Messenger 기초 end ==//
 
 
-        //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query start ==//
+        //== 처음 화면에 보일 DataGrid의 모든 정보 가져오기 SQL Query start ==//
         private void GetReservationPatientList()
         {
-            LogRecord.LogWrite("[MediAppointmentVM - GetReservationPatientList()] [실행]");
+            LogRecord.LogWrite("[MediAppointmentVM] GetReservationPatientList() 실행");
 
             //Month, Day가 1~12까지 가져와서 01, 02 ... 이런식으로 만들기 위함
             string month = "";
@@ -185,9 +200,6 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-
-                    //_logger.LogInformation("DB Connection OK...");
-                    //_logger.LogInformation("" + month);
                     LogRecord.LogWrite("[MediAppointmentVM] [예약 환자 데이터 읽어오기 SQL QUERY] " + sql);
 
                     //데이터가 누적되던 문제 해결
@@ -207,8 +219,6 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            //_logger.LogInformation("select 실행");
-                            //_logger.LogInformation("[SQL QUERY] " + sql);
                             try
 
 
@@ -225,12 +235,10 @@ namespace AdminProgram.ViewModels
                                         Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM")),
                                         Doctor = reader.GetString(reader.GetOrdinal("STAFF_NAME"))
                                     });
-                                    //_logger.LogInformation("예약 존재합니다 ㅠㅠ "+ reader.GetString(reader.GetOrdinal("PATIENT_NAME")));
                                 }
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                //_logger.LogCritical(e + "");
                                 LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
@@ -272,23 +280,17 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                             //_logger.LogCritical(e + "");
+                            { //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
                             {
-                                //_logger.LogInformation("병원에서 대기 중인 환자 데이터 읽어오기 성공");
                                 LogRecord.LogWrite("[MediAppointmentVM] 방문 대기 리스트 읽어오기 성공");
                                 reader.Close();
                             }
                         }
 
                         // 3) 진료 완료된 환자 리스트를 가져옴
-                        //진행중...
-
-
-
                         sql =
                             "SELECT p.PATIENT_ID, p.PATIENT_NAME, p.PHONE_NUM, '방문' AS VISIT_TYPE, t.TREAT_DATE AS TR_DATETIME, t.TREAT_STATUS__VAL " +
                             "FROM WAITING w " +
@@ -325,7 +327,6 @@ namespace AdminProgram.ViewModels
                             }
                             catch (InvalidCastException e)
                             {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                //_logger.LogCritical(e + "");
                                 LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
@@ -338,26 +339,27 @@ namespace AdminProgram.ViewModels
                 }
                 catch (Exception err)
                 {
-                    LogRecord.LogWrite("[MediAppointmentVM - GetReservationPatientList()] [exception 발생] " + err);
+                    LogRecord.LogWrite("[MediAppointmentVM] [exception 발생] " + err);
                 }
             }
         }
         private RelayCommand reservationUpdateBtn;
         public ICommand ReservationUpdateBtn => reservationUpdateBtn ??= new RelayCommand(GetReservationPatientList);
-        //== 처음 화면에 보일 DataGrid의 모든 정보 SQL Query end ==//
+        //== 처음 화면에 보일 DataGrid의 모든 정보 가져오기 SQL Query end ==//
 
 
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) start ==//
         private void DeleteWaitingData()
         {
             string sql = "DELETE FROM WAITING w WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
+            LogRecord.LogWrite("[MediAppointmentVM] DeleteWaitingData() 실행 ");
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
                 {
                     conn.Open();
-                    //_logger.LogInformation("DB Connection OK...");
+                    LogRecord.LogWrite("[MediAppointmentVM] [대기 환자 삭제 SQL] " + sql);
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -371,9 +373,11 @@ namespace AdminProgram.ViewModels
                 catch(Exception err)
                 {
                     //_loger.LogCritical(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM] [Exception] " + err);
                 }
                 finally
                 {
+                    LogRecord.LogWrite("[MediAppointmentVM] 이 환자를 대기자 리스트에서 삭제 완료");
                     //_loger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
                 }
             }
@@ -385,35 +389,24 @@ namespace AdminProgram.ViewModels
         //== 방문해서 대기중인 환자 삭제(대기하다가 탈주함, 또는 대기자 리스트에 올려두고 환자가 오지 않음) end ==//
 
 
-       //== 예약 환자가 수납을 완료하는 경우 start ==//
+        //== 예약 환자가 진료를 완료하는 경우 start ==//
         private void FinDiagnosis()
         {
-            //후속 처리 쿼리 짜서 넣으면 됨
-            //_logger.LogInformation("예약 환자 수납 진행");
             //받을 치료
+            LogRecord.LogWrite("[MediAppointmentVM] FinDiagnosis() 실행 ");
             int procId = rand.Next(randomMediProcedureId.Length);
             string sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
+            if (selectedItem.ReservationDT.Date != DateTime.Now.Date){ return; }
 
-            if (selectedItem.ReservationDT.Date != DateTime.Now.Date)
-            {
-                return;
-            }
-
-
-            OracleTransaction STrans = null;  //오라클 트랜젝션
-
-
+            OracleTransaction STrans = null; //오라클 트랜젝션
             procedurePrice = new ObservableCollection<int>();
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
-
                 try
                 {
                     conn.Open();
-                    //_logger.LogInformation("DB Connection OK...");
                     STrans = conn.BeginTransaction();
-
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -433,11 +426,11 @@ namespace AdminProgram.ViewModels
                             }
                             finally
                             {
+                                LogRecord.LogWrite("[MediAppointmentVM] 예약 환자 수납 완료");
                                 reader.Close();
                             }
                         }
                     }
-
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -445,40 +438,32 @@ namespace AdminProgram.ViewModels
                         {
                             int disId = rand.Next(randomDiseaseId.Length);
                             comm.Connection = conn;
-
-                            //_logger.LogInformation("[SQL Query] : " + sql);
-                            //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                             comm.Transaction = STrans;
 
-
-
-
-
-
-                            //진료 데이터 추가
+                            //==진료 데이터 추가
                             int staffId = rand.Next(randomMedicalStaffId.Length);
                             int memoId = rand.Next(randomTreatMemo.Length);
-                            sql = "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem.PatientId + "," + SelectedItem.StaffId +
+
+                            sql = 
+                                "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) " +
+                                "VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem.PatientId + "," + SelectedItem.StaffId +
                                 " , '" + randomTreatMemo[memoId] + "', 'T'," + randomDiseaseId[disId] + ", sysdate + (interval '9' hour))";
-                            //_logger.LogInformation("[SQL Query] : " + sql);
+                            comm.CommandText = sql;
+                            comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+
+                            //==진료에 치료 추가
+                            sql = 
+                                "INSERT INTO TREAT_MEDI (TREATMENT_ID, MEDI_PROCEDURE_ID) " +
+                                "VALUES(TREATMENT_SEQ.CURRVAL," + randomMediProcedureId[procId] + ")";
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
 
-
-
-                            //진료에 치료 추가
-                            sql = "INSERT INTO TREAT_MEDI (TREATMENT_ID, MEDI_PROCEDURE_ID) VALUES(TREATMENT_SEQ.CURRVAL," + randomMediProcedureId[procId] + ")";
-                            //_logger.LogInformation("[SQL Query] : " + sql);
+                            //==진료에 진단명 추가
+                            sql = 
+                                "INSERT INTO TREAT_DISEASE (TREATMENT_ID, DISEASE_ID) " +
+                                "VALUES(TREATMENT_SEQ.CURRVAL," + randomDiseaseId[disId] + ")";
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
-
-
-                            //진료에 진단명 추가
-                            sql = "INSERT INTO TREAT_DISEASE (TREATMENT_ID, DISEASE_ID) VALUES(TREATMENT_SEQ.CURRVAL," + randomDiseaseId[disId] + ")";
-                            //_logger.LogInformation("[SQL Query] : " + sql);
-                            comm.CommandText = sql;
-                            comm.ExecuteNonQuery();
-
 
                             //진료에 payment추가
                             /*sql = "INSERT INTO PAYMENT (PAYMENT_ID, TREAT_ID, DISEASE_ID, PATIENT_ID, ORIGIN_AMOUNT, DISCOUNT_AMOUNT, FIN_PAYMENT_AMOUNT,CREATION_DATE) VALUES (" +
@@ -487,56 +472,47 @@ namespace AdminProgram.ViewModels
                             comm.ExecuteNonQuery();
                             */
 
-                            comm.Transaction.Commit();   //커밋
+                            comm.Transaction.Commit(); //commit
 
                         }
                         catch (Exception err)
                         {
-                            comm.Transaction.Rollback();   //롤백
-                            throw new Exception("커밋 실패. 롤백");
+                            comm.Transaction.Rollback(); //rollback
+                            throw new Exception("commit failed... rollback");
                         }
                     }
                 }
                 catch (Exception err)
                 {
-
-                    //_logger.LogCritical(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM] [FinDiagnosis Exception] " + err);
                 }
                 finally
                 {
-                    //_logger.LogInformation("이 환자는 수납을 완료하였습니다.");
-
+                    LogRecord.LogWrite("[MediAppointmentVM] FinDiagnosis() 예약 환자 수납 진행 완료 ");
                 }
             }
         }
         private RelayCommand finDiagnosisBtn;
         public ICommand FinDiagnosisBtn => finDiagnosisBtn ??= new RelayCommand(FinDiagnosis);
-        //== 예약 환자가 수납을 완료하는 경우 start ==//
+        //== 예약 환자가 진료를 완료하는 경우 end ==//
 
 
-        //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 start ==//
+        //== 대기 중이던 환자의 진료를 완료하는 경우 start ==//
         private void FinDiagnosis2()
         {
-            //후속 처리 쿼리 짜서 넣으면 됨
-            //_logger.LogInformation("방문 대기 환자 수납 진행");
             //받을 치료
+            LogRecord.LogWrite("[MediAppointmentVM] FinDiagnosis2() 실행 ");
             int procId = rand.Next(randomMediProcedureId.Length);
-
             string sql = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
-            OracleTransaction STrans = null;  //오라클 트랜젝션
-
-
+            OracleTransaction STrans = null; //오라클 트랜젝션
             procedurePrice = new ObservableCollection<int>();
 
             using (OracleConnection conn = new OracleConnection(strCon))
             {
-
                 try
                 {
                     conn.Open();
-                    //_logger.LogInformation("DB Connection OK...");
                     STrans = conn.BeginTransaction();
-
 
                     using (OracleCommand comm = new OracleCommand())
                     {
@@ -561,44 +537,33 @@ namespace AdminProgram.ViewModels
                         }
                     }
 
-
                     using (OracleCommand comm = new OracleCommand())
                     {
                         try
                         {
                             int disId = rand.Next(randomDiseaseId.Length);
                             comm.Connection = conn;
-
-
-
-                            //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                             comm.Transaction = STrans;
 
-
-                            //진료 데이터 추가
+                            //==진료 데이터 추가
                             int staffId = rand.Next(randomMedicalStaffId.Length);
                             int memoId = rand.Next(randomTreatMemo.Length);
                             sql = "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem2.PatientId + "," + randomMedicalStaffId[staffId] +
                                 ", '" + randomTreatMemo[memoId] + "', 'T'," + disId + ", sysdate + (interval '9' hour))";
-                            //_logger.LogInformation("[SQL Query] : " + sql);
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
 
-
-
-                            //진료에 치료 추가
+                            //==진료에 치료 추가
                             sql = "INSERT INTO TREAT_MEDI (TREATMENT_ID, MEDI_PROCEDURE_ID) VALUES(TREATMENT_SEQ.CURRVAL," + randomMediProcedureId[procId] + ")";
                             //_logger.LogInformation("[SQL Query] : " + sql);
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
-
 
                             //진료에 진단명 추가
                             sql = "INSERT INTO TREAT_DISEASE (TREATMENT_ID, DISEASE_ID) VALUES(TREATMENT_SEQ.CURRVAL," + randomDiseaseId[disId] + ")";
                             //_logger.LogInformation("[SQL Query] : " + sql);
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
-
 
                             //진료에 payment추가
                             /*
@@ -608,34 +573,37 @@ namespace AdminProgram.ViewModels
                             comm.ExecuteNonQuery();
                             */
 
-                            comm.Transaction.Commit();   //커밋
+                            comm.Transaction.Commit(); //commit
 
                         }
                         catch (Exception err)
                         {
-                            comm.Transaction.Rollback();   //롤백
-                            throw new Exception("커밋 실패. 롤백");
+                            comm.Transaction.Rollback(); //rollback
+                            throw new Exception("commit failed...rollback");
                         }
                     }
                 }
                 catch (Exception err)
                 {
-
-                    //_logger.LogCritical(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM] [FinDiagnosis2 Exception] " + err);
                 }
                 finally
                 {
-                    //_logger.LogInformation("이 환자는 수납을 완료하였습니다.");
-
+                    LogRecord.LogWrite("[MediAppointmentVM] FinDiagnosis2() 대기 환자 수납 진행 완료 ");
                 }
             }
         }
+        private RelayCommand finDiagnosisBtn2;
+        public ICommand FinDiagnosisBtn2 => finDiagnosisBtn2 ??= new RelayCommand(FinDiagnosis2);
+        //== 대기 중이던 환자의 진료를 완료하는 경우 end ==//
 
 
+        //== 예약 환자 수납 완료 start ==//
         private void FinPayment()
         {
-
+            LogRecord.LogWrite("[MediAppointmentVM] FinPayment() 실행 ");
             string sql = "UPDATE TREATMENT SET TREAT_STATUS__VAL = 'F' WHERE PATIENT_ID=" + SelectedItem.PatientId + " AND TREAT_STATUS__VAL='T'";
+            
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -646,32 +614,34 @@ namespace AdminProgram.ViewModels
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
-
-
+                        
                         sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
                         comm.CommandText = sql;
-                        comm.ExecuteNonQuery();
-
-                        //_logger.LogInformation("[SQL Query] : " + sql);
-                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
-                        comm.ExecuteNonQuery();
+                        comm.ExecuteNonQuery(); //돈 냈다고 표시
+                        comm.ExecuteNonQuery(); //수납 완료라고 말함
                     }
                 }
                 catch (Exception err)
                 {
-                    //_logger.LogCritical(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM] [FinPayment() Exception] " + err);
                 }
                 finally
                 {
-                    //_logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
+                    LogRecord.LogWrite("[MediAppointmentVM] FinPayment() 예약 환자 수납 완료... 마이페이지에서 정보를 확인하세요 ");
+                    //동기화
                     GetReservationPatientList();
                 }
             }
         }
+        private RelayCommand finPaymentBtn;
+        public ICommand FinPaymentBtn => finPaymentBtn ??= new RelayCommand(FinPayment);
+        //== 예약 환자 수납 완료 end ==//
 
 
+        //== 대기 환자 수납 완료 start ==//
         private void FinPayment2()
         {
+            LogRecord.LogWrite("[MediAppointmentVM] FinPayment2() 실행 ");
             string sql = "UPDATE TREATMENT SET TREAT_STATUS__VAL = 'F' WHERE PATIENT_ID=" + SelectedItem2.PatientId + " AND TREAT_STATUS__VAL='T'";
             using (OracleConnection conn = new OracleConnection(strCon))
             {
@@ -685,38 +655,25 @@ namespace AdminProgram.ViewModels
                         comm.CommandText = sql;
 
                         comm.CommandText = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
-                        comm.ExecuteNonQuery();
-
-                        //_logger.LogInformation("[SQL Query] : " + sql);
-                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
-                        comm.ExecuteNonQuery();
+                        comm.ExecuteNonQuery(); //돈 냈다고 표시
+                        comm.ExecuteNonQuery(); //수납 완료라고 말함
                     }
                 }
                 catch (Exception err)
                 {
-                    //_logger.LogCritical(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM] [FinPayment2() Exception] " + err);
                 }
                 finally
                 {
                     //_logger.LogInformation("이 환자를 대기자 리스트에서 삭제했습니다.");
+                    LogRecord.LogWrite("[MediAppointmentVM] FinPayment2() 대기 환자 수납 완료... 마이페이지에서 정보를 확인하세요.");
                     GetReservationPatientList();
                 }
             }
         }
-
-        private RelayCommand finDiagnosisBtn2;
-        public ICommand FinDiagnosisBtn2 => finDiagnosisBtn2 ??= new RelayCommand(FinDiagnosis2);
-        //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 end ==//
-        /// <summary>
-        /// ////////////////////////////////////////////////////////
-        /// </summary>
-
-        private RelayCommand finPaymentBtn;
-        public ICommand FinPaymentBtn => finPaymentBtn ??= new RelayCommand(FinPayment);
         private RelayCommand finPaymentBtn2;
         public ICommand FinPaymentBtn2 => finPaymentBtn2 ??= new RelayCommand(FinPayment2);
-        //== 대기 중이던 환자의 수납이 완료되는(진료가 완료되는) 경우 end ==//
-
+        //== 대기 환자 수납 완료 end ==//
 
 
         //== 예약 정보를 수정하는 경우 start ==//
@@ -732,9 +689,7 @@ namespace AdminProgram.ViewModels
         //== 예약 정보를 삭제하는 경우 start ==//
         private void DeleteReservationData()
         {
-            //_logger.LogInformation("예약 정보를 리스트에서 삭제합니다.");
-            //_logger.LogInformation("SelectedItem(예약 번호) = " + SelectedItem.ReservationId);
-
+            LogRecord.LogWrite("[MediAppointmentVM] DeleteReservationData() 실행 ");
             string sql = "DELETE FROM RESERVATION r WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
 
             using (OracleConnection conn = new OracleConnection(strCon))
@@ -742,25 +697,21 @@ namespace AdminProgram.ViewModels
                 try
                 {
                     conn.Open();
-                    //_logger.LogInformation("DB Connection OK...");
-
+                    LogRecord.LogWrite("[MediAppointmentVM] [DeleteReservationData() SQL] " + sql);
                     using (OracleCommand comm = new OracleCommand())
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
-
-                        //_logger.LogInformation("[SQL Query] : " + sql);
-                        //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         comm.ExecuteNonQuery();
                     }
                 }
                 catch (Exception err)
                 {
-                    //_logger.LogCritical(err + "");
+                    LogRecord.LogWrite("[MediAppointmentVM] [DeleteReservationData() Exception] " + err);
                 }
                 finally
                 {
-                    //_logger.LogInformation("이 예약 정보를 예약자 리스트에서 삭제했습니다.");
+                    LogRecord.LogWrite("[MediAppointmentVM] DeleteReservationData() 예약 정보 삭제 완료");
                 }
             }
         }
@@ -826,7 +777,6 @@ namespace AdminProgram.ViewModels
 
 
         //== Time Table에서 시간 값 선택을 할 수 있도록 하기 위함 start ==//
-        //진행중...
         private TimeModel selectedTimeM;
         public TimeModel SelectedTimeM
         {
@@ -887,8 +837,8 @@ namespace AdminProgram.ViewModels
             string getDate = MakeDate(SelectedDateTime);
             string nowDate = MakeDate(DateTime.Now);
 
-            if (getDate == nowDate)
-            { //당일 예약 불가 + 날짜별 시간 테이블 값 가져오기 위해 초기 작업
+            if (getDate == nowDate) //당일 예약 불가 + 날짜별 시간 테이블 값 가져오기 위해 초기 작업
+            {
                 MessageBox.Show("날짜를 선택해서 검색해주세요");
             }
             else
@@ -899,7 +849,6 @@ namespace AdminProgram.ViewModels
                 if (patientName == "'")
                 {
                     MessageBox.Show("다시 입력해주세요");
-
                 }
                 else if (patientName != "") //이름 입력하면
                 {
@@ -913,7 +862,6 @@ namespace AdminProgram.ViewModels
                         try
                         {
                             conn.Open();
-                            LogRecord.LogWrite("DB Connection OK...");
 
                             //검색 할 때 마다 데이터가 누적되는 문제 해결을 위함
                             PModels = new ObservableCollection<PatientModelTemp>();
@@ -934,7 +882,6 @@ namespace AdminProgram.ViewModels
                                 using (OracleDataReader reader = comm.ExecuteReader())
                                 {
                                     LogRecord.LogWrite("[검색한 환자 리스트 가져오기 SQL Query] " + sql);
-                                    //Regex.Replace 
                                     try
                                     {
                                         while (reader.Read())
@@ -1141,9 +1088,9 @@ namespace AdminProgram.ViewModels
         //==  방문 대기자 등록 start ==//
         private void RegisterWaiting()
         {
-            if(explainSymtom == null)
+            LogRecord.LogWrite("[RegisterWaiting() 방문 대기자 등록 시작]");
+            if (explainSymtom == null)
             {
-                _loger.LogInformation("explainSysmtom = " + explainSymtom);
                 explainSymtom = "딱히 없음";
             }
             if (ExplainSymtom == null)
@@ -1161,7 +1108,7 @@ namespace AdminProgram.ViewModels
                     try
                     {
                         conn.Open();
-                        LogRecord.LogWrite("DB Connection OK...");
+                        LogRecord.LogWrite("[RegisterWaiting() SQL QUERY] " + sql);
 
                         PModels = new ObservableCollection<PatientModelTemp>();
                         PModels.CollectionChanged += ContentCollectionChanged;
@@ -1170,27 +1117,23 @@ namespace AdminProgram.ViewModels
                         {
                             comm.Connection = conn;
                             comm.CommandText = sql;
-                            LogRecord.LogWrite("[방문 대기자 등록 SQL Query] " + sql);
-                            //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
-                            comm.ExecuteNonQuery();
+                            
+                            comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         }
                     }
                     catch (Exception err)
                     {
-                        _loger.LogCritical("[error] " + err);
                         LogRecord.LogWrite("[방문 대기자 등록 ERROR] " + err);
                     }
                     finally
                     {
                         LogRecord.LogWrite("[방문 대기자 등록 OK]");
+                        //동기화
+                        GetReservationPatientList();
                     }
                 }
                 MessageBox.Show("환자를 대기 명단에 등록하였습니다");
-
-                //동기화
-                GetReservationPatientList();
             }
-
         }
         private RelayCommand registerWaitingData;
         public ICommand RegisterWaitingData => registerWaitingData ??= new RelayCommand(RegisterWaiting);
@@ -1200,7 +1143,8 @@ namespace AdminProgram.ViewModels
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
-            if(explainSymtom == null)
+            LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 시작]");
+            if (explainSymtom == null)
             {
                 _loger.LogInformation("explainSysmtom = " + explainSymtom);
                 explainSymtom = "딱히 없음";
@@ -1226,7 +1170,7 @@ namespace AdminProgram.ViewModels
                     try
                     {
                         conn.Open();
-                        LogRecord.LogWrite("DB Connection OK...");
+                        LogRecord.LogWrite("[RegisterReservation() SQL QUERY] " + sql);
 
                         PModels = new ObservableCollection<PatientModelTemp>();
                         PModels.CollectionChanged += ContentCollectionChanged;
@@ -1236,22 +1180,20 @@ namespace AdminProgram.ViewModels
                             comm.Connection = conn;
                             comm.CommandText = sql;
 
-                            LogRecord.LogWrite("[진료 예약 등록 SQL Query] " + sql);
-                            //ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
-                            comm.ExecuteNonQuery();
+                            comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
                         }
                     }
                     catch (Exception err)
                     {
-                        LogRecord.LogWrite("[진료 예약 등록 ERROR] " + err);
+                        LogRecord.LogWrite("[RegisterReservation() Exception] " + err);
                     }
                     finally
                     {
-                        LogRecord.LogWrite("[진료 예약 등록 OK]");
+                        LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 성공]");
+                        //동기화를 따로 할 필요 없음(예약 등록은 당일 데이터 업데이트가 아님)
                     }
                 }
             }
-            
         }
         private RelayCommand registerReservationData;
         public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
@@ -1261,18 +1203,20 @@ namespace AdminProgram.ViewModels
         //== 요일에 해당하는 <시간 테이블 값> 가져오기 start ==//
         private void GetTimeTable()
         {
+            LogRecord.LogWrite("[GetTimeTable() TIME TABLE 가져오기 시작]");
             string date = MakeDate(SelectedDateTime);
             string sql =
                 "SELECT TIME_ID, \"HOUR\", \"DAY\" " +
-                            "FROM \"TIME\" t " +
-                            "WHERE \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd'))-1 " +
-                            "ORDER BY TIME_ID ";
+                "FROM \"TIME\" t " +
+                "WHERE \"HOUR\" NOT IN ( SELECT t.\"HOUR\" FROM RESERVATION r, \"TIME\" t WHERE r.TIME_ID = t.TIME_ID AND TO_CHAR(r.RESERVATION_DATE , 'YYYYMMDD') = " + date + ") " +
+                "AND \"DAY\" = TO_NUMBER(TO_CHAR(TO_DATE('" + date + "', 'YYYY/MM/DD'), 'd')) - 1 " +
+                "ORDER BY t.TIME_ID; ";
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
                 {
                     conn.Open();
-                    ////_logger.LogInformation("DB Connection OK...");
+                    LogRecord.LogWrite("[GetTimeTable() SQL QUERY] " + sql);
 
                     TimeModels = new ObservableCollection<TimeModel>();
                     TimeModels.CollectionChanged += ContentCollectionChanged;
@@ -1284,10 +1228,6 @@ namespace AdminProgram.ViewModels
 
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
-                            ////_logger.LogInformation("DatePicker의 값은 " + SelectedDateTime);
-                            ////_logger.LogInformation("TIME TABLE값 가져오기 select 실행");
-                            ////_logger.LogInformation("[SQL QUERY] " + sql);
-
                             try
                             {
                                 while (reader.Read())
@@ -1301,13 +1241,11 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {
-                                //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
-                                ////_logger.LogCritical(e + "");
+                            { //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                                LogRecord.LogWrite("[GetTimeTable() InvalidCastException] " + e);
                             }
                             finally
                             {
-                                ////_logger.LogInformation("TIME TABLE 가져오기 성공");
                                 reader.Close();
                             }
                         }
@@ -1315,7 +1253,11 @@ namespace AdminProgram.ViewModels
                 }
                 catch (Exception err)
                 {
-                    ////_logger.LogInformation(err + "");
+                    LogRecord.LogWrite("[GetTimeTable() TIME TABLE 가져오기 실패] " + err);
+                }
+                finally
+                {
+                    LogRecord.LogWrite("[GetTimeTable() TIME TABLE 가져오기 성공]");
                 }
             }
         }
