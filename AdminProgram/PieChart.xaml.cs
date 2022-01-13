@@ -38,36 +38,6 @@ namespace AdminProgram
 
             DataContext = this;
         }
-
-
-
-
-        //private void Next_Month(object sender, RoutedEventArgs e) {
-        //    if (DateTime.Now.ToString("yyyy-MM") == search.ToString("yyyy-MM"))
-        //    {
-        //        MessageBox.Show("이번 달의 정보입니다.");
-        //    }
-        //    else {
-        //        search.AddMonths(1);
-
-        //        PieChartStart(search);
-        //    }
-        //}
-
-        //private void Prev_Month(object sender, RoutedEventArgs e)
-        //{
-        //    if (DateTime.Now.ToString("yyyy-MM") == search.ToString("yyyy-MM"))
-        //    {
-        //        MessageBox.Show("이번 달의 정보입니다.");
-        //    }
-        //    else
-        //    {
-        //        search.AddMonths(-1);
-
-        //        PieChartStart(search);
-        //    }
-        //}
-
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {
             var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;

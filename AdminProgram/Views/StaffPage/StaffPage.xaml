@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AdminProgram"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="StaffPage">
 
     <Grid>
@@ -53,26 +53,26 @@
 
                         <!--사번-->
                         <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="사번 :" Margin="5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock Text="사번 :" Margin="5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
                             <TextBox x:Name="staffId_txtbox"
-                            Width="50" 
-                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5"/>
+                            Width="50"
+                            Padding="4" FontSize="17" Height="auto" Margin="0,5,5,5"/>
                         </WrapPanel>
 
                         <!--이름-->
                         <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock Text="이름 :" Margin="15,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock Text="이름 :" Margin="15,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
                             <TextBox x:Name="staffName_txtbox"
-                            Width="60" 
-                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5"/>
+                            Width="80" 
+                            Padding="4" FontSize="17" Height="auto" Margin="0,5,5,5"/>
                         </WrapPanel>
 
                         <!--성별-->
                         <WrapPanel Grid.Column="2" Orientation="Horizontal">
-                            <TextBlock Text="성별 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock Text="성별 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
                             <ComboBox x:Name="staffGender_combobox"
                             Width="40" 
-                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5">
+                            Padding="4" FontSize="17" Height="auto" Margin="0,5,5,5">
                                 <ComboBoxItem Content=""/>
                                 <ComboBoxItem Content="남"/>
                                 <ComboBoxItem Content="여"/>
@@ -81,10 +81,10 @@
 
                         <!--직책-->
                         <WrapPanel Grid.Column="3" Orientation="Horizontal">
-                            <TextBlock Text="직책 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock Text="직책 :" Margin="22,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
                             <ComboBox x:Name="staffPosition_combobox"
                             Width="50" 
-                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5">
+                            Padding="4" FontSize="17" Height="auto" Margin="0,5,5,5">
                                 <ComboBoxItem Content=""/>
                                 <ComboBoxItem Content="의사"/>
                                 <ComboBoxItem Content="간호사"/>
@@ -93,10 +93,10 @@
 
                         <!--담당분야-->
                         <WrapPanel Grid.Column="4" Orientation="Horizontal">
-                            <TextBlock Text="담당분야 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock Text="담당분야 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="17" FontFamily="BM HANNA Pro"/>
                             <ComboBox x:Name="staffMajor_combobox"
-                            Width="70" 
-                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5">
+                            Width="100" 
+                            Padding="4" FontSize="17" Height="auto" Margin="0,5,5,5">
                                 <ComboBoxItem Content=""/>
                                 <ComboBoxItem Content="두드러기"/>
                                 <ComboBoxItem Content="알러지"/>
@@ -106,23 +106,23 @@
 
                         <!--전화번호-->
                         <WrapPanel Grid.Column="5" Orientation="Horizontal">
-                            <TextBlock Text="전화번호 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock Text="전화번호 :" Margin="20,5,5,5" VerticalAlignment="Center" FontSize="17"   FontFamily="BM HANNA Pro"/>
                             <TextBox x:Name="staffPhoneNumber_txtbox"
                             Width="120" 
-                            Padding="4" FontSize="14" Height="auto" Margin="0,5,5,5"/>
+                            Padding="4" FontSize="17" Height="auto" Margin="0,5,5,5"/>
                         </WrapPanel>
 
                         <!--검색-->
-                        <Button Grid.Column="6" Click="searchButton_Click" Margin="25,5,5,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">검색</Button>
+                        <Button x:Name="search" Grid.Column="6" Click="searchButton_Click" Margin="25,5,5,5" FontSize="17" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">검색</Button>
 
                         <!--추가-->
-                        <Button Grid.Column="7" Click="addButton_Click" Margin="20,5,5,5" FontSize="16" Width="80" Height="30" HorizontalAlignment="Right">추가</Button>
+                        <Button Grid.Column="7" Click="addButton_Click" Margin="20,5,5,5" FontSize="17" Width="80" Height="30" HorizontalAlignment="Right" FontFamily="BM HANNA Pro">추가</Button>
 
                     </Grid>
 
                     <!--상세목록-->
                     <DataGrid x:Name="dataGrid" Grid.Row="2" IsReadOnly="True"  Background="#FFD2CFCF" AutoGenerateColumns="False" CanUserAddRows="False"
-                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                  ItemsSource="{Binding Path=SampleDatas, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" FontSize="16" FontFamily="BM HANNA Pro">
                         <DataGrid.Columns>
 
                             <!--나중에 수정해야할지도 모르는 부분 시작-->

@@ -45,9 +45,9 @@ namespace AdminProgram
                 
                 ModifyStaff.Passvalue = tmp;
                 ModifyStaff tw = new ModifyStaff();
-                LogRecord.LogWrite("의료진 상세 페이지 오픈");
-                tw.ShowDialog();
                 
+                tw.ShowDialog();
+                search.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
 
@@ -58,6 +58,7 @@ namespace AdminProgram
             AddStaff addStaff = new();
             LogRecord.LogWrite("의료진 추가 버튼 클릭");
             addStaff.ShowDialog();
+            search.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)

@@ -103,10 +103,14 @@ namespace AdminProgram
                 MessageBox.Show("진료과목을 입력해주세요.");
                 return true;
             }
-
-            else if (phoneNum.Text == "" || NotOnlyNum(phoneNum.Text))
+            else if (email.Text == "")
             {
-                MessageBox.Show("핸드폰 번호를 입력해주세요.");
+                MessageBox.Show("이메일을 입력해주세요.");
+                return true;
+            }
+            else if (phoneNum.Text == "" || NotOnlyNum(phoneNum.Text) || phoneNum.Text.Length != 11)
+            {
+                MessageBox.Show("핸드폰 번호 11자리를 입력해주세요.\nex) 010XXXXXXXX");
                 return true;
             }
             else if (male.IsChecked == false && female.IsChecked == false)
@@ -117,12 +121,6 @@ namespace AdminProgram
             else if (doctor.IsChecked == false && nurse.IsChecked == false)
             {
                 MessageBox.Show("직책을 선택해주세요.");
-                return true;
-            }
-
-            else if (email.Text == "")
-            {
-                MessageBox.Show("이메일을 입력해주세요.");
                 return true;
             }
 
@@ -167,13 +165,15 @@ namespace AdminProgram
             //실행시키는기능
             comm.ExecuteNonQuery();
 
-            comm.CommandText = "INSERT INTO MEDI_STAFF_LOGIN(STAFF_ID, STAFF_LOGIN_ID, STAFF_LOGIN_PW) VALUES(MEDI_LOGIN_SEQ.NEXTVAL, " +
+            //--------------------------------------------------A
+            comm.CommandText = "INSERT INTO MEDI_STAFF_LOGIN(STAFF_ID, STAFF_LOGIN_ID, STAFF_LOGIN_PW) VALUES(MEDI_STAFF_SEQ.CURRVAL, " +
                                 "'" + staffLoginId.Text + "'" +
                                 ", '" + staffPassword.Password + "'" + ")";
             comm.ExecuteNonQuery();
 
             connn.Close();
         }
+
 
         //저장버튼 클릭 이벤트
         private void Save_btn_Click(object sender, RoutedEventArgs e)

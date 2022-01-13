@@ -5,10 +5,21 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>AdminIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="icon.ico" />
+    <!--<None Remove="icon.ico" />-->
+	  <None Remove="disease.png" />
+	  <None Remove="doctor.png" />
+	  <None Remove="main_page.png" />
+	  <None Remove="patient.png" />
+	  <None Remove="treatment_page.png" />
+	  <None Remove="wait_reserve_page.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AdminIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +36,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <!--<Resource Include="icon.ico" />-->
+	  <Resource Include="disease.png" />
+	  <Resource Include="doctor.png" />
+	  <Resource Include="main_page.png" />
+	  <Resource Include="patient.png" />
+	  <Resource Include="treatment_page.png" />
+	  <Resource Include="wait_reserve_page.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

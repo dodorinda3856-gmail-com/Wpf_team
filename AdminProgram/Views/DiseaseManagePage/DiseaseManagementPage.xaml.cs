@@ -102,6 +102,7 @@ namespace AdminProgram
 				ModifyDisease tw = new ModifyDisease();
 				LogRecord.LogWrite("상병코드 상세정보창 들어감");
 				tw.ShowDialog();
+				search1.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 			}
 		}
 
@@ -111,6 +112,7 @@ namespace AdminProgram
 			AddDisease adddisease = new();
 			LogRecord.LogWrite("상병코드 추가버튼 클릭");
 			adddisease.ShowDialog();
+			search1.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 		}
 
 		//시술 SQL--------------------------------------------------------------------------------------
@@ -169,6 +171,7 @@ namespace AdminProgram
 				ModifyProcedure tw = new ModifyProcedure();
 				LogRecord.LogWrite("시술 상세정보창 들어감");
 				tw.ShowDialog();
+				search2.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 			}
 		}
 
@@ -178,6 +181,7 @@ namespace AdminProgram
 			AddProcedure addprocedure = new();
 			LogRecord.LogWrite("시술 추가버튼 클릭");
 			addprocedure.ShowDialog();
+			search2.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 		}
-	}
+    }
 }
