@@ -130,33 +130,37 @@ namespace AdminProgram
 		{
 			LogRecord.LogWrite("시술 검색 버튼 클릭");
 			string? sql = null;
+            try
+            {
+				ConnectDB();
 
-			ConnectDB();
+				MakeProcedureSQL(ref sql);
 
-			MakeProcedureSQL(ref sql);
+				OracleCommand comm = new();
 
-			OracleCommand comm = new();
+				comm.Connection = connn;
+				comm.CommandText = sql;
+				OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+				List<ProcedureModel> datas = new();
 
-			comm.Connection = connn;
-			comm.CommandText = sql;
-			OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-			List<ProcedureModel> datas = new();
-
-			while (reader.Read())
-			{
-				datas.Add(new ProcedureModel()
+				while (reader.Read())
 				{
-					MediProcedureID = reader.GetInt32(reader.GetOrdinal("MEDI_PROCEDURE_ID")),
-					TreatmentAmount = reader.GetInt32(reader.GetOrdinal("TREATMENT_AMOUNT")),
-					CreatetionDate = reader.GetDateTime(reader.GetOrdinal("CREATETION_DATE")),
-					AfterS = reader.GetString(reader.GetOrdinal("A_S")),
-					ProcedureName = reader.GetString(reader.GetOrdinal("PROCEDURE_NAME")),
-					Procedure_Info = reader.GetString(reader.GetOrdinal("PROCEDURE_INFO"))
-				});
-			}
-			treatmentDataGrid.ItemsSource = datas;
+					datas.Add(new ProcedureModel()
+					{
+						MediProcedureID = reader.GetInt32(reader.GetOrdinal("MEDI_PROCEDURE_ID")),
+						TreatmentAmount = reader.GetInt32(reader.GetOrdinal("TREATMENT_AMOUNT")),
+						CreatetionDate = reader.GetDateTime(reader.GetOrdinal("CREATETION_DATE")),
+						AfterS = reader.GetString(reader.GetOrdinal("A_S")),
+						ProcedureName = reader.GetString(reader.GetOrdinal("PROCEDURE_NAME")),
+						Procedure_Info = reader.GetString(reader.GetOrdinal("PROCEDURE_INFO"))
+					});
+				}
+				treatmentDataGrid.ItemsSource = datas;
 
-			reader.Close();
+				reader.Close();
+			}
+			catch (Exception ex) { }
+			
 		}
 
 		//시술상세정보

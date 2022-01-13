@@ -159,53 +159,60 @@ namespace AdminProgram
         //DB로 보낼 sql문 작성
         private void MakeSQL(ref string? sql, string endyear, string startyear)
         {
-            if (patientNum_txtbox.Text != null || patientName_txtbox.Text != null || phoneNum_txtbox.Text != null)
+            try
             {
-                if (gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] == "-")
+                if (patientNum_txtbox.Text != null || patientName_txtbox.Text != null || phoneNum_txtbox.Text != null)
                 {
-                    if (bod_txtbox.Text == "")
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_STATUS_VAL = 'T' and " +
-                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
-                        "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
-                        "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
-                        "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
-                        "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
-                        " order by PATIENT_ID";
+                    if (gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] == "-")
+                    {
+                        if (bod_txtbox.Text == "")
+                            sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                            "where PATIENT_STATUS_VAL = 'T' and " +
+                            "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                            "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
+                            "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
+                            "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
+                            "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
+                            " order by PATIENT_ID";
+                        else
+                            sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                            "where PATIENT_STATUS_VAL = 'T' and " +
+                            "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                            "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
+                            "DOB like To_Date('" + bod_txtbox.Text + "', 'yyyyMMDD') and " +
+                            "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
+                            "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
+                            " order by PATIENT_ID";
+                    }
                     else
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_STATUS_VAL = 'T' and " + 
-                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
-                        "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
-                        "DOB like To_Date('" + bod_txtbox.Text + "', 'yyyyMMDD') and " +
-                        "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
-                        "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
-                        " order by PATIENT_ID";
-                }
-                else
-                {
-                    if (bod_txtbox.Text == "")
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_STATUS_VAL = 'T' and " +
-                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
-                        "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
-                        "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
-                        "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
-                        "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
-                        "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
-                        " order by PATIENT_ID";
-                    else
-                        sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
-                        "where PATIENT_STATUS_VAL = 'T' and " +                                                                                                                                                                                                                                                                                                                   
-                        "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
-                        "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
-                        "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
-                        "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
-                        "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
-                        "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
-                        " order by PATIENT_ID";
+                    {
+                        if (bod_txtbox.Text == "")
+                            sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                            "where PATIENT_STATUS_VAL = 'T' and " +
+                            "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                            "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
+                            "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
+                            "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
+                            "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
+                            "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
+                            " order by PATIENT_ID";
+                        else
+                            sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT " +
+                            "where PATIENT_STATUS_VAL = 'T' and " +
+                            "PATIENT_ID like '%" + patientNum_txtbox.Text + "%' and " +
+                            "PATIENT_NAME LIKE '%" + patientName_txtbox.Text + "%' and " +
+                            "GENDER = '" + gender_combobox.SelectedItem.ToString()[(gender_combobox.SelectedValue.ToString().Length - 1)..] + "' and " +
+                            "DOB BETWEEN To_Date('" + "18000101'" + ", 'yyyyMMDD') and To_Date('" + "20301231'" + ", 'yyyyMMDD') and " +
+                            "DOB BETWEEN To_Date('" + startyear + "0101'" + ", 'yyyyMMDD') and To_Date('" + endyear + "1231'" + ", 'yyyyMMDD') and " +
+                            "PHONE_NUM LIKE '%" + phoneNum_txtbox.Text + "%'" +
+                            " order by PATIENT_ID";
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+            }
+            
             //sql = "select PATIENT_ID, RESIDENT_REGIST_NUM, ADDRESS, PATIENT_NAME, PHONE_NUM, REGIST_DATE, GENDER, DOB from PATIENT order by PATIENT_ID";
         }
 
@@ -232,50 +239,53 @@ namespace AdminProgram
             string? endyear = null;
             string? sql = null;
 
-
-            if (CheckRightValue())
-                return;
-
-            ConnectDB();
-
-            InitAge(ref startyear, ref endyear);
-
-            MakeSQL(ref sql, endyear, startyear);
-
-            OracleCommand comm = new();
-            
-            comm.Connection = connn;
-            comm.CommandText = sql;
-
-            OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-            List<PMModel> datas = new();
-
-            while (reader.Read())
+            try
             {
-                datas.Add(new PMModel()
+                if (CheckRightValue())
+                    return;
+
+                ConnectDB();
+
+                InitAge(ref startyear, ref endyear);
+
+                MakeSQL(ref sql, endyear, startyear);
+
+                OracleCommand comm = new();
+
+                comm.Connection = connn;
+                comm.CommandText = sql;
+
+                OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+                List<PMModel> datas = new();
+
+                while (reader.Read())
                 {
-                    
-                    Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
-                    Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")).Substring(0,7) + "*****",
-                    Address = reader.GetString(reader.GetOrdinal("Address")),
-                    Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
-                    Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
-                    Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
-                    Gender = reader.GetString(reader.GetOrdinal("Gender")),
-                    Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
-                    Age = Calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
-                }) ;
+                    datas.Add(new PMModel()
+                    {
+
+                        Patient_ID = reader.GetInt32(reader.GetOrdinal("PATIENT_ID")),
+                        Resident_Regist_Num = reader.GetString(reader.GetOrdinal("Resident_Regist_Num")).Substring(0, 7) + "*****",
+                        Address = reader.GetString(reader.GetOrdinal("Address")),
+                        Patient_Name = reader.GetString(reader.GetOrdinal("Patient_Name")),
+                        Phone_Num = reader.GetString(reader.GetOrdinal("Phone_Num")),
+                        Regist_Date = reader.GetDateTime(reader.GetOrdinal("Regist_Date")),
+                        Gender = reader.GetString(reader.GetOrdinal("Gender")),
+                        Dob = reader.GetDateTime(reader.GetOrdinal("Dob")),
+                        Age = Calculate_age(reader.GetDateTime(reader.GetOrdinal("Dob")))
+                    });
+                }
+                dataGridPatient.ItemsSource = datas;
+
+                reader.Close();
+
+                patientNum_txtbox.Text = "";
+                patientName_txtbox.Text = "";
+                bod_txtbox.Text = "";
+                startAge_txtbox.Text = "";
+                endAge_txtbox.Text = "";
+                phoneNum_txtbox.Text = "";
             }
-            dataGridPatient.ItemsSource = datas;
-
-            reader.Close();
-
-            patientNum_txtbox.Text = "";
-            patientName_txtbox.Text = "";
-            bod_txtbox.Text = "";
-            startAge_txtbox.Text = "";
-            endAge_txtbox.Text = "";
-            phoneNum_txtbox.Text = "";
+            catch (Exception ex) { }
         }
 
         /*private void dataGridPatient_Loaded(object sender, RoutedEventArgs e)

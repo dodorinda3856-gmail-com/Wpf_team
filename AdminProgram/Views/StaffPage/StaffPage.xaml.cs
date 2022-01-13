@@ -90,9 +90,9 @@ namespace AdminProgram
             {
                 position = "N";
             }
-            
-
-            string sql = "SELECT STAFF_ID, STAFF_NAME, GENDER, MEDI_SUBJECT, PHONE_NUM, STAFF_EMAIL, POSITION " +
+            try
+            {
+                string sql = "SELECT STAFF_ID, STAFF_NAME, GENDER, MEDI_SUBJECT, PHONE_NUM, STAFF_EMAIL, POSITION " +
                             "FROM MEDI_STAFF " +
                             "WHERE STAFF_ID LIKE '%" + staffId_txtbox.Text + "%' AND " +
                             "STAFF_NAME LIKE '%" + staffName_txtbox.Text + "%' AND " +
@@ -102,31 +102,34 @@ namespace AdminProgram
                             "POSITION LIKE '%" + position + "%' AND " +
                             "MEDI_STAFF_STATUS = 'T' " +
                             "order by staff_id";
-            
-            ConnectDB();
-            OracleCommand comm = new();
-            comm.Connection = connn;
-            comm.CommandText = sql;
 
-            OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
-            List<StaffModel> datas = new();
+                ConnectDB();
+                OracleCommand comm = new();
+                comm.Connection = connn;
+                comm.CommandText = sql;
 
-            while (reader.Read())
-            {
-                datas.Add(new StaffModel()
+                OracleDataReader reader = comm.ExecuteReader(CommandBehavior.CloseConnection);
+                List<StaffModel> datas = new();
+
+                while (reader.Read())
                 {
-                    Staff_id = reader.GetInt32(reader.GetOrdinal("STAFF_ID")),
-                    Staff_name = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
-                    Gender = reader.GetString(reader.GetOrdinal("GENDER")),
-                    Medi_subject = reader.GetString(reader.GetOrdinal("MEDI_SUBJECT")),
-                    Phone_num = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
-                    Staff_email = reader.GetString(reader.GetOrdinal("STAFF_EMAIL")),
-                    Position = reader.GetString(reader.GetOrdinal("POSITION"))
-                });
-            }
-            dataGrid.ItemsSource = datas;
+                    datas.Add(new StaffModel()
+                    {
+                        Staff_id = reader.GetInt32(reader.GetOrdinal("STAFF_ID")),
+                        Staff_name = reader.GetString(reader.GetOrdinal("STAFF_NAME")),
+                        Gender = reader.GetString(reader.GetOrdinal("GENDER")),
+                        Medi_subject = reader.GetString(reader.GetOrdinal("MEDI_SUBJECT")),
+                        Phone_num = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
+                        Staff_email = reader.GetString(reader.GetOrdinal("STAFF_EMAIL")),
+                        Position = reader.GetString(reader.GetOrdinal("POSITION"))
+                    });
+                }
+                dataGrid.ItemsSource = datas;
 
-            reader.Close();
+                reader.Close();
+            }
+            catch (Exception ex) { }
+            
         }
 
 
