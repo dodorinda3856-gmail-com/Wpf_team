@@ -41,7 +41,7 @@
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" 
                   CanUserAddRows="False" IsReadOnly="True" Background="#FFD2CFCF"
                   ItemsSource="{Binding Path=PtModels, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10" FontFamily="NanumSquareRound Bold" FontSize="14">
+                  SelectedItem="{Binding SelectedPatient}" IsSynchronizedWithCurrentItem="True" Margin="0,10,0,10" FontFamily="BM HANNA Pro" FontSize="14">
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth="100" Header="환자 이름" Binding="{Binding Name}"/>
                 <DataGridTextColumn MinWidth="200" Header="주민등록 번호" Binding="{Binding ResidentRegistNum}"/>

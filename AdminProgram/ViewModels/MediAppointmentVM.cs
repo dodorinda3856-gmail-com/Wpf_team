@@ -32,25 +32,25 @@ namespace AdminProgram.ViewModels
 
         //진료 랜덤 생성
         private Random rand = new Random();
-        private int[] randomMedicalStaffId = new int[] 
-        { 
-            1, 2, 3, 11, 17 
+        private int[] randomMedicalStaffId = new int[]
+        {
+            1, 2, 3, 11, 17
         };
-        private int[] randomMediProcedureId = new int[] 
-        { 
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10 
+        private int[] randomMediProcedureId = new int[]
+        {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         };
-        private int[] randomDiseaseId = new int[] 
-        { 
-            514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526 
+        private int[] randomDiseaseId = new int[]
+        {
+            514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526
         };
-        private string[] randomTreatMemo = new string[] 
+        private string[] randomTreatMemo = new string[]
         {
             "2차 레이저 시술(박피시술)", "레이저 시술 고급 사용여드름 치료를 위한 프락셀 1회 시술",
             "피부 염증완화를 위한 스피큘링 항염 치료", "화농성 여드름 치료위한 PDT 광역동 치료 시술",
             "2도 화상 치료를 위한 LED 화상 진료", "표피층 흉터 제거를 위한 포토나 XS-Dynamics 치료", "레이저 시술 진행"
         };
-        
+
         private readonly ILogger _loger;
         string strCon = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=loonshot.cgxkzseoyswk.us-east-2.rds.amazonaws.com)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)));User Id=loonshot;Password=loonshot123;";
 
@@ -370,7 +370,7 @@ namespace AdminProgram.ViewModels
                         comm.ExecuteNonQuery();
                     }
                 }
-                catch(Exception err)
+                catch (Exception err)
                 {
                     //_loger.LogCritical(err + "");
                     LogRecord.LogWrite("[MediAppointmentVM] [Exception] " + err);
@@ -382,7 +382,7 @@ namespace AdminProgram.ViewModels
                 }
             }
             //동기화
-            GetReservationPatientList(); 
+            GetReservationPatientList();
         }
         private RelayCommand deleteWaitingDataBtn;
         public ICommand DeleteWaitingDataBtn => deleteWaitingDataBtn ??= new RelayCommand(DeleteWaitingData);
@@ -396,7 +396,7 @@ namespace AdminProgram.ViewModels
             LogRecord.LogWrite("[MediAppointmentVM] FinDiagnosis() 실행 ");
             int procId = rand.Next(randomMediProcedureId.Length);
             string sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
-            if (selectedItem.ReservationDT.Date != DateTime.Now.Date){ return; }
+            if (selectedItem.ReservationDT.Date != DateTime.Now.Date) { return; }
 
             OracleTransaction STrans = null; //오라클 트랜젝션
             procedurePrice = new ObservableCollection<int>();
@@ -444,7 +444,7 @@ namespace AdminProgram.ViewModels
                             int staffId = rand.Next(randomMedicalStaffId.Length);
                             int memoId = rand.Next(randomTreatMemo.Length);
 
-                            sql = 
+                            sql =
                                 "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) " +
                                 "VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem.PatientId + "," + SelectedItem.StaffId +
                                 " , '" + randomTreatMemo[memoId] + "', 'T'," + randomDiseaseId[disId] + ", sysdate + (interval '9' hour))";
@@ -452,14 +452,14 @@ namespace AdminProgram.ViewModels
                             comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
 
                             //==진료에 치료 추가
-                            sql = 
+                            sql =
                                 "INSERT INTO TREAT_MEDI (TREATMENT_ID, MEDI_PROCEDURE_ID) " +
                                 "VALUES(TREATMENT_SEQ.CURRVAL," + randomMediProcedureId[procId] + ")";
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
 
                             //==진료에 진단명 추가
-                            sql = 
+                            sql =
                                 "INSERT INTO TREAT_DISEASE (TREATMENT_ID, DISEASE_ID) " +
                                 "VALUES(TREATMENT_SEQ.CURRVAL," + randomDiseaseId[disId] + ")";
                             comm.CommandText = sql;
@@ -603,7 +603,7 @@ namespace AdminProgram.ViewModels
         {
             LogRecord.LogWrite("[MediAppointmentVM] FinPayment() 실행 ");
             string sql = "UPDATE TREATMENT SET TREAT_STATUS__VAL = 'F' WHERE PATIENT_ID=" + SelectedItem.PatientId + " AND TREAT_STATUS__VAL='T'";
-            
+
             using (OracleConnection conn = new OracleConnection(strCon))
             {
                 try
@@ -834,6 +834,11 @@ namespace AdminProgram.ViewModels
         //== (진료 예약 등록) 환자 정보 주민등록번호로 검색, TIME TABLE, 진료진 정보 가져오기 start ==//
         private void SearchPatientR()
         {
+            /*if (searchText == "")
+            {
+                MessageBox.Show("환자 이름을 검색해주세요");
+            }
+*/
             string getDate = MakeDate(SelectedDateTime);
             string nowDate = MakeDate(DateTime.Now);
 
@@ -845,7 +850,8 @@ namespace AdminProgram.ViewModels
             {
                 string sql;
                 string patientName = searchText; //환자 이름
-                
+
+
                 if (patientName == "'")
                 {
                     MessageBox.Show("다시 입력해주세요");
@@ -895,7 +901,7 @@ namespace AdminProgram.ViewModels
                                                 Address = reader.GetString(reader.GetOrdinal("ADDRESS"))
                                             });
                                         }
-                                        
+
                                     }
                                     catch (InvalidCastException e)
                                     { //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
@@ -991,10 +997,6 @@ namespace AdminProgram.ViewModels
                         }
                     }
                 }
-                else //이름 입력 안하면
-                {
-                    MessageBox.Show("환자 이름을 검색해주세요");
-                }
             }
         }
         private RelayCommand searchPatientActR;
@@ -1088,51 +1090,58 @@ namespace AdminProgram.ViewModels
         //==  방문 대기자 등록 start ==//
         private void RegisterWaiting()
         {
-            LogRecord.LogWrite("[RegisterWaiting() 방문 대기자 등록 시작]");
-            if (explainSymtom == null)
+            try
             {
-                explainSymtom = "딱히 없음";
-            }
-            if (ExplainSymtom == null)
-            {
-                MessageBox.Show("증상을 입력해주세요");
-            }
-            else
-            {
-                string sql =
-                    "INSERT INTO WAITING (WATING_ID, PATIENT_ID, REQUEST_TO_WAIT, REQUIREMENTS, WAIT_STATUS_VAL) " +
-                    "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'T') ";
-
-                using (OracleConnection conn = new OracleConnection(strCon))
+                LogRecord.LogWrite("[RegisterWaiting() 방문 대기자 등록 시작]");
+                if (explainSymtom == null)
                 {
-                    try
+                    explainSymtom = "딱히 없음";
+                }
+                if (ExplainSymtom == null)
+                {
+                    MessageBox.Show("증상을 입력해주세요");
+                }
+                else
+                {
+                    string sql =
+                        "INSERT INTO WAITING (WATING_ID, PATIENT_ID, REQUEST_TO_WAIT, REQUIREMENTS, WAIT_STATUS_VAL) " +
+                        "VALUES(WAITING_SEQ.NEXTVAL, " + SelectedPatient.PatientId + ", sysdate + (interval '9' hour), '" + explainSymtom + "', 'T') ";
+
+                    using (OracleConnection conn = new OracleConnection(strCon))
                     {
-                        conn.Open();
-                        LogRecord.LogWrite("[RegisterWaiting() SQL QUERY] " + sql);
-
-                        PModels = new ObservableCollection<PatientModelTemp>();
-                        PModels.CollectionChanged += ContentCollectionChanged;
-
-                        using (OracleCommand comm = new OracleCommand())
+                        try
                         {
-                            comm.Connection = conn;
-                            comm.CommandText = sql;
-                            
-                            comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                            conn.Open();
+                            LogRecord.LogWrite("[RegisterWaiting() SQL QUERY] " + sql);
+
+                            PModels = new ObservableCollection<PatientModelTemp>();
+                            PModels.CollectionChanged += ContentCollectionChanged;
+
+                            using (OracleCommand comm = new OracleCommand())
+                            {
+                                comm.Connection = conn;
+                                comm.CommandText = sql;
+
+                                comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            LogRecord.LogWrite("[방문 대기자 등록 ERROR] " + err);
+                        }
+                        finally
+                        {
+                            LogRecord.LogWrite("[방문 대기자 등록 OK]");
+                            //동기화
+                            GetReservationPatientList();
                         }
                     }
-                    catch (Exception err)
-                    {
-                        LogRecord.LogWrite("[방문 대기자 등록 ERROR] " + err);
-                    }
-                    finally
-                    {
-                        LogRecord.LogWrite("[방문 대기자 등록 OK]");
-                        //동기화
-                        GetReservationPatientList();
-                    }
+                    MessageBox.Show("환자를 대기 명단에 등록하였습니다");
                 }
-                MessageBox.Show("환자를 대기 명단에 등록하였습니다");
+            }
+            catch(NullReferenceException e)
+            {
+                MessageBox.Show("빈칸에 입력해주세요");
             }
         }
         private RelayCommand registerWaitingData;
@@ -1143,56 +1152,69 @@ namespace AdminProgram.ViewModels
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
-            LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 시작]");
-            if (explainSymtom == null)
+            try
             {
-                _loger.LogInformation("explainSysmtom = " + explainSymtom);
-                explainSymtom = "딱히 없음";
-            }
-            if(ExplainSymtom == null)
-            {
-                MessageBox.Show("증상을 입력해주세요");
-            }
-            else
-            {
-                //환자 번호, 진료예약 시간, 
-                string date = MakeDate(SelectedDateTime);
-                string sql =
-                    "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
-                    "VALUES(RESERVATION_SEQ1.NEXTVAL, " +
-                        SelectedPatient.PatientId + ", " +
-                        SelectedTime.TimeId + ", " +
-                        SelectedStaff.StaffId + ", " +
-                        "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
-
-                using (OracleConnection conn = new OracleConnection(strCon))
+                LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 시작]");
+                if (explainSymtom == null)
                 {
-                    try
+                    //_loger.LogInformation("explainSysmtom = " + explainSymtom);
+                    explainSymtom = "딱히 없음";
+                }
+                if (ExplainSymtom == null)
+                {
+                    MessageBox.Show("증상을 입력해주세요");
+                }
+                else
+                {
+                    /*if(SelectedPatient.PatientId == 0)
                     {
-                        conn.Open();
-                        LogRecord.LogWrite("[RegisterReservation() SQL QUERY] " + sql);
+                        MessageBox.Show("빈칸을 입력해주세요");
+                    }*/
+                    //환자 번호, 진료예약 시간, 
+                    string date = MakeDate(SelectedDateTime);
+                    string sql =
+                        "INSERT INTO RESERVATION(RESERVATION_ID, PATIENT_ID, TIME_ID, MEDICAL_STAFF_ID, RESERVE_STATUS_VAL, RESERVATION_DATE, SYMPTOM) " +
+                        "VALUES(RESERVATION_SEQ1.NEXTVAL, " +
+                            SelectedPatient.PatientId + ", " +
+                            SelectedTime.TimeId + ", " +
+                            SelectedStaff.StaffId + ", " +
+                            "'T', to_date('" + date + " " + SelectedTime.Hour + "', 'YYYY/MM/DD HH24:MI:SS'), '" + explainSymtom + "') ";
 
-                        PModels = new ObservableCollection<PatientModelTemp>();
-                        PModels.CollectionChanged += ContentCollectionChanged;
-
-                        using (OracleCommand comm = new OracleCommand())
+                    using (OracleConnection conn = new OracleConnection(strCon))
+                    {
+                        try
                         {
-                            comm.Connection = conn;
-                            comm.CommandText = sql;
+                            conn.Open();
+                            LogRecord.LogWrite("[RegisterReservation() SQL QUERY] " + sql);
 
-                            comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                            PModels = new ObservableCollection<PatientModelTemp>();
+                            PModels.CollectionChanged += ContentCollectionChanged;
+
+                            using (OracleCommand comm = new OracleCommand())
+                            {
+                                comm.Connection = conn;
+                                comm.CommandText = sql;
+
+                                comm.ExecuteNonQuery();//ExecuteNonQuery() : INSERT, UPDATE, DELETE 문장 실행시 사용
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            LogRecord.LogWrite("[RegisterReservation() Exception] " + err);
+                        }
+                        finally
+                        {
+                            LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 성공]");
+                            //동기화를 따로 할 필요 없음(예약 등록은 당일 데이터 업데이트가 아님)
                         }
                     }
-                    catch (Exception err)
-                    {
-                        LogRecord.LogWrite("[RegisterReservation() Exception] " + err);
-                    }
-                    finally
-                    {
-                        LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 성공]");
-                        //동기화를 따로 할 필요 없음(예약 등록은 당일 데이터 업데이트가 아님)
-                    }
+
+
                 }
+            }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show("빈칸에 입력해주세요");
             }
         }
         private RelayCommand registerReservationData;

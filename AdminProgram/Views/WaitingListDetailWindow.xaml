@@ -17,9 +17,11 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="1.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="1.1*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -35,49 +37,49 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="환 자 번 호 : " Grid.Column="0" Grid.Row="1" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem2.PatientId, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="이         름 : " Grid.Column="0" Grid.Row="2" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem2.PatientName, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="성         별 : " Grid.Column="0" Grid.Row="3"
-               VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+               VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem2.PatientGender, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="대 기 시 간 : " Grid.Column="0" Grid.Row="4"
-               VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+               VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="전 화 번 호 : " Grid.Column="0" Grid.Row="5" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="주         소 : " Grid.Column="0" Grid.Row="6" 
-                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" FontSize="14"/>
+                   VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem2.PatientAddress ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <!--대기자가 진료를 완료한 경우-->
-                <Button Content="수납 완료" Grid.Column="3" Grid.Row="7"
+                <Button Content="수납 완료" Grid.Column="5" Grid.Row="7"
                         Command="{Binding FinPaymentBtn2}" Click="Fin_Payment"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold" FontSize="16"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro"/>
 
-                <Button Content="진료" Grid.Column="2" Grid.Row="7"
+                <Button Content="진료 완료" Grid.Column="3" Grid.Row="7"
                 Command="{Binding FinDiagnosisBtn2}" Click="Fin_Treatment"
-                Style="{StaticResource MaterialDesignRaisedButton}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Bold" FontSize="16"/>
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontWeight="Normal" FontSize="18" FontFamily="BM HANNA Pro"/>
                 
                 <!--막상 환자가 없는 경우-->
                 <Button Content="대기 삭제" Grid.Column="1" Grid.Row="7"
@@ -85,7 +87,7 @@
                         Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="BM HANNA Pro"/>
             </Grid>
         </Border>
     </Grid>
