@@ -19,6 +19,7 @@ namespace AdminProgram
                     .AddSingleton<MediAppointmentVM>()
                     .AddSingleton<TreatmentVM>()
                     .AddSingleton<PatientVM>()
+                    .AddSingleton<LogVM>()
                     //.AddSingleton<AddWaitingReservationVM>()
                     .AddLogging(builder =>
                     {

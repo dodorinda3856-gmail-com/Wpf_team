@@ -614,10 +614,10 @@ namespace AdminProgram.ViewModels
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
-                        
+                        comm.ExecuteNonQuery(); //돈 냈다고 표시
+
                         sql = "UPDATE RESERVATION r SET r.RESERVE_STATUS_VAL = 'F' WHERE r.RESERVATION_ID = " + SelectedItem.ReservationId;
                         comm.CommandText = sql;
-                        comm.ExecuteNonQuery(); //돈 냈다고 표시
                         comm.ExecuteNonQuery(); //수납 완료라고 말함
                     }
                 }
@@ -653,9 +653,9 @@ namespace AdminProgram.ViewModels
                     {
                         comm.Connection = conn;
                         comm.CommandText = sql;
+                        comm.ExecuteNonQuery(); //돈 냈다고 표시
 
                         comm.CommandText = "UPDATE WAITING w SET w.WAIT_STATUS_VAL = 'F' WHERE w.WATING_ID = " + SelectedItem2.WaitingId;
-                        comm.ExecuteNonQuery(); //돈 냈다고 표시
                         comm.ExecuteNonQuery(); //수납 완료라고 말함
                     }
                 }

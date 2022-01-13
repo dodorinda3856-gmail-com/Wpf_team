@@ -13,5 +13,6 @@ namespace AdminProgram
         public TreatmentVM TMVM => Ioc.Default.GetService<TreatmentVM>();
         public AddWaitingReservationVM AWRVM => Ioc.Default.GetService<AddWaitingReservationVM>();
         public SPViewModel SPVM => Ioc.Default.GetService<SPViewModel>();
+        public LogVM LVM => Ioc.Default.GetService<LogVM>();
     }
 }
