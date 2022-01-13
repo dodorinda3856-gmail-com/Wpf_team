@@ -559,7 +559,7 @@ namespace AdminProgram.ViewModels
                             int staffId = rand.Next(randomMedicalStaffId.Length);
                             int memoId = rand.Next(randomTreatMemo.Length);
                             sql = "INSERT INTO TREATMENT (TREAT_ID,PATIENT_ID,STAFF_ID, TREAT_DETAILS, TREAT_STATUS__VAL,DISEASE_ID, TREAT_DATE ) VALUES (TREATMENT_SEQ.NEXTVAL," + SelectedItem2.PatientId + "," + randomMedicalStaffId[staffId] +
-                                ", '" + randomTreatMemo[memoId] + "', 'T'," + disId + ", sysdate + (interval '9' hour))";
+                                ", '" + randomTreatMemo[memoId] + "', 'T'," + randomDiseaseId[disId] + ", sysdate + (interval '9' hour))";
                             comm.CommandText = sql;
                             comm.ExecuteNonQuery();
 
