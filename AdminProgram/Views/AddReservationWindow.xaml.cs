@@ -1,4 +1,5 @@
 ﻿using AdminProgram.Models;
+using System;
 using System.Windows;
 
 namespace AdminProgram.Views
@@ -16,6 +17,7 @@ namespace AdminProgram.Views
             //직접 입력 부분
             searchText.Text = "";
             explainSymtom.Text = "";
+            datePicker.SelectedDate = DateTime.Now;
             //세부 데이터 부분
             patientName.Text = "";
             patientResidentRegistNum.Text = "";
