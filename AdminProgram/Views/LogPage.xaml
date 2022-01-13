@@ -37,7 +37,7 @@
                         SQL 정렬은 USER_ID, LOG_DATE 순으로 정렬할것-->
                     <DataGridTextColumn MinWidth ="60" Width="Auto" Header="USER_ID" Binding="{Binding UserId}"/>
                     <DataGridTextColumn MinWidth="60" Width="Auto" Header="LOG_LEVEL" Binding="{Binding LogLevel}"/>
-                    <DataGridTextColumn MinWidth="300" Width="Auto" Header="ACCESS_PATH" Binding="{Binding AccessPath}"/>
+                    <DataGridTextColumn MinWidth="300" Width="460" Header="ACCESS_PATH" Binding="{Binding AccessPath}"/>
                     <DataGridTextColumn MinWidth="100" Width="Auto" Header="LOG_MESSAGE" Binding="{Binding LogMessage}"/>
                     <DataGridTextColumn MinWidth="70" Width="Auto" Header="USER_IP" Binding="{Binding UserIp}"/>
                     <DataGridTextColumn MinWidth="60" Width="Auto" Header="LOG_DATE" Binding="{Binding LogDate}"/>
