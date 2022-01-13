@@ -31,7 +31,7 @@ namespace AdminProgram.Views
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("진료 예약을 완료하였습니다.");
+            //MessageBox.Show("진료 예약을 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
     }

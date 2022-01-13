@@ -1092,7 +1092,7 @@ namespace AdminProgram.ViewModels
             try
             {
                 LogRecord.LogWrite("[RegisterWaiting() 방문 대기자 등록 시작]");
-                if (explainSymtom == null)
+                if (explainSymtom == "")
                 {
                     explainSymtom = "딱히 없음";
                 }
@@ -1205,10 +1205,9 @@ namespace AdminProgram.ViewModels
                         {
                             LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 성공]");
                             //동기화를 따로 할 필요 없음(예약 등록은 당일 데이터 업데이트가 아님)
+                            MessageBox.Show("진료 예약을 완료하였습니다.");       
                         }
                     }
-
-
                 }
             }
             catch (NullReferenceException e)
