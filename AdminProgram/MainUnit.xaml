@@ -19,44 +19,53 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" x:Name="stpMenu" Background="{DynamicResource MaterialDesignDarkBackground}" HorizontalAlignment="Left" Width="200">
-                <DockPanel HorizontalAlignment="Right" Margin="10">
+            <Grid Grid.Row="0" x:Name="stpMenu" Background="{DynamicResource MaterialDesignDarkBackground}" HorizontalAlignment="Left" Width="200">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel x:Name="Home_Label_grid" Grid.Row="0" HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Home_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro" Foreground="White"
                        PreviewMouseDown="Home_Label_PreviewMouseDown">Home</Label>
                     <Image Width="30" Height="30" Source="/main_page.png" ></Image>
                 </DockPanel>
-                <DockPanel HorizontalAlignment="Right" Margin="10">
-                    <Label x:Name="MediAppointment_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro"
+                <DockPanel x:Name="MediAppointment_Label_grid" Grid.Row="1" HorizontalAlignment="Right">
+                    <Label x:Name="MediAppointment_Label" Width="160" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro"
                        PreviewMouseDown="MediAppointment_Label_PreviewMouseDown" Foreground="White" >
                         대기 / 예약 관리
                     </Label>
                     <Image Width="30" Height="30" Source="wait_reserve_page.png" ></Image>
                 </DockPanel>
-                <DockPanel HorizontalAlignment="Right" Margin="10">
+                <DockPanel x:Name="Medi_Label_grid" Grid.Row="2" HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Medi_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro"
                        PreviewMouseDown="Medi_Label_PreviewMouseDown" Foreground="White">
                         진료 내역 관리
                     </Label>
                     <Image Width="30" Height="30" Source="treatment_page.png" ></Image>
                 </DockPanel>
-                <DockPanel HorizontalAlignment="Right" Margin="10">
+                <DockPanel x:Name="Patient_Label_grid" Grid.Row="3" HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Patient_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Patient_Label_PreviewMouseDown" Foreground="White">환자정보</Label>
                     <Image Width="30" Height="30" Source="patient.png" ></Image>
                 </DockPanel>
-                <DockPanel HorizontalAlignment="Right" Margin="10">
+                <DockPanel x:Name="Staff_Label_grid" Grid.Row="4" HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Staff_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Staff_Label_PreviewMouseDown" Foreground="White">의료진정보</Label>
                     <Image Width="30" Height="30" Source="doctor.png" ></Image>
                 </DockPanel>
-                <DockPanel HorizontalAlignment="Right" Margin="10">
+                <DockPanel x:Name="Disease_Management_grid" Grid.Row="5" HorizontalAlignment="Right" Margin="10">
                     <Label x:Name="Disease_Management" Width="150" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Disease_Management_PreviewMouseDown" Foreground="White">상병 / 시술관리</Label>
                     <Image Width="30" Height="30" Source="disease.png" ></Image>
                 </DockPanel>
 
-            </StackPanel>
+            </Grid>
             <Grid Width="200" Background="{DynamicResource MaterialDesignDarkBackground}" Margin="0,291,0,53" Grid.RowSpan="3"/>
             <StackPanel Grid.Row="2" Background="{DynamicResource MaterialDesignDarkBackground}">
                 <Label x:Name="Global_Name" Content="" FontSize="18" HorizontalContentAlignment="Center" Foreground="White" FontFamily="BM HANNA Pro"></Label>

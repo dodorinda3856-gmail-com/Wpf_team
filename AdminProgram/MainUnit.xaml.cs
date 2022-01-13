@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace AdminProgram
@@ -25,6 +26,8 @@ namespace AdminProgram
 
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            MediAppointment_Label_grid.Background = Brushes.White;
+            MediAppointment_Label.Foreground = Brushes.Black;
             this.frame.Navigate(new Uri("Views/MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
