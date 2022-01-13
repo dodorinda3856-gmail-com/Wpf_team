@@ -248,6 +248,7 @@ namespace AdminProgram.ViewModels
                             }
                         }
 
+                        // 2) 방문해서 대기 중인 환자 리스트를 가져옴
                         sql =
                             "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
                             "FROM WAITING w, PATIENT p " +
@@ -256,8 +257,6 @@ namespace AdminProgram.ViewModels
                             " AND w.WAIT_STATUS_VAL = 'T'" +
                             " ORDER BY w.REQUEST_TO_WAIT";
                         comm.CommandText = sql;
-
-                        // 2) 방문해서 대기 중인 환자 리스트를 가져옴
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
                             LogRecord.LogWrite("[MediAppointmentVM] [방문 대기 리스트 읽어오기 SQL Query] " + sql);

@@ -330,7 +330,7 @@ namespace AdminProgram.ViewModels
         {
             string sql = "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
                             "FROM MEDI_STAFF ms " +
-                            "WHERE \"POSITION\" = 'D' ";
+                            "WHERE \"POSITION\" = 'D' ORDER BY STAFF_ID DESC";
 
 
             using (OracleConnection conn = new OracleConnection(strCon))
