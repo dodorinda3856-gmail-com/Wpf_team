@@ -10,7 +10,7 @@
         DataContext="{Binding MAVM, Source={StaticResource ViewModelLocator}}"
         Title="예약 환자 상세 정보 페이지" Height="330" Width="550">
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="20" Background="#FFEDEDED">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="20" Background="#FFEDEDED" Padding="10,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>

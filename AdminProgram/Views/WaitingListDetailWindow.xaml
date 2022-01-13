@@ -13,7 +13,7 @@
         <ResourceDictionary Source="ResourceDictionary.xaml"/>
     </Window.Resources>
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="20" Background="#FFEDEDED">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="20" Background="#FFEDEDED" Padding="10,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -53,17 +53,17 @@
 
                 <Label Content="대 기 시 간 : " Grid.Column="0" Grid.Row="4"
                VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
+                <TextBlock Text="{Binding Path=SelectedItem2.RequestToWait, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="전 화 번 호 : " Grid.Column="0" Grid.Row="5" 
                    VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" 
+                <TextBlock Text="{Binding Path=SelectedItem2.PatientPhoneNum ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="5" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <Label Content="주         소 : " Grid.Column="0" Grid.Row="6" 
                    VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
-                <TextBlock Text="{Binding Path=SelectedItem2.PatientAddress ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" 
+                <TextBlock Text="{Binding Path=SelectedItem2.PatientAddress ,Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
 
                 <!--대기자가 진료를 완료한 경우-->
