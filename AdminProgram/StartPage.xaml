@@ -30,8 +30,8 @@
 		<Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" CornerRadius="5,5,5,5" BorderThickness="1" Background="#FFF3F3F3">
 			<Grid Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*"/>
-					<ColumnDefinition Width="3*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="30*"/>
@@ -54,10 +54,11 @@
 					</materialDesign:Card>
 				</Border>
 
-				<Border Grid.Column="1" Grid.Row="0" materialDesign:ShadowAssist.ShadowDepth="Depth4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
-					<Button x:Name="ReservationTitle" Style="{DynamicResource MaterialDesignRaisedButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Content="" />
-				</Border>
+				
 
+                <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                    <Calendar />
+                </Border>
 
 				<Border Grid.Column="0" Grid.Row="2">
 					<local:PieChart/>
@@ -69,6 +70,7 @@
 				</Border>
 			</Grid>
 		</Border>
-	</Grid>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="-84,331,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+    </Grid>
 					
 </Page>
