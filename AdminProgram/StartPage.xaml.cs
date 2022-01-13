@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using AdminProgram.ViewModels;
+using AdminProgram.Models;
 
 namespace AdminProgram
 {

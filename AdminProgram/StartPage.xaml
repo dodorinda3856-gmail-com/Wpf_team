@@ -33,7 +33,7 @@
                 Padding="30,32,29.5,32"
                 Height="300"
                 >
-                <TextBlock x:Name="WaitContent" VerticalAlignment="Center" HorizontalAlignment="Center" Text=""></TextBlock>
+                <TextBlock x:Name="WaitContent" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text=""></TextBlock>
             </materialDesign:Card>
         </Border>
 
@@ -41,16 +41,6 @@
             <Button x:Name="ReservationTitle" Style="{DynamicResource MaterialDesignRaisedButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Content="" />
         </Border>
 
-        <Border Grid.Column="1" Grid.Row="1" materialDesign:ShadowAssist.ShadowDepth="Depth4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
-            <materialDesign:Card
-                materialDesign:ShadowAssist.ShadowDepth="Depth4"
-                Padding="30,32,29.5,32"
-                Height="300"
-                >
-                <DataGrid>
-                </DataGrid>
-            </materialDesign:Card>
-        </Border>
 
         <Border Grid.Column="0" Grid.Row="2">
             <local:PieChart/>
