@@ -37,7 +37,7 @@
 
                 <Label Content="예 약 일 시 : " Grid.Column="0" Grid.Row="2" 
                        VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
-                <TextBlock Text="{Binding Path=SelectedItem.ReservationDT, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=SelectedItem.ReservationDT, Mode=TwoWay}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <Label Content="담 당 의 사 : " Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Normal" FontSize="16" FontFamily="BM HANNA Pro"/>
                 <TextBlock Text="{Binding Path=SelectedItem.Doctor, Mode=TwoWay}" Grid.Column="1"  Grid.Row="3" 
