@@ -125,6 +125,7 @@
                 </Grid>
 
                 <Button Content="예약 취소" Grid.Row="7" Grid.Column="1" Click="Close_Window"
+                        Command="{Binding CloseWindowBtn}"
                         Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         ToolTip="MaterialDesignRaisedButton with Round Corners"

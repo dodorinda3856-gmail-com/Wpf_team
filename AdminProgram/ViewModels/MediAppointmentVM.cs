@@ -1249,6 +1249,16 @@ namespace AdminProgram.ViewModels
         public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
         //== 진료 예약 등록 end ==//
 
+        //== 대기 등록 화면 닫기 start ==//
+        private void CloseWindow()
+        {
+            PModels = new ObservableCollection<PatientModelTemp>();
+            PModels.CollectionChanged += ContentCollectionChanged;
+        }
+        private RelayCommand closeWindowBtn;
+        public ICommand CloseWindowBtn => closeWindowBtn ??= new RelayCommand(CloseWindow);
+        //== 대기 등록 화면 닫기 end ==//
+
 
         //== 요일에 해당하는 <시간 테이블 값> 가져오기 start ==//
         private void GetTimeTable()
