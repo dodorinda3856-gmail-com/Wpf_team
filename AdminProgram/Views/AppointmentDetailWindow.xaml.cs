@@ -20,13 +20,13 @@ namespace AdminProgram.Views
 
         private void Fin_Treatment(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("진료을 완료하였습니다.");
+            //MessageBox.Show("진료을 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
 
         private void Fin_Payment(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("수납를 완료하였습니다.");
+            //MessageBox.Show("수납를 완료하였습니다.");
             Window.GetWindow(this).Close();
         }
     }
