@@ -13,13 +13,13 @@
         <Border BorderBrush="Black" BorderThickness="1" Margin="10" CornerRadius="20" Background="#FFEDEDED" Padding="10,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.9*"/>
                     <ColumnDefinition Width="1.1*"/>
                     <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition Width="1.1*"/>
                     <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition Width="1.1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.9*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>

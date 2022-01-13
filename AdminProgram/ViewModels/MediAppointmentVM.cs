@@ -34,7 +34,7 @@ namespace AdminProgram.ViewModels
         private Random rand = new Random();
         private int[] randomMedicalStaffId = new int[]
         {
-            1, 2, 3, 11, 17
+            1, 2, 3, 11
         };
         private int[] randomMediProcedureId = new int[]
         {
@@ -391,6 +391,12 @@ namespace AdminProgram.ViewModels
         //== 예약 환자가 진료를 완료하는 경우 start ==//
         private void FinDiagnosis()
         {
+            /*string tmp = MakeDate(DateTime.Now);
+            string tmp2 = MakeDate(SelectedDateTime);
+            if (tmp != tmp2)
+            {
+
+            }*/
             //받을 치료
             LogRecord.LogWrite("[MediAppointmentVM] FinDiagnosis() 실행 ");
             int procId = rand.Next(randomMediProcedureId.Length);
