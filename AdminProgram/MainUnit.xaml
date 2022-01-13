@@ -33,37 +33,70 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <DockPanel x:Name="Home_Label_grid" Grid.Row="0" HorizontalAlignment="Right" Margin="10">
-                    <Label x:Name="Home_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro" Foreground="White"
+                <!--홈-->
+                <Grid x:Name="Home_Label_grid" Grid.Row="0" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="Home_Label" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro" Foreground="Black"
                        PreviewMouseDown="Home_Label_PreviewMouseDown">Home</Label>
-                    <Image Width="30" Height="30" Source="/main_page.png" ></Image>
-                </DockPanel>
-                <DockPanel x:Name="MediAppointment_Label_grid" Grid.Row="1" HorizontalAlignment="Right">
-                    <Label x:Name="MediAppointment_Label" Width="160" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro"
-                       PreviewMouseDown="MediAppointment_Label_PreviewMouseDown" Foreground="White" >
-                        대기 / 예약 관리
-                    </Label>
-                    <Image Width="30" Height="30" Source="wait_reserve_page.png" ></Image>
-                </DockPanel>
-                <DockPanel x:Name="Medi_Label_grid" Grid.Row="2" HorizontalAlignment="Right" Margin="10">
-                    <Label x:Name="Medi_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro"
+                    <Image Grid.Column="1" Height="30" Source="/main_page.png" />
+                </Grid>
+
+                <!--대기/예약 관리-->
+                <Grid x:Name="MediAppointment_Label_grid" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="MediAppointment_Label" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro"
+                       PreviewMouseDown="MediAppointment_Label_PreviewMouseDown" Foreground="White" >대기 / 예약 관리</Label>
+                    <Image Grid.Column="1" Height="30" Source="wait_reserve_page.png"/>
+                </Grid>
+
+                <!--진료 내역 관리-->
+                <Grid x:Name="Medi_Label_grid" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="Medi_Label" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro"
                        PreviewMouseDown="Medi_Label_PreviewMouseDown" Foreground="White">
                         진료 내역 관리
                     </Label>
-                    <Image Width="30" Height="30" Source="treatment_page.png" ></Image>
-                </DockPanel>
-                <DockPanel x:Name="Patient_Label_grid" Grid.Row="3" HorizontalAlignment="Right" Margin="10">
-                    <Label x:Name="Patient_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Patient_Label_PreviewMouseDown" Foreground="White">환자정보</Label>
-                    <Image Width="30" Height="30" Source="patient.png" ></Image>
-                </DockPanel>
-                <DockPanel x:Name="Staff_Label_grid" Grid.Row="4" HorizontalAlignment="Right" Margin="10">
-                    <Label x:Name="Staff_Label" Width="150" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Staff_Label_PreviewMouseDown" Foreground="White">의료진정보</Label>
-                    <Image Width="30" Height="30" Source="doctor.png" ></Image>
-                </DockPanel>
-                <DockPanel x:Name="Disease_Management_grid" Grid.Row="5" HorizontalAlignment="Right" Margin="10">
-                    <Label x:Name="Disease_Management" Width="150" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Disease_Management_PreviewMouseDown" Foreground="White">상병 / 시술관리</Label>
-                    <Image Width="30" Height="30" Source="disease.png" ></Image>
-                </DockPanel>
+                    <Image Grid.Column="1" Height="30" Source="treatment_page.png"/>
+                </Grid>
+
+                <!--환자정보 관리-->
+                <Grid x:Name="Patient_Label_grid" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="Patient_Label" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Patient_Label_PreviewMouseDown" Foreground="White">환자정보</Label>
+                    <Image Grid.Column="1" Height="30" Source="patient.png"/>
+                </Grid>
+
+                <!--의료진정보 관리-->
+                <Grid x:Name="Staff_Label_grid" Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="Staff_Label" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Staff_Label_PreviewMouseDown" Foreground="White">의료진정보</Label>
+                    <Image Grid.Column="1" Height="30" Source="doctor.png"/>
+                </Grid>
+
+                <!--상병 / 시술관리-->
+                <Grid x:Name="Disease_Management_grid" Grid.Row="5" Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="Disease_Management" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="BM HANNA Pro" PreviewMouseDown="Disease_Management_PreviewMouseDown" Foreground="White">상병 / 시술관리</Label>
+                    <Image Grid.Column="1" Height="30" Source="disease.png"/>
+                </Grid>
 
             </Grid>
             <Grid Width="200" Background="{DynamicResource MaterialDesignDarkBackground}" Margin="0,291,0,53" Grid.RowSpan="3"/>

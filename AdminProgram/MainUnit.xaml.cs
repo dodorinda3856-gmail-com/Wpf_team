@@ -24,35 +24,120 @@ namespace AdminProgram
             LogRecord.LogWrite("------------'" + Application.Current.Properties["globalName"] + "' 로그인------------");
         }
 
+
+        //대기/예약 관리
         private void MediAppointment_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Disease_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Disease_Management.Foreground = Brushes.White;
+            Home_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Home_Label.Foreground = Brushes.White;
+            Medi_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Medi_Label.Foreground = Brushes.White;
+            Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Patient_Label.Foreground = Brushes.White;
+            Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Staff_Label.Foreground = Brushes.White;
+
+
             MediAppointment_Label_grid.Background = Brushes.White;
             MediAppointment_Label.Foreground = Brushes.Black;
             this.frame.Navigate(new Uri("Views/MediAppointmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        //홈
         private void Home_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Disease_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Disease_Management.Foreground = Brushes.White;
+            MediAppointment_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            MediAppointment_Label.Foreground = Brushes.White;
+            Medi_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Medi_Label.Foreground = Brushes.White;
+            Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Patient_Label.Foreground = Brushes.White;
+            Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Staff_Label.Foreground = Brushes.White;
+
+            Home_Label_grid.Background = Brushes.White;
+            Home_Label.Foreground = Brushes.Black;
             this.frame.Navigate(new Uri("StartPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        //진료 내역 관리
         private void Medi_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Disease_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Disease_Management.Foreground = Brushes.White;
+            MediAppointment_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            MediAppointment_Label.Foreground = Brushes.White;
+            Home_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Home_Label.Foreground = Brushes.White;
+            Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Patient_Label.Foreground = Brushes.White;
+            Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Staff_Label.Foreground = Brushes.White;
+
+            Medi_Label_grid.Background = Brushes.White;
+            Medi_Label.Foreground = Brushes.Black;
             this.frame.Navigate(new Uri("Views/TreatmentPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        //환자정보 관리
         private void Patient_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Disease_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Disease_Management.Foreground = Brushes.White;
+            MediAppointment_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            MediAppointment_Label.Foreground = Brushes.White;
+            Home_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Home_Label.Foreground = Brushes.White;
+            Medi_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Medi_Label.Foreground = Brushes.White;
+            Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Staff_Label.Foreground = Brushes.White;
+
+            Patient_Label_grid.Background = Brushes.White;
+            Patient_Label.Foreground = Brushes.Black;
             this.frame.Navigate(new Uri("Views/PatientPage/PatientPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        //의료진정보관리
         private void Staff_Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Disease_Management_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Disease_Management.Foreground = Brushes.White;
+            MediAppointment_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            MediAppointment_Label.Foreground = Brushes.White;
+            Home_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Home_Label.Foreground = Brushes.White;
+            Medi_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Medi_Label.Foreground = Brushes.White;
+            Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Patient_Label.Foreground = Brushes.White;
+
+            Staff_Label_grid.Background = Brushes.White;
+            Staff_Label.Foreground = Brushes.Black;
             this.frame.Navigate(new Uri("Views/StaffPage/StaffPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        //상병 / 시술관리
         private void Disease_Management_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            MediAppointment_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            MediAppointment_Label.Foreground = Brushes.White;
+            Home_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Home_Label.Foreground = Brushes.White;
+            Medi_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Medi_Label.Foreground = Brushes.White;
+            Patient_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Patient_Label.Foreground = Brushes.White;
+            Staff_Label_grid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 48, 48, 48));
+            Staff_Label.Foreground = Brushes.White;
+
+            Disease_Management_grid.Background = Brushes.White;
+            Disease_Management.Foreground = Brushes.Black;
+            
             this.frame.Navigate(new Uri("Views/DiseaseManagePage/DiseaseManagementPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
