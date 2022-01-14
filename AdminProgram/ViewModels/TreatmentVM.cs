@@ -328,9 +328,11 @@ namespace AdminProgram.ViewModels
 
         public void GetStafftData()
         {
-            string sql = "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
-                            "FROM MEDI_STAFF ms " +
-                            "WHERE \"POSITION\" = 'D' AND STAFF_NAME != '-' ORDER BY STAFF_ID DESC";
+            string sql = 
+                "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
+                "FROM MEDI_STAFF ms " +
+                "WHERE \"POSITION\" = 'D' AND STAFF_NAME != '-' AND MEDI_STAFF_STATUS = 'T' " +
+                "ORDER BY STAFF_ID DESC";
 
 
             using (OracleConnection conn = new OracleConnection(strCon))

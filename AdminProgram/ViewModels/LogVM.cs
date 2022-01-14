@@ -62,8 +62,8 @@ namespace AdminProgram.ViewModels
         {
             LogRecord.LogWrite("[GetLogList() log list 읽어오기 시작]");
 
-            string sql = 
-                "SELECT USER_ID, LOG_LEVEL, ACCESS_PATH, LOG_MESSAGE, USER_IP, LOG_DATE " +
+            string sql =
+                "SELECT USER_ID, LOG_LEVEL, ACCESS_PATH, NVL(LOG_MESSAGE, '-') AS LOG_MESSAGE, USER_IP, LOG_DATE " +
                 "FROM LOG " +
                 "ORDER BY USER_ID, LOG_DATE ";
 

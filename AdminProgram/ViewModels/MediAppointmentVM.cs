@@ -975,8 +975,8 @@ namespace AdminProgram.ViewModels
                                 sql =
                                     "SELECT STAFF_ID, STAFF_NAME, MEDI_SUBJECT " +
                                     "FROM MEDI_STAFF ms " +
-                                    "WHERE \"POSITION\" = 'D' AND STAFF_NAME != '-' " +
-                                    "ORDER BY STAFF_ID DESC";
+                                    "WHERE \"POSITION\" = 'D' AND STAFF_NAME != '-' AND MEDI_STAFF_STATUS = 'T' " +
+                                    "ORDER BY STAFF_ID DESC ";
                                 comm.CommandText = sql;
 
 
@@ -1111,6 +1111,8 @@ namespace AdminProgram.ViewModels
         //==  방문 대기자 등록 start ==//
         private void RegisterWaiting()
         {
+
+           
             try
             {
                 LogRecord.LogWrite("[RegisterWaiting() 방문 대기자 등록 시작]");
@@ -1152,6 +1154,15 @@ namespace AdminProgram.ViewModels
                         }
                         finally
                         {
+                            PModels = new ObservableCollection<PatientModelTemp>();
+                            PModels.CollectionChanged += ContentCollectionChanged;
+
+                            TimeModels = new ObservableCollection<TimeModel>();
+                            TimeModels.CollectionChanged += ContentCollectionChanged;
+
+                            StaffModels = new ObservableCollection<MediStaffModel>();
+                            StaffModels.CollectionChanged += ContentCollectionChanged;
+
                             LogRecord.LogWrite("[방문 대기자 등록 OK]");
                             //동기화
                             GetReservationPatientList();
@@ -1173,6 +1184,7 @@ namespace AdminProgram.ViewModels
         //== 진료 예약 등록 start ==//
         private void RegisterReservation()
         {
+           
             try
             {
                 LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 시작]");
@@ -1230,6 +1242,15 @@ namespace AdminProgram.ViewModels
                             }
                             finally
                             {
+                                PModels = new ObservableCollection<PatientModelTemp>();
+                                PModels.CollectionChanged += ContentCollectionChanged;
+
+                                TimeModels = new ObservableCollection<TimeModel>();
+                                TimeModels.CollectionChanged += ContentCollectionChanged;
+
+                                StaffModels = new ObservableCollection<MediStaffModel>();
+                                StaffModels.CollectionChanged += ContentCollectionChanged;
+
                                 LogRecord.LogWrite("[RegisterReservation() 진료 예약 등록 성공]");
                                 //동기화를 따로 할 필요 없음(예약 등록은 당일 데이터 업데이트가 아님)
                                 MessageBox.Show("진료 예약을 완료하였습니다.");
@@ -1249,15 +1270,21 @@ namespace AdminProgram.ViewModels
         public ICommand RegisterReservationData => registerReservationData ??= new RelayCommand(RegisterReservation);
         //== 진료 예약 등록 end ==//
 
-        //== 대기 등록 화면 닫기 start ==//
+        //== 대기/예약 등록 화면 닫기 start ==//
         private void CloseWindow()
         {
             PModels = new ObservableCollection<PatientModelTemp>();
             PModels.CollectionChanged += ContentCollectionChanged;
+
+            TimeModels = new ObservableCollection<TimeModel>();
+            TimeModels.CollectionChanged += ContentCollectionChanged;
+
+            StaffModels = new ObservableCollection<MediStaffModel>();
+            StaffModels.CollectionChanged += ContentCollectionChanged;
         }
         private RelayCommand closeWindowBtn;
         public ICommand CloseWindowBtn => closeWindowBtn ??= new RelayCommand(CloseWindow);
-        //== 대기 등록 화면 닫기 end ==//
+        //== 대기/예약 등록 화면 닫기 end ==//
 
 
         //== 요일에 해당하는 <시간 테이블 값> 가져오기 start ==//
