@@ -67,30 +67,31 @@
             </Grid.RowDefinitions>
 
             <Label Content="이름 : " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontFamily="BM HANNA Pro" FontWeight="Normal" FontSize="14" />
-            <TextBlock Text="{Binding SelectedPatient.Name}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBlock x:Name="txtName" Text="{Binding SelectedPatient.Name}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center" FontSize="14" FontFamily="BM HANNA Pro"/>
             
             <Label Content="주민등록번호 : " Grid.Row="1" Grid.Column="0" 
                    HorizontalAlignment="Right" FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal" />
-            <TextBlock Text="{Binding SelectedPatient.ResidentRegistNum}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBlock x:Name="txtRegisNum" Text="{Binding SelectedPatient.ResidentRegistNum}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                        VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal" />
             <Label Content="성별 : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" 
                    FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal"/>
-            <TextBlock Text="{Binding SelectedPatient.Gender}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBlock x:Name="txtGender" Text="{Binding SelectedPatient.Gender}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                        VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14"/>
 
             <Label Content="전화번호 : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" 
                    FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal"/>
-            <TextBlock  Text="{Binding SelectedPatient.PhoneNumber}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBlock x:Name="txtPhoneNum" Text="{Binding SelectedPatient.PhoneNumber}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                         VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14"/>
 
             <Label Content="주소 : " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" 
                    FontFamily="BM HANNA Pro" FontSize="14" FontWeight="Normal"/>
-            <TextBlock  Text="{Binding SelectedPatient.Address}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
+            <TextBlock x:Name="txtAddress" Text="{Binding SelectedPatient.Address}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
                    VerticalAlignment="Center" FontFamily="BM HANNA Pro" FontSize="14"/>
         </Grid>
 
-        <Button Content="적  용" Grid.Row="7" Grid.Column="2" Click="Button_Click" 
+        <Button Content="적  용" Grid.Row="7" Grid.Column="2" 
+                Click="Button_Click" Command="{Binding CloseWindowBtn}"
                 FontSize="18" FontFamily="BM HANNA Pro" FontWeight="Normal" 
                 Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedButton with Round Corners"
