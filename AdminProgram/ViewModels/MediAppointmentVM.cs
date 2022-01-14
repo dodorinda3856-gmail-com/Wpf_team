@@ -187,7 +187,7 @@ namespace AdminProgram.ViewModels
 
             // 1) 진료 예약을 한 환자의 리스트를 가져옴
             string sql =
-                "SELECT p.PATIENT_NAME,r.PATIENT_ID,r.MEDICAL_STAFF_ID, r.RESERVATION_DATE, r.SYMPTOM, ms.STAFF_NAME, r.RESERVATION_ID " +
+                "SELECT p.PATIENT_NAME,r.PATIENT_ID,r.MEDICAL_STAFF_ID, r.RESERVATION_DATE, NVL(r.SYMPTOM, '-') as SYMPTOM, ms.STAFF_NAME, r.RESERVATION_ID " +
                 "FROM RESERVATION r " +
                 "JOIN PATIENT p ON r.PATIENT_ID = p.PATIENT_ID " +
                 "JOIN MEDI_STAFF ms ON r.MEDICAL_STAFF_ID = ms.STAFF_ID " +
@@ -220,8 +220,6 @@ namespace AdminProgram.ViewModels
                         using (OracleDataReader reader = comm.ExecuteReader())
                         {
                             try
-
-
                             {
                                 while (reader.Read())
                                 {
@@ -238,7 +236,7 @@ namespace AdminProgram.ViewModels
                                 }
                             }
                             catch (InvalidCastException e)
-                            {//System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
+                            {   //System.InvalidCastException '열에 널 데이터가 있습니다'를 해결하기 위해 catch문 구현
                                 LogRecord.LogWrite("[MediAppointmentVM] [InvalidCastException] " + e);
                             }
                             finally
@@ -250,7 +248,7 @@ namespace AdminProgram.ViewModels
 
                         // 2) 방문해서 대기 중인 환자 리스트를 가져옴
                         sql =
-                            "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, w.REQUIREMENTS " +
+                            "SELECT w.WATING_ID, w.PATIENT_ID, p.PATIENT_NAME, p.GENDER, p.PHONE_NUM, p.ADDRESS, w.REQUEST_TO_WAIT, NVL(w.REQUIREMENTS, '-') as SYMPTOM " +
                             "FROM WAITING w, PATIENT p " +
                             "WHERE w.PATIENT_ID = p.PATIENT_ID " +
                             "AND TO_CHAR(w.REQUEST_TO_WAIT, 'YYYYMMDD') = " + date +
@@ -274,7 +272,7 @@ namespace AdminProgram.ViewModels
                                         PatientPhoneNum = reader.GetString(reader.GetOrdinal("PHONE_NUM")),
                                         PatientAddress = reader.GetString(reader.GetOrdinal("ADDRESS")),
                                         RequestToWait = reader.GetDateTime(reader.GetOrdinal("REQUEST_TO_WAIT")),
-                                        Symptom = reader.GetString(reader.GetOrdinal("REQUIREMENTS"))
+                                        Symptom = reader.GetString(reader.GetOrdinal("SYMPTOM"))
                                     });
                                 }
                             }
