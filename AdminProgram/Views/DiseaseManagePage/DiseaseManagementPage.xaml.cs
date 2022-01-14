@@ -52,7 +52,7 @@ namespace AdminProgram
 			"where DELETE_OR_NOT = 'T' and " +
 			"DISEASE_CODE like '%" + diseaseNum_txtbox.Text + "%' and " +
 			"DISEASE_NAME LIKE '%" + diseaseName_txtbox.Text + "%' " +
-			"order by DISEASE_CODE";
+			"order by A_S desc";
 		}
 
 		//상병코드검색
