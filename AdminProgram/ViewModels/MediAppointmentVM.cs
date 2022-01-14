@@ -34,7 +34,7 @@ namespace AdminProgram.ViewModels
         private Random rand = new Random();
         private int[] randomMedicalStaffId = new int[]
         {
-            1, 2, 3, 11
+            1,11,29
         };
         private int[] randomMediProcedureId = new int[]
         {
